@@ -1,0 +1,31 @@
+
+=================================================================
+DEDUPLICATION REPORT
+Generated: 2025-10-17 17:52:56.150447
+=================================================================
+
+DEDUPLICATION STRATEGY
+----------------------
+1. Email Match: Exact email address match → Same person
+2. LinkedIn Match: Normalized LinkedIn URL match → Same person
+3. Name + Company Match: Same first+last name + same company → Same person
+
+RESULTS
+-------
+Total Duplicates Found and Merged: 65,597
+
+INDEX SIZES
+-----------
+Email Index: 3,605 entries
+LinkedIn Index: 11,925 entries
+Name+Company Index: 12,007 entries
+
+MERGE STRATEGY
+--------------
+When duplicates are found:
+- Keep most complete data from both records
+- Prefer non-null values
+- Use longer/more complete values when both exist
+- Update quality score based on merged data
+
+=================================================================

@@ -1,0 +1,1277 @@
+ =====================================
+Batch Discovery Started: Fri Oct 17 22:41:07 -03 2025
+=====================================
+
+[1/5] Utopia Labs (utopia-group)
+Started: Fri Oct 17 22:41:07 -03 2025
+[22:41:07] 🔑 GitHub API Client initialized
+[22:41:08] 📊 Rate limit: 5000 requests remaining
+=== GitHub Enrichment Session Started ===
+✅ Database schema ready
+
+🔍 Discovering company: utopia-group
+  📦 Fetching repositories...
+  Found 32 repositories
+
+  📁 [1/32] Processing: klee
+    👥 Found 31 contributors
+
+  📁 [2/32] Processing: stac-annotations
+    👥 Found 1 contributors
+
+  📁 [3/32] Processing: utopia-group.github.io
+    👥 Found 1 contributors
+
+  📁 [4/32] Processing: STAC-engagement-src
+    👥 Found 2 contributors
+
+  📁 [5/32] Processing: sypet
+    👥 Found 2 contributors
+
+  📁 [6/32] Processing: drat-trim
+    👥 Found 1 contributors
+
+  📁 [7/32] Processing: apposcopy
+    👥 Found 1 contributors
+
+  📁 [8/32] Processing: GrammarComparison
+    👥 Found 3 contributors
+
+  📁 [9/32] Processing: Reading-Group
+    👥 Found 1 contributors
+
+  📁 [10/32] Processing: neo
+    👥 Found 1 contributors
+
+  📁 [11/32] Processing: verisol
+    👥 Found 13 contributors
+
+  📁 [12/32] Processing: migrator
+    👥 Found 0 contributors
+
+  📁 [13/32] Processing: solidity
+    👥 Found 299 contributors
+
+  📁 [14/32] Processing: Coeus
+    👥 Found 1 contributors
+
+  📁 [15/32] Processing: ReCoeus
+    👥 Found 1 contributors
+
+  📁 [16/32] Processing: scuba
+    👥 Found 1 contributors
+
+  📁 [17/32] Processing: cfp-checker-bench-slicer
+    👥 Found 1 contributors
+
+  📁 [18/32] Processing: regel
+    👥 Found 2 contributors
+
+  📁 [19/32] Processing: SmartPulseTool
+    👥 Found 2 contributors
+
+  📁 [20/32] Processing: mediator
+    👥 Found 1 contributors
+
+  📁 [21/32] Processing: LoopAnalysis
+    👥 Found 2 contributors
+
+  📁 [22/32] Processing: dynamite
+    👥 Found 1 contributors
+
+  📁 [23/32] Processing: relish
+    👥 Found 1 contributors
+
+  📁 [24/32] Processing: CFPChecker
+    👥 Found 1 contributors
+
+  📁 [25/32] Processing: WebQA
+    👥 Found 1 contributors
+
+  📁 [26/32] Processing: legion
+    👥 Found 38 contributors
+
+  📁 [27/32] Processing: cortado
+    👥 Found 4 contributors
+
+  📁 [28/32] Processing: graphy
+    👥 Found 1 contributors
+
+  📁 [29/32] Processing: TypeT5
+    👥 Found 1 contributors
+
+  📁 [30/32] Processing: Smore
+    👥 Found 1 contributors
+
+  📁 [31/32] Processing: Opera
+    👥 Found 1 contributors
+
+  📁 [32/32] Processing: ink
+    👥 Found 1 contributors
+
+✅ Company discovery complete!
+  Repositories: 32
+  Total contributors: 418
+
+============================================================
+📊 ENRICHMENT STATISTICS
+============================================================
+Profiles Enriched:  0
+Profiles Created:   288
+Repos Discovered:   32
+Contributors Found: 418
+API Requests Made:  355
+Errors:             0
+============================================================
+Status: SUCCESS
+Finished: Fri Oct 17 22:46:54 -03 2025
+-------------------------------------
+[2/5] Anchorage Digital (codeforanchorage)
+Started: Fri Oct 17 22:46:54 -03 2025
+[22:46:55] 🔑 GitHub API Client initialized
+[22:46:55] 📊 Rate limit: 4644 requests remaining
+=== GitHub Enrichment Session Started ===
+✅ Database schema ready
+
+🔍 Discovering company: codeforanchorage
+  📦 Fetching repositories...
+  Found 84 repositories
+
+  📁 [1/84] Processing: adopt-a-hydrant
+    👥 Found 9 contributors
+
+  📁 [2/84] Processing: wheels-on-the-bus
+    👥 Found 8 contributors
+
+  📁 [3/84] Processing: crime-data
+    👥 Found 1 contributors
+
+  📁 [4/84] Processing: ckan
+    👥 Found 35 contributors
+
+  📁 [5/84] Processing: procure-io
+    👥 Found 1 contributors
+
+  📁 [6/84] Processing: ancbkn
+    👥 Found 3 contributors
+
+  📁 [7/84] Processing: codeforanchorage.github.io
+    👥 Found 11 contributors
+
+  📁 [8/84] Processing: anchorage_answers
+    👥 Found 15 contributors
+
+  📁 [9/84] Processing: APOC-data
+    👥 Found 1 contributors
+
+  📁 [10/84] Processing: dipnet_app
+    👥 Found 2 contributors
+
+  📁 [11/84] Processing: Open_Trails_Anchorage
+    👥 Found 1 contributors
+
+  📁 [12/84] Processing: trailsy
+    👥 Found 8 contributors
+
+  📁 [13/84] Processing: trailsyserver
+    👥 Found 2 contributors
+
+  📁 [14/84] Processing: trailstranscoder
+    👥 Found 2 contributors
+
+  📁 [15/84] Processing: trailstranscoder_dev_env
+    👥 Found 0 contributors
+
+  📁 [16/84] Processing: project-ideas
+    👥 Found 0 contributors
+
+  📁 [17/84] Processing: click_that_hood
+    👥 Found 84 contributors
+
+  📁 [18/84] Processing: CutePets
+    👥 Found 8 contributors
+
+  📁 [19/84] Processing: flushots2013
+    👥 Found 1 contributors
+
+  📁 [20/84] Processing: flushots_fusion
+    👥 Found 5 contributors
+
+  📁 [21/84] Processing: trailstranscoder-mobilebrowser
+    👥 Found 3 contributors
+
+  📁 [22/84] Processing: splash-anc
+    👥 Found 5 contributors
+
+  📁 [23/84] Processing: splash
+    👥 Found 5 contributors
+
+  📁 [24/84] Processing: vote
+    👥 Found 1 contributors
+
+  📁 [25/84] Processing: flushots
+    👥 Found 6 contributors
+
+  📁 [26/84] Processing: realtime-bus-sms
+    👥 Found 13 contributors
+
+  📁 [27/84] Processing: election-watch
+    👥 Found 1 contributors
+
+  📁 [28/84] Processing: ice-status
+    👥 Found 1 contributors
+
+  📁 [29/84] Processing: Anchorage-Property-Tax-Data
+    👥 Found 2 contributors
+
+  📁 [30/84] Processing: AK-Tufte-plot-shiny-app
+    👥 Found 1 contributors
+
+  📁 [31/84] Processing: 2015-Strategic-Plan
+    👥 Found 2 contributors
+
+  📁 [32/84] Processing: Anchorage-Vote-Leverage
+    👥 Found 1 contributors
+
+  📁 [33/84] Processing: courtview-scraper
+    👥 Found 1 contributors
+
+  📁 [34/84] Processing: bus-request-loggeR
+    👥 Found 1 contributors
+
+  📁 [35/84] Processing: moa_property_tax_geojson
+    👥 Found 0 contributors
+
+  📁 [36/84] Processing: park-reservations-FY2014
+    👥 Found 1 contributors
+
+  📁 [37/84] Processing: Anchorge-gifs
+    👥 Found 1 contributors
+
+  📁 [38/84] Processing: snap_screener
+    👥 Found 6 contributors
+
+  📁 [39/84] Processing: bus-tracker
+    👥 Found 0 contributors
+
+  📁 [40/84] Processing: forget-me-not
+    👥 Found 1 contributors
+
+  📁 [41/84] Processing: hellobot
+    👥 Found 1 contributors
+
+  📁 [42/84] Processing: bradley-tower
+    👥 Found 2 contributors
+
+  📁 [43/84] Processing: biostar-central
+    👥 Found 15 contributors
+
+  📁 [44/84] Processing: collective-development
+    👥 Found 7 contributors
+
+  📁 [45/84] Processing: api-realtime-bus
+    👥 Found 2 contributors
+
+  📁 [46/84] Processing: APOCalypse
+    👥 Found 1 contributors
+
+  📁 [47/84] Processing: codeofconduct
+    👥 Found 3 contributors
+
+  📁 [48/84] Processing: shiny-server
+    👥 Found 2 contributors
+
+  📁 [49/84] Processing: find-a-park
+    👥 Found 16 contributors
+
+  📁 [50/84] Processing: CutePetsANC
+    👥 Found 23 contributors
+
+  📁 [51/84] Processing: foodborne_survey
+    👥 Found 1 contributors
+
+  📁 [52/84] Processing: balance
+    👥 Found 13 contributors
+
+  📁 [53/84] Processing: anchorage_crime_map
+    👥 Found 2 contributors
+
+  📁 [54/84] Processing: codeacross16
+    👥 Found 1 contributors
+
+  📁 [55/84] Processing: anc-trail-counter-data
+    👥 Found 1 contributors
+
+  📁 [56/84] Processing: anc-LIVES
+    👥 Found 1 contributors
+
+  📁 [57/84] Processing: food-inspections-evaluation
+    👥 Found 5 contributors
+
+  📁 [58/84] Processing: 907bot
+    👥 Found 1 contributors
+
+  📁 [59/84] Processing: plug-at-20-sms
+    👥 Found 8 contributors
+
+  📁 [60/84] Processing: courtbot
+    👥 Found 15 contributors
+
+  📁 [61/84] Processing: scrape-regulations.gov
+    👥 Found 1 contributors
+
+  📁 [62/84] Processing: workforwardmuni
+    👥 Found 3 contributors
+
+  📁 [63/84] Processing: media
+    👥 Found 1 contributors
+
+  📁 [64/84] Processing: dog-name-game
+    👥 Found 4 contributors
+
+  📁 [65/84] Processing: csfp_food_box
+    👥 Found 3 contributors
+
+  📁 [66/84] Processing: neighborhood-natural-gas-dashboard
+    👥 Found 3 contributors
+
+  📁 [67/84] Processing: census-communities-usa
+    👥 Found 3 contributors
+
+  📁 [68/84] Processing: where-we-work
+    👥 Found 1 contributors
+
+  📁 [69/84] Processing: WazeCCPProcessor
+    👥 Found 1 contributors
+
+  📁 [70/84] Processing: courtbot-admin
+    👥 Found 2 contributors
+
+  📁 [71/84] Processing: whatworkscities
+    👥 Found 1 contributors
+
+  📁 [72/84] Processing: property-price-is-right
+    👥 Found 1 contributors
+
+  📁 [73/84] Processing: mooze
+    👥 Found 1 contributors
+
+  📁 [74/84] Processing: food4thought
+    👥 Found 7 contributors
+
+  📁 [75/84] Processing: brewery-bike-tour
+    👥 Found 5 contributors
+
+  📁 [76/84] Processing: election-watch-node
+    👥 Found 4 contributors
+
+  📁 [77/84] Processing: restaurant-picker
+    👥 Found 1 contributors
+
+  📁 [78/84] Processing: shelter-caller-back-end
+    👥 Found 1 contributors
+
+  📁 [79/84] Processing: shelter-caller-front-end
+    👥 Found 1 contributors
+
+  📁 [80/84] Processing: land_acknowledgement
+    👥 Found 7 contributors
+
+  📁 [81/84] Processing: pfd-names
+    👥 Found 4 contributors
+
+  📁 [82/84] Processing: cors-anywhere
+    👥 Found 7 contributors
+
+  📁 [83/84] Processing: land_acknowledgement_lambda
+    👥 Found 5 contributors
+
+  📁 [84/84] Processing: plugin-at-20-lambda
+    👥 Found 1 contributors
+
+✅ Company discovery complete!
+  Repositories: 84
+  Total contributors: 437
+
+============================================================
+📊 ENRICHMENT STATISTICS
+============================================================
+Profiles Enriched:  0
+Profiles Created:   249
+Repos Discovered:   84
+Contributors Found: 437
+API Requests Made:  418
+Errors:             0
+============================================================
+Status: SUCCESS
+Finished: Fri Oct 17 22:53:48 -03 2025
+-------------------------------------
+[3/5] Ava Labs (ava-labs)
+Started: Fri Oct 17 22:53:48 -03 2025
+[22:53:48] 🔑 GitHub API Client initialized
+[22:53:48] 📊 Rate limit: 4226 requests remaining
+=== GitHub Enrichment Session Started ===
+✅ Database schema ready
+
+🔍 Discovering company: ava-labs
+  📦 Fetching repositories...
+  Found 144 repositories
+
+  📁 [1/144] Processing: avash
+    👥 Found 21 contributors
+
+  📁 [2/144] Processing: avalanche-wallet
+    👥 Found 17 contributors
+
+  📁 [3/144] Processing: avalanche-faucet-legacy
+    👥 Found 8 contributors
+
+  📁 [4/144] Processing: avalanchejs
+    👥 Found 45 contributors
+
+  📁 [5/144] Processing: coreth
+    👥 Found 56 contributors
+
+  📁 [6/144] Processing: public-facing-docs
+    👥 Found 1 contributors
+
+  📁 [7/144] Processing: ortelius
+    👥 Found 12 contributors
+
+  📁 [8/144] Processing: vue-components
+    👥 Found 2 contributors
+
+  📁 [9/144] Processing: avalanchego
+    👥 Found 172 contributors
+
+  📁 [10/144] Processing: avalanche-explorer
+    👥 Found 13 contributors
+
+  📁 [11/144] Processing: avalanche-quicksign
+    👥 Found 2 contributors
+
+  📁 [12/144] Processing: slips
+    👥 Found 421 contributors
+
+  📁 [13/144] Processing: avax-js-cli-tools
+    👥 Found 3 contributors
+
+  📁 [14/144] Processing: avalanche-rosetta
+    👥 Found 10 contributors
+
+  📁 [15/144] Processing: avalanche-postman-collection
+    👥 Found 7 contributors
+
+  📁 [16/144] Processing: homebrew-avalanchego
+    👥 Found 1 contributors
+
+  📁 [17/144] Processing: homebrew-core
+    👥 Found 383 contributors
+
+  📁 [18/144] Processing: builders-hub
+    👥 Found 235 contributors
+
+  📁 [19/144] Processing: wrapped-assets
+    👥 Found 0 contributors
+
+  📁 [20/144] Processing: hummingbot
+    👥 Found 69 contributors
+
+  📁 [21/144] Processing: chainbridge-ui
+    👥 Found 3 contributors
+
+  📁 [22/144] Processing: cedrusdb-go
+    👥 Found 1 contributors
+
+  📁 [23/144] Processing: avalanche-smart-contract-quickstart
+    👥 Found 5 contributors
+
+  📁 [24/144] Processing: viper
+    👥 Found 112 contributors
+
+  📁 [25/144] Processing: bridge-tokens
+    👥 Found 33 contributors
+
+  📁 [26/144] Processing: chainsafe-scripts
+    👥 Found 1 contributors
+
+  📁 [27/144] Processing: avalanche-repl
+    👥 Found 2 contributors
+
+  📁 [28/144] Processing: mastering-avalanche
+    👥 Found 6 contributors
+
+  📁 [29/144] Processing: avalanchego-kurtosis
+    👥 Found 2 contributors
+
+  📁 [30/144] Processing: core-mobile
+    👥 Found 22 contributors
+
+  📁 [31/144] Processing: inpage-provider
+    👥 Found 9 contributors
+
+  📁 [32/144] Processing: avalanche-wallet-sdk
+    👥 Found 10 contributors
+
+  📁 [33/144] Processing: timestampvm
+    👥 Found 12 contributors
+
+  📁 [34/144] Processing: avalanche-bridge-resources
+    👥 Found 9 contributors
+
+  📁 [35/144] Processing: open-defi-hackathon
+[23:14:18] ⚠️  API error 204: /repos/ava-labs/open-defi-hackathon/contributors
+    👥 Found 0 contributors
+
+  📁 [36/144] Processing: audits
+    👥 Found 5 contributors
+
+  📁 [37/144] Processing: ava-sim
+    👥 Found 4 contributors
+
+  📁 [38/144] Processing: avalanche-network-runner
+    👥 Found 19 contributors
+
+  📁 [39/144] Processing: spacesvm
+    👥 Found 9 contributors
+
+  📁 [40/144] Processing: docsearch-configs
+    👥 Found 407 contributors
+
+  📁 [41/144] Processing: ecosystem-projects
+    👥 Found 85 contributors
+
+  📁 [42/144] Processing: subnet-evm
+    👥 Found 67 contributors
+
+  📁 [43/144] Processing: spacesvm-js
+    👥 Found 4 contributors
+
+  📁 [44/144] Processing: subnet-cli
+    👥 Found 7 contributors
+
+  📁 [45/144] Processing: subnet-example
+    👥 Found 1 contributors
+
+  📁 [46/144] Processing: avalanche-ops
+    👥 Found 8 contributors
+
+  📁 [47/144] Processing: ethereum-etl
+    👥 Found 19 contributors
+
+  📁 [48/144] Processing: avalanche-ledger-go
+    👥 Found 4 contributors
+
+  📁 [49/144] Processing: ledger-avalanche
+    👥 Found 23 contributors
+
+  📁 [50/144] Processing: subnet-assets
+    👥 Found 10 contributors
+
+  📁 [51/144] Processing: blobvm
+    👥 Found 6 contributors
+
+  📁 [52/144] Processing: apm
+    👥 Found 3 contributors
+
+  📁 [53/144] Processing: avalanche-plugins-core
+    👥 Found 2 contributors
+
+  📁 [54/144] Processing: spacesvm-rs
+    👥 Found 5 contributors
+
+  📁 [55/144] Processing: avalanche-cli
+    👥 Found 31 contributors
+
+  📁 [56/144] Processing: avalanche-network-runner-sdk-rs
+    👥 Found 6 contributors
+
+  📁 [57/144] Processing: avalanche-faucet
+    👥 Found 44 contributors
+
+  📁 [58/144] Processing: avalanche-network-runner-sdk
+    👥 Found 2 contributors
+
+  📁 [59/144] Processing: avalanche-monitoring
+    👥 Found 9 contributors
+
+  📁 [60/144] Processing: multicall.js
+    👥 Found 6 contributors
+
+  📁 [61/144] Processing: avalanche-dapp-sdks
+    👥 Found 3 contributors
+
+  📁 [62/144] Processing: fast-abi
+    👥 Found 6 contributors
+
+  📁 [63/144] Processing: volume-manager
+    👥 Found 2 contributors
+
+  📁 [64/144] Processing: avalanchejs-docs
+    👥 Found 1 contributors
+
+  📁 [65/144] Processing: avalanche-installer
+    👥 Found 3 contributors
+
+  📁 [66/144] Processing: subnet-evm-test
+    👥 Found 14 contributors
+
+  📁 [67/144] Processing: avalanche-telemetry
+    👥 Found 2 contributors
+
+  📁 [68/144] Processing: public-chain-assets
+    👥 Found 4 contributors
+
+  📁 [69/144] Processing: test-subnet-configs
+    👥 Found 2 contributors
+
+  📁 [70/144] Processing: spacesvm-postman-collection
+    👥 Found 1 contributors
+
+  📁 [71/144] Processing: btcb-por-workshop
+    👥 Found 1 contributors
+
+  📁 [72/144] Processing: lotus-docs
+    👥 Found 34 contributors
+
+  📁 [73/144] Processing: gnosis-subnet
+    👥 Found 0 contributors
+
+  📁 [74/144] Processing: crazy-blockchain-tutorial
+    👥 Found 19 contributors
+
+  📁 [75/144] Processing: avalanche-types-rs
+    👥 Found 7 contributors
+
+  📁 [76/144] Processing: timestampvm-rs
+    👥 Found 5 contributors
+
+  📁 [77/144] Processing: ip-manager
+    👥 Found 2 contributors
+
+  📁 [78/144] Processing: xsvm
+    👥 Found 3 contributors
+
+  📁 [79/144] Processing: hypersdk
+    👥 Found 50 contributors
+
+  📁 [80/144] Processing: indexvm
+    👥 Found 1 contributors
+
+  📁 [81/144] Processing: precompile-evm
+    👥 Found 9 contributors
+
+  📁 [82/144] Processing: multicall
+    👥 Found 14 contributors
+
+  📁 [83/144] Processing: nock
+    👥 Found 228 contributors
+
+  📁 [84/144] Processing: node-redis-token-bucket-ratelimiter
+    👥 Found 2 contributors
+
+  📁 [85/144] Processing: react-native-flipper-performance-monitor
+    👥 Found 8 contributors
+
+  📁 [86/144] Processing: posthog-route-censor-plugin
+    👥 Found 1 contributors
+
+  📁 [87/144] Processing: avalanche-evm-gasless-transaction
+    👥 Found 2 contributors
+
+  📁 [88/144] Processing: MarketplaceVM
+    👥 Found 8 contributors
+
+  📁 [89/144] Processing: firewood
+    👥 Found 26 contributors
+
+  📁 [90/144] Processing: avalanche-hackathon
+    👥 Found 2 contributors
+
+  📁 [91/144] Processing: cargo-workspace-version
+    👥 Found 4 contributors
+
+  📁 [92/144] Processing: glitch-hackathon-test
+    👥 Found 1 contributors
+
+  📁 [93/144] Processing: viem
+    👥 Found 37 contributors
+
+  📁 [94/144] Processing: terraform-bot
+    👥 Found 6 contributors
+
+  📁 [95/144] Processing: avalanche-cli-teleporter
+    👥 Found 11 contributors
+
+  📁 [96/144] Processing: mnemonic-shamir-secret-sharing-cli
+    👥 Found 2 contributors
+
+  📁 [97/144] Processing: spruce-tokens
+    👥 Found 2 contributors
+
+  📁 [98/144] Processing: avalanche-network-runner-postman-collection
+    👥 Found 2 contributors
+
+  📁 [99/144] Processing: public-avalanche-sdks
+    👥 Found 3 contributors
+
+  📁 [100/144] Processing: wazero
+    👥 Found 51 contributors
+
+  📁 [101/144] Processing: icm-services
+    👥 Found 27 contributors
+
+  📁 [102/144] Processing: icm-contracts
+    👥 Found 21 contributors
+
+  📁 [103/144] Processing: avalanche-rs
+    👥 Found 11 contributors
+
+  📁 [104/144] Processing: sourcify
+    👥 Found 84 contributors
+
+  📁 [105/144] Processing: chains
+    👥 Found 461 contributors
+
+  📁 [106/144] Processing: firewood-mit
+    👥 Found 1 contributors
+
+  📁 [107/144] Processing: backstage-software-templates
+    👥 Found 14 contributors
+
+  📁 [108/144] Processing: qevm
+    👥 Found 1 contributors
+
+  📁 [109/144] Processing: foundry
+    👥 Found 389 contributors
+Traceback (most recent call last):
+  File "/Users/charlie.kerr/Documents/CK Docs/FINAL_DATABASE/github_api_enrichment.py", line 698, in <module>
+    main()
+    ~~~~^^
+  File "/Users/charlie.kerr/Documents/CK Docs/FINAL_DATABASE/github_api_enrichment.py", line 677, in main
+    enricher.discover_company(github_org, company_name)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlie.kerr/Documents/CK Docs/FINAL_DATABASE/github_api_enrichment.py", line 390, in discover_company
+    github_profile_id = self.get_or_create_github_profile(username)
+  File "/Users/charlie.kerr/Documents/CK Docs/FINAL_DATABASE/github_api_enrichment.py", line 543, in get_or_create_github_profile
+    cursor.execute("""
+    ~~~~~~~~~~~~~~^^^^
+        INSERT INTO github_profiles (
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<19 lines>...
+        datetime.now().isoformat()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ))
+    ^^
+sqlite3.IntegrityError: UNIQUE constraint failed: github_profiles.github_profile_id
+Status: FAILED
+Finished: Fri Oct 17 23:40:16 -03 2025
+-------------------------------------
+[4/5] Alchemy (alchemyplatform)
+Started: Fri Oct 17 23:40:16 -03 2025
+[23:40:16] 🔑 GitHub API Client initialized
+[23:40:16] 📊 Rate limit: 1370 requests remaining
+=== GitHub Enrichment Session Started ===
+✅ Database schema ready
+
+🔍 Discovering company: alchemyplatform
+  📦 Fetching repositories...
+  Found 148 repositories
+
+  📁 [1/148] Processing: alchemy-web3
+    👥 Found 15 contributors
+
+  📁 [2/148] Processing: eth-provider-benchmark
+    👥 Found 2 contributors
+
+  📁 [3/148] Processing: alchemy-web3-webpack-example
+    👥 Found 1 contributors
+
+  📁 [4/148] Processing: alchemy-asset-transfers-benchmark
+    👥 Found 1 contributors
+
+  📁 [5/148] Processing: uniswap-trading-example
+    👥 Found 1 contributors
+
+  📁 [6/148] Processing: Contract-Puzzles
+    👥 Found 3 contributors
+
+  📁 [7/148] Processing: nft-minter-tutorial
+    👥 Found 5 contributors
+
+  📁 [8/148] Processing: hello-world-part-four-tutorial
+    👥 Found 1 contributors
+
+  📁 [9/148] Processing: Alchemy-Notify-Tutorial
+    👥 Found 2 contributors
+
+  📁 [10/148] Processing: Alchemy-Transfers-Tutorial
+    👥 Found 1 contributors
+
+  📁 [11/148] Processing: Transaction-Lifecycle-via-SMS
+    👥 Found 3 contributors
+
+  📁 [12/148] Processing: go-ethereum
+    👥 Found 403 contributors
+
+  📁 [13/148] Processing: hello-world-tutorial
+    👥 Found 0 contributors
+
+  📁 [14/148] Processing: alchemy-flow-contracts
+    👥 Found 48 contributors
+
+  📁 [15/148] Processing: gm
+    👥 Found 2 contributors
+
+  📁 [16/148] Processing: block-race
+    👥 Found 2 contributors
+
+  📁 [17/148] Processing: hardhat-ethers-react-ts-starter
+    👥 Found 2 contributors
+
+  📁 [18/148] Processing: nft-api-demo-scripts
+    👥 Found 1 contributors
+
+  📁 [19/148] Processing: historical_transactions_polygon_scripts
+    👥 Found 1 contributors
+
+  📁 [20/148] Processing: Build-Your-NFT-Explorer
+    👥 Found 2 contributors
+
+  📁 [21/148] Processing: nft-api-example
+    👥 Found 2 contributors
+
+  📁 [22/148] Processing: polygon-nft-finder
+    👥 Found 2 contributors
+
+  📁 [23/148] Processing: nft-api-javascript-scripts
+    👥 Found 4 contributors
+
+  📁 [24/148] Processing: token-api-javascript-scripts
+    👥 Found 1 contributors
+
+  📁 [25/148] Processing: Build-Your-NFT-Explorer-walkthrough
+    👥 Found 1 contributors
+
+  📁 [26/148] Processing: matic_heimdall2
+    👥 Found 12 contributors
+
+  📁 [27/148] Processing: matic_heimdall
+    👥 Found 14 contributors
+
+  📁 [28/148] Processing: alchemy-sdk-js
+    👥 Found 43 contributors
+
+  📁 [29/148] Processing: transfers_api_javascript_scripts
+    👥 Found 2 contributors
+
+  📁 [30/148] Processing: polygon-smart-contract-tutorial
+    👥 Found 1 contributors
+
+  📁 [31/148] Processing: transaction-receipts-scripts
+    👥 Found 1 contributors
+
+  📁 [32/148] Processing: token_api_javascript_scripts
+    👥 Found 1 contributors
+
+  📁 [33/148] Processing: alchemy-chainlink-spring-hackathon-nft
+    👥 Found 0 contributors
+
+  📁 [34/148] Processing: RTW3-Week2-BuyMeACoffee-Contracts
+    👥 Found 1 contributors
+
+  📁 [35/148] Processing: RTW3-Week2-BuyMeACoffee-Website
+    👥 Found 1 contributors
+
+  📁 [36/148] Processing: Alchemy-Hacker-Handbook
+    👥 Found 4 contributors
+
+  📁 [37/148] Processing: RTW3-Week-4-NFT-Gallery
+    👥 Found 1 contributors
+
+  📁 [38/148] Processing: webhook-examples
+    👥 Found 2 contributors
+
+  📁 [39/148] Processing: storage-layout-treasure-hunt
+    👥 Found 1 contributors
+
+  📁 [40/148] Processing: NFT-Marketplace-Tutorial
+    👥 Found 5 contributors
+
+  📁 [41/148] Processing: docs-openapi-specs
+    👥 Found 37 contributors
+
+  📁 [42/148] Processing: RTW3-Week7-NFT-Marketplace
+    👥 Found 1 contributors
+
+  📁 [43/148] Processing: create-web3-dapp
+    👥 Found 21 contributors
+
+  📁 [44/148] Processing: try-alchemy-sdk
+    👥 Found 1 contributors
+
+  📁 [45/148] Processing: web3-starter-projects
+    👥 Found 0 contributors
+
+  📁 [46/148] Processing: ecdsa-node
+    👥 Found 3 contributors
+
+  📁 [47/148] Processing: solana-nft-tutorial
+    👥 Found 2 contributors
+
+  📁 [48/148] Processing: solana-hello-world
+    👥 Found 1 contributors
+
+  📁 [49/148] Processing: ethereum-org-website
+    👥 Found 405 contributors
+
+  📁 [50/148] Processing: GiftList
+    👥 Found 1 contributors
+
+  📁 [51/148] Processing: blockexplorer
+    👥 Found 1 contributors
+
+  📁 [52/148] Processing: Local-Hardhat-Games
+    👥 Found 1 contributors
+
+  📁 [53/148] Processing: escrow-hardhat
+    👥 Found 1 contributors
+
+  📁 [54/148] Processing: erc20-indexer
+    👥 Found 1 contributors
+
+  📁 [55/148] Processing: MintNFT
+    👥 Found 1 contributors
+
+  📁 [56/148] Processing: nft-indexer
+    👥 Found 3 contributors
+
+  📁 [57/148] Processing: MintGovernance
+    👥 Found 1 contributors
+
+  📁 [58/148] Processing: get-nfts-script
+    👥 Found 1 contributors
+
+  📁 [59/148] Processing: alchemy-multichain-demo
+    👥 Found 1 contributors
+
+  📁 [60/148] Processing: cw3d-evm-boilerplate
+    👥 Found 1 contributors
+
+  📁 [61/148] Processing: cw3d-nft-explorer
+    👥 Found 4 contributors
+
+  📁 [62/148] Processing: rundler
+    👥 Found 18 contributors
+
+  📁 [63/148] Processing: cw3d-donation-dapp
+    👥 Found 1 contributors
+
+  📁 [64/148] Processing: subscribe-new-blocks
+    👥 Found 2 contributors
+
+  📁 [65/148] Processing: usdc-token-gate
+    👥 Found 1 contributors
+
+  📁 [66/148] Processing: alchemon-frontend
+    👥 Found 1 contributors
+
+  📁 [67/148] Processing: entrypoint-hash-poc
+    👥 Found 2 contributors
+
+  📁 [68/148] Processing: create-web3-dapp-examples
+    👥 Found 1 contributors
+
+  📁 [69/148] Processing: vercel-alchemy-nft-explorer-template
+    👥 Found 1 contributors
+
+  📁 [70/148] Processing: vercel-alchemy-dapp-boilerplates
+    👥 Found 1 contributors
+
+  📁 [71/148] Processing: vercel-alchemy-dapp-boilerplates-w-hardhat
+    👥 Found 3 contributors
+
+  📁 [72/148] Processing: netlify-alchemy-nft-explorer-template
+    👥 Found 1 contributors
+
+  📁 [73/148] Processing: netlify-alchemy-dapp-boilerplates
+    👥 Found 2 contributors
+
+  📁 [74/148] Processing: netlify-alchemy-dapp-boilerplates-w-hardhat
+    👥 Found 1 contributors
+
+  📁 [75/148] Processing: cw3d-evm-boilerplate-1
+    👥 Found 2 contributors
+
+  📁 [76/148] Processing: bundler-spec-tests
+    👥 Found 10 contributors
+
+  📁 [77/148] Processing: bundler-spec
+    👥 Found 32 contributors
+
+  📁 [78/148] Processing: EIPs
+    👥 Found 416 contributors
+
+  📁 [79/148] Processing: AWS-serverless-blockchain-data-ingesting-infrastructure
+    👥 Found 1 contributors
+
+  📁 [80/148] Processing: nft-explorer-vercel
+    👥 Found 1 contributors
+
+  📁 [81/148] Processing: aa-sdk
+    👥 Found 70 contributors
+
+  📁 [82/148] Processing: spearmint-sdk
+    👥 Found 1 contributors
+
+  📁 [83/148] Processing: cw3d-evm-boilerplates-typescript
+    👥 Found 1 contributors
+
+  📁 [84/148] Processing: cw3d-analytics
+    👥 Found 1 contributors
+
+  📁 [85/148] Processing: get-nfts-by-address
+    👥 Found 1 contributors
+
+  📁 [86/148] Processing: get-transfer-history
+    👥 Found 1 contributors
+
+  📁 [87/148] Processing: get-nfts-minted-by-address
+    👥 Found 1 contributors
+
+  📁 [88/148] Processing: get-transaction-history
+    👥 Found 1 contributors
+
+  📁 [89/148] Processing: get-nft-transactions
+    👥 Found 1 contributors
+
+  📁 [90/148] Processing: get-owners-of-nft
+    👥 Found 1 contributors
+
+  📁 [91/148] Processing: get-ens-by-address
+    👥 Found 1 contributors
+
+  📁 [92/148] Processing: get-tokens-by-address
+    👥 Found 1 contributors
+
+  📁 [93/148] Processing: get-token-metadata
+    👥 Found 1 contributors
+
+  📁 [94/148] Processing: get-nfts-in-collection
+    👥 Found 1 contributors
+
+  📁 [95/148] Processing: cw3d-dex-template
+    👥 Found 1 contributors
+
+  📁 [96/148] Processing: aa-demo
+    👥 Found 2 contributors
+
+  📁 [97/148] Processing: bor
+    👥 Found 391 contributors
+
+  📁 [98/148] Processing: creating-smart-contract-and-sending-userops
+    👥 Found 2 contributors
+
+  📁 [99/148] Processing: learn-solidity-presentations
+    👥 Found 1 contributors
+
+  📁 [100/148] Processing: bundler-test-executor
+    👥 Found 10 contributors
+
+  📁 [101/148] Processing: light-account
+    👥 Found 12 contributors
+
+  📁 [102/148] Processing: sponsoring-userops
+    👥 Found 2 contributors
+
+  📁 [103/148] Processing: gasless-minter-tutorial
+    👥 Found 1 contributors
+
+  📁 [104/148] Processing: nft-demo
+    👥 Found 1 contributors
+
+  📁 [105/148] Processing: accountkit-react-native-boilerplate
+    👥 Found 1 contributors
+
+  📁 [106/148] Processing: erc20-example-foundry
+    👥 Found 1 contributors
+
+  📁 [107/148] Processing: aa-simple-dapp
+    👥 Found 1 contributors
+
+  📁 [108/148] Processing: accountkit-react-native-demo
+    👥 Found 1 contributors
+
+  📁 [109/148] Processing: aa-rn-demo
+    👥 Found 1 contributors
+
+  📁 [110/148] Processing: creating-light-smart-account-and-sending-user-ops
+    👥 Found 1 contributors
+
+  📁 [111/148] Processing: accountkit-defaults
+    👥 Found 1 contributors
+
+  📁 [112/148] Processing: modular-account
+    👥 Found 12 contributors
+
+  📁 [113/148] Processing: tx-simulation-demo
+    👥 Found 1 contributors
+
+  📁 [114/148] Processing: aa-benchmarks
+    👥 Found 9 contributors
+
+  📁 [115/148] Processing: smart-accounts-from-scratch
+    👥 Found 1 contributors
+
+  📁 [116/148] Processing: modular-account-plugin
+    👥 Found 1 contributors
+
+  📁 [117/148] Processing: embedded-accounts-demo
+    👥 Found 2 contributors
+
+  📁 [118/148] Processing: multisig-plugin
+    👥 Found 5 contributors
+
+  📁 [119/148] Processing: aa-virtual-cold-storage
+    👥 Found 3 contributors
+
+  📁 [120/148] Processing: embedded-accounts-quickstart
+    👥 Found 3 contributors
+
+  📁 [121/148] Processing: uniswap-v3-subgraph
+    👥 Found 21 contributors
+
+  📁 [122/148] Processing: viem-speedrun
+    👥 Found 1 contributors
+
+  📁 [123/148] Processing: aa-sdk-userops
+    👥 Found 1 contributors
+
+  📁 [124/148] Processing: aa-starter-zksync
+    👥 Found 2 contributors
+
+  📁 [125/148] Processing: scaffold-aa-DEPRECATED
+    👥 Found 46 contributors
+
+  📁 [126/148] Processing: aa-sdk-rn-expo
+    👥 Found 0 contributors
+
+  📁 [127/148] Processing: zksync-paymaster-example
+    👥 Found 1 contributors
+
+  📁 [128/148] Processing: smart-wallets-quickstart
+    👥 Found 3 contributors
+
+  📁 [129/148] Processing: lab
+    👥 Found 1 contributors
+
+  📁 [130/148] Processing: faucet-interview
+    👥 Found 1 contributors
+
+  📁 [131/148] Processing: .github
+    👥 Found 1 contributors
+
+  📁 [132/148] Processing: docs
+    👥 Found 44 contributors
+
+  📁 [133/148] Processing: account-kit-expo-quickstart
+    👥 Found 3 contributors
+
+  📁 [134/148] Processing: scaffold-alchemy
+    👥 Found 55 contributors
+
+  📁 [135/148] Processing: validators
+    👥 Found 2 contributors
+
+  📁 [136/148] Processing: mx-assets
+    👥 Found 403 contributors
+
+  📁 [137/148] Processing: alchemy-mcp-server
+    👥 Found 4 contributors
+
+  📁 [138/148] Processing: mainnet
+    👥 Found 2 contributors
+
+  📁 [139/148] Processing: game-node
+    👥 Found 34 contributors
+
+  📁 [140/148] Processing: aptos-validator-profiles
+    👥 Found 14 contributors
+
+  📁 [141/148] Processing: alchemy-proxy-loader
+    👥 Found 1 contributors
+
+  📁 [142/148] Processing: alchemy-wallets-7702-thirdparty-example
+    👥 Found 10 contributors
+
+  📁 [143/148] Processing: react-native-expo-example
+    👥 Found 2 contributors
+
+  📁 [144/148] Processing: palchemy-demo
+    👥 Found 1 contributors
+
+  📁 [145/148] Processing: wallet-session-key-app
+    👥 Found 1 contributors
+
+  📁 [146/148] Processing: smart-wallets-aave
+    👥 Found 1 contributors
+
+  📁 [147/148] Processing: chain-money-wallet-apis
+    👥 Found 1 contributors
+
+  📁 [148/148] Processing: chain-money-account-kit
+    👥 Found 1 contributors
+
+✅ Company discovery complete!
+  Repositories: 148
+  Total contributors: 2787
+
+============================================================
+📊 ENRICHMENT STATISTICS
+============================================================
+Profiles Enriched:  0
+Profiles Created:   1,509
+Repos Discovered:   148
+Contributors Found: 2,787
+API Requests Made:  1,826
+Errors:             0
+============================================================
+Status: SUCCESS
+Finished: Sat Oct 18 00:09:56 -03 2025
+-------------------------------------
+[5/5] Uniswap Labs (uniswap)
+Started: Sat Oct 18 00:09:56 -03 2025
+[00:09:56] 🔑 GitHub API Client initialized
+[00:09:56] 📊 Rate limit: 3226 requests remaining
+=== GitHub Enrichment Session Started ===
+✅ Database schema ready
+
+🔍 Discovering company: uniswap
+  📦 Fetching repositories...
+  Found 152 repositories
+
+  📁 [1/152] Processing: interface
+    👥 Found 171 contributors
+Traceback (most recent call last):
+  File "/Users/charlie.kerr/Documents/CK Docs/FINAL_DATABASE/github_api_enrichment.py", line 698, in <module>
+    main()
+    ~~~~^^
+  File "/Users/charlie.kerr/Documents/CK Docs/FINAL_DATABASE/github_api_enrichment.py", line 677, in main
+    enricher.discover_company(github_org, company_name)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlie.kerr/Documents/CK Docs/FINAL_DATABASE/github_api_enrichment.py", line 390, in discover_company
+    github_profile_id = self.get_or_create_github_profile(username)
+  File "/Users/charlie.kerr/Documents/CK Docs/FINAL_DATABASE/github_api_enrichment.py", line 543, in get_or_create_github_profile
+    cursor.execute("""
+    ~~~~~~~~~~~~~~^^^^
+        INSERT INTO github_profiles (
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<19 lines>...
+        datetime.now().isoformat()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ))
+    ^^
+sqlite3.IntegrityError: UNIQUE constraint failed: github_profiles.github_profile_id
+Status: FAILED
+Finished: Sat Oct 18 00:10:58 -03 2025
+-------------------------------------

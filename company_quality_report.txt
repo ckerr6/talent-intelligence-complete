@@ -1,0 +1,25 @@
+
+=================================================================
+COMPANY DATABASE REPORT
+Generated: 2025-10-17 18:01:38.869289
+=================================================================
+
+PROCESSING STATISTICS
+---------------------
+Files Processed: 41
+Total Rows Read: 608,578
+Companies Created: 3,090
+Duplicates Merged: 19,189
+Funding Rounds Added: 0
+Candidates Linked: 35,919
+
+DATABASE STATISTICS
+-------------------
+Total Unique Companies: 3,090
+With Website: 2,623 (84.9%)
+With LinkedIn: 623 (20.2%)
+With GitHub: 0 (0.0%)
+With Funding Data: 0 rounds
+Companies with Linked Candidates: 453
+
+=================================================================

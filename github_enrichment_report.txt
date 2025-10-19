@@ -1,0 +1,40 @@
+
+=================================================================
+GITHUB ENRICHMENT REPORT
+Generated: 2025-10-17 18:25:35.214695
+=================================================================
+
+PROCESSING STATISTICS
+---------------------
+GitHub Profiles Processed: 43,469
+
+MATCHING RESULTS
+----------------
+Exact Matches (email): 7,511
+Medium Confidence (Twitter, name+company): 90
+Low Confidence: 0
+No Match: 32,443
+Skipped (duplicate person_id): 0
+
+ACTIONS TAKEN
+-------------
+Existing Candidates Enriched: 7,601
+New Candidates Created: 3,425
+Flagged for Manual Review: 3,515
+Contributions Tracked: 43,469
+
+DATABASE STATISTICS
+-------------------
+Total GitHub Profiles: 12,815
+Linked to People: 2,982 (23.3%)
+Unique People with GitHub: 2,982
+Needs Manual Review: 229
+Needs Further Enrichment: 212
+
+NEXT STEPS
+----------
+1. Review matches: SELECT * FROM github_match_reviews WHERE status='pending';
+2. Check new candidates: SELECT * FROM people WHERE status='github_sourced';
+3. View enriched profiles: SELECT * FROM github_profiles WHERE person_id IS NOT NULL;
+
+=================================================================

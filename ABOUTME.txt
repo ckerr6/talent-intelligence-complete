@@ -1,0 +1,42 @@
+# ABOUTME: This directory contains the final, production-ready talent intelligence database
+# ABOUTME: All scripts process data in memory-efficient batches suitable for M1 Pro with 16GB RAM
+
+## What's In This Directory
+
+### Phase 1: High-Quality Candidates (START HERE)
+- build_candidate_database.py - Main script to create clean candidate database
+- RUN_ME.sh - One-command execution script
+
+### Phase 2: Company Data (NEXT)
+- build_company_database.py - Processes company CSV files
+- link_candidates_to_companies.py - Creates relationships
+
+### Phase 3: GitHub Enrichment (LATER)
+- enrich_github_contributors.py - Processes 400k GitHub data
+- match_github_to_candidates.py - Links GitHub to existing candidates
+
+### Database Files (Generated)
+- talent_intelligence.db - SQLite database (this is your final database)
+- backup/ - Automatic backups before each major operation
+
+### Reports (Generated)
+- data_quality_report.txt - Quality metrics
+- deduplication_report.txt - What was merged and why
+- import_log.txt - Detailed processing log
+
+## Quick Start
+
+```bash
+cd "/Users/charlie.kerr/Documents/CK Docs/FINAL_DATABASE"
+chmod +x RUN_ME.sh
+./RUN_ME.sh
+```
+
+That's it! The script will:
+1. Find and process all high-quality candidate data
+2. Intelligently deduplicate (email, LinkedIn, name+company)
+3. Create a clean SQLite database
+4. Generate quality reports
+5. Show you sample queries to verify the data
+
+Total time: 2-5 minutes

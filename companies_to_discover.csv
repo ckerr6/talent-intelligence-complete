@@ -1,0 +1,175 @@
+company_id,name,github_org_normalized,employees_in_db,priority_score,website
+comp_903907fe59de,Utopia Labs,utopia-group,292,2920,https://www.coinbase.com/blog/coinbase-acquiring-team-to-accelerate-onchain-payments
+comp_38ec20a96510,Anchorage Digital,codeforanchorage,291,2910,https://www.anchorage.com/
+comp_90a215b8a056,Ava Labs,ava-labs,155,1550,https://www.avalabs.org/
+comp_28620d45d9c2,Alchemy,alchemyplatform,141,1410,https://www.alchemy.com
+comp_0ed2f6b4bee9,Uniswap Labs,uniswap,24,240,https://uniswap.org
+comp_fdbd6606420c,Ripple,ripple,22,220,http://www.ripple.com
+comp_1ad5fc3f5341,Polygon (previously Matic),0xpolygon,16,160,https://polygon.technology/solutions/polygon-zkevm/
+comp_a3db80da99ec,Dapper Labs,dapperlabs,8,80,
+comp_76d90ad0c30e,Ondo Finance,ondoprotocol,7,70,https://ondo.finance
+comp_fdd00b92683b,MoonPay,moonpay,7,70,https://www.moonpay.com/
+comp_0ace2bc21dc4,Crusoe,crusoecloud,6,60,https://crusoe.ai/
+comp_5513403c47b9,Lightspark,lightsparkdev,6,60,https://www.lightspark.com/
+comp_8f9c85c2aff0,Risc Zero,risc0,4,40,https://www.risczero.com/
+comp_c32811d019ec,LayerZero Labs,layerzero-labs,4,40,http://layerzero.network
+comp_5e26ff84426d,Blowfish,blowfishxyz,4,40,https://blowfish.xyz
+comp_c41433dd0aaa,Bvnk,bvnk,4,40,https://www.bvnk.com
+comp_c5c4b9755e73,Axiom,axiom-crypto,4,40,https://www.axiom.xyz/
+comp_22ec305c2649,Injective,injectivelabs,4,40,https://injective.com/
+comp_019bdb67c536,Bitso,bitsoex,4,40,https://bitso.com
+comp_144462af83f8,Sky Mavis,skymavis,3,30,https://skymavis.com/
+comp_63cdcf55ddcf,Mesh,consensysmesh,3,30,https://meshconnect.com
+comp_25c6451a6344,Gauntlet,gauntlet-xyz,3,30,https://www.gauntlet.xyz
+comp_07f6d94cb6a2,Bakkt,chrismoran-bkt,3,30,https://www.bakkt.com
+comp_c35628785bc2,Agora,agoraio,3,30,https://www.voteagora.com/#Product
+comp_4b937bfe122d,Polymarket,polymarket,3,30,
+comp_3642e7496a03,Aztec,aztecprotocol,3,30,https://www.aztec-labs.com/
+comp_557450688eb5,Autograph,autograph-core,2,20,https://link.ag.fan/autograph
+comp_2ce3bde50f2d,Turnkey,tkhq,2,20,https://www.turnkey.com/
+comp_0f9bde145677,Ankr,ankr-network,2,20,https://ankr.com/
+comp_88d0b2a69871,Starkware,starkware-libs,2,20,http://www.starkware.co
+comp_058a899a7d6e,Zora,ourzora,2,20,http://zora.co
+comp_ae0156b48609,Opyn,opynfinance,2,20,https://markets.opyn.co/
+comp_4c4e1111f1e5,Axelar Network,axelarnetwork,2,20,https://axelar.network
+comp_c944655b2657,Helius,helius-labs,2,20,
+comp_306e8fc6baee,Arbitrum,offchainlabs,2,20,https://arbitrum.io/
+comp_97a2767afdc4,thirdweb,thirdweb-dev,2,20,https://thirdweb.com/
+comp_073dea9d2433,Babylon Labs,babylonchain,2,20,https://babylonchain.io/
+comp_b84cdd396f01,Alluvial,alluvialfinance,1,10,https://alluvial.finance/
+comp_411d2f5092ce,Okta,okta,1,10,
+comp_7f3bc78354a0,ethena-labs,ethena-labs,1,10,https://ethena.fi/restricted
+comp_f8c03bfacd8b,Spring Labs,springlabs,1,10,https://www.springlabs.com
+comp_778240a677da,Rain,rain-foundation,1,10,https://rain.com/?ga_ad=ln
+comp_772c2bba3a26,Conduit,conduitxyz,1,10,https://www.conduit.xyz/
+comp_23266748ed88,FTX,crypto-trading-bot-ftx,1,10,https://ftx.com/
+comp_71cfbb4381e7,Nous Research,nousresearch,1,10,https://nousresearch.com/
+comp_e23a362087c5,Privy,privy-io,1,10,https://www.privy.io/
+comp_ba513cb74bd4,Chaos Labs,chaoslabsinc,1,10,https://chaoslabs.xyz
+comp_f2a23488b520,Reservoir,reservoirprotocol,1,10,https://reservoir.tools/
+comp_ea0d9a4df35b,O(1) Labs,o1-labs,1,10,https://www.o1labs.org/
+comp_491afb940b95,Guardrail,guardrails-ai,1,10,https://www.guardrail.ai
+comp_88275fa3a47d,osmosis-labs,osmosis-labs,1,10,https://osmosis.zone/
+comp_e6c8af7672f5,Noble,noble-assets,1,10,https://www.noble.xyz/
+comp_2f2b55424ec6,Lido Finance,lidofinance,1,10,https://lido.fi/
+comp_d945e1cd1106,=nil; Foundation,nilfoundation,1,10,https://nil.foundation
+comp_e0c3b91572ac,Plume,plumenetwork,1,10,http://www.plumefinder.com
+comp_a0baab269096,Jambo,adilaf01,0,0,https://www.jambo.technology/
+comp_de3ffae0e85c,Lootrush,smelthq,0,0,https://www.lootrush.com/
+comp_ab3b1598e0b0,Exponential,kraikov,0,0,
+comp_df83ae680bc3,MatchboxDAO,matchbox-dao,0,0,https://matchboxdao.com
+comp_aaf2a318a4dc,Demisto,demisto,0,0,https://demisto.com
+comp_a74e45c5a299,Dazz,areionsec,0,0,https://dazz.io
+comp_e68f32f33443,Acala Foundation,acalanetwork,0,0,https://acala.network
+comp_0807847376f9,Rockset,rockset,0,0,https://rockset.com
+comp_a31cd9cce849,Neynar,neynarxyz,0,0,https://neynar.com
+comp_a1a2da8ceaca,Yield.xyz,stakekit,0,0,https://www.yield.xyz
+comp_9f8e45155f36,BAXUS,baxusnft,0,0,http://www.Baxus.co
+comp_ad2d57dced20,Coinswitch,mitulmanish,0,0,https://coinswitch.co/
+comp_9f43cc2d8d5a,GLIF,glifio,0,0,https://glif.io
+comp_9ec64789d5ec,DIMO,dimo-foundation,0,0,https://dimo.zone
+comp_fa04fc289cce,dYdX,dydxprotocol,0,0,https://dydx.exchange
+comp_9e150a2b8f77,Census,sutrolabs,0,0,https://getcensus.com
+comp_fa116471d4a3,Symbiotic,symbioticfi,0,0,https://symbiotic.fi/
+comp_9d3e48c19ce0,Blink Ledger Systems,blinklabs-io,0,0,https://blinklabs.io
+comp_9c86395e0545,BetDex,betdex,0,0,https://betdex.com
+comp_9a49a8f4b83a,Hivemapper,hivemapper,0,0,https://hivemapper.com/product/
+comp_9936886d3be5,Optimum,internetoftim,0,0,https://optimum.xyz
+comp_991213f556ca,Sorella Labs,sorellalabs,0,0,https://sorellalabs.xyz/
+comp_98402eecfbce,Parallel,parallel-finance,0,0,https://parallel.fi
+comp_ab6597728dd2,Bitmine Immersion Technologies,bitmine-ch,0,0,https://bitmine.com
+comp_ce01e3f73e80,Opentensor Foundation,opentensor,0,0,https://bittensor.com/about
+comp_d0444193368f,Hang,yfaqh,0,0,https://www.hang.com/
+comp_f40ba052e60d,Matrixport,matrixport-article,0,0,https://matrixport.com
+comp_ca65de1ffc1e,Highlight,highlightxyz,0,0,https://www.highlight.xyz
+comp_e6f06fa461bc,Palo Alto Networks,paloaltonetworks,0,0,https://paloaltonetworks.com
+comp_c802d372f143,Mandolin,mandolin-dev,0,0,https://mandolin.com
+comp_c714806408f7,delta,deltadevsde,0,0,https://www.paywithpasskey.com
+comp_d1e31c5ec465,BitDAO,bitdao-io,0,0,https://www.bitdao.io
+comp_07a1760ab545,Plastic Labs,plastic-labs,0,0,https://plasticlabs.ai
+comp_d2bfa8e8b749,API3,api3dao,0,0,https://api3.org/
+comp_d4863f6a3eff,Resolv Labs,resolv-im,0,0,https://resolv.labs
+comp_c4a0dbaac3bd,Wildcard,wildcardlabs,0,0,https://wildcard.xyz
+comp_07c52a1e45b3,Abnormal AI,abnormal-security,0,0,https://abnormal.ai
+comp_97bb5c02417c,Blur,blur-io,0,0,blur.io
+comp_f59b0b440b63,Yield Protocol,yieldprotocol,0,0,https://yieldprotocol.com/
+comp_d9fbeffaa2b1,Anoma,anoma,0,0,http://anoma.net
+comp_c26457603a5d,Ithaca,ithacaxyz,0,0,https://www.ithaca.xyz/
+comp_bde5f33137d9,Chronicle Labs,robbiekruszynski,0,0,https://chroniclelabs.xyz
+comp_bd1ba23db55f,Xapo,xapo,0,0,https://xapo.com
+comp_d644e0f4ad70,Irreducible,irreducibleoss,0,0,https://irreducible.finance
+comp_f5a7924e621e,World,worldcoin,0,0,https://world.org
+comp_b642c9ef0fe7,Cato Networks,ba-cato,0,0,https://catonetworks.com
+comp_b1a13332bb3e,Shadow,shadow-hq,0,0,https://www.shadow.xyz/
+comp_b10ac503ba1b,Mirage Protocol,mirage-protocol,0,0,https://mirage.protocol
+comp_b03dbed83e84,Ribbon Finance,ribbon-finance,0,0,ribbon.finance
+comp_afaec6b8d8a3,Avantis,avantis-labs,0,0,https://avantis.fi
+comp_aed0dca1fb7b,Blackbird,bb-io,0,0,https://blackbird.io
+comp_e3a55affada7,3Jane Protocol,3jane-protocol,0,0,https://3jane.protocol
+comp_1abdda4388d8,Vana,vana-com,0,0,https://www.vana.org/
+comp_97164a3221b6,Delphix,delphix,0,0,https://delphix.com
+comp_341e53def592,Amp,jungvonmatt,0,0,https://amp.tech
+comp_4b0ecbb84ffe,Compound Labs,compound-finance,0,0,https://compound.finance/
+comp_48a1f9926237,Oasis Network,oasisprotocol,0,0,https://oasisprotocol.org
+comp_47cc8e2b24a0,AI Arena,aiarena,0,0,
+comp_45e65ff715cc,Canza Finance,canzaapps,0,0,https://canzafinance.com
+comp_441ef6e79e5d,WITNESS,witnessco,0,0,www.WITNESS.co
+comp_3f1814acbd70,Blast,blast-io,0,0,https://withblast.com
+comp_3e9d67631d72,Predibase,predibase,0,0,https://predibase.com
+comp_3e5e6915cdee,Royal,royaltm,0,0,https://royal.io
+comp_3dd3ca894082,MagicBlock,magicblock-labs,0,0,https://magicblock.gg
+comp_3c2eddb7fee6,Spacemesh,spacemeshos,0,0,https://www.spacemesh.io
+comp_113c45936fee,MetaDAO,metadaoproject,0,0,https://metadao.fi/
+comp_383bc85b280a,Altonomy,ssanin82,0,0,https://altonomy.com
+comp_369d8c12c058,Farcaster,farcasterxyz,0,0,https://www.farcaster.xyz/
+comp_34c7353b02e3,Optimism,ethereum-optimism,0,0,https://optimism.io
+comp_2f36f8b80e79,Succinct,succinctlabs,0,0,https://succinct.xyz
+comp_948c78e5e9f9,DogeOS,project-dogeos,0,0,https://dogeos.com
+comp_2ed6884a8196,TON - The Open Network,ton-org,0,0,https://ton.org
+comp_2d6dc1d0b213,TrueX,socialvibe,0,0,https://truex.com
+comp_2c5ed6fa3492,Argent,argentlabs,0,0,argent.xyz
+comp_2bb8aa76268c,SiTime,alexlyapin,0,0,https://sitime.com
+comp_297d9067151c,Across Protocol,across-protocol,0,0,https://across.to/
+comp_28d13ddddf18,Coinbase,coinbase,0,0,https://coinbase.com
+comp_12c9d7c93f4c,Synthetix,synthetixio,0,0,https://synthetix.io/
+comp_27202c0d7378,Worldwide Asset eXchange (WAX),worldwide-asset-exchange,0,0,https://wax.io
+comp_26f545d81a55,Blueprint Finance,tatsath,0,0,https://blueprint.finance
+comp_24d6a104bcc8,Commonware,commonwarexyz,0,0,https://commonware.xyz
+comp_13586b5231de,Gitcoin,gitcoinco,0,0,https://www.gitcoin.co/
+comp_22793f24f66e,Morpho,morpho-org,0,0,https://morpho.org
+comp_1fb12f5a9ce9,friend.tech,alphaticks,0,0,https://www.friend.tech/
+comp_1c5dfd4df896,ZKsync,zksync,0,0,https://zksync.io
+comp_4ecf6b273d67,Rubrik,rubrikinc,0,0,https://rubrik.com
+comp_10c7c8af30b9,Aave,aave,0,0,https://aave.com
+comp_56369b852dbb,1Inch Network,1inch,0,0,https://1inch.io/
+comp_5964c58239f0,Web3Auth,web3auth,0,0,https://web3auth.io
+comp_911632afa43a,Polkadot en Español,polkadot-blockchain-academy,0,0,https://polkadot.network/es/
+comp_0dc63d5b8efb,Ampleforth,ampleforth,0,0,https://www.ampleforth.org/
+comp_0e222e840799,Keep Network,keep-network,0,0,https://threshold.network
+comp_8bb620292edf,Sky (prev. MakerDAO),makerdao,0,0,https://makerdao.com/en/
+comp_8847c55dc083,The Graph,graphprotocol,0,0,http://thegraph.com
+comp_88068e33c78e,Amber,ambergroup-io,0,0,https://ambergroup.io
+comp_875d9daf4f4e,Cubist,cubist-dev,0,0,https://cubist.dev
+comp_85c8e2ab75d6,Reflexer Labs,reflexer-labs,0,0,https://www.reflexer.finance/
+comp_83c1961c8fdd,Sovereign Labs,sovereign-labs,0,0,https://sovereignlabs.xyz
+comp_831bbef62d5c,Balancer Labs,balancer,0,0,https://balancer.fi
+comp_82b47c88ac96,Zuora,zuora,0,0,https://zuora.com
+comp_81e6e31e9b81,Aleo,aleonet,0,0,https://aleo.org
+comp_78f2894a1110,B3 Fun,b3-fun,0,0,https://b3.fun
+comp_788a544b76f9,Monad,monad-crypto,0,0,https://monad.xyz
+comp_776cf91761d5,Code4rena,code-423n4,0,0,https://code4rena.com/
+comp_1011602dc3eb,Dune Analytics,duneanalytics,0,0,https://dune.com
+comp_7599386cfbc3,Hyperlane,hyperlane-xyz,0,0,https://hyperlane.xyz
+comp_74263724fdd1,MyCrypto,mycryptohq,0,0,https://mycrypto.com
+comp_709ce787a38d,Dework,mozes721,0,0,https://dework.xyz/
+comp_6fc8dda40563,InstaDapp,instadapp,0,0,https://instadapp.io/
+comp_6cb82b1cf5aa,ZeroSync,zerosync,0,0,https://zerosync.org
+comp_6ca16327de3e,Stoffel MPC,jtstoffel,0,0,https://stoffel.mpc
+comp_6b6bd89bc88a,Fragmetric,fragmetric-labs,0,0,https://fragmetric.com
+comp_690216f65b9e,Taproot Wizards,taproot-wizards,0,0,https://taprootwizards.com
+comp_647acfc77eba,Adept,adeptaipro,0,0,https://adept.ai
+comp_621c2c0e928c,Agoric,agoric,0,0,https://agoric.com/
+comp_10637cc2300a,Limit Break,limitbreakinc,0,0,https://limitbreak.com/index.html
+comp_5a56e7f2ad17,Aptos (APT),aptos-labs,0,0,https://aptoslabs.com
+comp_59cb34311151,Embr Labs,zoan37,0,0,https://embrlabs.com
+comp_7de42352b4a7,NEAR Protocol,near,0,0,https://near.org
