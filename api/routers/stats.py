@@ -18,21 +18,21 @@ def get_overview(db=Depends(get_db)):
     """Get database overview statistics"""
     cursor = db.cursor()
     
-    # Get counts
-    cursor.execute("SELECT COUNT(*) FROM person")
-    people_count = cursor.fetchone()[0]
+    # Get counts (fetchone returns dict with RealDictCursor)
+    cursor.execute("SELECT COUNT(*) as count FROM person")
+    people_count = cursor.fetchone()['count']
     
-    cursor.execute("SELECT COUNT(*) FROM company")
-    companies_count = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(*) as count FROM company")
+    companies_count = cursor.fetchone()['count']
     
-    cursor.execute("SELECT COUNT(*) FROM employment")
-    employment_count = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(*) as count FROM employment")
+    employment_count = cursor.fetchone()['count']
     
-    cursor.execute("SELECT COUNT(*) FROM person_email")
-    emails_count = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(*) as count FROM person_email")
+    emails_count = cursor.fetchone()['count']
     
-    cursor.execute("SELECT COUNT(*) FROM github_profile")
-    github_count = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(*) as count FROM github_profile")
+    github_count = cursor.fetchone()['count']
     
     return {
         'totals': {
@@ -51,41 +51,41 @@ def get_quality_metrics(db=Depends(get_db)):
     cursor = db.cursor()
     
     # Get total people
-    cursor.execute("SELECT COUNT(*) FROM person")
-    total_people = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(*) as count FROM person")
+    total_people = cursor.fetchone()['count']
     
     if total_people == 0:
         return {'error': 'No people in database'}
     
     # LinkedIn coverage
     cursor.execute("""
-        SELECT COUNT(*) FROM person
+        SELECT COUNT(*) as count FROM person
         WHERE normalized_linkedin_url IS NOT NULL
         AND normalized_linkedin_url != ''
     """)
-    with_linkedin = cursor.fetchone()[0]
+    with_linkedin = cursor.fetchone()['count']
     
     # Email coverage
-    cursor.execute("SELECT COUNT(DISTINCT person_id) FROM person_email")
-    with_email = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(DISTINCT person_id) as count FROM person_email")
+    with_email = cursor.fetchone()['count']
     
     # GitHub coverage
-    cursor.execute("SELECT COUNT(DISTINCT person_id) FROM github_profile")
-    with_github = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(DISTINCT person_id) as count FROM github_profile")
+    with_github = cursor.fetchone()['count']
     
     # Location coverage
     cursor.execute("""
-        SELECT COUNT(*) FROM person
+        SELECT COUNT(*) as count FROM person
         WHERE location IS NOT NULL AND location != ''
     """)
-    with_location = cursor.fetchone()[0]
+    with_location = cursor.fetchone()['count']
     
     # Headline coverage
     cursor.execute("""
-        SELECT COUNT(*) FROM person
+        SELECT COUNT(*) as count FROM person
         WHERE headline IS NOT NULL AND headline != ''
     """)
-    with_headline = cursor.fetchone()[0]
+    with_headline = cursor.fetchone()['count']
     
     return {
         'total_people': total_people,
@@ -120,8 +120,8 @@ def get_coverage_stats(db=Depends(get_db)):
     cursor = db.cursor()
     
     # Get total people
-    cursor.execute("SELECT COUNT(*) FROM person")
-    total_people = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(*) as count FROM person")
+    total_people = cursor.fetchone()['count']
     
     if total_people == 0:
         return {'error': 'No people in database'}
@@ -146,20 +146,20 @@ def get_coverage_stats(db=Depends(get_db)):
         'total_people': total_people,
         'coverage': {
             'email': {
-                'count': result[0],
-                'percentage': round((result[0] / total_people) * 100, 2)
+                'count': result['with_email'],
+                'percentage': round((result['with_email'] / total_people) * 100, 2)
             },
             'github': {
-                'count': result[1],
-                'percentage': round((result[1] / total_people) * 100, 2)
+                'count': result['with_github'],
+                'percentage': round((result['with_github'] / total_people) * 100, 2)
             },
             'employment': {
-                'count': result[2],
-                'percentage': round((result[2] / total_people) * 100, 2)
+                'count': result['with_employment'],
+                'percentage': round((result['with_employment'] / total_people) * 100, 2)
             },
             'education': {
-                'count': result[3],
-                'percentage': round((result[3] / total_people) * 100, 2)
+                'count': result['with_education'],
+                'percentage': round((result['with_education'] / total_people) * 100, 2)
             }
         }
     }

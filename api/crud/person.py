@@ -36,20 +36,8 @@ def get_person(conn, person_id: str) -> Optional[Dict]:
     if not row:
         return None
     
-    person = {
-        'person_id': row[0],
-        'full_name': row[1],
-        'first_name': row[2],
-        'last_name': row[3],
-        'linkedin_url': row[4],
-        'normalized_linkedin_url': row[5],
-        'location': row[6],
-        'headline': row[7],
-        'description': row[8],
-        'followers_count': row[9],
-        'created_at': row[10],
-        'refreshed_at': row[11]
-    }
+    # RealDictCursor returns dict-like objects, so we can use them directly
+    person = dict(row)
     
     # Get emails
     cursor.execute("""
@@ -60,15 +48,9 @@ def get_person(conn, person_id: str) -> Optional[Dict]:
     
     person['emails'] = []
     for email_row in cursor.fetchall():
-        person['emails'].append({
-            'email_id': email_row[0],
-            'person_id': person_id,
-            'email': email_row[1],
-            'email_type': email_row[2],
-            'is_primary': email_row[3],
-            'verified': email_row[4],
-            'source': email_row[5]
-        })
+        email_dict = dict(email_row)
+        email_dict['person_id'] = person_id
+        person['emails'].append(email_dict)
     
     # Get current employment
     cursor.execute("""
@@ -83,16 +65,9 @@ def get_person(conn, person_id: str) -> Optional[Dict]:
     
     person['employment'] = []
     for emp_row in cursor.fetchall():
-        person['employment'].append({
-            'employment_id': emp_row[0],
-            'person_id': person_id,
-            'title': emp_row[1],
-            'start_date': emp_row[2],
-            'end_date': emp_row[3],
-            'is_current': emp_row[4],
-            'company_id': emp_row[5],
-            'company_name': emp_row[6]
-        })
+        emp_dict = dict(emp_row)
+        emp_dict['person_id'] = person_id
+        person['employment'].append(emp_dict)
     
     return person
 
@@ -143,9 +118,9 @@ def get_people(conn, filters: Dict[str, Any], offset: int = 0, limit: int = 50) 
     where_sql = "WHERE " + " AND ".join(where_clauses) if where_clauses else ""
     
     # Count total
-    count_query = f"SELECT COUNT(*) FROM person p {where_sql}"
+    count_query = f"SELECT COUNT(*) as count FROM person p {where_sql}"
     cursor.execute(count_query, params)
-    total = cursor.fetchone()[0]
+    total = cursor.fetchone()['count']
     
     # Get page of results
     query = f"""
@@ -158,21 +133,13 @@ def get_people(conn, filters: Dict[str, Any], offset: int = 0, limit: int = 50) 
         FROM person p
         {where_sql}
         ORDER BY p.full_name
-        LIMIT ${param_count} OFFSET ${param_count + 1}
+        LIMIT %s OFFSET %s
     """
     params.extend([limit, offset])
     
     cursor.execute(query, params)
     
-    people = []
-    for row in cursor.fetchall():
-        people.append({
-            'person_id': row[0],
-            'full_name': row[1],
-            'linkedin_url': row[2],
-            'location': row[3],
-            'headline': row[4]
-        })
+    people = [dict(row) for row in cursor.fetchall()]
     
     return people, total
 
@@ -208,7 +175,7 @@ def create_person(conn, person_data: Dict) -> str:
         person_data.get('description')
     ))
     
-    created_id = cursor.fetchone()[0]
+    created_id = cursor.fetchone()['person_id']
     
     # Add emails if provided
     if person_data.get('emails'):
@@ -293,14 +260,14 @@ def search_people_by_company(conn, company_name: str, offset: int = 0, limit: in
     
     # Count total
     cursor.execute("""
-        SELECT COUNT(DISTINCT p.person_id)
+        SELECT COUNT(DISTINCT p.person_id) as count
         FROM person p
         JOIN employment e ON p.person_id = e.person_id
         JOIN company c ON e.company_id = c.company_id
         WHERE LOWER(c.company_name) LIKE LOWER(%s)
     """, (f"%{company_name}%",))
     
-    total = cursor.fetchone()[0]
+    total = cursor.fetchone()['count']
     
     # Get results
     cursor.execute("""
@@ -318,15 +285,7 @@ def search_people_by_company(conn, company_name: str, offset: int = 0, limit: in
         LIMIT %s OFFSET %s
     """, (f"%{company_name}%", limit, offset))
     
-    people = []
-    for row in cursor.fetchall():
-        people.append({
-            'person_id': row[0],
-            'full_name': row[1],
-            'linkedin_url': row[2],
-            'location': row[3],
-            'headline': row[4]
-        })
+    people = [dict(row) for row in cursor.fetchall()]
     
     return people, total
 
@@ -337,12 +296,12 @@ def search_people_by_location(conn, location: str, offset: int = 0, limit: int =
     
     # Count total
     cursor.execute("""
-        SELECT COUNT(*)
+        SELECT COUNT(*) as count
         FROM person
         WHERE LOWER(location) LIKE LOWER(%s)
     """, (f"%{location}%",))
     
-    total = cursor.fetchone()[0]
+    total = cursor.fetchone()['count']
     
     # Get results
     cursor.execute("""
@@ -358,15 +317,7 @@ def search_people_by_location(conn, location: str, offset: int = 0, limit: int =
         LIMIT %s OFFSET %s
     """, (f"%{location}%", limit, offset))
     
-    people = []
-    for row in cursor.fetchall():
-        people.append({
-            'person_id': row[0],
-            'full_name': row[1],
-            'linkedin_url': row[2],
-            'location': row[3],
-            'headline': row[4]
-        })
+    people = [dict(row) for row in cursor.fetchall()]
     
     return people, total
 

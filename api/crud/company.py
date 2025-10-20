@@ -19,12 +19,12 @@ def get_company(conn, company_id: str) -> Optional[Dict]:
             c.company_id::text,
             c.company_name,
             c.linkedin_url,
-            c.normalized_linkedin_url,
-            c.website,
+            c.linkedin_slug,
+            c.website_url,
             c.industry,
-            c.description,
-            c.employee_count,
-            c.created_at,
+            c.hq,
+            c.founded_year,
+            c.size_bucket,
             COUNT(DISTINCT e.person_id) as employee_count_in_db
         FROM company c
         LEFT JOIN employment e ON c.company_id = e.company_id
@@ -36,18 +36,8 @@ def get_company(conn, company_id: str) -> Optional[Dict]:
     if not row:
         return None
     
-    return {
-        'company_id': row[0],
-        'company_name': row[1],
-        'linkedin_url': row[2],
-        'normalized_linkedin_url': row[3],
-        'website': row[4],
-        'industry': row[5],
-        'description': row[6],
-        'employee_count': row[7],
-        'created_at': row[8],
-        'employee_count_in_db': row[9]
-    }
+    # RealDictCursor returns dict-like objects
+    return dict(row)
 
 
 def get_companies(conn, filters: Dict[str, Any], offset: int = 0, limit: int = 50) -> tuple[List[Dict], int]:
@@ -66,28 +56,28 @@ def get_companies(conn, filters: Dict[str, Any], offset: int = 0, limit: int = 5
     
     if filters.get('has_website') is not None:
         if filters['has_website']:
-            where_clauses.append("c.website IS NOT NULL AND c.website != ''")
+            where_clauses.append("c.website_url IS NOT NULL AND c.website_url != ''")
         else:
-            where_clauses.append("(c.website IS NULL OR c.website = '')")
+            where_clauses.append("(c.website_url IS NULL OR c.website_url = '')")
     
-    if filters.get('min_employees'):
-        where_clauses.append(f"c.employee_count >= ${param_count}")
-        params.append(filters['min_employees'])
+    if filters.get('size_bucket'):
+        where_clauses.append(f"c.size_bucket = ${param_count}")
+        params.append(filters['size_bucket'])
         param_count += 1
     
     where_sql = "WHERE " + " AND ".join(where_clauses) if where_clauses else ""
     
     # Count total
-    count_query = f"SELECT COUNT(*) FROM company c {where_sql}"
+    count_query = f"SELECT COUNT(*) as count FROM company c {where_sql}"
     cursor.execute(count_query, params)
-    total = cursor.fetchone()[0]
+    total = cursor.fetchone()['count']
     
     # Get page of results
     query = f"""
         SELECT 
             c.company_id::text,
             c.company_name,
-            c.website,
+            c.website_url,
             c.industry,
             COUNT(DISTINCT e.person_id) as employee_count_in_db
         FROM company c
@@ -95,21 +85,13 @@ def get_companies(conn, filters: Dict[str, Any], offset: int = 0, limit: int = 5
         {where_sql}
         GROUP BY c.company_id
         ORDER BY c.company_name
-        LIMIT ${param_count} OFFSET ${param_count + 1}
+        LIMIT %s OFFSET %s
     """
     params.extend([limit, offset])
     
     cursor.execute(query, params)
     
-    companies = []
-    for row in cursor.fetchall():
-        companies.append({
-            'company_id': row[0],
-            'company_name': row[1],
-            'website': row[2],
-            'industry': row[3],
-            'employee_count_in_db': row[4]
-        })
+    companies = [dict(row) for row in cursor.fetchall()]
     
     return companies, total
 
@@ -123,20 +105,22 @@ def create_company(conn, company_data: Dict) -> str:
     
     cursor.execute("""
         INSERT INTO company 
-        (company_name, linkedin_url, normalized_linkedin_url, website, industry, description, employee_count)
-        VALUES (%s, %s, %s, %s, %s, %s, %s)
+        (company_domain, company_name, linkedin_url, linkedin_slug, website_url, industry, hq, founded_year, size_bucket)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         RETURNING company_id::text
     """, (
+        company_data.get('company_domain', company_data.get('company_name', 'unknown').lower().replace(' ', '') + '.com'),
         company_data.get('company_name'),
         company_data.get('linkedin_url'),
-        normalized_linkedin,
-        company_data.get('website'),
+        company_data.get('linkedin_slug') or normalized_linkedin.split('/')[-1] if normalized_linkedin else None,
+        company_data.get('website_url'),
         company_data.get('industry'),
-        company_data.get('description'),
-        company_data.get('employee_count')
+        company_data.get('hq'),
+        company_data.get('founded_year'),
+        company_data.get('size_bucket')
     ))
     
-    created_id = cursor.fetchone()[0]
+    created_id = cursor.fetchone()['company_id']
     conn.commit()
     
     return created_id
@@ -151,18 +135,11 @@ def update_company(conn, company_id: str, company_data: Dict) -> bool:
     params = []
     param_count = 1
     
-    for field in ['company_name', 'linkedin_url', 'website', 'industry', 'description', 'employee_count']:
+    for field in ['company_name', 'linkedin_url', 'linkedin_slug', 'website_url', 'industry', 'hq', 'founded_year', 'size_bucket']:
         if field in company_data and company_data[field] is not None:
             update_fields.append(f"{field} = ${param_count}")
             params.append(company_data[field])
             param_count += 1
-    
-    # Update normalized LinkedIn if linkedin_url is being updated
-    if 'linkedin_url' in company_data:
-        normalized = normalize_linkedin_url(company_data['linkedin_url'])
-        update_fields.append(f"normalized_linkedin_url = ${param_count}")
-        params.append(normalized)
-        param_count += 1
     
     if not update_fields:
         return False
@@ -210,13 +187,13 @@ def get_company_employees(conn, company_id: str, offset: int = 0, limit: int = 5
     
     # Count total
     cursor.execute("""
-        SELECT COUNT(DISTINCT p.person_id)
+        SELECT COUNT(DISTINCT p.person_id) as count
         FROM person p
         JOIN employment e ON p.person_id = e.person_id
         WHERE e.company_id = %s::uuid
     """, (company_id,))
     
-    total = cursor.fetchone()[0]
+    total = cursor.fetchone()['count']
     
     # Get results
     cursor.execute("""
@@ -234,16 +211,7 @@ def get_company_employees(conn, company_id: str, offset: int = 0, limit: int = 5
         LIMIT %s OFFSET %s
     """, (company_id, limit, offset))
     
-    employees = []
-    for row in cursor.fetchall():
-        employees.append({
-            'person_id': row[0],
-            'full_name': row[1],
-            'linkedin_url': row[2],
-            'location': row[3],
-            'title': row[4],
-            'is_current': row[5]
-        })
+    employees = [dict(row) for row in cursor.fetchall()]
     
     return employees, total
 

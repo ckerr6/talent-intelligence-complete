@@ -2,7 +2,7 @@
 # ABOUTME: Integration tests for API routes and responses
 
 import pytest
-from fastapi.testclient import TestClient
+from starlette.testclient import TestClient
 import sys
 from pathlib import Path
 
@@ -11,14 +11,18 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from api.main import app
 
 
-client = TestClient(app)
+@pytest.fixture(scope="module")
+def client():
+    """Create test client"""
+    with TestClient(app) as test_client:
+        yield test_client
 
 
 @pytest.mark.api
 class TestRootEndpoints:
     """Test root and health endpoints"""
     
-    def test_root_endpoint(self):
+    def test_root_endpoint(self, client):
         """Test root endpoint returns API info"""
         response = client.get("/")
         assert response.status_code == 200
@@ -27,7 +31,7 @@ class TestRootEndpoints:
         assert "version" in data
         assert data["docs"] == "/docs"
     
-    def test_health_endpoint(self):
+    def test_health_endpoint(self, client):
         """Test health check endpoint"""
         response = client.get("/health")
         assert response.status_code == 200
@@ -41,7 +45,7 @@ class TestRootEndpoints:
 class TestPeopleEndpoints:
     """Test people API endpoints"""
     
-    def test_list_people(self):
+    def test_list_people(self, client):
         """Test listing people"""
         response = client.get("/api/people?limit=10")
         assert response.status_code == 200
@@ -50,14 +54,14 @@ class TestPeopleEndpoints:
         assert "pagination" in data
         assert isinstance(data["data"], list)
     
-    def test_list_people_with_filters(self):
+    def test_list_people_with_filters(self, client):
         """Test listing people with filters"""
         response = client.get("/api/people?location=San%20Francisco&limit=5")
         assert response.status_code == 200
         data = response.json()
         assert "data" in data
     
-    def test_create_person(self):
+    def test_create_person(self, client):
         """Test creating a person"""
         person_data = {
             "full_name": "Test Person",
@@ -74,12 +78,12 @@ class TestPeopleEndpoints:
         # May fail if database is read-only in tests
         assert response.status_code in [201, 400, 500]
     
-    def test_get_person_invalid_id(self):
+    def test_get_person_invalid_id(self, client):
         """Test getting person with invalid ID"""
         response = client.get("/api/people/invalid-uuid")
         assert response.status_code == 400
     
-    def test_search_by_company(self):
+    def test_search_by_company(self, client):
         """Test searching people by company"""
         response = client.get("/api/people/search/company?company_name=Acme")
         assert response.status_code == 200
@@ -87,7 +91,7 @@ class TestPeopleEndpoints:
         assert "data" in data
         assert "pagination" in data
     
-    def test_search_by_location(self):
+    def test_search_by_location(self, client):
         """Test searching people by location"""
         response = client.get("/api/people/search/location?location=San%20Francisco")
         assert response.status_code == 200
@@ -99,7 +103,7 @@ class TestPeopleEndpoints:
 class TestCompanyEndpoints:
     """Test company API endpoints"""
     
-    def test_list_companies(self):
+    def test_list_companies(self, client):
         """Test listing companies"""
         response = client.get("/api/companies?limit=10")
         assert response.status_code == 200
@@ -108,14 +112,14 @@ class TestCompanyEndpoints:
         assert "pagination" in data
         assert isinstance(data["data"], list)
     
-    def test_list_companies_with_filters(self):
+    def test_list_companies_with_filters(self, client):
         """Test listing companies with filters"""
         response = client.get("/api/companies?industry=Technology&limit=5")
         assert response.status_code == 200
         data = response.json()
         assert "data" in data
     
-    def test_create_company(self):
+    def test_create_company(self, client):
         """Test creating a company"""
         company_data = {
             "company_name": "Test Company",
@@ -127,7 +131,7 @@ class TestCompanyEndpoints:
         # May fail if database is read-only in tests
         assert response.status_code in [201, 400, 500]
     
-    def test_get_company_invalid_id(self):
+    def test_get_company_invalid_id(self, client):
         """Test getting company with invalid ID"""
         response = client.get("/api/companies/invalid-uuid")
         assert response.status_code == 400
@@ -137,7 +141,7 @@ class TestCompanyEndpoints:
 class TestStatsEndpoints:
     """Test statistics API endpoints"""
     
-    def test_overview_stats(self):
+    def test_overview_stats(self, client):
         """Test getting overview statistics"""
         response = client.get("/api/stats/overview")
         assert response.status_code == 200
@@ -146,14 +150,14 @@ class TestStatsEndpoints:
         assert "people" in data["totals"]
         assert "companies" in data["totals"]
     
-    def test_quality_metrics(self):
+    def test_quality_metrics(self, client):
         """Test getting quality metrics"""
         response = client.get("/api/stats/quality")
         assert response.status_code == 200
         data = response.json()
         assert "total_people" in data or "error" in data
     
-    def test_coverage_stats(self):
+    def test_coverage_stats(self, client):
         """Test getting coverage statistics"""
         response = client.get("/api/stats/coverage")
         assert response.status_code == 200
@@ -165,7 +169,7 @@ class TestStatsEndpoints:
 class TestPagination:
     """Test pagination functionality"""
     
-    def test_pagination_params(self):
+    def test_pagination_params(self, client):
         """Test pagination parameters"""
         response = client.get("/api/people?limit=5&offset=10")
         assert response.status_code == 200
@@ -173,12 +177,12 @@ class TestPagination:
         assert data["pagination"]["limit"] == 5
         assert data["pagination"]["offset"] == 10
     
-    def test_pagination_max_limit(self):
+    def test_pagination_max_limit(self, client):
         """Test pagination respects max limit"""
         response = client.get("/api/people?limit=99999")
         assert response.status_code in [200, 422]  # 422 if validation rejects
     
-    def test_pagination_negative_offset(self):
+    def test_pagination_negative_offset(self, client):
         """Test negative offset is rejected"""
         response = client.get("/api/people?offset=-1")
         assert response.status_code == 422  # Validation error
@@ -188,7 +192,7 @@ class TestPagination:
 class TestErrorHandling:
     """Test API error handling"""
     
-    def test_404_not_found(self):
+    def test_404_not_found(self, client):
         """Test 404 for non-existent endpoints"""
         response = client.get("/api/nonexistent")
         assert response.status_code == 404
@@ -196,7 +200,7 @@ class TestErrorHandling:
         assert data["success"] is False
         assert "error" in data
     
-    def test_invalid_json(self):
+    def test_invalid_json(self, client):
         """Test invalid JSON in POST request"""
         response = client.post(
             "/api/people",
@@ -205,7 +209,7 @@ class TestErrorHandling:
         )
         assert response.status_code in [400, 422]
     
-    def test_missing_required_field(self):
+    def test_missing_required_field(self, client):
         """Test missing required field in POST"""
         response = client.post("/api/people", json={})
         assert response.status_code == 422  # Validation error
@@ -215,7 +219,7 @@ class TestErrorHandling:
 class TestDocumentation:
     """Test API documentation endpoints"""
     
-    def test_openapi_schema(self):
+    def test_openapi_schema(self, client):
         """Test OpenAPI schema is accessible"""
         response = client.get("/openapi.json")
         assert response.status_code == 200
@@ -224,12 +228,12 @@ class TestDocumentation:
         assert "info" in data
         assert "paths" in data
     
-    def test_swagger_docs(self):
+    def test_swagger_docs(self, client):
         """Test Swagger UI is accessible"""
         response = client.get("/docs")
         assert response.status_code == 200
     
-    def test_redoc(self):
+    def test_redoc(self, client):
         """Test ReDoc is accessible"""
         response = client.get("/redoc")
         assert response.status_code == 200

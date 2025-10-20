@@ -81,19 +81,33 @@ def create_test_database(test_db_name):
 def pg_test_schema(create_test_database, pg_test_connection_params):
     """Create test database schema"""
     conn = psycopg2.connect(**pg_test_connection_params)
+    conn.autocommit = False
     cursor = conn.cursor()
     
-    # Read and execute schema from migration script
-    schema_file = Path(__file__).parent.parent / "migration_scripts" / "01_schema_enhancement.sql"
-    
-    if schema_file.exists():
-        with open(schema_file, 'r') as f:
-            schema_sql = f.read()
-            cursor.execute(schema_sql)
-    
-    conn.commit()
-    cursor.close()
-    conn.close()
+    try:
+        # Read and execute schema from migration script
+        schema_file = Path(__file__).parent.parent / "migration_scripts" / "01_schema_enhancement.sql"
+        
+        if schema_file.exists():
+            with open(schema_file, 'r') as f:
+                schema_sql = f.read()
+                # Execute the SQL, handling errors gracefully
+                try:
+                    cursor.execute(schema_sql)
+                    conn.commit()
+                except psycopg2.Error as e:
+                    # If tables already exist, that's okay for tests
+                    conn.rollback()
+                    print(f"Schema creation warning (may be expected): {e}")
+        
+        # Ensure we commit any successful changes
+        conn.commit()
+    except Exception as e:
+        print(f"Error setting up schema: {e}")
+        conn.rollback()
+    finally:
+        cursor.close()
+        conn.close()
     
     yield
     
