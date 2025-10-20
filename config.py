@@ -7,6 +7,9 @@ Configuration Management System
 
 This module provides centralized configuration for the entire talent database.
 Replaces hardcoded paths and settings throughout the codebase.
+
+Updated: October 20, 2025 - Post-migration to PostgreSQL
+Primary database: PostgreSQL 'talent' @ localhost:5432
 """
 
 import os
@@ -37,8 +40,36 @@ class Config:
     BASE_DIR = Path(__file__).parent.resolve()
     DATA_DIR = BASE_DIR.parent  # /Users/charlie.kerr/Documents/CK Docs
     
-    # Database paths
-    DB_PATH = BASE_DIR / "talent_intelligence.db"
+    # Connection pooling settings
+    PG_POOL_MIN = int(os.environ.get('PG_POOL_MIN', '1'))
+    PG_POOL_MAX = int(os.environ.get('PG_POOL_MAX', '10'))
+    _connection_pool = None
+    
+    # ============================================================================
+    # PRIMARY DATABASE: PostgreSQL 'talent' (Consolidated Oct 2025)
+    # ============================================================================
+    # The primary database is now PostgreSQL 'talent' with:
+    #   - 32,515 people
+    #   - 91,722 companies
+    #   - 203,076 employment records
+    #   - 1,014 emails (person_email table)
+    #   - 17,534 GitHub profiles (github_profile table)
+    #
+    # All SQLite databases have been archived to: archived_databases/
+    # ============================================================================
+    
+    # PostgreSQL connection settings
+    DB_TYPE = 'postgresql'  # 'postgresql' or 'sqlite' (legacy)
+    PG_HOST = os.environ.get('PGHOST', 'localhost')
+    PG_PORT = os.environ.get('PGPORT', '5432')
+    PG_DATABASE = os.environ.get('PGDATABASE', 'talent')
+    PG_USER = os.environ.get('PGUSER', os.environ.get('USER'))
+    PG_PASSWORD = os.environ.get('PGPASSWORD', '')  # Optional, usually not needed for local
+    
+    # Legacy SQLite path (archived - for reference only)
+    SQLITE_DB_PATH = BASE_DIR / "talent_intelligence.db"
+    ARCHIVED_DB_PATH = BASE_DIR / "archived_databases" / "sqlite" / "talent_intelligence.db"
+    
     BACKUP_DIR = BASE_DIR / "backups"
     
     # CSV source directories
@@ -120,12 +151,30 @@ class Config:
     def validate_environment(cls) -> Dict[str, bool]:
         """Check that all required configuration is present"""
         checks = {
-            'database_exists': cls.DB_PATH.exists(),
             'data_dir_exists': cls.DATA_DIR.exists(),
             'github_token_set': bool(cls.GITHUB_TOKEN and cls.GITHUB_TOKEN != 'your_token_here'),
             'backup_dir_exists': cls.BACKUP_DIR.exists(),
             'log_dir_writable': cls.LOG_DIR.exists() and os.access(cls.LOG_DIR, os.W_OK)
         }
+        
+        # Check PostgreSQL connection
+        if cls.DB_TYPE == 'postgresql':
+            try:
+                import psycopg2
+                conn = psycopg2.connect(
+                    host=cls.PG_HOST,
+                    port=cls.PG_PORT,
+                    database=cls.PG_DATABASE,
+                    user=cls.PG_USER,
+                    password=cls.PG_PASSWORD
+                )
+                conn.close()
+                checks['database_connection'] = True
+            except Exception as e:
+                checks['database_connection'] = False
+        else:
+            # Legacy SQLite check
+            checks['database_connection'] = cls.SQLITE_DB_PATH.exists()
         
         return checks
     
@@ -134,18 +183,53 @@ class Config:
         """Get configuration status summary"""
         checks = cls.validate_environment()
         
-        status = f"""
-Configuration Status
-====================
+        if cls.DB_TYPE == 'postgresql':
+            status = f"""
+Configuration Status (Post-Migration)
+======================================
 Base Directory:     {cls.BASE_DIR}
-Database Path:      {cls.DB_PATH}
-Database Exists:    {'✅' if checks['database_exists'] else '❌'}
+
+PRIMARY DATABASE: PostgreSQL 'talent'
+-------------------------------------
+Host:               {cls.PG_HOST}:{cls.PG_PORT}
+Database:           {cls.PG_DATABASE}
+User:               {cls.PG_USER}
+Connection:         {'✅ Connected' if checks.get('database_connection') else '❌ Failed'}
+
+Contents (as of Oct 20, 2025):
+  - 32,515 people
+  - 91,722 companies
+  - 203,076 employment records
+  - 1,014 emails (person_email table)
+  - 17,534 GitHub profiles (github_profile table)
+
+Configuration:
+-------------------------------------
+GitHub Token:       {'✅ Configured' if checks['github_token_set'] else '❌ Not set or invalid'}
+Backup Directory:   {'✅' if checks['backup_dir_exists'] else '❌'}
+Logs Writable:      {'✅' if checks['log_dir_writable'] else '❌'}
+
+Archived Databases:
+  SQLite: {cls.ARCHIVED_DB_PATH}
+  PostgreSQL dumps: {cls.BASE_DIR / 'archived_databases' / 'postgresql_dumps'}
+
+CSV Sources Found:
+"""
+        else:
+            # Legacy SQLite mode
+            status = f"""
+Configuration Status (LEGACY MODE)
+===================================
+Base Directory:     {cls.BASE_DIR}
+Database Path:      {cls.SQLITE_DB_PATH}
+Database Exists:    {'✅' if checks.get('database_connection') else '❌'}
 GitHub Token:       {'✅ Configured' if checks['github_token_set'] else '❌ Not set or invalid'}
 Backup Directory:   {'✅' if checks['backup_dir_exists'] else '❌'}
 Logs Writable:      {'✅' if checks['log_dir_writable'] else '❌'}
 
 CSV Sources Found:
 """
+        
         for name, path in cls.CSV_SOURCES.items():
             if path.exists():
                 csv_count = len(list(path.glob("*.csv")))
@@ -183,13 +267,181 @@ CSV Sources Found:
         
         if checkpoint_file.exists():
             checkpoint_file.unlink()
+    
+    @classmethod
+    def get_connection_pool(cls):
+        """
+        Get or create connection pool for PostgreSQL
+        Uses SimpleConnectionPool for thread-safe connection management
+        """
+        if cls.DB_TYPE != 'postgresql':
+            raise ValueError("Connection pooling only available for PostgreSQL")
+        
+        if cls._connection_pool is None:
+            import psycopg2.pool
+            
+            try:
+                cls._connection_pool = psycopg2.pool.SimpleConnectionPool(
+                    cls.PG_POOL_MIN,
+                    cls.PG_POOL_MAX,
+                    host=cls.PG_HOST,
+                    port=cls.PG_PORT,
+                    database=cls.PG_DATABASE,
+                    user=cls.PG_USER,
+                    password=cls.PG_PASSWORD
+                )
+                print(f"✅ Connection pool created (min={cls.PG_POOL_MIN}, max={cls.PG_POOL_MAX})")
+            except Exception as e:
+                print(f"❌ Failed to create connection pool: {e}")
+                raise
+        
+        return cls._connection_pool
+    
+    @classmethod
+    def close_connection_pool(cls):
+        """Close all connections in the pool"""
+        if cls._connection_pool is not None:
+            cls._connection_pool.closeall()
+            cls._connection_pool = None
+            print("✅ Connection pool closed")
+    
+    @classmethod
+    def get_pooled_connection(cls):
+        """
+        Get a connection from the pool
+        
+        Usage:
+            conn = Config.get_pooled_connection()
+            try:
+                # Use connection
+                cursor = conn.cursor()
+                ...
+            finally:
+                Config.return_connection(conn)
+        """
+        pool = cls.get_connection_pool()
+        return pool.getconn()
+    
+    @classmethod
+    def return_connection(cls, conn):
+        """Return a connection to the pool"""
+        if cls._connection_pool is not None:
+            cls._connection_pool.putconn(conn)
+    
+    @classmethod
+    def check_pool_health(cls):
+        """Check health of connection pool"""
+        if cls._connection_pool is None:
+            return {"status": "not_initialized", "connections": 0}
+        
+        try:
+            # Try to get and return a connection
+            conn = cls.get_pooled_connection()
+            cursor = conn.cursor()
+            cursor.execute("SELECT 1")
+            cursor.close()
+            cls.return_connection(conn)
+            
+            return {
+                "status": "healthy",
+                "pool_size": f"{cls.PG_POOL_MIN}-{cls.PG_POOL_MAX}"
+            }
+        except Exception as e:
+            return {
+                "status": "unhealthy",
+                "error": str(e)
+            }
 
 
 # Convenience functions
-def get_db_connection():
-    """Get a database connection using configured path"""
+def get_db_connection(use_pool=True):
+    """Get a database connection using configured settings
+    
+    Args:
+        use_pool: If True and PostgreSQL, use connection pool. If False, create new connection.
+    
+    Returns:
+        Connection object for the configured database type
+        
+    Note: After migration (Oct 2025), this returns a PostgreSQL connection
+          to the 'talent' database. For legacy SQLite access, use get_sqlite_connection().
+          When using pooled connections, remember to call Config.return_connection(conn)
+          when done, or use with get_db_context() context manager.
+    """
+    if Config.DB_TYPE == 'postgresql':
+        import psycopg2
+        import psycopg2.extras
+        
+        if use_pool:
+            try:
+                conn = Config.get_pooled_connection()
+            except Exception:
+                # Fallback to direct connection if pool fails
+                conn = psycopg2.connect(
+                    host=Config.PG_HOST,
+                    port=Config.PG_PORT,
+                    database=Config.PG_DATABASE,
+                    user=Config.PG_USER,
+                    password=Config.PG_PASSWORD
+                )
+        else:
+            conn = psycopg2.connect(
+                host=Config.PG_HOST,
+                port=Config.PG_PORT,
+                database=Config.PG_DATABASE,
+                user=Config.PG_USER,
+                password=Config.PG_PASSWORD
+            )
+        
+        # Use RealDictCursor for dict-like row access
+        conn.cursor_factory = psycopg2.extras.RealDictCursor
+        return conn
+    else:
+        # Legacy SQLite mode
+        import sqlite3
+        sqlite3.register_adapter(bool, int)
+        sqlite3.register_converter("BOOLEAN", lambda v: bool(int(v)))
+        conn = sqlite3.connect(Config.SQLITE_DB_PATH)
+        conn.row_factory = sqlite3.Row  # Dict-like row access
+        return conn
+
+
+def get_db_context():
+    """
+    Context manager for database connections with automatic cleanup
+    
+    Usage:
+        with get_db_context() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM person")
+            # Connection automatically returned to pool when done
+    """
+    from contextlib import contextmanager
+    
+    @contextmanager
+    def _context():
+        conn = get_db_connection(use_pool=True)
+        try:
+            yield conn
+        finally:
+            if Config.DB_TYPE == 'postgresql':
+                Config.return_connection(conn)
+            else:
+                conn.close()
+    
+    return _context()
+
+def get_sqlite_connection():
+    """Get a connection to the archived SQLite database
+    
+    For accessing legacy SQLite data after migration.
+    """
     import sqlite3
-    return sqlite3.connect(Config.DB_PATH)
+    sqlite3.register_adapter(bool, int)
+    sqlite3.register_converter("BOOLEAN", lambda v: bool(int(v)))
+    conn = sqlite3.connect(Config.SQLITE_DB_PATH)
+    conn.row_factory = sqlite3.Row
+    return conn
 
 def log_message(message: str, log_type: str = 'info'):
     """Log a message to the appropriate log file"""

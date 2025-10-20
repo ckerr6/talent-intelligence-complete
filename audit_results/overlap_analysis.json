@@ -1,0 +1,102 @@
+{
+  "linkedin_overlap": {
+    "sqlite_vs_talent": {
+      "in_both": 0,
+      "only_in_sqlite": 11912,
+      "only_in_talent": 32515,
+      "total_unique": 44427
+    },
+    "sqlite_vs_talent_intelligence": {
+      "in_both": 0,
+      "only_in_sqlite": 11912,
+      "only_in_talent_intelligence": 0,
+      "total_unique": 11912
+    },
+    "sqlite_vs_talent_intel": {
+      "in_both": 8467,
+      "only_in_sqlite": 3445,
+      "only_in_talent_intel": 3662,
+      "total_unique": 15574
+    },
+    "talent_vs_talent_intelligence": {
+      "in_both": 0,
+      "only_in_talent": 32515,
+      "only_in_talent_intelligence": 0,
+      "total_unique": 32515
+    },
+    "talent_vs_talent_intel": {
+      "in_both": 0,
+      "only_in_talent": 32515,
+      "only_in_talent_intel": 12129,
+      "total_unique": 44644
+    },
+    "talent_intelligence_vs_talent_intel": {
+      "in_both": 0,
+      "only_in_talent_intelligence": 0,
+      "only_in_talent_intel": 12129,
+      "total_unique": 12129
+    }
+  },
+  "email_overlap": {
+    "sqlite_vs_talent": {
+      "in_both": 0,
+      "only_in_sqlite": 7036,
+      "only_in_talent": 0,
+      "total_unique": 7036
+    },
+    "sqlite_vs_talent_intelligence": {
+      "in_both": 7028,
+      "only_in_sqlite": 8,
+      "only_in_talent_intelligence": 0,
+      "total_unique": 7036
+    },
+    "sqlite_vs_talent_intel": {
+      "in_both": 3605,
+      "only_in_sqlite": 3431,
+      "only_in_talent_intel": 0,
+      "total_unique": 7036
+    },
+    "talent_vs_talent_intelligence": {
+      "in_both": 0,
+      "only_in_talent": 0,
+      "only_in_talent_intelligence": 7028,
+      "total_unique": 7028
+    },
+    "talent_vs_talent_intel": {
+      "in_both": 0,
+      "only_in_talent": 0,
+      "only_in_talent_intel": 3605,
+      "total_unique": 3605
+    },
+    "talent_intelligence_vs_talent_intel": {
+      "in_both": 3603,
+      "only_in_talent_intelligence": 3425,
+      "only_in_talent_intel": 2,
+      "total_unique": 7030
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "HIGH",
+      "action": "MIGRATE",
+      "source": "SQLite talent_intelligence.db",
+      "target": "PostgreSQL talent",
+      "records": 11912,
+      "reason": "11,912 LinkedIn profiles exist in SQLite but not in PostgreSQL talent"
+    },
+    {
+      "priority": "INFO",
+      "action": "VERIFY",
+      "description": "PostgreSQL talent has 32,515 additional LinkedIn profiles not in SQLite",
+      "reason": "These might be from GitHub enrichment or other sources"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "EVALUATE",
+      "database": "PostgreSQL talent_intel",
+      "unique_records": 12129,
+      "reason": "Has 12,129 LinkedIn profiles not in talent database",
+      "suggestion": "Review and migrate unique records to talent if valuable"
+    }
+  ]
+}

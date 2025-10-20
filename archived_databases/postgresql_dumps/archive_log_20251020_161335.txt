@@ -1,0 +1,9 @@
+Archive started at Mon Oct 20 16:13:35 -03 2025
+SUCCESS: talent_intelligence -> /Users/charlie.kerr/TI_Complete_Clone/talent-intelligence-complete/archived_databases/postgresql_dumps/talent_intelligence_20251020_161335.sql.gz (9.8M)
+SUCCESS: talent_intel -> /Users/charlie.kerr/TI_Complete_Clone/talent-intelligence-complete/archived_databases/postgresql_dumps/talent_intel_20251020_161335.sql.gz (852K)
+SUCCESS: talent_graph -> /Users/charlie.kerr/TI_Complete_Clone/talent-intelligence-complete/archived_databases/postgresql_dumps/talent_graph_20251020_161335.sql.gz (4.0K)
+SUCCESS: talentgraph -> /Users/charlie.kerr/TI_Complete_Clone/talent-intelligence-complete/archived_databases/postgresql_dumps/talentgraph_20251020_161335.sql.gz (4.0K)
+SUCCESS: talentgraph2 -> /Users/charlie.kerr/TI_Complete_Clone/talent-intelligence-complete/archived_databases/postgresql_dumps/talentgraph2_20251020_161335.sql.gz (640K)
+SUCCESS: talentgraph_development -> /Users/charlie.kerr/TI_Complete_Clone/talent-intelligence-complete/archived_databases/postgresql_dumps/talentgraph_development_20251020_161335.sql.gz (4.0K)
+SUCCESS: tech_recruiting_db -> /Users/charlie.kerr/TI_Complete_Clone/talent-intelligence-complete/archived_databases/postgresql_dumps/tech_recruiting_db_20251020_161335.sql.gz ( 26M)
+SUCCESS: crypto_dev_network -> /Users/charlie.kerr/TI_Complete_Clone/talent-intelligence-complete/archived_databases/postgresql_dumps/crypto_dev_network_20251020_161335.sql.gz ( 49M)

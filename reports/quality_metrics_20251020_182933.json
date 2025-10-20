@@ -1,0 +1,64 @@
+{
+  "generated_at": "2025-10-20T18:29:33.204734",
+  "database": "talent",
+  "totals": {
+    "people": 35262,
+    "companies": 91722,
+    "employment_records": 203076,
+    "emails": 3627,
+    "github_profiles": 17534,
+    "github_repositories": 374,
+    "education_records": 28732
+  },
+  "coverage": {
+    "linkedin": {
+      "count": 35262,
+      "percentage": 100.0
+    },
+    "email": {
+      "count": 3620,
+      "percentage": 10.27
+    },
+    "github": {
+      "count": 202,
+      "percentage": 0.57
+    },
+    "employment": {
+      "count": 30075,
+      "percentage": 85.29
+    },
+    "education": {
+      "count": 28732,
+      "percentage": 81.48
+    },
+    "location": {
+      "count": 22868,
+      "percentage": 64.85
+    },
+    "headline": {
+      "count": 30264,
+      "percentage": 85.83
+    }
+  },
+  "quality_distribution": {
+    "0.0-0.2": 0,
+    "0.2-0.4": 0,
+    "0.4-0.6": 2270,
+    "0.6-0.8": 12852,
+    "0.8-1.0": 20140,
+    "average": 0.877
+  },
+  "freshness": {
+    "last_30_days": 0,
+    "last_90_days": 32513,
+    "last_year": 32513,
+    "over_year_old": 2749
+  },
+  "growth": {
+    "people_added": {
+      "last_30_days": 0,
+      "last_90_days": 0
+    },
+    "avg_employment_records_per_person": 6.75
+  }
+}

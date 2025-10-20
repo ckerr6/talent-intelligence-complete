@@ -1,0 +1,6695 @@
+{
+  "audit_timestamp": "2025-10-20T15:44:32.599801",
+  "sqlite_databases": [
+    {
+      "name": "talent_intelligence.db",
+      "path": "/Users/charlie.kerr/TI_Complete_Clone/talent-intelligence-complete/talent_intelligence.db",
+      "status": "ACTIVE",
+      "size_mb": 22.66,
+      "last_modified": "2025-10-20T15:27:14.652324",
+      "tables": [
+        "people",
+        "social_profiles",
+        "sqlite_sequence",
+        "emails",
+        "employment",
+        "data_sources",
+        "companies",
+        "company_funding_rounds",
+        "company_social_profiles",
+        "github_profiles",
+        "github_contributions",
+        "github_match_reviews",
+        "company_repositories",
+        "github_repo_contributions"
+      ],
+      "table_counts": {
+        "people": 15350,
+        "social_profiles": 18313,
+        "sqlite_sequence": 7,
+        "emails": 7030,
+        "employment": 13855,
+        "data_sources": 0,
+        "companies": 3154,
+        "company_funding_rounds": 0,
+        "company_social_profiles": 886,
+        "github_profiles": 18029,
+        "github_contributions": 43469,
+        "github_match_reviews": 3515,
+        "company_repositories": 374,
+        "github_repo_contributions": 7802
+      },
+      "table_schemas": {
+        "people": [
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "first_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "last_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "full_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "primary_email",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "location",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "status",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "data_quality_score",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "notes",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "social_profiles": [
+          {
+            "name": "profile_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "platform",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "profile_url",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "username",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "sqlite_sequence": [
+          {
+            "name": "name",
+            "type": "",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "seq",
+            "type": "",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "emails": [
+          {
+            "name": "email_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "email",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "email_type",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "is_primary",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "employment": [
+          {
+            "name": "employment_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "company_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "title",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "start_date",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "end_date",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "is_current",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "data_sources": [
+          {
+            "name": "source_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "source_file",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "source_type",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "ingestion_date",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "companies": [
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "name",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "normalized_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "website",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "linkedin_url",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_org",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "twitter_handle",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "industry",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "description",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "employee_count",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "founded_year",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "headquarters_location",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "data_quality_score",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "company_funding_rounds": [
+          {
+            "name": "funding_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "round_type",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "amount_usd",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "currency",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "funding_date",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "investors",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "lead_investors",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "valuation_usd",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "source",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "company_social_profiles": [
+          {
+            "name": "profile_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "platform",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "profile_url",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "username",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "follower_count",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "github_profiles": [
+          {
+            "name": "github_profile_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_username",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_email",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_company",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_location",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "personal_website",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "twitter_username",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "public_repos",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "public_gists",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "followers",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "following",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "num_contributions",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "num_orgs",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "num_starred",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "match_confidence",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "match_method",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "needs_review",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "needs_enrichment",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_bio",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "hireable",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "languages_json",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "top_language",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "profile_url",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "contribution_count",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "last_contribution_date",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "enrichment_status",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "enrichment_attempts",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "last_enrichment_attempt",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "github_contributions": [
+          {
+            "name": "contribution_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "github_profile_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "repo_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "company_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "contribution_count",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "github_match_reviews": [
+          {
+            "name": "review_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "github_profile_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "candidate_person_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "match_confidence",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "match_reason",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "status",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "reviewed_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "action",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "company_repositories": [
+          {
+            "name": "repo_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "repo_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "full_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "description",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "homepage",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "language",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "languages_json",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "stars",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "forks",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "watchers",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "open_issues",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "size_kb",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "pushed_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "is_fork",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "is_archived",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "github_repo_contributions": [
+          {
+            "name": "contribution_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "github_profile_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "repo_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "repo_full_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "contribution_count",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ]
+      },
+      "people_stats": {
+        "total_count": 15350,
+        "with_email": 7034,
+        "with_linkedin": 11912,
+        "avg_quality_score": 0.774
+      },
+      "companies_stats": {
+        "total_count": 3154,
+        "with_website": 2687,
+        "with_github_org": 174
+      },
+      "github_stats": {
+        "total_count": 18029,
+        "linked_to_people": 4203,
+        "with_email": 5482,
+        "with_followers": 15471
+      }
+    },
+    {
+      "name": "talent_intelligence_backup_20251019_115502.db",
+      "path": "/Users/charlie.kerr/TI_Complete_Clone/talent-intelligence-complete/talent_intelligence_backup_20251019_115502.db",
+      "status": "ACTIVE",
+      "size_mb": 21.09,
+      "last_modified": "2025-10-20T15:27:14.671787",
+      "tables": [
+        "people",
+        "social_profiles",
+        "sqlite_sequence",
+        "emails",
+        "employment",
+        "data_sources",
+        "companies",
+        "company_funding_rounds",
+        "company_social_profiles",
+        "github_profiles",
+        "github_contributions",
+        "github_match_reviews",
+        "company_repositories",
+        "github_repo_contributions"
+      ],
+      "table_counts": {
+        "people": 15337,
+        "social_profiles": 18300,
+        "sqlite_sequence": 7,
+        "emails": 7030,
+        "employment": 13845,
+        "data_sources": 0,
+        "companies": 3154,
+        "company_funding_rounds": 0,
+        "company_social_profiles": 886,
+        "github_profiles": 17528,
+        "github_contributions": 43469,
+        "github_match_reviews": 3515,
+        "company_repositories": 374,
+        "github_repo_contributions": 7802
+      },
+      "table_schemas": {
+        "people": [
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "first_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "last_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "full_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "primary_email",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "location",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "status",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "data_quality_score",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "notes",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "social_profiles": [
+          {
+            "name": "profile_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "platform",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "profile_url",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "username",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "sqlite_sequence": [
+          {
+            "name": "name",
+            "type": "",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "seq",
+            "type": "",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "emails": [
+          {
+            "name": "email_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "email",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "email_type",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "is_primary",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "employment": [
+          {
+            "name": "employment_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "company_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "title",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "start_date",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "end_date",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "is_current",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "data_sources": [
+          {
+            "name": "source_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "source_file",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "source_type",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "ingestion_date",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "companies": [
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "name",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "normalized_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "website",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "linkedin_url",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_org",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "twitter_handle",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "industry",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "description",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "employee_count",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "founded_year",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "headquarters_location",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "data_quality_score",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "company_funding_rounds": [
+          {
+            "name": "funding_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "round_type",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "amount_usd",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "currency",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "funding_date",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "investors",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "lead_investors",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "valuation_usd",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "source",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "company_social_profiles": [
+          {
+            "name": "profile_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "platform",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "profile_url",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "username",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "follower_count",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "github_profiles": [
+          {
+            "name": "github_profile_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_username",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_email",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_company",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_location",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "personal_website",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "twitter_username",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "public_repos",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "public_gists",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "followers",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "following",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "num_contributions",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "num_orgs",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "num_starred",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "match_confidence",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "match_method",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "needs_review",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "needs_enrichment",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "github_contributions": [
+          {
+            "name": "contribution_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "github_profile_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "repo_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "company_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "contribution_count",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "github_match_reviews": [
+          {
+            "name": "review_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "github_profile_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "candidate_person_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "match_confidence",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "match_reason",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "status",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "reviewed_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "action",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "company_repositories": [
+          {
+            "name": "repo_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "repo_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "full_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "description",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "homepage",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "language",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "languages_json",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "stars",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "forks",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "watchers",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "open_issues",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "size_kb",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "pushed_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "is_fork",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "is_archived",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "github_repo_contributions": [
+          {
+            "name": "contribution_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "github_profile_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "repo_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "repo_full_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "contribution_count",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ]
+      },
+      "people_stats": {
+        "total_count": 15337,
+        "with_email": 7028,
+        "with_linkedin": 11912,
+        "avg_quality_score": 0.774
+      },
+      "companies_stats": {
+        "total_count": 3154,
+        "with_website": 2687,
+        "with_github_org": 174
+      },
+      "github_stats": {
+        "total_count": 17528,
+        "linked_to_people": 2982,
+        "with_email": 4999,
+        "with_followers": 14985
+      }
+    },
+    {
+      "name": "talent_intelligence.db",
+      "path": "/Users/charlie.kerr/Documents/CK Docs/FINAL_DATABASE/talent_intelligence.db",
+      "status": "ACTIVE",
+      "size_mb": 22.66,
+      "last_modified": "2025-10-19T23:30:08.776002",
+      "tables": [
+        "people",
+        "social_profiles",
+        "sqlite_sequence",
+        "emails",
+        "employment",
+        "data_sources",
+        "companies",
+        "company_funding_rounds",
+        "company_social_profiles",
+        "github_profiles",
+        "github_contributions",
+        "github_match_reviews",
+        "company_repositories",
+        "github_repo_contributions"
+      ],
+      "table_counts": {
+        "people": 15350,
+        "social_profiles": 18313,
+        "sqlite_sequence": 7,
+        "emails": 7030,
+        "employment": 13855,
+        "data_sources": 0,
+        "companies": 3154,
+        "company_funding_rounds": 0,
+        "company_social_profiles": 886,
+        "github_profiles": 18029,
+        "github_contributions": 43469,
+        "github_match_reviews": 3515,
+        "company_repositories": 374,
+        "github_repo_contributions": 7802
+      },
+      "table_schemas": {
+        "people": [
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "first_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "last_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "full_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "primary_email",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "location",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "status",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "data_quality_score",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "notes",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "social_profiles": [
+          {
+            "name": "profile_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "platform",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "profile_url",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "username",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "sqlite_sequence": [
+          {
+            "name": "name",
+            "type": "",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "seq",
+            "type": "",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "emails": [
+          {
+            "name": "email_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "email",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "email_type",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "is_primary",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "employment": [
+          {
+            "name": "employment_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "company_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "title",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "start_date",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "end_date",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "is_current",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "data_sources": [
+          {
+            "name": "source_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "source_file",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "source_type",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "ingestion_date",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "companies": [
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "name",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "normalized_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "website",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "linkedin_url",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_org",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "twitter_handle",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "industry",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "description",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "employee_count",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "founded_year",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "headquarters_location",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "data_quality_score",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "company_funding_rounds": [
+          {
+            "name": "funding_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "round_type",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "amount_usd",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "currency",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "funding_date",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "investors",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "lead_investors",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "valuation_usd",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "source",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "company_social_profiles": [
+          {
+            "name": "profile_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "platform",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "profile_url",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "username",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "follower_count",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "github_profiles": [
+          {
+            "name": "github_profile_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_username",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_email",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_company",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_location",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "personal_website",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "twitter_username",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "public_repos",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "public_gists",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "followers",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "following",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "num_contributions",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "num_orgs",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "num_starred",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "match_confidence",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "match_method",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "needs_review",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "needs_enrichment",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "github_bio",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "hireable",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "languages_json",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "top_language",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "profile_url",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "contribution_count",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "last_contribution_date",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "enrichment_status",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "enrichment_attempts",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "last_enrichment_attempt",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "github_contributions": [
+          {
+            "name": "contribution_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "github_profile_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "repo_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "company_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "contribution_count",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "github_match_reviews": [
+          {
+            "name": "review_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "github_profile_id",
+            "type": "TEXT",
+            "notnull": 1,
+            "pk": 0
+          },
+          {
+            "name": "candidate_person_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "match_confidence",
+            "type": "REAL",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "match_reason",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "status",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "reviewed_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "action",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "company_repositories": [
+          {
+            "name": "repo_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "repo_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "full_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "description",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "homepage",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "language",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "languages_json",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "stars",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "forks",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "watchers",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "open_issues",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "size_kb",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "pushed_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "is_fork",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "is_archived",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          }
+        ],
+        "github_repo_contributions": [
+          {
+            "name": "contribution_id",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 1
+          },
+          {
+            "name": "github_profile_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "person_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "company_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "repo_id",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "repo_full_name",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "contribution_count",
+            "type": "INTEGER",
+            "notnull": 0,
+            "pk": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "notnull": 0,
+            "pk": 0
+          }
+        ]
+      },
+      "people_stats": {
+        "total_count": 15350,
+        "with_email": 7034,
+        "with_linkedin": 11912,
+        "avg_quality_score": 0.774
+      },
+      "companies_stats": {
+        "total_count": 3154,
+        "with_website": 2687,
+        "with_github_org": 174
+      },
+      "github_stats": {
+        "total_count": 18029,
+        "linked_to_people": 4203,
+        "with_email": 5482,
+        "with_followers": 15471
+      }
+    }
+  ],
+  "postgresql_databases": [
+    {
+      "name": "talent",
+      "status": "ACTIVE",
+      "size": "132 MB",
+      "owner": "\"charlie.kerr\"",
+      "last_activity": "2025-10-20T14:44:33.424778-04:00",
+      "tables": [
+        "company",
+        "company_funding_round",
+        "domain_company_map",
+        "edge_coemployment",
+        "education",
+        "employment",
+        "person"
+      ],
+      "table_counts": {
+        "company": 91722,
+        "company_funding_round": 0,
+        "domain_company_map": 0,
+        "edge_coemployment": 0,
+        "education": 28732,
+        "employment": 203076,
+        "person": 32515
+      },
+      "table_schemas": {
+        "company": [
+          {
+            "name": "company_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "company_domain",
+            "type": "text",
+            "nullable": "NO"
+          },
+          {
+            "name": "company_name",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "industry",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "website_url",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "linkedin_url",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "linkedin_slug",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "size_bucket",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "hq",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "founded_year",
+            "type": "integer",
+            "nullable": "YES"
+          }
+        ],
+        "company_funding_round": [
+          {
+            "name": "round_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "company_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "round_type",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "announced_date",
+            "type": "date",
+            "nullable": "YES"
+          },
+          {
+            "name": "amount_usd",
+            "type": "numeric",
+            "nullable": "YES"
+          },
+          {
+            "name": "lead_investors_json",
+            "type": "jsonb",
+            "nullable": "YES"
+          }
+        ],
+        "domain_company_map": [
+          {
+            "name": "domain",
+            "type": "text",
+            "nullable": "NO"
+          },
+          {
+            "name": "company_id",
+            "type": "uuid",
+            "nullable": "YES"
+          }
+        ],
+        "edge_coemployment": [
+          {
+            "name": "src_person_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "dst_person_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "company_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "overlap_months",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "first_overlap_start",
+            "type": "date",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_overlap_end",
+            "type": "date",
+            "nullable": "YES"
+          }
+        ],
+        "education": [
+          {
+            "name": "education_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "person_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "school_name",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "degree",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "field_of_study",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "start_date",
+            "type": "date",
+            "nullable": "YES"
+          },
+          {
+            "name": "end_date",
+            "type": "date",
+            "nullable": "YES"
+          },
+          {
+            "name": "date_precision",
+            "type": "text",
+            "nullable": "YES"
+          }
+        ],
+        "employment": [
+          {
+            "name": "employment_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "person_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "company_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "department",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "primary_skill",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "start_date",
+            "type": "date",
+            "nullable": "YES"
+          },
+          {
+            "name": "end_date",
+            "type": "date",
+            "nullable": "YES"
+          },
+          {
+            "name": "date_precision",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "location",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "is_priority_company",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "source_text_ref",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "source_confidence",
+            "type": "numeric",
+            "nullable": "YES"
+          }
+        ],
+        "person": [
+          {
+            "name": "person_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "full_name",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "first_name",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_name",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "linkedin_url",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "linkedin_slug",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "location",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "headline",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "followers_count",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "is_hiring_bool",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "open_to_work_bool",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "refreshed_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "profile_img_url",
+            "type": "text",
+            "nullable": "YES"
+          }
+        ]
+      },
+      "people_stats": {
+        "total_count": 32515,
+        "with_linkedin": 32515,
+        "last_updated": "2025-09-10T08:44:09.015000-04:00"
+      },
+      "companies_stats": {
+        "total_count": 91722,
+        "error": "column \"website\" does not exist\nLINE 1: SELECT COUNT(*) FROM company WHERE website IS NOT NULL AND w...\n                                           ^\n"
+      },
+      "employment_stats": {
+        "total_records": 203076,
+        "unique_people": 30075,
+        "avg_records_per_person": 6.75
+      },
+      "github_stats": null
+    },
+    {
+      "name": "talent_intelligence",
+      "status": "ACTIVE",
+      "size": "2893 MB",
+      "owner": "postgres",
+      "last_activity": "2025-10-20T14:44:33.843402-04:00",
+      "tables": [
+        "companies",
+        "company_repositories",
+        "company_social_profiles",
+        "data_sources",
+        "education_history",
+        "emails",
+        "employment_history",
+        "funding_rounds",
+        "github_contributions",
+        "github_match_reviews",
+        "github_profiles",
+        "github_repo_contributions",
+        "investments",
+        "investors",
+        "people",
+        "relationships",
+        "schema_version",
+        "social_profiles",
+        "twitter_activity",
+        "vw_company_employees",
+        "vw_complete_profiles",
+        "vw_relationship_network"
+      ],
+      "table_counts": {
+        "companies": 35080,
+        "company_repositories": 0,
+        "company_social_profiles": 0,
+        "data_sources": 0,
+        "education_history": 0,
+        "emails": 7030,
+        "employment_history": 59014,
+        "funding_rounds": 0,
+        "github_contributions": 0,
+        "github_match_reviews": 0,
+        "github_profiles": 17528,
+        "github_repo_contributions": 0,
+        "investments": 0,
+        "investors": 0,
+        "people": 15337,
+        "relationships": 0,
+        "schema_version": 1,
+        "social_profiles": 18300,
+        "twitter_activity": 0,
+        "vw_company_employees": 35080,
+        "vw_complete_profiles": 15337,
+        "vw_relationship_network": 0
+      },
+      "table_schemas": {
+        "companies": [
+          {
+            "name": "company_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "name",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "normalized_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "website",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "linkedin_url",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "github_org",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "twitter_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "industry",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "employee_count",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "founded_year",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "headquarters_location",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "is_crypto_native",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "data_quality_score",
+            "type": "numeric",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "updated_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_enriched_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "search_vector",
+            "type": "tsvector",
+            "nullable": "YES"
+          }
+        ],
+        "company_repositories": [
+          {
+            "name": "repo_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "company_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "repo_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "full_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "homepage",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "language",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "languages_json",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "stars",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "forks",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "watchers",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "open_issues",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "size_kb",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "updated_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "pushed_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "is_fork",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "is_archived",
+            "type": "boolean",
+            "nullable": "YES"
+          }
+        ],
+        "company_social_profiles": [
+          {
+            "name": "profile_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "company_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "platform",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "profile_url",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "username",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "follower_count",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          }
+        ],
+        "data_sources": [
+          {
+            "name": "source_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "person_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "source_file",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "source_type",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "ingestion_date",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          }
+        ],
+        "education_history": [
+          {
+            "name": "education_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "person_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "institution",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "degree",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "field_of_study",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "start_year",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "end_year",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "activities",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "source",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          }
+        ],
+        "emails": [
+          {
+            "name": "email_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "person_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "email",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "email_type",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "is_primary",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "is_verified",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "source",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          }
+        ],
+        "employment_history": [
+          {
+            "name": "employment_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "person_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "company_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "company_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "title",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "start_date",
+            "type": "date",
+            "nullable": "YES"
+          },
+          {
+            "name": "end_date",
+            "type": "date",
+            "nullable": "YES"
+          },
+          {
+            "name": "is_current",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "location",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "source",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "confidence_score",
+            "type": "numeric",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          }
+        ],
+        "funding_rounds": [
+          {
+            "name": "funding_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "company_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "round_type",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "amount_usd",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "announced_date",
+            "type": "date",
+            "nullable": "YES"
+          },
+          {
+            "name": "lead_investors",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "all_investors",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "valuation_usd",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "source",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          }
+        ],
+        "github_contributions": [
+          {
+            "name": "contribution_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "github_profile_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "person_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "repo_owner",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "repo_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "company_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "contribution_type",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "contribution_count",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "first_contribution_date",
+            "type": "date",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_contribution_date",
+            "type": "date",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          }
+        ],
+        "github_match_reviews": [
+          {
+            "name": "review_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "github_profile_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "candidate_person_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "match_confidence",
+            "type": "numeric",
+            "nullable": "YES"
+          },
+          {
+            "name": "match_reason",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "status",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "reviewed_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "action",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          }
+        ],
+        "github_profiles": [
+          {
+            "name": "github_profile_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "person_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "github_username",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "github_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "github_email",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "github_company",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "github_location",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "personal_website",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "twitter_username",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "bio",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "public_repos",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "followers",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "following",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "num_contributions",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "match_confidence",
+            "type": "numeric",
+            "nullable": "YES"
+          },
+          {
+            "name": "match_method",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "needs_review",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "needs_enrichment",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_enriched_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "updated_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          }
+        ],
+        "github_repo_contributions": [
+          {
+            "name": "contribution_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "github_profile_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "person_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "company_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "repo_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "repo_full_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "contribution_count",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          }
+        ],
+        "investments": [
+          {
+            "name": "investment_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "investor_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "funding_round_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "is_lead",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          }
+        ],
+        "investors": [
+          {
+            "name": "investor_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "name",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "type",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "website",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "linkedin_url",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "twitter_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          }
+        ],
+        "people": [
+          {
+            "name": "person_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "first_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "full_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "primary_email",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "location",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "status",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "data_quality_score",
+            "type": "numeric",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "updated_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_enriched_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "notes",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "search_vector",
+            "type": "tsvector",
+            "nullable": "YES"
+          }
+        ],
+        "relationships": [
+          {
+            "name": "relationship_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "person_a_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "person_b_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "relationship_type",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "confidence_score",
+            "type": "numeric",
+            "nullable": "YES"
+          },
+          {
+            "name": "relationship_data",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "discovered_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_validated_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          }
+        ],
+        "schema_version": [
+          {
+            "name": "version",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "applied_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          }
+        ],
+        "social_profiles": [
+          {
+            "name": "profile_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "person_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "platform",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "profile_url",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "username",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "follower_count",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "following_count",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_activity_date",
+            "type": "date",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          }
+        ],
+        "twitter_activity": [
+          {
+            "name": "activity_id",
+            "type": "uuid",
+            "nullable": "NO"
+          },
+          {
+            "name": "person_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "tweet_id",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "tweet_text",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "tweet_date",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "retweet_count",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "like_count",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "reply_count",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "mentioned_users",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "hashtags",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          }
+        ],
+        "vw_company_employees": [
+          {
+            "name": "company_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "company_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "website",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "linkedin_url",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "github_org",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "current_employee_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "past_employee_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "total_employee_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "avg_tenure_years",
+            "type": "numeric",
+            "nullable": "YES"
+          },
+          {
+            "name": "top_titles",
+            "type": "json",
+            "nullable": "YES"
+          }
+        ],
+        "vw_complete_profiles": [
+          {
+            "name": "person_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "first_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "full_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "primary_email",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "location",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "status",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "data_quality_score",
+            "type": "numeric",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "updated_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_enriched_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "notes",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "current_employment",
+            "type": "json",
+            "nullable": "YES"
+          },
+          {
+            "name": "social_profiles",
+            "type": "json",
+            "nullable": "YES"
+          },
+          {
+            "name": "relationship_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "employment_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "github_profile",
+            "type": "json",
+            "nullable": "YES"
+          }
+        ],
+        "vw_relationship_network": [
+          {
+            "name": "relationship_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "person_a_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "person_b_id",
+            "type": "uuid",
+            "nullable": "YES"
+          },
+          {
+            "name": "relationship_type",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "confidence_score",
+            "type": "numeric",
+            "nullable": "YES"
+          },
+          {
+            "name": "relationship_data",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "person_a_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "person_a_email",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "person_a_company",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "person_b_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "person_b_email",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "person_b_company",
+            "type": "character varying",
+            "nullable": "YES"
+          }
+        ]
+      },
+      "people_stats": {
+        "total_count": 15337,
+        "with_email": 7028,
+        "avg_quality_score": 0.774,
+        "last_updated": "2025-10-19T11:00:25.438413-04:00"
+      },
+      "companies_stats": {
+        "total_count": 35080,
+        "with_website": 2674,
+        "with_github_org": 174
+      },
+      "employment_stats": null,
+      "github_stats": {
+        "total_count": 17528,
+        "linked_to_people": 2982,
+        "with_email": 4999,
+        "with_followers": 14985
+      }
+    },
+    {
+      "name": "talent_intel",
+      "status": "ACTIVE",
+      "size": "18 MB",
+      "owner": "postgres",
+      "last_activity": "2025-10-20T14:44:33.901605-04:00",
+      "tables": [
+        "companies",
+        "education_history",
+        "interactions",
+        "people",
+        "person_skills",
+        "skills",
+        "vw_candidates_by_company",
+        "vw_complete_profiles",
+        "vw_data_quality",
+        "vw_high_priority_candidates",
+        "vw_recent_candidates",
+        "work_history"
+      ],
+      "table_counts": {
+        "companies": 0,
+        "education_history": 0,
+        "interactions": 0,
+        "people": 12129,
+        "person_skills": 0,
+        "skills": 0,
+        "vw_candidates_by_company": 4939,
+        "vw_complete_profiles": 12129,
+        "vw_data_quality": 1,
+        "vw_high_priority_candidates": 0,
+        "vw_recent_candidates": 12129,
+        "work_history": 0
+      },
+      "table_schemas": {
+        "companies": [
+          {
+            "name": "company_id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "company_name",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "website",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "industry",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "company_size",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "location",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "linkedin_url",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "updated_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          }
+        ],
+        "education_history": [
+          {
+            "name": "education_id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "person_id",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "institution",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "degree",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "field_of_study",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "start_year",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "end_year",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "gpa",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "activities",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          }
+        ],
+        "interactions": [
+          {
+            "name": "interaction_id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "person_id",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "interaction_type",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "subject",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "notes",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "outcome",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "interaction_date",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_by",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          }
+        ],
+        "people": [
+          {
+            "name": "person_id",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "first_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "full_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "current_title",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "current_company_id",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "current_company",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "location",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "primary_email",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "phone",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "linkedin_url",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "github_url",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "twitter_url",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "website",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "status",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "sourcer",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "priority",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "notes",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "source_priority",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "source_file",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "tags",
+            "type": "ARRAY",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "updated_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "ingestion_date",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_contacted_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          }
+        ],
+        "person_skills": [
+          {
+            "name": "person_id",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "skill_id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "proficiency_level",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "years_experience",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "endorsement_count",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          }
+        ],
+        "skills": [
+          {
+            "name": "skill_id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "skill_name",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "skill_category",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          }
+        ],
+        "vw_candidates_by_company": [
+          {
+            "name": "current_company",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "candidate_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "with_email",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "with_linkedin",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "leads",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "contacted",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "interviewing",
+            "type": "bigint",
+            "nullable": "YES"
+          }
+        ],
+        "vw_complete_profiles": [
+          {
+            "name": "person_id",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "first_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "full_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "current_title",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "current_company",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "company_industry",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "company_size",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "location",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "primary_email",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "phone",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "linkedin_url",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "github_url",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "twitter_url",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "status",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "priority",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "sourcer",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_contacted_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "work_history_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "education_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "skills_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "interaction_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_interaction_date",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          }
+        ],
+        "vw_data_quality": [
+          {
+            "name": "total_records",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "has_first_name",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "has_last_name",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "has_email",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "has_linkedin",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "has_github",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "has_twitter",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "has_company",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "has_title",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "email_pct",
+            "type": "numeric",
+            "nullable": "YES"
+          },
+          {
+            "name": "linkedin_pct",
+            "type": "numeric",
+            "nullable": "YES"
+          },
+          {
+            "name": "full_name_pct",
+            "type": "numeric",
+            "nullable": "YES"
+          }
+        ],
+        "vw_high_priority_candidates": [
+          {
+            "name": "person_id",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "first_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "full_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "current_title",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "current_company",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "company_industry",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "company_size",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "location",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "primary_email",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "phone",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "linkedin_url",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "github_url",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "twitter_url",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "status",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "priority",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "sourcer",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_contacted_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "work_history_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "education_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "skills_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "interaction_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_interaction_date",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          }
+        ],
+        "vw_recent_candidates": [
+          {
+            "name": "person_id",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "first_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "full_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "current_title",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "current_company",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "company_industry",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "company_size",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "location",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "primary_email",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "phone",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "linkedin_url",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "github_url",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "twitter_url",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "status",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "priority",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "sourcer",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_contacted_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "work_history_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "education_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "skills_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "interaction_count",
+            "type": "bigint",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_interaction_date",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          }
+        ],
+        "work_history": [
+          {
+            "name": "work_id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "person_id",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "company_name",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "company_id",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "title",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "start_date",
+            "type": "date",
+            "nullable": "YES"
+          },
+          {
+            "name": "end_date",
+            "type": "date",
+            "nullable": "YES"
+          },
+          {
+            "name": "is_current",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "location",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          }
+        ]
+      },
+      "people_stats": {
+        "total_count": 12129,
+        "with_email": 3605,
+        "with_linkedin": 12129,
+        "last_updated": "2025-10-17T13:31:29.063078"
+      },
+      "companies_stats": {
+        "total_count": 0,
+        "with_website": 0
+      },
+      "employment_stats": null,
+      "github_stats": null
+    },
+    {
+      "name": "talent_graph",
+      "status": "ACTIVE",
+      "size": "9153 kB",
+      "owner": "\"charlie.kerr\"",
+      "last_activity": "2025-10-20T14:44:33.932792-04:00",
+      "tables": [
+        "companies",
+        "datasources",
+        "people",
+        "people_crypto_interests",
+        "people_farcaster",
+        "relationships",
+        "vcs"
+      ],
+      "table_counts": {
+        "companies": 0,
+        "datasources": 0,
+        "people": 0,
+        "people_crypto_interests": 0,
+        "people_farcaster": 0,
+        "relationships": 0,
+        "vcs": 0
+      },
+      "table_schemas": {
+        "companies": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "name",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "website",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "industry",
+            "type": "ARRAY",
+            "nullable": "YES"
+          },
+          {
+            "name": "size_range",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "funding_stage",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "total_funding",
+            "type": "numeric",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "updated_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          }
+        ],
+        "datasources": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "name",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "type",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "raw_data",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_sync_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "sync_status",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "error_log",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "updated_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          }
+        ],
+        "people": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "canonical_id",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "full_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "role",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "twitter_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "github_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "linkedin_url",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "ethereum_wallet",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "external_data",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "repos",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "github_stats",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "crypto_activity",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "recruiter_notes",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "ai_insights",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "updated_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          }
+        ],
+        "people_crypto_interests": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "full_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "crypto_interests",
+            "type": "jsonb",
+            "nullable": "YES"
+          }
+        ],
+        "people_farcaster": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "full_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "twitter_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "github_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "farcaster_username",
+            "type": "text",
+            "nullable": "YES"
+          }
+        ],
+        "relationships": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "source_id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "target_id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "type",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "metadata",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "strength",
+            "type": "double precision",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_interaction",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "updated_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          }
+        ],
+        "vcs": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "name",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "website",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "focus_areas",
+            "type": "ARRAY",
+            "nullable": "YES"
+          },
+          {
+            "name": "investment_stages",
+            "type": "ARRAY",
+            "nullable": "YES"
+          },
+          {
+            "name": "typical_check_size",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "total_aum",
+            "type": "numeric",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "updated_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          }
+        ]
+      },
+      "people_stats": {
+        "total_count": 0,
+        "with_linkedin": 0,
+        "last_updated": null
+      },
+      "companies_stats": {
+        "total_count": 0,
+        "with_website": 0
+      },
+      "employment_stats": null,
+      "github_stats": null
+    },
+    {
+      "name": "talentgraph",
+      "status": "ACTIVE",
+      "size": "9433 kB",
+      "owner": "\"charlie.kerr\"",
+      "last_activity": "2025-10-20T14:44:33.948221-04:00",
+      "tables": [
+        "Companies",
+        "DataSources",
+        "People",
+        "Relationships",
+        "SequelizeMeta",
+        "VCs"
+      ],
+      "table_counts": {
+        "Companies": "ERROR: relation \"companies\" does not exist\nLINE 1: SELECT COUNT(*) FROM Companies\n                             ^\n",
+        "DataSources": "ERROR: relation \"datasources\" does not exist\nLINE 1: SELECT COUNT(*) FROM DataSources\n                             ^\n",
+        "People": "ERROR: relation \"people\" does not exist\nLINE 1: SELECT COUNT(*) FROM People\n                             ^\n",
+        "Relationships": "ERROR: relation \"relationships\" does not exist\nLINE 1: SELECT COUNT(*) FROM Relationships\n                             ^\n",
+        "SequelizeMeta": "ERROR: relation \"sequelizemeta\" does not exist\nLINE 1: SELECT COUNT(*) FROM SequelizeMeta\n                             ^\n",
+        "VCs": "ERROR: relation \"vcs\" does not exist\nLINE 1: SELECT COUNT(*) FROM VCs\n                             ^\n"
+      },
+      "table_schemas": {
+        "Companies": [],
+        "DataSources": [],
+        "People": [],
+        "Relationships": [],
+        "SequelizeMeta": [],
+        "VCs": []
+      },
+      "people_stats": null,
+      "companies_stats": null,
+      "employment_stats": null,
+      "github_stats": null
+    },
+    {
+      "name": "talentgraph2",
+      "status": "ACTIVE",
+      "size": "16 MB",
+      "owner": "postgres",
+      "last_activity": "2025-10-20T14:44:33.986210-04:00",
+      "tables": [
+        "SequelizeMeta",
+        "contributor",
+        "contributors",
+        "relationship",
+        "relationships",
+        "staging"
+      ],
+      "table_counts": {
+        "SequelizeMeta": "ERROR: relation \"sequelizemeta\" does not exist\nLINE 1: SELECT COUNT(*) FROM SequelizeMeta\n                             ^\n",
+        "contributor": 21162,
+        "contributors": 0,
+        "relationship": 0,
+        "relationships": 0,
+        "staging": 0
+      },
+      "table_schemas": {
+        "SequelizeMeta": [],
+        "contributor": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "github_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "twitter_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "email",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "full_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "website",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "location",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "bio",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "repos",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "contributions",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "social_metrics",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "crypto_focus",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "tags",
+            "type": "ARRAY",
+            "nullable": "YES"
+          },
+          {
+            "name": "high_signal",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_updated",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "source",
+            "type": "character varying",
+            "nullable": "YES"
+          }
+        ],
+        "contributors": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "github_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "twitter_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "email",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "full_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "website",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "location",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "bio",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "repos",
+            "type": "json",
+            "nullable": "YES"
+          },
+          {
+            "name": "contributions",
+            "type": "json",
+            "nullable": "YES"
+          },
+          {
+            "name": "social_metrics",
+            "type": "json",
+            "nullable": "YES"
+          },
+          {
+            "name": "crypto_focus",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "tags",
+            "type": "ARRAY",
+            "nullable": "YES"
+          },
+          {
+            "name": "high_signal",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_updated",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "source",
+            "type": "character varying",
+            "nullable": "YES"
+          }
+        ],
+        "relationship": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "source_id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "target_id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "type",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "context",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "feedback",
+            "type": "jsonb",
+            "nullable": "YES"
+          }
+        ],
+        "relationships": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "source_id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "target_id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "type",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "context",
+            "type": "json",
+            "nullable": "YES"
+          },
+          {
+            "name": "feedback",
+            "type": "json",
+            "nullable": "YES"
+          }
+        ],
+        "staging": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "raw_data",
+            "type": "jsonb",
+            "nullable": "NO"
+          },
+          {
+            "name": "source_csv",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "imported_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          }
+        ]
+      },
+      "people_stats": null,
+      "companies_stats": null,
+      "employment_stats": null,
+      "github_stats": null
+    },
+    {
+      "name": "talentgraph_development",
+      "status": "ACTIVE",
+      "size": "8993 kB",
+      "owner": "\"charlie.kerr\"",
+      "last_activity": "2025-10-20T14:44:33.997803-04:00",
+      "tables": [
+        "Companies",
+        "DataSources",
+        "People",
+        "Relationships",
+        "SequelizeMeta",
+        "VCS",
+        "VCs"
+      ],
+      "table_counts": {
+        "Companies": "ERROR: relation \"companies\" does not exist\nLINE 1: SELECT COUNT(*) FROM Companies\n                             ^\n",
+        "DataSources": "ERROR: relation \"datasources\" does not exist\nLINE 1: SELECT COUNT(*) FROM DataSources\n                             ^\n",
+        "People": "ERROR: relation \"people\" does not exist\nLINE 1: SELECT COUNT(*) FROM People\n                             ^\n",
+        "Relationships": "ERROR: relation \"relationships\" does not exist\nLINE 1: SELECT COUNT(*) FROM Relationships\n                             ^\n",
+        "SequelizeMeta": "ERROR: relation \"sequelizemeta\" does not exist\nLINE 1: SELECT COUNT(*) FROM SequelizeMeta\n                             ^\n",
+        "VCS": "ERROR: relation \"vcs\" does not exist\nLINE 1: SELECT COUNT(*) FROM VCS\n                             ^\n",
+        "VCs": "ERROR: relation \"vcs\" does not exist\nLINE 1: SELECT COUNT(*) FROM VCs\n                             ^\n"
+      },
+      "table_schemas": {
+        "Companies": [],
+        "DataSources": [],
+        "People": [],
+        "Relationships": [],
+        "SequelizeMeta": [],
+        "VCS": [],
+        "VCs": []
+      },
+      "people_stats": null,
+      "companies_stats": null,
+      "employment_stats": null,
+      "github_stats": null
+    },
+    {
+      "name": "tech_recruiting_db",
+      "status": "ACTIVE",
+      "size": "31 GB",
+      "owner": "postgres",
+      "last_activity": "2025-10-20T14:44:34.038077-04:00",
+      "tables": [
+        "Contributors",
+        "HighSignalAccounts",
+        "Relationships",
+        "Stagings",
+        "contributors",
+        "high_signal_accounts",
+        "relationships",
+        "staging"
+      ],
+      "table_counts": {
+        "Contributors": 21162,
+        "HighSignalAccounts": "ERROR: relation \"highsignalaccounts\" does not exist\nLINE 1: SELECT COUNT(*) FROM HighSignalAccounts\n                             ^\n",
+        "Relationships": 0,
+        "Stagings": "ERROR: relation \"stagings\" does not exist\nLINE 1: SELECT COUNT(*) FROM Stagings\n                             ^\n",
+        "contributors": 21162,
+        "high_signal_accounts": 0,
+        "relationships": 0,
+        "staging": 163264
+      },
+      "table_schemas": {
+        "Contributors": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "github_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "twitter_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "email",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "full_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "website",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "location",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "bio",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "repos",
+            "type": "jsonb",
+            "nullable": "NO"
+          },
+          {
+            "name": "contributions",
+            "type": "jsonb",
+            "nullable": "NO"
+          },
+          {
+            "name": "social_metrics",
+            "type": "jsonb",
+            "nullable": "NO"
+          },
+          {
+            "name": "crypto_focus",
+            "type": "boolean",
+            "nullable": "NO"
+          },
+          {
+            "name": "tags",
+            "type": "ARRAY",
+            "nullable": "NO"
+          },
+          {
+            "name": "high_signal",
+            "type": "boolean",
+            "nullable": "NO"
+          },
+          {
+            "name": "last_updated",
+            "type": "timestamp with time zone",
+            "nullable": "NO"
+          },
+          {
+            "name": "source_csv",
+            "type": "character varying",
+            "nullable": "NO"
+          },
+          {
+            "name": "createdAt",
+            "type": "timestamp with time zone",
+            "nullable": "NO"
+          },
+          {
+            "name": "updatedAt",
+            "type": "timestamp with time zone",
+            "nullable": "NO"
+          }
+        ],
+        "HighSignalAccounts": [],
+        "Relationships": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "source_id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "target_id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "type",
+            "type": "USER-DEFINED",
+            "nullable": "NO"
+          },
+          {
+            "name": "context",
+            "type": "jsonb",
+            "nullable": "NO"
+          },
+          {
+            "name": "feedback",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "createdAt",
+            "type": "timestamp with time zone",
+            "nullable": "NO"
+          },
+          {
+            "name": "updatedAt",
+            "type": "timestamp with time zone",
+            "nullable": "NO"
+          }
+        ],
+        "Stagings": [],
+        "contributors": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "github_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "twitter_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "email",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "repos",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "contributions",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "crypto_focus",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "tags",
+            "type": "ARRAY",
+            "nullable": "YES"
+          },
+          {
+            "name": "high_signal",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_updated",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "source_csv",
+            "type": "USER-DEFINED",
+            "nullable": "NO"
+          },
+          {
+            "name": "staging_id",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "website",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "location",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "bio",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "full_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "user_details",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "twitter_url",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "profile_image",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "background_image",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "created_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "followers_count",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "friends_count",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "tweets_count",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "high_signal_source",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "user_id",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "contributions_ranking",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "commits_count",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "additions_count",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "deletions_count",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "createdAt",
+            "type": "timestamp with time zone",
+            "nullable": "NO"
+          },
+          {
+            "name": "updatedAt",
+            "type": "timestamp with time zone",
+            "nullable": "NO"
+          }
+        ],
+        "high_signal_accounts": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "twitter_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "github_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "is_high_signal",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "createdAt",
+            "type": "timestamp with time zone",
+            "nullable": "NO"
+          },
+          {
+            "name": "updatedAt",
+            "type": "timestamp with time zone",
+            "nullable": "NO"
+          }
+        ],
+        "relationships": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "source_id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "target_id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "type",
+            "type": "USER-DEFINED",
+            "nullable": "NO"
+          },
+          {
+            "name": "context",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "feedback",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "createdAt",
+            "type": "timestamp with time zone",
+            "nullable": "NO"
+          },
+          {
+            "name": "updatedAt",
+            "type": "timestamp with time zone",
+            "nullable": "NO"
+          }
+        ],
+        "staging": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "raw_data",
+            "type": "jsonb",
+            "nullable": "NO"
+          },
+          {
+            "name": "source_csv",
+            "type": "USER-DEFINED",
+            "nullable": "NO"
+          },
+          {
+            "name": "imported_at",
+            "type": "timestamp with time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "createdAt",
+            "type": "timestamp with time zone",
+            "nullable": "NO"
+          },
+          {
+            "name": "updatedAt",
+            "type": "timestamp with time zone",
+            "nullable": "NO"
+          }
+        ]
+      },
+      "people_stats": null,
+      "companies_stats": null,
+      "employment_stats": null,
+      "github_stats": null
+    },
+    {
+      "name": "crypto_dev_network",
+      "status": "ACTIVE",
+      "size": "225 MB",
+      "owner": "postgres",
+      "last_activity": "2025-10-20T14:44:34.070124-04:00",
+      "tables": [
+        "contributors",
+        "highsignalaccounts",
+        "relationships",
+        "staging"
+      ],
+      "table_counts": {
+        "contributors": 0,
+        "highsignalaccounts": 0,
+        "relationships": 0,
+        "staging": 326528
+      },
+      "table_schemas": {
+        "contributors": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "github_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "twitter_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "email",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "full_name",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "website",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "location",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "bio",
+            "type": "text",
+            "nullable": "YES"
+          },
+          {
+            "name": "repos",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "contributions",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "social_metrics",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "crypto_focus",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "tags",
+            "type": "ARRAY",
+            "nullable": "YES"
+          },
+          {
+            "name": "high_signal",
+            "type": "boolean",
+            "nullable": "YES"
+          },
+          {
+            "name": "last_updated",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          },
+          {
+            "name": "source_csv",
+            "type": "character varying",
+            "nullable": "YES"
+          }
+        ],
+        "highsignalaccounts": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "twitter_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "github_handle",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "is_high_signal",
+            "type": "boolean",
+            "nullable": "YES"
+          }
+        ],
+        "relationships": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "source_id",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "target_id",
+            "type": "integer",
+            "nullable": "YES"
+          },
+          {
+            "name": "type",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "context",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "feedback",
+            "type": "jsonb",
+            "nullable": "YES"
+          }
+        ],
+        "staging": [
+          {
+            "name": "id",
+            "type": "integer",
+            "nullable": "NO"
+          },
+          {
+            "name": "raw_data",
+            "type": "jsonb",
+            "nullable": "YES"
+          },
+          {
+            "name": "source_csv",
+            "type": "character varying",
+            "nullable": "YES"
+          },
+          {
+            "name": "imported_at",
+            "type": "timestamp without time zone",
+            "nullable": "YES"
+          }
+        ]
+      },
+      "people_stats": null,
+      "companies_stats": null,
+      "employment_stats": null,
+      "github_stats": null
+    }
+  ],
+  "summary": {
+    "total_databases": 12,
+    "active_databases": 12,
+    "error_databases": 0,
+    "not_found_databases": 0,
+    "total_people_all_dbs": 106018,
+    "total_companies_all_dbs": 136264,
+    "databases_with_people": [
+      {
+        "name": "talent_intelligence.db",
+        "type": "SQLite",
+        "count": 15350
+      },
+      {
+        "name": "talent_intelligence_backup_20251019_115502.db",
+        "type": "SQLite",
+        "count": 15337
+      },
+      {
+        "name": "talent_intelligence.db",
+        "type": "SQLite",
+        "count": 15350
+      },
+      {
+        "name": "talent",
+        "type": "PostgreSQL",
+        "count": 32515
+      },
+      {
+        "name": "talent_intelligence",
+        "type": "PostgreSQL",
+        "count": 15337
+      },
+      {
+        "name": "talent_intel",
+        "type": "PostgreSQL",
+        "count": 12129
+      }
+    ],
+    "databases_with_companies": [
+      {
+        "name": "talent_intelligence.db",
+        "type": "SQLite",
+        "count": 3154
+      },
+      {
+        "name": "talent_intelligence_backup_20251019_115502.db",
+        "type": "SQLite",
+        "count": 3154
+      },
+      {
+        "name": "talent_intelligence.db",
+        "type": "SQLite",
+        "count": 3154
+      },
+      {
+        "name": "talent",
+        "type": "PostgreSQL",
+        "count": 91722
+      },
+      {
+        "name": "talent_intelligence",
+        "type": "PostgreSQL",
+        "count": 35080
+      }
+    ],
+    "databases_with_github": [
+      {
+        "name": "talent_intelligence.db",
+        "type": "SQLite",
+        "count": 18029
+      },
+      {
+        "name": "talent_intelligence_backup_20251019_115502.db",
+        "type": "SQLite",
+        "count": 17528
+      },
+      {
+        "name": "talent_intelligence.db",
+        "type": "SQLite",
+        "count": 18029
+      },
+      {
+        "name": "talent_intelligence",
+        "type": "PostgreSQL",
+        "count": 17528
+      }
+    ]
+  }
+}
