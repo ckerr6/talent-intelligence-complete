@@ -193,7 +193,8 @@ def log_migration_event(conn, migration_name: str, phase: str, status: str,
             datetime.now(),
             json.dumps(metadata) if metadata else None
         ))
-        log_id = cursor.fetchone()[0]
+        result = cursor.fetchone()
+        log_id = result['log_id'] if isinstance(result, dict) else result[0]
         conn.commit()
         return log_id
     else:
