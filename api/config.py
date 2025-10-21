@@ -22,8 +22,10 @@ class APISettings(BaseSettings):
     CORS_ORIGINS: List[str] = [
         "http://localhost:3000",
         "http://localhost:8000",
+        "http://localhost:8080",
         "http://127.0.0.1:3000",
-        "http://127.0.0.1:8000"
+        "http://127.0.0.1:8000",
+        "http://127.0.0.1:8080"
     ]
     CORS_CREDENTIALS: bool = True
     CORS_METHODS: List[str] = ["*"]
@@ -42,9 +44,11 @@ class APISettings(BaseSettings):
     AUTH_ENABLED: bool = False
     API_KEY_HEADER: str = "X-API-Key"
     
-    class Config:
-        env_prefix = "API_"
-        env_file = ".env"
+    model_config = {
+        "env_prefix": "API_",
+        "env_file": ".env",
+        "extra": "ignore"  # Allow extra env vars without validation errors
+    }
 
 
 # Global settings instance

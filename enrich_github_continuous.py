@@ -30,6 +30,10 @@ from datetime import datetime
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent))
 
+# IMPORTANT: Load .env file BEFORE any other imports
+from config import load_env_file
+load_env_file()
+
 from github_automation.github_client import GitHubClient
 from github_automation.enrichment_engine import EnrichmentEngine
 from github_automation.queue_manager import QueueManager

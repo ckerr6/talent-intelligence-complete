@@ -159,3 +159,63 @@ def get_company_employees(
         }
     }
 
+
+@router.get("/{company_id}/timeline")
+def get_company_hiring_timeline(company_id: str, db=Depends(get_db)):
+    """Get hiring timeline for a company (employees by start date)"""
+    try:
+        validate_uuid(company_id)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    
+    # Check if company exists
+    company = company_crud.get_company(db, company_id)
+    if not company:
+        raise HTTPException(status_code=404, detail="Company not found")
+    
+    timeline = company_crud.get_company_hiring_timeline(db, company_id)
+    
+    return {
+        'success': True,
+        'company_id': company_id,
+        'company_name': company['company_name'],
+        'timeline': timeline
+    }
+
+
+@router.get("/{company_id}/github/contributors")
+def get_company_github_contributors(
+    company_id: str,
+    pagination: PaginationParams = Depends(get_pagination_params),
+    db=Depends(get_db)
+):
+    """Get external GitHub contributors (not employees) for company repositories"""
+    try:
+        validate_uuid(company_id)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    
+    # Check if company exists
+    company = company_crud.get_company(db, company_id)
+    if not company:
+        raise HTTPException(status_code=404, detail="Company not found")
+    
+    contributors, total = company_crud.get_github_contributors(
+        db,
+        company_id,
+        limit=pagination.limit,
+        offset=pagination.offset
+    )
+    
+    return {
+        'success': True,
+        'company_id': company_id,
+        'company_name': company['company_name'],
+        'data': contributors,
+        'pagination': {
+            'offset': pagination.offset,
+            'limit': pagination.limit,
+            'total': total
+        }
+    }
+

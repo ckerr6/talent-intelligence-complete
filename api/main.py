@@ -11,7 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from api.config import settings
-from api.routers import people, companies, stats
+from api.routers import people, companies, stats, graph, query
 from api.models.common import HealthResponse
 from config import Config
 
@@ -41,6 +41,8 @@ app.add_middleware(
 app.include_router(people.router, prefix="/api")
 app.include_router(companies.router, prefix="/api")
 app.include_router(stats.router, prefix="/api")
+app.include_router(graph.router, prefix="/api")
+app.include_router(query.router, prefix="/api")
 
 
 @app.on_event("startup")

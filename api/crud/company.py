@@ -79,16 +79,17 @@ def get_companies(conn, filters: Dict[str, Any], offset: int = 0, limit: int = 5
             c.company_name,
             c.website_url,
             c.industry,
+            c.size_bucket,
             COUNT(DISTINCT e.person_id) as employee_count_in_db
         FROM company c
         LEFT JOIN employment e ON c.company_id = e.company_id
         {where_sql}
         GROUP BY c.company_id
         ORDER BY c.company_name
-        LIMIT %s OFFSET %s
+        LIMIT ${param_count} OFFSET ${param_count + 1}
     """
-    params.extend([limit, offset])
     
+    params.extend([limit, offset])
     cursor.execute(query, params)
     
     companies = [dict(row) for row in cursor.fetchall()]
@@ -203,11 +204,12 @@ def get_company_employees(conn, company_id: str, offset: int = 0, limit: int = 5
             p.linkedin_url,
             p.location,
             e.title,
-            e.is_current
+            e.start_date,
+            e.end_date
         FROM person p
         JOIN employment e ON p.person_id = e.person_id
         WHERE e.company_id = %s::uuid
-        ORDER BY e.is_current DESC, p.full_name
+        ORDER BY e.start_date DESC NULLS LAST, p.full_name
         LIMIT %s OFFSET %s
     """, (company_id, limit, offset))
     
@@ -215,3 +217,87 @@ def get_company_employees(conn, company_id: str, offset: int = 0, limit: int = 5
     
     return employees, total
 
+
+def get_company_hiring_timeline(conn, company_id: str) -> List[Dict]:
+    """Get hiring timeline - employees by start date"""
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        SELECT 
+            DATE_TRUNC('month', e.start_date)::date as month,
+            COUNT(*) as hires_count,
+            ARRAY_AGG(p.full_name ORDER BY e.start_date) as names
+        FROM employment e
+        JOIN person p ON e.person_id = p.person_id
+        WHERE e.company_id = %s::uuid
+        AND e.start_date IS NOT NULL
+        GROUP BY DATE_TRUNC('month', e.start_date)
+        ORDER BY month
+    """, (company_id,))
+    
+    return [dict(row) for row in cursor.fetchall()]
+
+
+def get_github_contributors(conn, company_id: str, limit: int = 100, offset: int = 0) -> tuple[List[Dict], int]:
+    """Get GitHub contributors who are NOT employees of this company"""
+    cursor = conn.cursor()
+    
+    # Get all repositories for this company
+    cursor.execute("""
+        SELECT repo_id
+        FROM github_repository
+        WHERE company_id = %s::uuid
+    """, (company_id,))
+    
+    repo_ids = [row['repo_id'] for row in cursor.fetchall()]
+    
+    if not repo_ids:
+        return [], 0
+    
+    # Get contributors who are not employees
+    cursor.execute("""
+        WITH company_employees AS (
+            SELECT DISTINCT person_id
+            FROM employment
+            WHERE company_id = %s::uuid
+        )
+        SELECT 
+            gp.github_profile_id::text,
+            gp.github_username,
+            gp.github_name,
+            gp.github_email,
+            gp.followers,
+            gp.public_repos,
+            gp.bio,
+            gp.location,
+            COUNT(DISTINCT gc.repo_id) as repo_count,
+            SUM(gc.contribution_count) as total_contributions
+        FROM github_contribution gc
+        JOIN github_profile gp ON gc.github_profile_id = gp.github_profile_id
+        WHERE gc.repo_id = ANY(%s::uuid[])
+        AND (gp.person_id IS NULL OR gp.person_id NOT IN (SELECT person_id FROM company_employees))
+        GROUP BY gp.github_profile_id, gp.github_username, gp.github_name, 
+                 gp.github_email, gp.followers, gp.public_repos, gp.bio, gp.location
+        ORDER BY total_contributions DESC
+        LIMIT %s OFFSET %s
+    """, (company_id, repo_ids, limit, offset))
+    
+    contributors = [dict(row) for row in cursor.fetchall()]
+    
+    # Get total count
+    cursor.execute("""
+        WITH company_employees AS (
+            SELECT DISTINCT person_id
+            FROM employment
+            WHERE company_id = %s::uuid
+        )
+        SELECT COUNT(DISTINCT gp.github_profile_id) as count
+        FROM github_contribution gc
+        JOIN github_profile gp ON gc.github_profile_id = gp.github_profile_id
+        WHERE gc.repo_id = ANY(%s::uuid[])
+        AND (gp.person_id IS NULL OR gp.person_id NOT IN (SELECT person_id FROM company_employees))
+    """, (company_id, repo_ids))
+    
+    total = cursor.fetchone()['count']
+    
+    return contributors, total

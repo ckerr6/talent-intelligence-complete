@@ -176,7 +176,7 @@ class ProfileMatcher:
                     LOWER(c.company_name) LIKE LOWER(%s)
                     OR LOWER(c.company_name) LIKE LOWER(%s)
                 )
-                AND (e.is_current = TRUE OR e.end_date IS NULL)
+                AND e.end_date IS NULL
             LIMIT 1
         """, (first_name, last_name, f'%{company}%', f'{company}%'))
         
