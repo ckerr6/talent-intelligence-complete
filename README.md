@@ -20,6 +20,8 @@ A comprehensive talent intelligence database containing:
 
 ## 🚀 Quick Start
 
+**For detailed getting started instructions, see [`GETTING_STARTED.md`](GETTING_STARTED.md)**
+
 ### Option 1: Query the Database (Recommended)
 
 ```bash
@@ -36,21 +38,25 @@ SELECT * FROM person_email LIMIT 10;
 SELECT * FROM github_profile ORDER BY followers DESC LIMIT 10;
 ```
 
-### Option 2: Check Configuration
+### Option 2: Use the API
 
 ```bash
-# Verify database connection and status
-python3 config.py
+# Start the API server
+python run_api.py
+
+# API will be available at:
+# http://localhost:8000
+# Swagger UI: http://localhost:8000/docs
 ```
 
-### Option 3: Explore Migration Results
+### Option 3: Use the Dashboard
 
 ```bash
-# View migration completion report
-cat MIGRATION_COMPLETE.md
+# Start API server first
+python run_api.py
 
-# View audit findings
-cat audit_results/EXECUTIVE_FINDINGS.md
+# Open dashboard in browser
+open dashboard/index.html
 ```
 
 ---
@@ -105,38 +111,90 @@ talent-intelligence-complete/
 ├── MIGRATION_COMPLETE.md              # Migration results & summary
 ├── config.py                          # Database configuration (PostgreSQL)
 │
-├── migration_scripts/                 # Database consolidation scripts
-│   ├── RUN_MIGRATION.sh              # Master migration script
-│   ├── 01_schema_enhancement.sql     # Schema updates
-│   ├── 02_migrate_emails.py          # Email migration
-│   ├── 03_migrate_github.py          # GitHub migration
-│   ├── 04_deduplicate_people.py      # Deduplication
-│   ├── 05_validate_migration.py      # Validation
-│   └── README.md                      # Migration documentation
+├── 🟢 ACTIVE & CURRENT SCRIPTS
+│   ├── migration_scripts/             # ✅ Completed migration scripts
+│   │   ├── RUN_MIGRATION.sh          # Master migration script (DONE)
+│   │   ├── 01_schema_enhancement.sql # Schema definition
+│   │   ├── 02_migrate_emails.py      # Email migration (DONE)
+│   │   ├── 03_migrate_github.py      # GitHub migration (DONE)
+│   │   ├── 04_deduplicate_people.py  # Deduplication (DONE)
+│   │   ├── 05_validate_migration.py  # Validation (DONE)
+│   │   └── migration_utils.py        # Shared utilities
+│   │
+│   ├── enrichment_scripts/            # ⏸️ Ready to run (NOT YET EXECUTED)
+│   │   ├── RUN_ALL_ENRICHMENTS.sh    # Master enrichment script
+│   │   ├── 01_import_sqlite_people.py # Import 15K people from SQLite
+│   │   ├── 02_enrich_job_titles.py   # Extract titles from headlines
+│   │   └── 03_improve_github_matching_and_emails.py # GitHub matching
+│   │
+│   ├── github_automation/             # ⏸️ Production-ready (NOT YET RUN)
+│   │   ├── enrich_github_continuous.py # Main enrichment CLI
+│   │   ├── github_client.py          # Rate-limited GitHub API wrapper
+│   │   ├── queue_manager.py          # Priority queue management
+│   │   ├── enrichment_engine.py      # Core enrichment logic
+│   │   ├── matcher.py                # Profile matching with confidence scoring
+│   │   └── config.py                 # GitHub automation config
+│   │
+│   ├── api/                           # ✅ Built & Functional
+│   │   ├── main.py                   # FastAPI application
+│   │   ├── routers/                  # people, companies, graph, query, stats endpoints
+│   │   ├── crud/                     # Database operations
+│   │   └── models/                   # Pydantic models
+│   │
+│   ├── dashboard/                     # ✅ Built & Functional
+│   │   ├── index.html                # Search interface
+│   │   ├── app.js                    # Frontend logic
+│   │   └── style.css                 # Styling
+│   │
+│   ├── run_api.py                    # ✅ API server launcher
+│   ├── query_database.sh             # ✅ Interactive query menu
+│   ├── query_database_secure.py     # ✅ Secure query interface
+│   ├── comprehensive_analysis.sql    # ✅ Database analysis queries
+│   ├── generate_audit_report.py      # ✅ Database audit generator
+│   ├── generate_quality_metrics.py   # ✅ Quality metrics
+│   ├── check_data_quality.py         # ✅ Data quality checks
+│   ├── backup_database.py            # ✅ Database backup utility
+│   ├── populate_coemployment_graph.py # ✅ Graph population
+│   ├── prep_company_discovery.py     # ✅ Company discovery prep
+│   └── analyze_database_overlap.py   # ✅ Overlap analysis
 │
-├── audit_results/                     # Database audit reports
-│   ├── EXECUTIVE_FINDINGS.md         # Main audit findings
-│   └── AUDIT_COMPLETE_SUMMARY.md     # Audit summary
+├── 🟡 DIAGNOSTIC TOOLS (Debugging)
+│   ├── diagnostic_tools/             # Debugging and diagnostic scripts
+│   │   ├── diagnose_github.py        # GitHub debugging
+│   │   ├── investigate_talent_schema.py # Schema investigation
+│   │   └── diagnose_duplicates.sh    # Duplicate diagnostics
+│   │
+├── 🔴 ARCHIVED & LEGACY
+│   ├── archived_implementations/     # Historical scripts (SQLite-era)
+│   │   ├── build_candidate_database.py # Built SQLite people table
+│   │   ├── build_company_database.py  # Built SQLite company table
+│   │   ├── fix_employment_duplicates.py # Employment deduplication fix
+│   │   ├── fix_github_schema.py      # GitHub schema fix
+│   │   ├── day1_setup.sh             # Phase 1 setup (completed)
+│   │   ├── day2_setup.sh             # Phase 2 setup (completed)
+│   │   ├── RUN_ME.sh                 # Original SQLite builder
+│   │   ├── RUN_PHASE2.sh             # Company phase (legacy)
+│   │   ├── RUN_PHASE3.sh             # GitHub phase (legacy)
+│   │   └── README.md                 # Archive documentation
+│   │
+│   ├── legacy_scripts/               # Overlapping functionality
+│   │   ├── github_enrichment.py      # Original enrichment script
+│   │   ├── github_api_enrichment.py  # API-based enrichment
+│   │   ├── build_github_enrichment.py # Build enrichment
+│   │   ├── github_queue_manager.py   # Old queue manager
+│   │   ├── match_github_profiles.py  # Standalone matching script
+│   │   ├── import_github_orgs.py     # Standalone GitHub org import
+│   │   └── README.md                 # Legacy documentation
+│   │
+│   ├── archived_databases/           # Archived legacy databases
+│   │   ├── sqlite/                   # SQLite databases
+│   │   ├── postgresql_dumps/         # PostgreSQL backups
+│   │   └── README.md
+│   │
+│   └── backups/                      # Database backups
+│       └── *.db.gz                   # Compressed backups
 │
-├── archived_databases/                # Archived legacy databases
-│   ├── sqlite/                        # SQLite databases
-│   │   └── talent_intelligence.db    # Archived SQLite database
-│   ├── postgresql_dumps/              # PostgreSQL backups
-│   │   └── *.sql.gz                  # Archived database dumps
-│   ├── archive_postgresql_databases.sh
-│   ├── drop_archived_databases.sh
-│   └── README.md
-│
-├── backups/                           # Database backups
-│   └── *.db.gz                        # Compressed backups
-│
-├── build_candidate_database.py       # Legacy SQLite builder (archived)
-├── build_company_database.py         # Legacy company processor (archived)
-├── github_enrichment.py              # GitHub API enrichment
-├── query_database.sh                 # Interactive query menu
-├── query_database_secure.py          # Secure query interface
-│
-└── [Various helper scripts and logs]
+└── [Documentation, logs, and configuration files]
 ```
 
 ---
@@ -228,9 +286,16 @@ LIMIT 10;
 ### GitHub Enrichment
 
 ```bash
-# Enrich GitHub profiles with API data
-python3 github_enrichment.py
+# Use the production-ready GitHub automation (recommended)
+cd github_automation
+python3 enrich_github_continuous.py
+
+# Or use the enrichment scripts (alternative approach)
+cd enrichment_scripts
+./RUN_ALL_ENRICHMENTS.sh
 ```
+
+**Note**: Legacy GitHub enrichment scripts have been moved to `legacy_scripts/` directory. Use the `github_automation/` package for new work.
 
 ### Database Backups
 
@@ -246,23 +311,38 @@ python3 backup_database.py
 
 ## 📚 Documentation
 
-### Main Documentation
+### Primary References
+- **`README.md`** - This file (primary documentation)
+- **`GETTING_STARTED.md`** - Consolidated getting started guide
+- **`TESTING.md`** - Testing documentation
+- **`MIGRATION_COMPLETE.md`** - Migration results & summary
 
-| File | Purpose |
-|------|---------|
-| **`MIGRATION_COMPLETE.md`** | Migration results, before/after comparison, next steps |
-| **`audit_results/EXECUTIVE_FINDINGS.md`** | Complete audit analysis of all databases |
-| **`migration_scripts/README.md`** | Migration script documentation |
-| **`QUICK_START.md`** | Legacy quick start guide (SQLite-era) |
-| **`EXECUTIVE_SUMMARY.md`** | Legacy executive summary (SQLite-era) |
+### API & Dashboard
+- **`api/README.md`** - API documentation
+- **`dashboard/README.md`** - Dashboard documentation
+- **`API_AND_DASHBOARD_COMPLETE.md`** - Implementation status
 
-### Historical Documentation
+### GitHub Automation
+- **`github_automation/README.md`** - GitHub automation package
+- **`GITHUB_AUTOMATION_COMPLETE.md`** - Complete implementation guide
+- **`IMPLEMENTATION_STATUS.md`** - Current status
 
-These documents are from the pre-migration era when SQLite was the primary database:
-- `COMPLETE_PLAN.md` - Original implementation plan
-- `DAY1_COMPLETE.md` - Phase 1 completion notes
-- `DAY2_COMPLETE.md` - Phase 2 completion notes
-- `WEEK_PLAN.md` - Original week planning document
+### Audit Results
+- **`audit_results/EXECUTIVE_FINDINGS.md`** - Database audit findings
+- **`audit_results/AUDIT_COMPLETE_SUMMARY.md`** - Audit summary
+- **`AUDIT_RESULTS_README.md`** - Audit results index
+
+### Archived Documentation
+- **`archived_documentation/`** - Historical and overlapping docs
+  - `historical/` - Pre-migration documentation (SQLite-era)
+  - `overlapping/` - Consolidated documentation (redundant content)
+  - `person_specific/` - Person-specific summaries (historical)
+
+### Script Organization
+- **`SCRIPT_ORGANIZATION_COMPLETE.md`** - Script organization summary
+- **`archived_implementations/README.md`** - Archived scripts documentation
+- **`legacy_scripts/README.md`** - Legacy scripts documentation
+- **`diagnostic_tools/README.md`** - Diagnostic tools documentation
 
 ---
 
