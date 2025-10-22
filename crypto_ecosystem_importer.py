@@ -213,10 +213,13 @@ class EcosystemImporter:
     
     def _batch_create_repos(self, repos_list: List[Tuple[str, str]]) -> Dict[str, str]:
         """Batch create repositories and return mapping of full_name -> repo_id"""
+        import time
+        
         if not repos_list or self.dry_run:
             return {}
         
         # Prepare values for batch insert
+        start_time = time.time()
         values_to_insert = []
         for owner, repo_name in repos_list:
             full_name = f"{owner}/{repo_name}"
@@ -227,25 +230,39 @@ class EcosystemImporter:
                 values_to_insert.append((full_name, owner, repo_name))
         
         if not values_to_insert:
+            logger.info(f"    All {len(repos_list):,} repos already in cache")
             return {}
         
-        # Batch insert
-        from psycopg2.extras import execute_values
+        logger.info(f"    Inserting {len(values_to_insert):,} new repos (skipped {len(repos_list) - len(values_to_insert):,} cached)...")
         
-        self.cursor.execute("BEGIN")
-        execute_values(
-            self.cursor,
-            """
-            INSERT INTO github_repository (full_name, owner_username, repo_name)
-            VALUES %s
-            ON CONFLICT (full_name) DO NOTHING
-            """,
-            values_to_insert,
-            template="(%s, %s, %s)"
-        )
-        self.cursor.execute("COMMIT")
+        # Batch insert in chunks to avoid memory issues
+        from psycopg2.extras import execute_values
+        CHUNK_SIZE = 1000
+        
+        for i in range(0, len(values_to_insert), CHUNK_SIZE):
+            chunk = values_to_insert[i:i + CHUNK_SIZE]
+            if i % 5000 == 0 and i > 0:
+                logger.info(f"      Progress: {i:,}/{len(values_to_insert):,} repos inserted...")
+            
+            self.cursor.execute("BEGIN")
+            execute_values(
+                self.cursor,
+                """
+                INSERT INTO github_repository (full_name, owner_username, repo_name)
+                VALUES %s
+                ON CONFLICT (full_name) DO NOTHING
+                """,
+                chunk,
+                template="(%s, %s, %s)"
+            )
+            self.cursor.execute("COMMIT")
+        
+        insert_time = time.time() - start_time
+        logger.info(f"    ✅ Inserted {len(values_to_insert):,} repos in {insert_time:.1f}s ({len(values_to_insert)/insert_time:.0f} repos/sec)")
         
         # Now fetch all repo IDs for the inserted/existing repos
+        logger.info(f"    Fetching repo IDs...")
+        fetch_start = time.time()
         full_names = [v[0].lower() for v in values_to_insert]
         self.cursor.execute("""
             SELECT repo_id::text, LOWER(full_name) as full_name_lower
@@ -257,6 +274,9 @@ class EcosystemImporter:
         for row in self.cursor.fetchall():
             self.repo_cache[row['full_name_lower']] = row['repo_id']
             new_mappings[row['full_name_lower']] = row['repo_id']
+        
+        fetch_time = time.time() - fetch_start
+        logger.info(f"    ✅ Fetched {len(new_mappings):,} repo IDs in {fetch_time:.1f}s")
         
         return new_mappings
     
@@ -381,6 +401,8 @@ class EcosystemImporter:
             self._batch_create_repos(repos_to_create)
             
             # Now link all repos to ecosystem (batch)
+            import time
+            link_start = time.time()
             logger.info(f"  Linking repos to ecosystem...")
             links_to_create = []
             for full_name_lower, tags in repo_tags_map.items():
@@ -404,7 +426,8 @@ class EcosystemImporter:
                 )
                 self.stats['repos_linked'] += len(links_to_create)
             
-            logger.info(f"  ✅ Linked {len(links_to_create):,} repos to {eco_name}")
+            link_time = time.time() - link_start
+            logger.info(f"  ✅ Linked {len(links_to_create):,} repos to {eco_name} in {link_time:.1f}s")
             
             # Commit after each ecosystem to avoid long transactions
             if not self.dry_run:
