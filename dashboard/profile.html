@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Person Profile - Talent Intelligence</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        nav {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: 600;
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .profile-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 32px;
+        }
+        
+        .profile-header .headline {
+            font-size: 18px;
+            opacity: 0.95;
+            margin-bottom: 15px;
+        }
+        
+        .profile-header .meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .profile-header .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .profile-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .profile-section h2 {
+            margin: 0 0 20px 0;
+            color: #333;
+            font-size: 24px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .contact-item a {
+            color: #667eea;
+            text-decoration: none;
+            word-break: break-all;
+        }
+        
+        .employment-item {
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            background: #f8f9fa;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .employment-item h3 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+        
+        .employment-item .company {
+            font-size: 16px;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .employment-item .dates {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .github-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .stat-box .value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-box .label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .repo-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #764ba2;
+        }
+        
+        .repo-item h4 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+        
+        .repo-item .repo-meta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .language-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            background: #667eea;
+            color: white;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #666;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 60px;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="people.html">← Back to People</a>
+        <a href="analytics.html">Analytics</a>
+    </nav>
+    
+    <div class="container" id="profileContainer">
+        <div class="loading">
+            <h2>Loading profile...</h2>
+        </div>
+    </div>
+    
+    <script src="profile.js"></script>
+</body>
+</html>
+

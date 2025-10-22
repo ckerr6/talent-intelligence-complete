@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - Talent Intelligence</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        nav {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: 600;
+        }
+        
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .chart-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .chart-card h2 {
+            margin: 0 0 20px 0;
+            color: #333;
+            font-size: 20px;
+        }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-box .value {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .stat-box .label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="people.html">People</a>
+        <a href="analytics.html">Analytics</a>
+    </nav>
+    
+    <div class="container">
+        <header style="margin-bottom: 30px;">
+            <h1>📊 Analytics Dashboard</h1>
+            <p class="subtitle">Database insights and metrics</p>
+        </header>
+        
+        <div class="loading" id="loadingMessage">
+            <h2>Loading analytics...</h2>
+        </div>
+        
+        <div id="analyticsContent" style="display: none;">
+            <!-- Key Metrics -->
+            <section class="stat-grid" style="margin-bottom: 30px;">
+                <div class="stat-box">
+                    <div class="value" id="totalPeople">-</div>
+                    <div class="label">Total People</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value" id="totalCompanies">-</div>
+                    <div class="label">Companies</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value" id="avgJobs">-</div>
+                    <div class="label">Avg Jobs/Person</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value" id="githubCoverage">-</div>
+                    <div class="label">GitHub Coverage</div>
+                </div>
+            </section>
+            
+            <!-- Charts -->
+            <div class="analytics-grid">
+                <div class="chart-card">
+                    <h2>Data Completeness</h2>
+                    <canvas id="completenessChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h2>Database Distribution</h2>
+                    <canvas id="distributionChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <h2>📈 Coming Soon</h2>
+                <p>Additional analytics features:</p>
+                <ul>
+                    <li>Developer activity over time</li>
+                    <li>Most active repositories</li>
+                    <li>Top contributors by commit count</li>
+                    <li>Company ecosystem analysis</li>
+                    <li>Skills and technology trends</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const API_BASE_URL = 'http://localhost:8000/api';
+        
+        async function loadAnalytics() {
+            try {
+                // Load stats
+                const statsResponse = await fetch(`${API_BASE_URL}/stats/overview`);
+                const stats = await statsResponse.json();
+                
+                // Load quality
+                const qualityResponse = await fetch(`${API_BASE_URL}/stats/quality`);
+                const quality = await qualityResponse.json();
+                
+                // Update metrics
+                document.getElementById('totalPeople').textContent = stats.totals.people.toLocaleString();
+                document.getElementById('totalCompanies').textContent = stats.totals.companies.toLocaleString();
+                document.getElementById('avgJobs').textContent = (stats.totals.employment_records / stats.totals.people).toFixed(1);
+                document.getElementById('githubCoverage').textContent = quality.completeness.github.percentage + '%';
+                
+                // Create completeness chart
+                const completenessCtx = document.getElementById('completenessChart').getContext('2d');
+                new Chart(completenessCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['LinkedIn', 'Email', 'GitHub', 'Location', 'Headline'],
+                        datasets: [{
+                            label: 'Coverage %',
+                            data: [
+                                quality.completeness.linkedin.percentage,
+                                quality.completeness.email.percentage,
+                                quality.completeness.github.percentage,
+                                quality.completeness.location.percentage,
+                                quality.completeness.headline.percentage
+                            ],
+                            backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                            borderColor: 'rgba(102, 126, 234, 1)',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        }
+                    }
+                });
+                
+                // Create distribution chart
+                const distributionCtx = document.getElementById('distributionChart').getContext('2d');
+                new Chart(distributionCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['People', 'Companies', 'Employment'],
+                        datasets: [{
+                            data: [
+                                stats.totals.people,
+                                stats.totals.companies,
+                                stats.totals.employment_records
+                            ],
+                            backgroundColor: [
+                                'rgba(102, 126, 234, 0.8)',
+                                'rgba(118, 75, 162, 0.8)',
+                                'rgba(237, 100, 166, 0.8)'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+                
+                // Show content
+                document.getElementById('loadingMessage').style.display = 'none';
+                document.getElementById('analyticsContent').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error loading analytics:', error);
+                document.getElementById('loadingMessage').innerHTML = '<h2 style="color: #dc3545;">Error loading analytics</h2><p>Please check API connection</p>';
+            }
+        }
+        
+        // Load on page load
+        loadAnalytics();
+    </script>
+</body>
+</html>
+

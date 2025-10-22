@@ -15,6 +15,7 @@ from api.config import settings
 def get_db():
     """
     Database connection dependency with automatic cleanup
+    Sets 60 second timeout for API queries to prevent hung requests
     
     Usage in routes:
         @router.get("/")
@@ -23,6 +24,11 @@ def get_db():
             ...
     """
     with get_db_context() as conn:
+        # Set shorter timeout for API queries (60 seconds)
+        if Config.DB_TYPE == 'postgresql':
+            cursor = conn.cursor()
+            cursor.execute("SET statement_timeout = '60s'")
+            cursor.close()
         yield conn
 
 

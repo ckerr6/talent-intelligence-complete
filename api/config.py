@@ -31,9 +31,9 @@ class APISettings(BaseSettings):
     CORS_METHODS: List[str] = ["*"]
     CORS_HEADERS: List[str] = ["*"]
     
-    # Pagination defaults
-    DEFAULT_PAGE_SIZE: int = 50
-    MAX_PAGE_SIZE: int = 1000
+    # Pagination defaults (reduced for demo performance)
+    DEFAULT_PAGE_SIZE: int = 20
+    MAX_PAGE_SIZE: int = 100
     
     # Rate limiting (placeholder for future implementation)
     RATE_LIMIT_ENABLED: bool = False

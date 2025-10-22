@@ -186,7 +186,7 @@ async function quickQuery(type) {
     resultsDiv.innerHTML = '<div class="loading-spinner">🔍 Searching...</div>';
     
     let params = new URLSearchParams();
-    params.append('limit', '10');
+    params.append('limit', '20');
     
     switch(type) {
         case 'sf-engineers':
@@ -226,7 +226,7 @@ async function advancedSearch() {
     resultsDiv.innerHTML = '<div class="loading-spinner">🔍 Searching...</div>';
     
     const params = new URLSearchParams();
-    params.append('limit', '20');
+    params.append('limit', '10'); // Reduced for performance
     
     const company = document.getElementById('filterCompany').value.trim();
     const location = document.getElementById('filterLocation').value.trim();
@@ -491,5 +491,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Initialize on page load
-init();
+document.addEventListener('DOMContentLoaded', function() {
+    init();
+});
 

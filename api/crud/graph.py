@@ -228,9 +228,9 @@ def search_by_multiple_criteria(
     conditions = []
     params = []
     
-    # Base query
+    # Base query (optimized for demo - uses DISTINCT ON for fast deduplication)
     query = """
-        SELECT DISTINCT
+        SELECT DISTINCT ON (p.person_id)
             p.person_id::text,
             p.full_name,
             p.first_name,
@@ -239,17 +239,24 @@ def search_by_multiple_criteria(
             p.headline,
             p.linkedin_url,
             p.followers_count,
-            e.company_id::text as company_id,
-            c.company_name
+            (SELECT c.company_id::text FROM employment e 
+             JOIN company c ON e.company_id = c.company_id 
+             WHERE e.person_id = p.person_id 
+             ORDER BY e.start_date DESC NULLS LAST LIMIT 1) as company_id,
+            (SELECT c.company_name FROM employment e 
+             JOIN company c ON e.company_id = c.company_id 
+             WHERE e.person_id = p.person_id 
+             ORDER BY e.start_date DESC NULLS LAST LIMIT 1) as company_name
         FROM person p
     """
     
-    # Join tables as needed
+    # Join tables as needed (only for filtering, not for display)
     joins = []
     
-    # Always join employment and company to get company info
-    joins.append("LEFT JOIN employment e ON p.person_id = e.person_id")
-    joins.append("LEFT JOIN company c ON e.company_id = c.company_id")
+    # Add employment/company join if company filtering is needed
+    if company or start_date or end_date:
+        joins.append("LEFT JOIN employment e ON p.person_id = e.person_id")
+        joins.append("LEFT JOIN company c ON e.company_id = c.company_id")
     
     if has_email:
         joins.append("LEFT JOIN person_email pe ON p.person_id = pe.person_id")
@@ -296,8 +303,8 @@ def search_by_multiple_criteria(
     if conditions:
         query += " WHERE " + " AND ".join(conditions)
     
-    # Add ordering and pagination
-    query += " ORDER BY p.full_name LIMIT %s OFFSET %s"
+    # Add ordering and pagination (must order by person_id first for DISTINCT ON)
+    query += " ORDER BY p.person_id, p.full_name LIMIT %s OFFSET %s"
     params.extend([limit, offset])
     
     cursor.execute(query, params)

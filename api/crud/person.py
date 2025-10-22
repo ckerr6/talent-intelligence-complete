@@ -26,8 +26,7 @@ def get_person(conn, person_id: str) -> Optional[Dict]:
             headline,
             description,
             followers_count,
-            created_at,
-            refreshed_at
+            refreshed_at::text as refreshed_at
         FROM person
         WHERE person_id = %s::uuid
     """, (person_id,))
@@ -52,15 +51,18 @@ def get_person(conn, person_id: str) -> Optional[Dict]:
         email_dict['person_id'] = person_id
         person['emails'].append(email_dict)
     
-    # Get current employment
+    # Get employment history
     cursor.execute("""
-        SELECT e.employment_id, e.title, e.start_date, e.end_date, e.is_current,
+        SELECT e.employment_id, e.title, 
+               e.start_date::text as start_date, 
+               e.end_date::text as end_date,
+               (e.end_date IS NULL) as is_current,
                c.company_id::text, c.company_name
         FROM employment e
         LEFT JOIN company c ON e.company_id = c.company_id
         WHERE e.person_id = %s::uuid
-        ORDER BY e.is_current DESC, e.start_date DESC
-        LIMIT 5
+        ORDER BY (e.end_date IS NULL) DESC, e.start_date DESC NULLS LAST
+        LIMIT 10
     """, (person_id,))
     
     person['employment'] = []

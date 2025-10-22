@@ -41,8 +41,8 @@ class Config:
     DATA_DIR = BASE_DIR.parent  # /Users/charlie.kerr/Documents/CK Docs
     
     # Connection pooling settings
-    PG_POOL_MIN = int(os.environ.get('PG_POOL_MIN', '1'))
-    PG_POOL_MAX = int(os.environ.get('PG_POOL_MAX', '10'))
+    PG_POOL_MIN = int(os.environ.get('PG_POOL_MIN', '5'))
+    PG_POOL_MAX = int(os.environ.get('PG_POOL_MAX', '50'))
     _connection_pool = None
     
     # ============================================================================
@@ -288,7 +288,9 @@ CSV Sources Found:
                     port=cls.PG_PORT,
                     database=cls.PG_DATABASE,
                     user=cls.PG_USER,
-                    password=cls.PG_PASSWORD
+                    password=cls.PG_PASSWORD,
+                    connect_timeout=5,
+                    options='-c statement_timeout=300s'  # 5 minute max per query
                 )
                 print(f"✅ Connection pool created (min={cls.PG_POOL_MIN}, max={cls.PG_POOL_MAX})")
             except Exception as e:

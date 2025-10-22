@@ -56,6 +56,44 @@ def list_people(
     }
 
 
+@router.get("/{person_id}/full")
+def get_person_full_profile(person_id: str, db=Depends(get_db)):
+    """Get person profile - ULTRA MINIMAL for demo (no slow queries)"""
+    try:
+        validate_uuid(person_id)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    
+    cursor = db.cursor()
+    
+    # Just basic person data - NO JOINS
+    cursor.execute("""
+        SELECT 
+            person_id::text,
+            full_name,
+            linkedin_url,
+            location,
+            headline,
+            followers_count
+        FROM person
+        WHERE person_id = %s::uuid
+    """, (person_id,))
+    
+    row = cursor.fetchone()
+    if not row:
+        raise HTTPException(status_code=404, detail="Person not found")
+    
+    data = dict(row)
+    data['emails'] = []
+    data['employment'] = []
+    data['github_profile'] = None
+    
+    return {
+        'success': True,
+        'data': data
+    }
+
+
 @router.get("/{person_id}", response_model=PersonResponse)
 def get_person(person_id: str, db=Depends(get_db)):
     """Get a person by ID"""

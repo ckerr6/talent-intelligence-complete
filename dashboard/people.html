@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People Database - Talent Intelligence</title>
+    
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Additional styles for people page */
+        .filters {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .filter-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        
+        .filter-group input,
+        .filter-group select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .filter-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .filter-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .btn-search {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-clear {
+            background: #f0f0f0;
+            color: #666;
+        }
+        
+        .btn-view {
+            padding: 5px 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .btn-view:hover {
+            background: #5568d3;
+        }
+        
+        .badge {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .badge-yes {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .badge-no {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        #peopleTable {
+            font-size: 13px;
+        }
+        
+        #peopleTable th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        nav {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: 600;
+        }
+        
+        nav a:hover {
+            color: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">← Dashboard</a>
+        <a href="people.html">People</a>
+        <a href="analytics.html">Analytics</a>
+    </nav>
+    
+    <div class="container">
+        <header style="margin-bottom: 30px;">
+            <h1>🧑‍💼 People Database</h1>
+            <p class="subtitle">Browse and filter talent profiles</p>
+        </header>
+        
+        <!-- Filters -->
+        <div class="filters">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label>Company</label>
+                    <input type="text" id="filterCompany" placeholder="e.g., Google, Coinbase">
+                </div>
+                <div class="filter-group">
+                    <label>Location</label>
+                    <input type="text" id="filterLocation" placeholder="e.g., San Francisco">
+                </div>
+                <div class="filter-group">
+                    <label>Headline Keyword</label>
+                    <input type="text" id="filterHeadline" placeholder="e.g., engineer, founder">
+                </div>
+                <div class="filter-group">
+                    <label>Has Email</label>
+                    <select id="filterEmail">
+                        <option value="">Any</option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Has GitHub</label>
+                    <select id="filterGithub">
+                        <option value="">Any</option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-actions">
+                <button class="btn-search" onclick="applyFilters()">🔍 Search</button>
+                <button class="btn-clear" onclick="clearFilters()">✖ Clear</button>
+            </div>
+        </div>
+        
+        <!-- DataTable -->
+        <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <table id="peopleTable" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Company</th>
+                        <th>Headline</th>
+                        <th>Email</th>
+                        <th>GitHub</th>
+                        <th>ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="people.js"></script>
+</body>
+</html>
+

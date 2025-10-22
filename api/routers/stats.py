@@ -15,24 +15,26 @@ router = APIRouter(prefix="/stats", tags=["statistics"])
 
 @router.get("/overview")
 def get_overview(db=Depends(get_db)):
-    """Get database overview statistics"""
+    """Get database overview statistics (using fast table stats for demo)"""
     cursor = db.cursor()
     
-    # Get counts (fetchone returns dict with RealDictCursor)
-    cursor.execute("SELECT COUNT(*) as count FROM person")
-    people_count = cursor.fetchone()['count']
+    # Use PostgreSQL table statistics for instant results (good enough for demo)
+    cursor.execute("""
+        SELECT 
+            schemaname,
+            relname,
+            n_live_tup as count
+        FROM pg_stat_user_tables
+        WHERE relname IN ('person', 'company', 'employment', 'person_email', 'github_profile')
+    """)
     
-    cursor.execute("SELECT COUNT(*) as count FROM company")
-    companies_count = cursor.fetchone()['count']
+    stats = {row['relname']: row['count'] for row in cursor.fetchall()}
     
-    cursor.execute("SELECT COUNT(*) as count FROM employment")
-    employment_count = cursor.fetchone()['count']
-    
-    cursor.execute("SELECT COUNT(*) as count FROM person_email")
-    emails_count = cursor.fetchone()['count']
-    
-    cursor.execute("SELECT COUNT(*) as count FROM github_profile")
-    github_count = cursor.fetchone()['count']
+    people_count = stats.get('person', 0)
+    companies_count = stats.get('company', 0)
+    employment_count = stats.get('employment', 0)
+    emails_count = stats.get('person_email', 0)
+    github_count = stats.get('github_profile', 0)
     
     return {
         'totals': {
