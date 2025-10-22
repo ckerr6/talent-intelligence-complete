@@ -11,7 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from api.config import settings
-from api.routers import people, companies, stats, graph, query
+from api.routers import people, companies, stats, graph, query, analytics
 from api.models.common import HealthResponse
 from config import Config
 
@@ -27,13 +27,14 @@ app = FastAPI(
 )
 
 
-# Configure CORS
+# Configure CORS - Allow all origins for local development
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
-    allow_credentials=settings.CORS_CREDENTIALS,
-    allow_methods=settings.CORS_METHODS,
-    allow_headers=settings.CORS_HEADERS,
+    allow_origins=["*"],  # Allow all origins
+    allow_credentials=False,  # Must be False when using wildcard
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+    expose_headers=["*"]  # Expose all headers to the client
 )
 
 
@@ -43,6 +44,7 @@ app.include_router(companies.router, prefix="/api")
 app.include_router(stats.router, prefix="/api")
 app.include_router(graph.router, prefix="/api")
 app.include_router(query.router, prefix="/api")
+app.include_router(analytics.router, prefix="/api")
 
 
 @app.on_event("startup")

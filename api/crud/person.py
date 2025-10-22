@@ -81,29 +81,25 @@ def get_people(conn, filters: Dict[str, Any], offset: int = 0, limit: int = 50) 
     # Build WHERE clause
     where_clauses = []
     params = []
-    param_count = 1
     
     if filters.get('company'):
-        where_clauses.append(f"""
+        where_clauses.append("""
             EXISTS (
                 SELECT 1 FROM employment e
                 JOIN company c ON e.company_id = c.company_id
                 WHERE e.person_id = p.person_id
-                AND LOWER(c.company_name) LIKE LOWER(${param_count})
+                AND LOWER(c.company_name) LIKE LOWER(%s)
             )
         """)
         params.append(f"%{filters['company']}%")
-        param_count += 1
     
     if filters.get('location'):
-        where_clauses.append(f"LOWER(p.location) LIKE LOWER(${param_count})")
+        where_clauses.append("LOWER(p.location) LIKE LOWER(%s)")
         params.append(f"%{filters['location']}%")
-        param_count += 1
     
     if filters.get('headline'):
-        where_clauses.append(f"LOWER(p.headline) LIKE LOWER(${param_count})")
+        where_clauses.append("LOWER(p.headline) LIKE LOWER(%s)")
         params.append(f"%{filters['headline']}%")
-        param_count += 1
     
     if filters.get('has_email') is not None:
         if filters['has_email']:
@@ -322,4 +318,126 @@ def search_people_by_location(conn, location: str, offset: int = 0, limit: int =
     people = [dict(row) for row in cursor.fetchall()]
     
     return people, total
+
+
+def get_full_profile(conn, person_id: str) -> Optional[Dict]:
+    """Get complete person profile including employment, emails, and GitHub data"""
+    cursor = conn.cursor()
+    
+    # Get base person data
+    cursor.execute("""
+        SELECT 
+            person_id::text,
+            full_name,
+            first_name,
+            last_name,
+            linkedin_url,
+            normalized_linkedin_url,
+            location,
+            headline,
+            description,
+            followers_count,
+            profile_img_url,
+            refreshed_at::text as refreshed_at
+        FROM person
+        WHERE person_id = %s::uuid
+    """, (person_id,))
+    
+    row = cursor.fetchone()
+    if not row:
+        return None
+    
+    person = dict(row)
+    
+    # Get ALL emails (not limited)
+    cursor.execute("""
+        SELECT 
+            email_id::text,
+            email,
+            email_type,
+            is_primary,
+            verified,
+            source,
+            created_at::text as created_at
+        FROM person_email
+        WHERE person_id = %s::uuid
+        ORDER BY is_primary DESC, created_at DESC
+    """, (person_id,))
+    
+    person['emails'] = [dict(email_row) for email_row in cursor.fetchall()]
+    
+    # Get ALL employment history (not limited to 10)
+    cursor.execute("""
+        SELECT 
+            e.employment_id::text,
+            e.title,
+            e.start_date::text as start_date,
+            e.end_date::text as end_date,
+            (e.end_date IS NULL) as is_current,
+            c.company_id::text,
+            c.company_name
+        FROM employment e
+        LEFT JOIN company c ON e.company_id = c.company_id
+        WHERE e.person_id = %s::uuid
+        ORDER BY (e.end_date IS NULL) DESC, 
+                 COALESCE(e.start_date, '1900-01-01'::date) DESC
+    """, (person_id,))
+    
+    person['employment'] = [dict(emp_row) for emp_row in cursor.fetchall()]
+    
+    # Get GitHub profile
+    cursor.execute("""
+        SELECT 
+            github_profile_id::text,
+            github_username,
+            github_name,
+            bio,
+            location as github_location,
+            github_email,
+            github_company,
+            blog,
+            twitter_username,
+            followers,
+            following,
+            public_repos,
+            created_at_github::text as github_created_at,
+            updated_at_github::text as github_updated_at,
+            last_enriched::text as last_refreshed
+        FROM github_profile
+        WHERE person_id = %s::uuid
+    """, (person_id,))
+    
+    github_row = cursor.fetchone()
+    person['github_profile'] = dict(github_row) if github_row else None
+    
+    # Get GitHub contributions if profile exists
+    if person['github_profile']:
+        cursor.execute("""
+            SELECT 
+                gc.contribution_id::text,
+                gc.contribution_count,
+                gc.last_contribution_date::text as contributed_at,
+                gr.repo_id::text as repository_id,
+                gr.repo_name,
+                gr.full_name as repo_full_name,
+                gr.description,
+                gr.language,
+                gr.stars,
+                gr.forks,
+                gr.is_fork,
+                c.company_id::text as owner_company_id,
+                c.company_name as owner_company_name
+            FROM github_contribution gc
+            JOIN github_repository gr ON gc.repo_id = gr.repo_id
+            LEFT JOIN company c ON gr.company_id = c.company_id
+            WHERE gc.github_profile_id = %s::uuid
+            ORDER BY gc.contribution_count DESC
+            LIMIT 50
+        """, (person['github_profile']['github_profile_id'],))
+        
+        person['github_contributions'] = [dict(contrib_row) for contrib_row in cursor.fetchall()]
+    else:
+        person['github_contributions'] = []
+    
+    return person
 

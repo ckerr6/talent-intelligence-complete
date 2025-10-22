@@ -143,35 +143,47 @@
     <div class="container">
         <header style="margin-bottom: 30px;">
             <h1>🧑‍💼 People Database</h1>
-            <p class="subtitle">Browse and filter talent profiles</p>
+            <p class="subtitle">Search and filter from our complete talent database</p>
+            <p style="color: white; font-size: 0.9em; margin-top: 10px; opacity: 0.9;">
+                💡 Tip: Start by searching for a company, location, or skill
+            </p>
         </header>
         
         <!-- Filters -->
-        <div class="filters">
+        <div class="filters" role="search" aria-label="People search filters">
             <div class="filters-grid">
                 <div class="filter-group">
-                    <label>Company</label>
-                    <input type="text" id="filterCompany" placeholder="e.g., Google, Coinbase">
+                    <label for="filterCompany">Company</label>
+                    <input type="text" 
+                           id="filterCompany" 
+                           placeholder="e.g., Google, Coinbase"
+                           aria-label="Filter by company name">
                 </div>
                 <div class="filter-group">
-                    <label>Location</label>
-                    <input type="text" id="filterLocation" placeholder="e.g., San Francisco">
+                    <label for="filterLocation">Location</label>
+                    <input type="text" 
+                           id="filterLocation" 
+                           placeholder="e.g., San Francisco"
+                           aria-label="Filter by location">
                 </div>
                 <div class="filter-group">
-                    <label>Headline Keyword</label>
-                    <input type="text" id="filterHeadline" placeholder="e.g., engineer, founder">
+                    <label for="filterHeadline">Headline Keyword</label>
+                    <input type="text" 
+                           id="filterHeadline" 
+                           placeholder="e.g., engineer, founder"
+                           aria-label="Filter by headline keywords">
                 </div>
                 <div class="filter-group">
-                    <label>Has Email</label>
-                    <select id="filterEmail">
+                    <label for="filterEmail">Has Email</label>
+                    <select id="filterEmail" aria-label="Filter by email availability">
                         <option value="">Any</option>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label>Has GitHub</label>
-                    <select id="filterGithub">
+                    <label for="filterGithub">Has GitHub</label>
+                    <select id="filterGithub" aria-label="Filter by GitHub profile availability">
                         <option value="">Any</option>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
@@ -179,8 +191,16 @@
                 </div>
             </div>
             <div class="filter-actions">
-                <button class="btn-search" onclick="applyFilters()">🔍 Search</button>
-                <button class="btn-clear" onclick="clearFilters()">✖ Clear</button>
+                <button class="btn-search" 
+                        onclick="applyFilters()"
+                        aria-label="Apply search filters">
+                    🔍 Search
+                </button>
+                <button class="btn-clear" 
+                        onclick="clearFilters()"
+                        aria-label="Clear all filters">
+                    ✖ Clear
+                </button>
             </div>
         </div>
         

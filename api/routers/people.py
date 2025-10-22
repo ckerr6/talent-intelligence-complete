@@ -58,39 +58,20 @@ def list_people(
 
 @router.get("/{person_id}/full")
 def get_person_full_profile(person_id: str, db=Depends(get_db)):
-    """Get person profile - ULTRA MINIMAL for demo (no slow queries)"""
+    """Get complete person profile with employment, emails, and GitHub data"""
     try:
         validate_uuid(person_id)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     
-    cursor = db.cursor()
+    profile = person_crud.get_full_profile(db, person_id)
     
-    # Just basic person data - NO JOINS
-    cursor.execute("""
-        SELECT 
-            person_id::text,
-            full_name,
-            linkedin_url,
-            location,
-            headline,
-            followers_count
-        FROM person
-        WHERE person_id = %s::uuid
-    """, (person_id,))
-    
-    row = cursor.fetchone()
-    if not row:
+    if not profile:
         raise HTTPException(status_code=404, detail="Person not found")
-    
-    data = dict(row)
-    data['emails'] = []
-    data['employment'] = []
-    data['github_profile'] = None
     
     return {
         'success': True,
-        'data': data
+        'data': profile
     }
 
 
