@@ -1,0 +1,137 @@
+Repository Reorganization Log
+Generated: 2025-10-22 15:26:44
+================================================================================
+
+Files to be moved: 69
+New directories: 19
+
+================================================================================
+DETAILED PLAN
+================================================================================
+
+
+logs/diagnostics/
+-----------------
+  diagnostic_results_20251022_144451.log
+  emergency_fix_20251022_145538.log
+  full_diagnostic_20251022_150837.log
+
+logs/imports/
+-------------
+  company_import_log.txt
+  import_log.txt
+  batch_discovery_log.txt
+  github_matching_20251022_150638.log
+
+logs/enrichment/
+----------------
+  enrichment_continuous.log
+  enrichment_1000.log
+  enrichment_run.log
+  github_enrichment_log.txt
+
+logs/deduplication/
+-------------------
+  deduplication_live_run.log
+  company_deduplication_20251022_111938.log
+
+reports/current/
+----------------
+  DATABASE_STATE_OCTOBER_22_2025.md
+  PERFORMANCE_FIX_SUMMARY.md
+
+reports/historical/
+-------------------
+  clay_import_report_20251022_103702.txt
+  company_import_report_20251021_202320.txt
+  company_import_report_20251021_202435.txt
+  company_import_report_20251021_202505.txt
+  database_deep_dive_report.txt
+  import_report_20251021_175543.txt
+  import_report_20251021_175813.txt
+  import_report_20251021_180151.txt
+  import_report_20251021_183146.txt
+  import_analysis_report.txt
+  database_analysis_report.txt
+  github_enrichment_report.txt
+  deduplication_report.txt
+  data_quality_report.txt
+  company_quality_report.txt
+  post_enrichment_analysis.txt
+
+data/imports/
+-------------
+  companies_need_github_org.csv
+  companies_to_discover.csv
+  sample_200_candidates.csv
+
+data/github/
+------------
+  GitHub_Contributors-Default-view-export-1760735472022.csv
+  GitHub_Org-Default-view-export-1760738884784.csv
+
+archived_databases/
+-------------------
+  talent_intelligence_backup_20251019_115502.db
+
+scripts/database/
+-----------------
+  backup_database.py
+  query_database_secure.py
+  check_data_quality.py
+
+scripts/diagnostics/
+--------------------
+  diagnostic_check.py
+  emergency_diagnostic.py
+  verify_performance.py
+  monitor_hung_queries.py
+  kill_hung_queries.py
+
+scripts/imports/
+----------------
+  import_clay_people.py
+  import_csv_datablend.py
+  import_company_portfolio.py
+
+scripts/github/
+---------------
+  match_github_profiles.py
+  discover_company_github.py
+  enrich_github_continuous.py
+
+scripts/maintenance/
+--------------------
+  deduplicate_companies.py
+  populate_coemployment_graph.py
+
+sql/maintenance/
+----------------
+  emergency_performance_fix.sql
+
+sql/queries/
+------------
+  sample_queries.sql
+  enrichment_summary.sql
+
+sql/analysis/
+-------------
+  comprehensive_analysis.sql
+
+archived_documentation/milestones/
+----------------------------------
+  API_AND_DASHBOARD_COMPLETE.md
+  GITHUB_AUTOMATION_COMPLETE.md
+  GITHUB_CONSOLIDATION.md
+  MIGRATION_COMPLETE.md
+  SCRIPT_CONSOLIDATION_COMPLETE.md
+  SCRIPT_ORGANIZATION_COMPLETE.md
+  DOCUMENTATION_ORGANIZATION_COMPLETE.md
+  IMPLEMENTATION_STATUS.md
+  AUDIT_RESULTS_README.md
+
+docs/
+-----
+  CLAY_IMPORT_README.md → CLAY_IMPORT.md
+  GITHUB_DISCOVERY_SUMMARY.md → GITHUB_DISCOVERY.md
+  IMPORT_STRATEGY_CHANGES.md → IMPORT_STRATEGY.md

@@ -1,0 +1,20 @@
+Company Import Report
+================================================================================
+
+Timestamp: 2025-10-21T20:25:05.013582
+Source: /Users/charlie.kerr/Downloads/Portfolios-vc_portfolio_companies-Default-view-export-1761086233689.csv
+
+Statistics:
+  total_rows: 1333
+  duplicates_skipped: 264
+  companies_found: 1065
+  companies_enriched: 0
+  companies_created: 4
+  companies_already_complete: 1044
+  websites_added: 4
+  linkedin_added: 4
+  github_added: 21
+  employee_count_added: 4
+  skipped_invalid: 0
+
+Errors (0):

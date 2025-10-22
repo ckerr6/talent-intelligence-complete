@@ -1,0 +1,16 @@
+Clay CSV Import Report
+================================================================================
+
+Date: 2025-10-22 10:37:02
+Source: /Users/charlie.kerr/Desktop/Imports for TI Final/clay_find_people_crypto.csv
+
+Statistics:
+  total_rows: 10221
+  profiles_enriched: 1237
+  profiles_created: 8958
+  employment_records_added: 9329
+  companies_matched: 0
+  companies_created: 18
+  skipped_no_linkedin: 26
+  skipped_duplicate_linkedin: 0
+  skipped_invalid: 0

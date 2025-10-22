@@ -1,0 +1,22 @@
+CSV Import Report
+================================================================================
+
+Timestamp: 2025-10-21T18:31:46.562784
+Source: /Users/charlie.kerr/DataBlend1021/dedupe_PB_test.csv
+
+Statistics:
+  total_rows: 68318
+  profiles_enriched: 34246
+  profiles_created: 13177
+  github_only_profiles: 13032
+  linkedin_only_profiles: 111
+  profiles_needing_enrichment: 2990
+  github_matched_existing: 1
+  github_matched_new: 2634
+  github_conflicts: 0
+  emails_added: 133
+  employment_records_added: 4720
+  skipped_invalid: 20895
+  skipped_duplicate_linkedin: 0
+
+Errors (0):

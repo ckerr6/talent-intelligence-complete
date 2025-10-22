@@ -1,0 +1,1587 @@
+Company Import Report
+================================================================================
+
+Timestamp: 2025-10-21T20:23:20.753622
+Source: /Users/charlie.kerr/Downloads/Portfolios-vc_portfolio_companies-Default-view-export-1761086233689.csv
+
+Statistics:
+  total_rows: 1333
+  duplicates_skipped: 264
+  companies_enriched: 582
+  companies_created: 415
+  websites_added: 989
+  linkedin_added: 997
+  github_added: 138
+  employee_count_added: 994
+  skipped_invalid: 0
+
+Errors (523):
+  - Error adding GitHub org trusttoken: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(trusttoken/trusttoken) already exists.
+
+  - Error adding GitHub org arcium-hq: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(arcium-hq/arcium-hq) already exists.
+
+  - Error adding GitHub org ardriveapp: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ardriveapp/ardriveapp) already exists.
+
+  - Error adding GitHub org Artemis-xyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Artemis-xyz/Artemis-xyz) already exists.
+
+  - Error adding GitHub org arweaveteam: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(arweaveteam/arweaveteam) already exists.
+
+  - Error adding GitHub org AstarNetwork: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(AstarNetwork/AstarNetwork) already exists.
+
+  - Error adding GitHub org yl92: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(yl92/yl92) already exists.
+
+  - Error adding GitHub org aurorachain-io: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(aurorachain-io/aurorachain-io) already exists.
+
+  - Error adding GitHub org aurora-is-near: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(aurora-is-near/aurora-is-near) already exists.
+
+  - Error adding GitHub org Autograph-Core: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Autograph-Core/Autograph-Core) already exists.
+
+  - Error adding GitHub org autonomys: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(autonomys/autonomys) already exists.
+
+  - Error adding GitHub org ava-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ava-labs/ava-labs) already exists.
+
+  - Error adding GitHub org mkiever: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(mkiever/mkiever) already exists.
+
+  - Error adding GitHub org AvaProtocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(AvaProtocol/AvaProtocol) already exists.
+
+  - Error adding GitHub org axelarnetwork: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(axelarnetwork/axelarnetwork) already exists.
+
+  - Error adding GitHub org axiom-crypto: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(axiom-crypto/axiom-crypto) already exists.
+
+  - Error adding GitHub org Axoni: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Axoni/Axoni) already exists.
+
+  - Error adding GitHub org transferzero: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(transferzero/transferzero) already exists.
+
+  - Error adding GitHub org AzraGames: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(AzraGames/AzraGames) already exists.
+
+  - Error adding GitHub org AztecProtocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(AztecProtocol/AztecProtocol) already exists.
+
+  - Error adding GitHub org babylonlabs-io: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(babylonlabs-io/babylonlabs-io) already exists.
+
+  - Error adding GitHub org backpack-exchange: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(backpack-exchange/backpack-exchange) already exists.
+
+  - Error adding GitHub org Badger-Finance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Badger-Finance/Badger-Finance) already exists.
+
+  - Error adding GitHub org chrismoran-bkt: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(chrismoran-bkt/chrismoran-bkt) already exists.
+
+  - Error adding GitHub org balancer: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(balancer/balancer) already exists.
+
+  - Error adding GitHub org BarterLab: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(BarterLab/BarterLab) already exists.
+
+  - Error adding GitHub org base-org: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(base-org/base-org) already exists.
+
+  - Error adding GitHub org BAXUSNFT: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(BAXUSNFT/BAXUSNFT) already exists.
+
+  - Error adding GitHub org bcb-group: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(bcb-group/bcb-group) already exists.
+
+  - Error adding GitHub org BuildOnBeam: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(BuildOnBeam/BuildOnBeam) already exists.
+
+  - Error adding GitHub org beoble: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(beoble/beoble) already exists.
+
+  - Error adding GitHub org BetDexLabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(BetDexLabs/BetDexLabs) already exists.
+
+  - Error adding GitHub org bcnmy: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(bcnmy/bcnmy) already exists.
+
+  - Error adding GitHub org gg-big-org: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(gg-big-org/gg-big-org) already exists.
+
+  - Error adding GitHub org bitaccess: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(bitaccess/bitaccess) already exists.
+
+  - Error adding GitHub org bitdao-io: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(bitdao-io/bitdao-io) already exists.
+
+  - Error adding GitHub org bitFlyer: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(bitFlyer/bitFlyer) already exists.
+
+  - Error adding GitHub org bitgo: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(bitgo/bitgo) already exists.
+
+  - Error adding GitHub org bitmark-inc: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(bitmark-inc/bitmark-inc) already exists.
+
+  - Error adding GitHub org bitnomial: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(bitnomial/bitnomial) already exists.
+
+  - Error adding GitHub org bit-oasis: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(bit-oasis/bit-oasis) already exists.
+
+  - Error adding GitHub org bitskico: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(bitskico/bitskico) already exists.
+
+  - Error adding GitHub org bitstamp: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(bitstamp/bitstamp) already exists.
+
+  - Error adding GitHub org BitteProtocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(BitteProtocol/BitteProtocol) already exists.
+
+  - Error adding GitHub org bitwave-tv: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(bitwave-tv/bitwave-tv) already exists.
+
+  - Error adding GitHub org bitwise-invest: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(bitwise-invest/bitwise-invest) already exists.
+
+  - Error adding GitHub org bb-io: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(bb-io/bb-io) already exists.
+
+  - Error adding GitHub org Retrera-Inc: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Retrera-Inc/Retrera-Inc) already exists.
+
+  - Error adding GitHub org blinklabs-io: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(blinklabs-io/blinklabs-io) already exists.
+
+  - Error adding GitHub org BlockchainCap: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(BlockchainCap/BlockchainCap) already exists.
+
+  - Error adding GitHub org blockchain: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(blockchain/blockchain) already exists.
+
+  - Error adding GitHub org blocknative: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(blocknative/blocknative) already exists.
+
+  - Error adding GitHub org blockstream: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(blockstream/blockstream) already exists.
+
+  - Error adding GitHub org joeandrews: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(joeandrews/joeandrews) already exists.
+
+  - Error adding GitHub org hellobloom: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(hellobloom/hellobloom) already exists.
+
+  - Error adding GitHub org blog: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(blog/blog) already exists.
+
+  - Error adding GitHub org blowfishxyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(blowfishxyz/blowfishxyz) already exists.
+
+  - Error adding GitHub org bloXroute-Labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(bloXroute-Labs/bloXroute-Labs) already exists.
+
+  - Error adding GitHub org bluesky-social: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(bluesky-social/bluesky-social) already exists.
+
+  - Error adding GitHub org morphex-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(morphex-labs/morphex-labs) already exists.
+
+  - Error adding GitHub org Bonfire: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Bonfire/Bonfire) already exists.
+
+  - Error adding GitHub org boto: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(boto/boto) already exists.
+
+  - Error adding GitHub org phrozensmoke: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(phrozensmoke/phrozensmoke) already exists.
+
+  - Error adding GitHub org Ryubing: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Ryubing/Ryubing) already exists.
+
+  - Error adding GitHub org brave: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(brave/brave) already exists.
+
+  - Error adding GitHub org brexhq: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(brexhq/brexhq) already exists.
+
+  - Error adding GitHub org bsx-exchange: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(bsx-exchange/bsx-exchange) already exists.
+
+  - Error adding GitHub org BVNK: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(BVNK/BVNK) already exists.
+
+  - Error adding GitHub org AudiusProject: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(AudiusProject/AudiusProject) already exists.
+
+  - Error adding GitHub org digital-asset: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(digital-asset/digital-asset) already exists.
+
+  - Error adding GitHub org casangi: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(casangi/casangi) already exists.
+
+  - Error adding GitHub org catalogworks: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(catalogworks/catalogworks) already exists.
+
+  - Error adding GitHub org digicatapult: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(digicatapult/digicatapult) already exists.
+
+  - Error adding GitHub org category-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(category-labs/category-labs) already exists.
+
+  - Error adding GitHub org ccpgames: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ccpgames/ccpgames) already exists.
+
+  - Error adding GitHub org common-fate: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(common-fate/common-fate) already exists.
+
+  - Error adding GitHub org celer-network: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(celer-network/celer-network) already exists.
+
+  - Error adding GitHub org celestiaorg: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(celestiaorg/celestiaorg) already exists.
+
+  - Error adding GitHub org celo-org: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(celo-org/celo-org) already exists.
+
+  - Error adding GitHub org centrifuge: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(centrifuge/centrifuge) already exists.
+
+  - Error adding GitHub org ceramicnetwork: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ceramicnetwork/ceramicnetwork) already exists.
+
+  - Error adding GitHub org CertiKProject: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(CertiKProject/CertiKProject) already exists.
+
+  - Error adding GitHub org Certora: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Certora/Certora) already exists.
+
+  - Error adding GitHub org chainalysis: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(chainalysis/chainalysis) already exists.
+
+  - Error adding GitHub org chainflip-io: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(chainflip-io/chainflip-io) already exists.
+
+  - Error adding GitHub org chainpatrol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(chainpatrol/chainpatrol) already exists.
+
+  - Error adding GitHub org chia-network: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(chia-network/chia-network) already exists.
+
+  - Error adding GitHub org cipherowl-ai: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(cipherowl-ai/cipherowl-ai) already exists.
+
+  - Error adding GitHub org circlefin: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(circlefin/circlefin) already exists.
+
+  - Error adding GitHub org civicteam: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(civicteam/civicteam) already exists.
+
+  - Error adding GitHub org clockworklabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(clockworklabs/clockworklabs) already exists.
+
+  - Error adding GitHub org CloudburstMC: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(CloudburstMC/CloudburstMC) already exists.
+
+  - Error adding GitHub org pellartech: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(pellartech/pellartech) already exists.
+
+  - Error adding GitHub org CoCreate-app: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(CoCreate-app/CoCreate-app) already exists.
+
+  - Error adding GitHub org code-423n4: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(code-423n4/code-423n4) already exists.
+
+  - Error adding GitHub org sec3dev: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(sec3dev/sec3dev) already exists.
+
+  - Error adding GitHub org codex-protocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(codex-protocol/codex-protocol) already exists.
+
+  - Error adding GitHub org coinbase: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(coinbase/coinbase) already exists.
+
+  - Error adding GitHub org coinlist: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(coinlist/coinlist) already exists.
+
+  - Error adding GitHub org coinme: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(coinme/coinme) already exists.
+
+  - Error adding GitHub org coinmetrics: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(coinmetrics/coinmetrics) already exists.
+
+  - Error adding GitHub org spacemeshos: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(spacemeshos/spacemeshos) already exists.
+
+  - Error adding GitHub org rafaelogic: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(rafaelogic/rafaelogic) already exists.
+
+  - Error adding GitHub org JoakimTeixeira: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(JoakimTeixeira/JoakimTeixeira) already exists.
+
+  - Error adding GitHub org Colu-platform: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Colu-platform/Colu-platform) already exists.
+
+  - Error adding GitHub org CommE2E: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(CommE2E/CommE2E) already exists.
+
+  - Error adding GitHub org compound-finance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(compound-finance/compound-finance) already exists.
+
+  - Error adding GitHub org computableai: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(computableai/computableai) already exists.
+
+  - Error adding GitHub org conduitxyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(conduitxyz/conduitxyz) already exists.
+
+  - Error adding GitHub org consensys: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(consensys/consensys) already exists.
+
+  - Error adding GitHub org Coop-Records: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Coop-Records/Coop-Records) already exists.
+
+  - Error adding GitHub org coordinape: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(coordinape/coordinape) already exists.
+
+  - Error adding GitHub org HPSCTerrSys: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(HPSCTerrSys/HPSCTerrSys) already exists.
+
+  - Error adding GitHub org covalenthq: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(covalenthq/covalenthq) already exists.
+
+  - Error adding GitHub org cowprotocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(cowprotocol/cowprotocol) already exists.
+
+  - Error adding GitHub org payomdousti: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(payomdousti/payomdousti) already exists.
+
+  - Error adding GitHub org crunch: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(crunch/crunch) already exists.
+
+  - Error adding GitHub org crusoecloud: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(crusoecloud/crusoecloud) already exists.
+
+  - Error adding GitHub org cyberconnecthq: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(cyberconnecthq/cyberconnecthq) already exists.
+
+  - Error adding GitHub org cypherium: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(cypherium/cypherium) already exists.
+
+  - Error adding GitHub org cyphlens: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(cyphlens/cyphlens) already exists.
+
+  - Error adding GitHub org d3: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(d3/d3) already exists.
+
+  - Error adding GitHub org dabbatradingapponline: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(dabbatradingapponline/dabbatradingapponline) already exists.
+
+  - Error adding GitHub org jintonic: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(jintonic/jintonic) already exists.
+
+  - Error adding GitHub org DebankDeFi: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(DebankDeFi/DebankDeFi) already exists.
+
+  - Error adding GitHub org decentralgames: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(decentralgames/decentralgames) already exists.
+
+  - Error adding GitHub org definitive-io: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(definitive-io/definitive-io) already exists.
+
+  - Error adding GitHub org delegatexyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(delegatexyz/delegatexyz) already exists.
+
+  - Error adding GitHub org chubek: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(chubek/chubek) already exists.
+
+  - Error adding GitHub org leoplatform: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(leoplatform/leoplatform) already exists.
+
+  - Error adding GitHub org deso-protocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(deso-protocol/deso-protocol) already exists.
+
+  - Error adding GitHub org Mozes721: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Mozes721/Mozes721) already exists.
+
+  - Error adding GitHub org DFlowProtocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(DFlowProtocol/DFlowProtocol) already exists.
+
+  - Error adding GitHub org dfns: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(dfns/dfns) already exists.
+
+  - Error adding GitHub org diem: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(diem/diem) already exists.
+
+  - Error adding GitHub org digital-asset: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(digital-asset/digital-asset) already exists.
+
+  - Error adding GitHub org turbo-eth: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(turbo-eth/turbo-eth) already exists.
+
+  - Error adding GitHub org dakota-xyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(dakota-xyz/dakota-xyz) already exists.
+
+  - Error adding GitHub org dodoex: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(dodoex/dodoex) already exists.
+
+  - Error adding GitHub org dolomite-exchange: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(dolomite-exchange/dolomite-exchange) already exists.
+
+  - Error adding GitHub org drift-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(drift-labs/drift-labs) already exists.
+
+  - Error adding GitHub org DripEmail: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(DripEmail/DripEmail) already exists.
+
+  - Error adding GitHub org trijayadigital: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(trijayadigital/trijayadigital) already exists.
+
+  - Error adding GitHub org VarunBal: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(VarunBal/VarunBal) already exists.
+
+  - Error adding GitHub org dynamic-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(dynamic-labs/dynamic-labs) already exists.
+
+  - Error adding GitHub org ECO: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ECO/ECO) already exists.
+
+  - Error adding GitHub org eden-network: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(eden-network/eden-network) already exists.
+
+  - Error adding GitHub org thetechnobear: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(thetechnobear/thetechnobear) already exists.
+
+  - Error adding GitHub org eldoradoio: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(eldoradoio/eldoradoio) already exists.
+
+  - Error adding GitHub org Ellipsis-Labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Ellipsis-Labs/Ellipsis-Labs) already exists.
+
+  - Error adding GitHub org entropyxyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(entropyxyz/entropyxyz) already exists.
+
+  - Error adding GitHub org ephemeraHQ: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ephemeraHQ/ephemeraHQ) already exists.
+
+  - Error adding GitHub org Griefed: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Griefed/Griefed) already exists.
+
+  - Error adding GitHub org ethena-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ethena-labs/ethena-labs) already exists.
+
+  - Error adding GitHub org etherscan: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(etherscan/etherscan) already exists.
+
+  - Error adding GitHub org eventusone: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(eventusone/eventusone) already exists.
+
+  - Error adding GitHub org everclearorg: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(everclearorg/everclearorg) already exists.
+
+  - Error adding GitHub org evmos: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(evmos/evmos) already exists.
+
+  - Error adding GitHub org FabricCryptography: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(FabricCryptography/FabricCryptography) already exists.
+
+  - Error adding GitHub org moneybutton: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(moneybutton/moneybutton) already exists.
+
+  - Error adding GitHub org falconxio: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(falconxio/falconxio) already exists.
+
+  - Error adding GitHub org Arun-chaitanya: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Arun-chaitanya/Arun-chaitanya) already exists.
+
+  - Error adding GitHub org farcasterxyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(farcasterxyz/farcasterxyz) already exists.
+
+  - Error adding GitHub org ionicprotocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ionicprotocol/ionicprotocol) already exists.
+
+  - Error adding GitHub org marianosimone: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(marianosimone/marianosimone) already exists.
+
+  - Error adding GitHub org fhenixprotocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(fhenixprotocol/fhenixprotocol) already exists.
+
+  - Error adding GitHub org filebase: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(filebase/filebase) already exists.
+
+  - Error adding GitHub org fireblocks: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(fireblocks/fireblocks) already exists.
+
+  - Error adding GitHub org flare-foundation: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(flare-foundation/flare-foundation) already exists.
+
+  - Error adding GitHub org flashbots: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(flashbots/flashbots) already exists.
+
+  - Error adding GitHub org fleekxyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(fleekxyz/fleekxyz) already exists.
+
+  - Error adding GitHub org flexa: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(flexa/flexa) already exists.
+
+  - Error adding GitHub org FlipsideCrypto: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(FlipsideCrypto/FlipsideCrypto) already exists.
+
+  - Error adding GitHub org chicken-jockey-clicker: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(chicken-jockey-clicker/chicken-jockey-clicker) already exists.
+
+  - Error adding GitHub org onflow: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(onflow/onflow) already exists.
+
+  - Error adding GitHub org flowcarbon: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(flowcarbon/flowcarbon) already exists.
+
+  - Error adding GitHub org FlowDeskMarkets: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(FlowDeskMarkets/FlowDeskMarkets) already exists.
+
+  - Error adding GitHub org fluencelabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(fluencelabs/fluencelabs) already exists.
+
+  - Error adding GitHub org fluidity-money: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(fluidity-money/fluidity-money) already exists.
+
+  - Error adding GitHub org FoldApp: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(FoldApp/FoldApp) already exists.
+
+  - Error adding GitHub org Folks-Finance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Folks-Finance/Folks-Finance) already exists.
+
+  - Error adding GitHub org FordefiHQ: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(FordefiHQ/FordefiHQ) already exists.
+
+  - Error adding GitHub org fortedigital: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(fortedigital/fortedigital) already exists.
+
+  - Error adding GitHub org foundryservices: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(foundryservices/foundryservices) already exists.
+
+  - Error adding GitHub org fraxfinance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(fraxfinance/fraxfinance) already exists.
+
+  - Error adding GitHub org funfair-tech: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(funfair-tech/funfair-tech) already exists.
+
+  - Error adding GitHub org zensourcer: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(zensourcer/zensourcer) already exists.
+
+  - Error adding GitHub org genevaers: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(genevaers/genevaers) already exists.
+
+  - Error adding GitHub org ai-genie: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ai-genie/ai-genie) already exists.
+
+  - Error adding GitHub org Geodefi: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Geodefi/Geodefi) already exists.
+
+  - Error adding GitHub org geodnet: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(geodnet/geodnet) already exists.
+
+  - Error adding GitHub org getro: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(getro/getro) already exists.
+
+  - Error adding GitHub org gitcoinco: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(gitcoinco/gitcoinco) already exists.
+
+  - Error adding GitHub org gizatechxyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(gizatechxyz/gizatechxyz) already exists.
+
+  - Error adding GitHub org glifio: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(glifio/glifio) already exists.
+
+  - Error adding GitHub org grayscalemodular: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(grayscalemodular/grayscalemodular) already exists.
+
+  - Error adding GitHub org muchdogesec: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(muchdogesec/muchdogesec) already exists.
+
+  - Error adding GitHub org enjoyyi00: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(enjoyyi00/enjoyyi00) already exists.
+
+  - Error adding GitHub org guardrails-ai: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(guardrails-ai/guardrails-ai) already exists.
+
+  - Error adding GitHub org HalbornSecurity: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(HalbornSecurity/HalbornSecurity) already exists.
+
+  - Error adding GitHub org HallidayInc: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(HallidayInc/HallidayInc) already exists.
+
+  - Error adding GitHub org halogenos: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(halogenos/halogenos) already exists.
+
+  - Error adding GitHub org handshake-org: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(handshake-org/handshake-org) already exists.
+
+  - Error adding GitHub org Harpieio: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Harpieio/Harpieio) already exists.
+
+  - Error adding GitHub org RodrigoPita: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(RodrigoPita/RodrigoPita) already exists.
+
+  - Error adding GitHub org hashflownetwork: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(hashflownetwork/hashflownetwork) already exists.
+
+  - Error adding GitHub org CyberHashira: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(CyberHashira/CyberHashira) already exists.
+
+  - Error adding GitHub org hawku: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(hawku/hawku) already exists.
+
+  - Error adding GitHub org hashgraph: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(hashgraph/hashgraph) already exists.
+
+  - Error adding GitHub org getlidar: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(getlidar/getlidar) already exists.
+
+  - Error adding GitHub org vmpyre: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(vmpyre/vmpyre) already exists.
+
+  - Error adding GitHub org Hexgate-Studios: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Hexgate-Studios/Hexgate-Studios) already exists.
+
+  - Error adding GitHub org tivolicloud: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(tivolicloud/tivolicloud) already exists.
+
+  - Error adding GitHub org highlightxyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(highlightxyz/highlightxyz) already exists.
+
+  - Error adding GitHub org hop-protocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(hop-protocol/hop-protocol) already exists.
+
+  - Error adding GitHub org 0xsequence: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(0xsequence/0xsequence) already exists.
+
+  - Error adding GitHub org pitch-foundation: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(pitch-foundation/pitch-foundation) already exists.
+
+  - Error adding GitHub org gohypelab: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(gohypelab/gohypelab) already exists.
+
+  - Error adding GitHub org HyperbolicLabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(HyperbolicLabs/HyperbolicLabs) already exists.
+
+  - Error adding GitHub org hyperithm: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(hyperithm/hyperithm) already exists.
+
+  - Error adding GitHub org immutable: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(immutable/immutable) already exists.
+
+  - Error adding GitHub org improbable-io: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(improbable-io/improbable-io) already exists.
+
+  - Error adding GitHub org Inco-fhevm: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Inco-fhevm/Inco-fhevm) already exists.
+
+  - Error adding GitHub org Incode-Technologies-Example-Repos: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Incode-Technologies-Example-Repos/Incode-Technologies-Example-Repos) already exists.
+
+  - Error adding GitHub org init-capital: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(init-capital/init-capital) already exists.
+
+  - Error adding GitHub org ionet-official: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ionet-official/ionet-official) already exists.
+
+  - Error adding GitHub org ippopay: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ippopay/ippopay) already exists.
+
+  - Error adding GitHub org iron-fish: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(iron-fish/iron-fish) already exists.
+
+  - Error adding GitHub org IrreducibleOSS: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(IrreducibleOSS/IrreducibleOSS) already exists.
+
+  - Error adding GitHub org ithacaxyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ithacaxyz/ithacaxyz) already exists.
+
+  - Error adding GitHub org iyk-inc: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(iyk-inc/iyk-inc) already exists.
+
+  - Error adding GitHub org javierjulio: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(javierjulio/javierjulio) already exists.
+
+  - Error adding GitHub org ayushbhavsar21: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ayushbhavsar21/ayushbhavsar21) already exists.
+
+  - Error adding GitHub org babu97: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(babu97/babu97) already exists.
+
+  - Error adding GitHub org jia-kai: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(jia-kai/jia-kai) already exists.
+
+  - Error adding GitHub org jjiko: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(jjiko/jjiko) already exists.
+
+  - Error adding GitHub org 0xEdgar: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(0xEdgar/0xEdgar) already exists.
+
+  - Error adding GitHub org junipersquare: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(junipersquare/junipersquare) already exists.
+
+  - Error adding GitHub org Kalshi: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Kalshi/Kalshi) already exists.
+
+  - Error adding GitHub org karak-network: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(karak-network/karak-network) already exists.
+
+  - Error adding GitHub org OfficialKatana: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(OfficialKatana/OfficialKatana) already exists.
+
+  - Error adding GitHub org keep-network: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(keep-network/keep-network) already exists.
+
+  - Error adding GitHub org apuchitnis: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(apuchitnis/apuchitnis) already exists.
+
+  - Error adding GitHub org kusamanetwork: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(kusamanetwork/kusamanetwork) already exists.
+
+  - Error adding GitHub org kwilteam: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(kwilteam/kwilteam) already exists.
+
+  - Error adding GitHub org kyvenetwork: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(kyvenetwork/kyvenetwork) already exists.
+
+  - Error adding GitHub org layerzero-Labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(layerzero-Labs/layerzero-Labs) already exists.
+
+  - Error adding GitHub org learn-anything: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(learn-anything/learn-anything) already exists.
+
+  - Error adding GitHub org ledgerhq: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ledgerhq/ledgerhq) already exists.
+
+  - Error adding GitHub org lemma-finance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(lemma-finance/lemma-finance) already exists.
+
+  - Error adding GitHub org lens-protocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(lens-protocol/lens-protocol) already exists.
+
+  - Error adding GitHub org lifinance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(lifinance/lifinance) already exists.
+
+  - Error adding GitHub org LigeroSmart: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(LigeroSmart/LigeroSmart) already exists.
+
+  - Error adding GitHub org lightninglabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(lightninglabs/lightninglabs) already exists.
+
+  - Error adding GitHub org lightsparkdev: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(lightsparkdev/lightsparkdev) already exists.
+
+  - Error adding GitHub org limitbreakinc: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(limitbreakinc/limitbreakinc) already exists.
+
+  - Error adding GitHub org liquality: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(liquality/liquality) already exists.
+
+  - Error adding GitHub org liquity: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(liquity/liquity) already exists.
+
+  - Error adding GitHub org livepeer: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(livepeer/livepeer) already exists.
+
+  - Error adding GitHub org LoopCrypto: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(LoopCrypto/LoopCrypto) already exists.
+
+  - Error adding GitHub org LoopscaleLabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(LoopscaleLabs/LoopscaleLabs) already exists.
+
+  - Error adding GitHub org oeduardoal: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(oeduardoal/oeduardoal) already exists.
+
+  - Error adding GitHub org stewart-prysm: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(stewart-prysm/stewart-prysm) already exists.
+
+  - Error adding GitHub org Superteam-Germany: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Superteam-Germany/Superteam-Germany) already exists.
+
+  - Error adding GitHub org Avantis-Labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Avantis-Labs/Avantis-Labs) already exists.
+
+  - Error adding GitHub org luno: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(luno/luno) already exists.
+
+  - Error adding GitHub org m0-foundation: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(m0-foundation/m0-foundation) already exists.
+
+  - Error adding GitHub org m10io: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(m10io/m10io) already exists.
+
+  - Error adding GitHub org 0xMacro: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(0xMacro/0xMacro) already exists.
+
+  - Error adding GitHub org madhive: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(madhive/madhive) already exists.
+
+  - Error adding GitHub org magiceden: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(magiceden/magiceden) already exists.
+
+  - Error adding GitHub org manifold-inc: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(manifold-inc/manifold-inc) already exists.
+
+  - Error adding GitHub org maple-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(maple-labs/maple-labs) already exists.
+
+  - Error adding GitHub org lily-mara: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(lily-mara/lily-mara) already exists.
+
+  - Error adding GitHub org masa-finance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(masa-finance/masa-finance) already exists.
+
+  - Error adding GitHub org joinmassive: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(joinmassive/joinmassive) already exists.
+
+  - Error adding GitHub org edwinchen85: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(edwinchen85/edwinchen85) already exists.
+
+  - Error adding GitHub org matter-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(matter-labs/matter-labs) already exists.
+
+  - Error adding GitHub org Eddie2111: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Eddie2111/Eddie2111) already exists.
+
+  - Error adding GitHub org mem-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(mem-labs/mem-labs) already exists.
+
+  - Error adding GitHub org merit-systems: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(merit-systems/merit-systems) already exists.
+
+  - Error adding GitHub org metaplex: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(metaplex/metaplex) already exists.
+
+  - Error adding GitHub org 0xmetaschool: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(0xmetaschool/0xmetaschool) already exists.
+
+  - Error adding GitHub org jt5d: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(jt5d/jt5d) already exists.
+
+  - Error adding GitHub org meterio: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(meterio/meterio) already exists.
+
+  - Error adding GitHub org mezo-org: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(mezo-org/mezo-org) already exists.
+
+  - Error adding GitHub org mifiel: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(mifiel/mifiel) already exists.
+
+  - Error adding GitHub org sweetmantech: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(sweetmantech/sweetmantech) already exists.
+
+  - Error adding GitHub org mithril-security: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(mithril-security/mithril-security) already exists.
+
+  - Error adding GitHub org mmt-finance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(mmt-finance/mmt-finance) already exists.
+
+  - Error adding GitHub org monad-developers: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(monad-developers/monad-developers) already exists.
+
+  - Error adding GitHub org moonpay: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(moonpay/moonpay) already exists.
+
+  - Error adding GitHub org MoralisWeb3: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(MoralisWeb3/MoralisWeb3) already exists.
+
+  - Error adding GitHub org morph-l2: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(morph-l2/morph-l2) already exists.
+
+  - Error adding GitHub org mountainprotocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(mountainprotocol/mountainprotocol) already exists.
+
+  - Error adding GitHub org mystenlabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(mystenlabs/mystenlabs) already exists.
+
+  - Error adding GitHub org MythicalGames: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(MythicalGames/MythicalGames) already exists.
+
+  - Error adding GitHub org namebasehq: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(namebasehq/namebasehq) already exists.
+
+  - Error adding GitHub org nansen-ai: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(nansen-ai/nansen-ai) already exists.
+
+  - Error adding GitHub org netkicorp: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(netkicorp/netkicorp) already exists.
+
+  - Error adding GitHub org nexus-xyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(nexus-xyz/nexus-xyz) already exists.
+
+  - Error adding GitHub org NFTfi-Genesis: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(NFTfi-Genesis/NFTfi-Genesis) already exists.
+
+  - Error adding GitHub org nirvana-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(nirvana-labs/nirvana-labs) already exists.
+
+  - Error adding GitHub org noble-assets: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(noble-assets/noble-assets) already exists.
+
+  - Error adding GitHub org nomics-crypto: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(nomics-crypto/nomics-crypto) already exists.
+
+  - Error adding GitHub org LeoLoupos: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(LeoLoupos/LeoLoupos) already exists.
+
+  - Error adding GitHub org notional-finance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(notional-finance/notional-finance) already exists.
+
+  - Error adding GitHub org nottelabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(nottelabs/nottelabs) already exists.
+
+  - Error adding GitHub org nousresearch: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(nousresearch/nousresearch) already exists.
+
+  - Error adding GitHub org NichtStudioCode: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(NichtStudioCode/NichtStudioCode) already exists.
+
+  - Error adding GitHub org npclab: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(npclab/npclab) already exists.
+
+  - Error adding GitHub org kawahwookiee: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(kawahwookiee/kawahwookiee) already exists.
+
+  - Error adding GitHub org numerai: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(numerai/numerai) already exists.
+
+  - Error adding GitHub org nymtech: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(nymtech/nymtech) already exists.
+
+  - Error adding GitHub org o1-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(o1-labs/o1-labs) already exists.
+
+  - Error adding GitHub org oasislabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(oasislabs/oasislabs) already exists.
+
+  - Error adding GitHub org offchainlabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(offchainlabs/offchainlabs) already exists.
+
+  - Error adding GitHub org Offramp-xyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Offramp-xyz/Offramp-xyz) already exists.
+
+  - Error adding GitHub org omgnetwork: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(omgnetwork/omgnetwork) already exists.
+
+  - Error adding GitHub org omni-network: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(omni-network/omni-network) already exists.
+
+  - Error adding GitHub org oncyberio: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(oncyberio/oncyberio) already exists.
+
+  - Error adding GitHub org ondoprotocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ondoprotocol/ondoprotocol) already exists.
+
+  - Error adding GitHub org onebalance-io: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(onebalance-io/onebalance-io) already exists.
+
+  - Error adding GitHub org openmind: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(openmind/openmind) already exists.
+
+  - Error adding GitHub org projectopensea: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(projectopensea/projectopensea) already exists.
+
+  - Error adding GitHub org opentensor: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(opentensor/opentensor) already exists.
+
+  - Error adding GitHub org opentoken-io: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(opentoken-io/opentoken-io) already exists.
+
+  - Error adding GitHub org openzeppelin: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(openzeppelin/openzeppelin) already exists.
+
+  - Error adding GitHub org ethereum-optimism: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ethereum-optimism/ethereum-optimism) already exists.
+
+  - Error adding GitHub org opynfinance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(opynfinance/opynfinance) already exists.
+
+  - Error adding GitHub org OTCMarketsGroup: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(OTCMarketsGroup/OTCMarketsGroup) already exists.
+
+  - Error adding GitHub org Othentic-Labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Othentic-Labs/Othentic-Labs) already exists.
+
+  - Error adding GitHub org pangeafoundation: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(pangeafoundation/pangeafoundation) already exists.
+
+  - Error adding GitHub org panoptic-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(panoptic-labs/panoptic-labs) already exists.
+
+  - Error adding GitHub org tradeparadigm: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(tradeparadigm/tradeparadigm) already exists.
+
+  - Error adding GitHub org paragraph-xyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(paragraph-xyz/paragraph-xyz) already exists.
+
+  - Error adding GitHub org Parallel-NFT: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Parallel-NFT/Parallel-NFT) already exists.
+
+  - Error adding GitHub org para-space: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(para-space/para-space) already exists.
+
+  - Error adding GitHub org ParclFinance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ParclFinance/ParclFinance) already exists.
+
+  - Error adding GitHub org passes-org: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(passes-org/passes-org) already exists.
+
+  - Error adding GitHub org PawnFi: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(PawnFi/PawnFi) already exists.
+
+  - Error adding GitHub org paxosglobal: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(paxosglobal/paxosglobal) already exists.
+
+  - Error adding GitHub org pear-protocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(pear-protocol/pear-protocol) already exists.
+
+  - Error adding GitHub org perpetual-protocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(perpetual-protocol/perpetual-protocol) already exists.
+
+  - Error adding GitHub org persistenceOne: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(persistenceOne/persistenceOne) already exists.
+
+  - Error adding GitHub org PHI-LABS-INC: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(PHI-LABS-INC/PHI-LABS-INC) already exists.
+
+  - Error adding GitHub org pimlicolabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(pimlicolabs/pimlicolabs) already exists.
+
+  - Error adding GitHub org pinatacloud: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(pinatacloud/pinatacloud) already exists.
+
+  - Error adding GitHub org pintu-crypto: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(pintu-crypto/pintu-crypto) already exists.
+
+  - Error adding GitHub org PipeNetwork: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(PipeNetwork/PipeNetwork) already exists.
+
+  - Error adding GitHub org plastic-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(plastic-labs/plastic-labs) already exists.
+
+  - Error adding GitHub org korabs-x: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(korabs-x/korabs-x) already exists.
+
+  - Error adding GitHub org pluto: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(pluto/pluto) already exists.
+
+  - Error adding GitHub org 0xpolygon: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(0xpolygon/0xpolygon) already exists.
+
+  - Error adding GitHub org polymerlabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(polymerlabs/polymerlabs) already exists.
+
+  - Error adding GitHub org Pond-International: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Pond-International/Pond-International) already exists.
+
+  - Error adding GitHub org portals-fi: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(portals-fi/portals-fi) already exists.
+
+  - Error adding GitHub org Portaldefi: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Portaldefi/Portaldefi) already exists.
+
+  - Error adding GitHub org poseidon: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(poseidon/poseidon) already exists.
+
+  - Error adding GitHub org powerloom: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(powerloom/powerloom) already exists.
+
+  - Error adding GitHub org power-trade: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(power-trade/power-trade) already exists.
+
+  - Error adding GitHub org PrimeIntellect-ai: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(PrimeIntellect-ai/PrimeIntellect-ai) already exists.
+
+  - Error adding GitHub org privy-io: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(privy-io/privy-io) already exists.
+
+  - Error adding GitHub org cision-ux: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(cision-ux/cision-ux) already exists.
+
+  - Error adding GitHub org iccmr-quantum: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(iccmr-quantum/iccmr-quantum) already exists.
+
+  - Error adding GitHub org project-serum: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(project-serum/project-serum) already exists.
+
+  - Error adding GitHub org poap-xyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(poap-xyz/poap-xyz) already exists.
+
+  - Error adding GitHub org proofofplay: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(proofofplay/proofofplay) already exists.
+
+  - Error adding GitHub org Verlias: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Verlias/Verlias) already exists.
+
+  - Error adding GitHub org AI-Protocol-Official: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(AI-Protocol-Official/AI-Protocol-Official) already exists.
+
+  - Error adding GitHub org ProvableHQ: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ProvableHQ/ProvableHQ) already exists.
+
+  - Error adding GitHub org ProjectProvenance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ProjectProvenance/ProjectProvenance) already exists.
+
+  - Error adding GitHub org psyprotocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(psyprotocol/psyprotocol) already exists.
+
+  - Error adding GitHub org PufferFinance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(PufferFinance/PufferFinance) already exists.
+
+  - Error adding GitHub org kwongj: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(kwongj/kwongj) already exists.
+
+  - Error adding GitHub org pulposapp: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(pulposapp/pulposapp) already exists.
+
+  - Error adding GitHub org pyor-xyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(pyor-xyz/pyor-xyz) already exists.
+
+  - Error adding GitHub org pyth-network: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(pyth-network/pyth-network) already exists.
+
+  - Error adding GitHub org kazettique: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(kazettique/kazettique) already exists.
+
+  - Error adding GitHub org quasar-finance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(quasar-finance/quasar-finance) already exists.
+
+  - Error adding GitHub org radicle-dev: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(radicle-dev/radicle-dev) already exists.
+
+  - Error adding GitHub org Railgun-Community: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Railgun-Community/Railgun-Community) already exists.
+
+  - Error adding GitHub org rainbow-me: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(rainbow-me/rainbow-me) already exists.
+
+  - Error adding GitHub org rarible: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(rarible/rarible) already exists.
+
+  - Error adding GitHub org READY: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(READY/READY) already exists.
+
+  - Error adding GitHub org czh-98: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(czh-98/czh-98) already exists.
+
+  - Error adding GitHub org recallnet: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(recallnet/recallnet) already exists.
+
+  - Error adding GitHub org redstone-finance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(redstone-finance/redstone-finance) already exists.
+
+  - Error adding GitHub org RekeningkuDev: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(RekeningkuDev/RekeningkuDev) already exists.
+
+  - Error adding GitHub org Revelator-il: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Revelator-il/Revelator-il) already exists.
+
+  - Error adding GitHub org reverieinc: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(reverieinc/reverieinc) already exists.
+
+  - Error adding GitHub org Reya-Labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Reya-Labs/Reya-Labs) already exists.
+
+  - Error adding GitHub org Ribbit-Network: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Ribbit-Network/Ribbit-Network) already exists.
+
+  - Error adding GitHub org MichelNivard: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(MichelNivard/MichelNivard) already exists.
+
+  - Error adding GitHub org realiotech: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(realiotech/realiotech) already exists.
+
+  - Error adding GitHub org riseworks: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(riseworks/riseworks) already exists.
+
+  - Error adding GitHub org rocket-pool: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(rocket-pool/rocket-pool) already exists.
+
+  - Error adding GitHub org pxl-pshr: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(pxl-pshr/pxl-pshr) already exists.
+
+  - Error adding GitHub org royal-io: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(royal-io/royal-io) already exists.
+
+  - Error adding GitHub org RSS3-Network: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(RSS3-Network/RSS3-Network) already exists.
+
+  - Error adding GitHub org rye-com: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(rye-com/rye-com) already exists.
+
+  - Error adding GitHub org saddle-finance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(saddle-finance/saddle-finance) already exists.
+
+  - Error adding GitHub org SaharaLabsAI: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(SaharaLabsAI/SaharaLabsAI) already exists.
+
+  - Error adding GitHub org get-salt-AI: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(get-salt-AI/get-salt-AI) already exists.
+
+  - Error adding GitHub org sfcompute: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(sfcompute/sfcompute) already exists.
+
+  - Error adding GitHub org sardine-ai: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(sardine-ai/sardine-ai) already exists.
+
+  - Error adding GitHub org satellite-im: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(satellite-im/satellite-im) already exists.
+
+  - Error adding GitHub org nostrocket: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(nostrocket/nostrocket) already exists.
+
+  - Error adding GitHub org satorinetwork: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(satorinetwork/satorinetwork) already exists.
+
+  - Error adding GitHub org scroll-tech: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(scroll-tech/scroll-tech) already exists.
+
+  - Error adding GitHub org lsbnb: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(lsbnb/lsbnb) already exists.
+
+  - Error adding GitHub org securitize-io: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(securitize-io/securitize-io) already exists.
+
+  - Error adding GitHub org SeismicSystems: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(SeismicSystems/SeismicSystems) already exists.
+
+  - Error adding GitHub org SenderWallet: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(SenderWallet/SenderWallet) already exists.
+
+  - Error adding GitHub org mobilecoinfoundation: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(mobilecoinfoundation/mobilecoinfoundation) already exists.
+
+  - Error adding GitHub org setprotocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(setprotocol/setprotocol) already exists.
+
+  - Error adding GitHub org sfoxhq: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(sfoxhq/sfoxhq) already exists.
+
+  - Error adding GitHub org shadowmere-xyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(shadowmere-xyz/shadowmere-xyz) already exists.
+
+  - Error adding GitHub org zecrey-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(zecrey-labs/zecrey-labs) already exists.
+
+  - Error adding GitHub org Sindri-Labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Sindri-Labs/Sindri-Labs) already exists.
+
+  - Error adding GitHub org skalenetwork: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(skalenetwork/skalenetwork) already exists.
+
+  - Error adding GitHub org skymavis: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(skymavis/skymavis) already exists.
+
+  - Error adding GitHub org snapshot-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(snapshot-labs/snapshot-labs) already exists.
+
+  - Error adding GitHub org snowflake-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(snowflake-labs/snowflake-labs) already exists.
+
+  - Error adding GitHub org SocketDotTech: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(SocketDotTech/SocketDotTech) already exists.
+
+  - Error adding GitHub org sodot-rs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(sodot-rs/sodot-rs) already exists.
+
+  - Error adding GitHub org solana-foundation: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(solana-foundation/solana-foundation) already exists.
+
+  - Error adding GitHub org solv-finance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(solv-finance/solv-finance) already exists.
+
+  - Error adding GitHub org peggyjv: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(peggyjv/peggyjv) already exists.
+
+  - Error adding GitHub org sorellalabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(sorellalabs/sorellalabs) already exists.
+
+  - Error adding GitHub org spacemeshos: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(spacemeshos/spacemeshos) already exists.
+
+  - Error adding GitHub org ablo: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ablo/ablo) already exists.
+
+  - Error adding GitHub org SPATIAL-Lab: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(SPATIAL-Lab/SPATIAL-Lab) already exists.
+
+  - Error adding GitHub org Sphere-Laboratories: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Sphere-Laboratories/Sphere-Laboratories) already exists.
+
+  - Error adding GitHub org spindl-xyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(spindl-xyz/spindl-xyz) already exists.
+
+  - Error adding GitHub org spire-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(spire-labs/spire-labs) already exists.
+
+  - Error adding GitHub org spring-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(spring-labs/spring-labs) already exists.
+
+  - Error adding GitHub org spruceid: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(spruceid/spruceid) already exists.
+
+  - Error adding GitHub org Squads-Protocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Squads-Protocol/Squads-Protocol) already exists.
+
+  - Error adding GitHub org ssvlabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ssvlabs/ssvlabs) already exists.
+
+  - Error adding GitHub org stablecoinxyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(stablecoinxyz/stablecoinxyz) already exists.
+
+  - Error adding GitHub org stackexchange: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(stackexchange/stackexchange) already exists.
+
+  - Error adding GitHub org stacks-network: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(stacks-network/stacks-network) already exists.
+
+  - Error adding GitHub org stackup-wallet: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(stackup-wallet/stackup-wallet) already exists.
+
+  - Error adding GitHub org stader-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(stader-labs/stader-labs) already exists.
+
+  - Error adding GitHub org stakingrewards: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(stakingrewards/stakingrewards) already exists.
+
+  - Error adding GitHub org stakpak: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(stakpak/stakpak) already exists.
+
+  - Error adding GitHub org starkware-libs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(starkware-libs/starkware-libs) already exists.
+
+  - Error adding GitHub org streamingfast: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(streamingfast/streamingfast) already exists.
+
+  - Error adding GitHub org stride-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(stride-labs/stride-labs) already exists.
+
+  - Error adding GitHub org strip-finance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(strip-finance/strip-finance) already exists.
+
+  - Error adding GitHub org mahmadza: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(mahmadza/mahmadza) already exists.
+
+  - Error adding GitHub org suadelabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(suadelabs/suadelabs) already exists.
+
+  - Error adding GitHub org subquery: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(subquery/subquery) already exists.
+
+  - Error adding GitHub org succinctlabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(succinctlabs/succinctlabs) already exists.
+
+  - Error adding GitHub org sui-foundation: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(sui-foundation/sui-foundation) already exists.
+
+  - Error adding GitHub org Sunscreen-tech: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Sunscreen-tech/Sunscreen-tech) already exists.
+
+  - Error adding GitHub org superfluid-finance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(superfluid-finance/superfluid-finance) already exists.
+
+  - Error adding GitHub org sushi-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(sushi-labs/sushi-labs) already exists.
+
+  - Error adding GitHub org sweatco: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(sweatco/sweatco) already exists.
+
+  - Error adding GitHub org Swivel-Finance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Swivel-Finance/Swivel-Finance) already exists.
+
+  - Error adding GitHub org Syndica: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Syndica/Syndica) already exists.
+
+  - Error adding GitHub org SyndicateProtocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(SyndicateProtocol/SyndicateProtocol) already exists.
+
+  - Error adding GitHub org withtally: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(withtally/withtally) already exists.
+
+  - Error adding GitHub org talostrading: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(talostrading/talostrading) already exists.
+
+  - Error adding GitHub org biggeb4: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(biggeb4/biggeb4) already exists.
+
+  - Error adding GitHub org tari-project: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(tari-project/tari-project) already exists.
+
+  - Error adding GitHub org taxbit-open-source: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(taxbit-open-source/taxbit-open-source) already exists.
+
+  - Error adding GitHub org TeahouseFinance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(TeahouseFinance/TeahouseFinance) already exists.
+
+  - Error adding GitHub org teller-protocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(teller-protocol/teller-protocol) already exists.
+
+  - Error adding GitHub org tenderly: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(tenderly/tenderly) already exists.
+
+  - Error adding GitHub org tenor-inc: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(tenor-inc/tenor-inc) already exists.
+
+  - Error adding GitHub org tensorplex-labs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(tensorplex-labs/tensorplex-labs) already exists.
+
+  - Error adding GitHub org tesseract-ocr: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(tesseract-ocr/tesseract-ocr) already exists.
+
+  - Error adding GitHub org nervosnetwork: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(nervosnetwork/nervosnetwork) already exists.
+
+  - Error adding GitHub org thorchain: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(thorchain/thorchain) already exists.
+
+  - Error adding GitHub org thundercore: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(thundercore/thundercore) already exists.
+
+  - Error adding GitHub org tinymanorg: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(tinymanorg/tinymanorg) already exists.
+
+  - Error adding GitHub org TipLink: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(TipLink/TipLink) already exists.
+
+  - Error adding GitHub org Tokemak: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Tokemak/Tokemak) already exists.
+
+  - Error adding GitHub org TokenFlowInsights: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(TokenFlowInsights/TokenFlowInsights) already exists.
+
+  - Error adding GitHub org masonicgit: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(masonicgit/masonicgit) already exists.
+
+  - Error adding GitHub org ton-society: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ton-society/ton-society) already exists.
+
+  - Error adding GitHub org pymanopt: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(pymanopt/pymanopt) already exists.
+
+  - Error adding GitHub org MuhammadFadel: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(MuhammadFadel/MuhammadFadel) already exists.
+
+  - Error adding GitHub org trmlabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(trmlabs/trmlabs) already exists.
+
+  - Error adding GitHub org truemarketsorg: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(truemarketsorg/truemarketsorg) already exists.
+
+  - Error adding GitHub org yashtotla: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(yashtotla/yashtotla) already exists.
+
+  - Error adding GitHub org tkhq: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(tkhq/tkhq) already exists.
+
+  - Error adding GitHub org umaprotocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(umaprotocol/umaprotocol) already exists.
+
+  - Error adding GitHub org unlock-protocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(unlock-protocol/unlock-protocol) already exists.
+
+  - Error adding GitHub org DannyFung97: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(DannyFung97/DannyFung97) already exists.
+
+  - Error adding GitHub org untolabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(untolabs/untolabs) already exists.
+
+  - Error adding GitHub org urbit: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(urbit/urbit) already exists.
+
+  - Error adding GitHub org usual-dao: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(usual-dao/usual-dao) already exists.
+
+  - Error adding GitHub org utila-io: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(utila-io/utila-io) already exists.
+
+  - Error adding GitHub org valr: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(valr/valr) already exists.
+
+  - Error adding GitHub org veefriends: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(veefriends/veefriends) already exists.
+
+  - Error adding GitHub org veeminc: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(veeminc/veeminc) already exists.
+
+  - Error adding GitHub org vegaprotocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(vegaprotocol/vegaprotocol) already exists.
+
+  - Error adding GitHub org Venly: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(Venly/Venly) already exists.
+
+  - Error adding GitHub org vercel: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(vercel/vercel) already exists.
+
+  - Error adding GitHub org true-north-engineering: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(true-north-engineering/true-north-engineering) already exists.
+
+  - Error adding GitHub org waterfall-network: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(waterfall-network/waterfall-network) already exists.
+
+  - Error adding GitHub org wavemm: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(wavemm/wavemm) already exists.
+
+  - Error adding GitHub org WintermuteResearch: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(WintermuteResearch/WintermuteResearch) already exists.
+
+  - Error adding GitHub org witnessmenow: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(witnessmenow/witnessmenow) already exists.
+
+  - Error adding GitHub org woodstock-tokyo: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(woodstock-tokyo/woodstock-tokyo) already exists.
+
+  - Error adding GitHub org wormhole-foundation: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(wormhole-foundation/wormhole-foundation) already exists.
+
+  - Error adding GitHub org opensdn-io: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(opensdn-io/opensdn-io) already exists.
+
+  - Error adding GitHub org parthksingh1: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(parthksingh1/parthksingh1) already exists.
+
+  - Error adding GitHub org zabo-api: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(zabo-api/zabo-api) already exists.
+
+  - Error adding GitHub org zama-ai: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(zama-ai/zama-ai) already exists.
+
+  - Error adding GitHub org zapper-fi: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(zapper-fi/zapper-fi) already exists.
+
+  - Error adding GitHub org codingzeal: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(codingzeal/codingzeal) already exists.
+
+  - Error adding GitHub org zebec-protocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(zebec-protocol/zebec-protocol) already exists.
+
+  - Error adding GitHub org zenledger-io: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(zenledger-io/zenledger-io) already exists.
+
+  - Error adding GitHub org zenrocklabs: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(zenrocklabs/zenrocklabs) already exists.
+
+  - Error adding GitHub org zentryHQ: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(zentryHQ/zentryHQ) already exists.
+
+  - Error adding GitHub org zeriontech: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(zeriontech/zeriontech) already exists.
+
+  - Error adding GitHub org zkLinkProtocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(zkLinkProtocol/zkLinkProtocol) already exists.
+
+  - Error adding GitHub org zksync-sdk: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(zksync-sdk/zksync-sdk) already exists.
+
+  - Error adding GitHub org polarsignals: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(polarsignals/polarsignals) already exists.
+

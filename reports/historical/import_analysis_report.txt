@@ -1,0 +1,296 @@
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    CSV IMPORT ANALYSIS REPORT                                ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+================================================================================
+SKIPPED RECORDS WITH LINKEDIN/GITHUB URLS
+================================================================================
+
+📊 Summary:
+  • Total records with LinkedIn URL: 34,240
+  • Total records with GitHub URL: 13,492
+  • Successfully processed: 34,095
+  • Skipped (with URLs): 13,328
+
+⚠️  First 20 skipped records with LinkedIn/GitHub URLs:
+
+1. Roman Slonov @ webvirtual cloud
+   GitHub: https://github.com/romanslonov
+   ❌ Skip reason: no LinkedIn URL
+
+2.  @ 
+   Location: Germany
+   LinkedIn: https://www.linkedin.com/in/mohsin-virk
+   ❌ Skip reason: no name
+
+3.  @ 
+   Location: Lithuania
+   LinkedIn: https://www.linkedin.com/in/eimantastauklys
+   ❌ Skip reason: no name
+
+4.  @ 
+   Location: Netherland
+   LinkedIn: https://www.linkedin.com/in/apvarun
+   GitHub: https://github.com/apvarun
+   ❌ Skip reason: no name
+
+5.  @ 
+   Location: Malta
+   LinkedIn: https://www.linkedin.com/in/lianna-su-junjie
+   ❌ Skip reason: no name
+
+6.  @ 
+   Location: Spain
+   LinkedIn: https://www.linkedin.com/in/dmitry-uvarov-37111414b
+   ❌ Skip reason: no name
+
+7.  @ 
+   Location: Germany
+   LinkedIn: https://www.linkedin.com/in/emeka-achugo
+   ❌ Skip reason: no name
+
+8.  @ 
+   Location: Spain
+   LinkedIn: https://www.linkedin.com/in/karlavjaramillo
+   GitHub: https://github.com/karlajaramillo
+   ❌ Skip reason: no name
+
+9.  @ 
+   Location: Spain
+   LinkedIn: https://www.linkedin.com/in/lexzhukov
+   ❌ Skip reason: no name
+
+10.  @ 
+   Location: Netherlands
+   LinkedIn: https://www.linkedin.com/in/dmitriy-molchanov-a786008a
+   ❌ Skip reason: no name
+
+11.  @ 
+   Location: Germany
+   LinkedIn: https://www.linkedin.com/in/teddy-mczieuwa
+   ❌ Skip reason: no name
+
+12.  @ 
+   Location: Netherlands
+   LinkedIn: https://www.linkedin.com/in/ag-zalewska
+   ❌ Skip reason: no name
+
+13. Awkweb @ 
+   GitHub: https://github.com/tmm?tab=repositories
+   ❌ Skip reason: no LinkedIn URL
+
+14. Tomiir @ 
+   GitHub: https://github.com/tomiir
+   ❌ Skip reason: no LinkedIn URL
+
+15. Ilan Brian Rosen @ Our Zoora
+   GitHub: https://github.com/ibrosen
+   ❌ Skip reason: no LinkedIn URL
+
+16. 0xFlick @ 
+   GitHub: https://github.com/0xflicker
+   ❌ Skip reason: no LinkedIn URL
+
+17. Geoff @ 
+   GitHub: https://github.com/codinggeoff?tab=repositories
+   ❌ Skip reason: no LinkedIn URL
+
+18. Sean P Myrick @ 
+   Location: Walla Walla, WA
+   GitHub: https://github.com/seanpm2001?tab=repositories
+   ❌ Skip reason: no LinkedIn URL
+
+19. Manny @ codingwithmanny
+   Location: Canada/Europe
+   GitHub: https://github.com/codingwithmanny
+   ❌ Skip reason: no LinkedIn URL
+
+20. Glitch @ 
+   GitHub: https://github.com/glitch-txs
+   ❌ Skip reason: no LinkedIn URL
+
+
+================================================================================
+ENRICHMENT SPOT CHECK - PROFILES WITH NEW DATA
+================================================================================
+
+🔍 Finding profiles enriched in the last 2 hours...
+
+✅ Found 15 recently enriched profiles
+
+================================================================================
+
+1. Mick Ayzenberg
+   ──────────────────────────────────────────────────────────────────────
+   Person ID: 180024a3-0467-4285-b20f-9462fb8831bd
+   Name fields: First='Mick' | Last='Ayzenberg'
+   Location: (empty)
+   Headline: (empty)
+   LinkedIn: https://www.linkedin.com/in/mick-ayzenberg-02443635
+   Last Refreshed: 2025-10-21 17:01:51.293739-04:00
+   Data counts: 1 emails | 0 jobs | 1 GitHub
+
+   🐙 GitHub profiles:
+      • @mickayz
+        URL: https://github.com/mickayz
+        Source: csv_datablend_oct2024
+
+   📧 Email addresses (1):
+      • mick3x3@gmail.com (personal) ⭐ PRIMARY
+        Source: csv_datablend_oct2024
+
+2. Ramin Erfani
+   ──────────────────────────────────────────────────────────────────────
+   Person ID: a4f8cfcd-4c52-4900-ab34-8b4692855cc4
+   Name fields: First='Ramin' | Last='Erfani'
+   Location: (empty)
+   Headline: (empty)
+   LinkedIn: https://www.linkedin.com/in/ramin-erfani-572999ba
+   Last Refreshed: 2025-10-21 17:01:51.293081-04:00
+   Data counts: 1 emails | 0 jobs | 0 GitHub
+
+   📧 Email addresses (1):
+      • erfani.ramin@gmail.com (personal) ⭐ PRIMARY
+        Source: csv_datablend_oct2024
+
+3. Matej Sandor
+   ──────────────────────────────────────────────────────────────────────
+   Person ID: 9d8a17d6-038a-4436-ac0d-ae4e60d7e488
+   Name fields: First='Matej' | Last='Sandor'
+   Location: (empty)
+   Headline: (empty)
+   LinkedIn: https://www.linkedin.com/in/matej-sandor-4182161a9
+   Last Refreshed: 2025-10-21 17:01:51.292511-04:00
+   Data counts: 0 emails | 0 jobs | 0 GitHub
+
+4. Ryan Zhang
+   ──────────────────────────────────────────────────────────────────────
+   Person ID: 4b1676ac-2f75-481a-b647-4741e205694b
+   Name fields: First='Ryan' | Last='Zhang'
+   Location: (empty)
+   Headline: (empty)
+   LinkedIn: https://ryan zhang
+   Last Refreshed: 2025-10-21 17:01:51.292374-04:00
+   Data counts: 0 emails | 0 jobs | 0 GitHub
+
+5. Christoph Grabo
+   ──────────────────────────────────────────────────────────────────────
+   Person ID: 1c951792-391b-4b28-b3de-76011b60be57
+   Name fields: First='Christoph' | Last='Grabo'
+   Location: (empty)
+   Headline: (empty)
+   LinkedIn: https://www.linkedin.com/in/christophgrabo
+   Last Refreshed: 2025-10-21 17:01:51.292241-04:00
+   Data counts: 0 emails | 0 jobs | 0 GitHub
+
+6. Tony DiPadova
+   ──────────────────────────────────────────────────────────────────────
+   Person ID: 402485b3-f96a-4c23-b414-98acd88db8a8
+   Name fields: First='Tony' | Last='DiPadova'
+   Location: (empty)
+   Headline: (empty)
+   LinkedIn: https://www.linkedin.com/in/anthonyfdipadova3rd
+   Last Refreshed: 2025-10-21 17:01:51.292112-04:00
+   Data counts: 0 emails | 0 jobs | 0 GitHub
+
+7. Jaana Dogan
+   ──────────────────────────────────────────────────────────────────────
+   Person ID: f71dc783-7a9d-41f5-bec6-151ee61710da
+   Name fields: First='Jaana' | Last='Dogan'
+   Location: (empty)
+   Headline: (empty)
+   LinkedIn: https://www.linkedin.com/in/rakyll
+   Last Refreshed: 2025-10-21 17:01:51.291981-04:00
+   Data counts: 0 emails | 0 jobs | 0 GitHub
+
+8. Vicent Martí
+   ──────────────────────────────────────────────────────────────────────
+   Person ID: 80f908cf-4807-4893-95f3-dd7bed1d21ec
+   Name fields: First='Vicent' | Last='Martí'
+   Location: (empty)
+   Headline: (empty)
+   LinkedIn: https://github.com/vmg
+   Last Refreshed: 2025-10-21 17:01:51.291838-04:00
+   Data counts: 0 emails | 0 jobs | 0 GitHub
+
+9. Jan Matas
+   ──────────────────────────────────────────────────────────────────────
+   Person ID: b762e77b-0517-48f3-8465-c56e0ac7e23c
+   Name fields: First='Jan' | Last='Matas'
+   Location: (empty)
+   Headline: (empty)
+   LinkedIn: https://www.linkedin.com/in/jan-matas-748334a7
+   Last Refreshed: 2025-10-21 17:01:51.291705-04:00
+   Data counts: 0 emails | 0 jobs | 0 GitHub
+
+10. Kian Yong Lim
+   ──────────────────────────────────────────────────────────────────────
+   Person ID: 2a5d9042-5614-4cac-a62f-eeadaf7b08b3
+   Name fields: First='Kian' | Last='Lim'
+   Location: (empty)
+   Headline: (empty)
+   LinkedIn: https://www.linkedin.com/in/limkianyong
+   Last Refreshed: 2025-10-21 17:01:51.291570-04:00
+   Data counts: 0 emails | 0 jobs | 0 GitHub
+
+11. Axel Chauvin
+   ──────────────────────────────────────────────────────────────────────
+   Person ID: a323ec34-60e9-4b64-b17e-0b52e46e9d5c
+   Name fields: First='Axel' | Last='Chauvin'
+   Location: (empty)
+   Headline: (empty)
+   LinkedIn: https://www.linkedin.com/in/axel-chauvin-81410214a
+   Last Refreshed: 2025-10-21 17:01:51.291434-04:00
+   Data counts: 0 emails | 0 jobs | 0 GitHub
+
+12. Kerry Wei
+   ──────────────────────────────────────────────────────────────────────
+   Person ID: 47d40bfe-f01f-4515-a833-c1cdfd51813e
+   Name fields: First='Kerry' | Last='Wei'
+   Location: (empty)
+   Headline: (empty)
+   LinkedIn: https://www.linkedin.com/in/kerrywei
+   Last Refreshed: 2025-10-21 17:01:51.291164-04:00
+   Data counts: 0 emails | 0 jobs | 0 GitHub
+
+13. Staffan Hellman
+   ──────────────────────────────────────────────────────────────────────
+   Person ID: ec13c072-bf04-45a6-af58-71d3bfb85ad4
+   Name fields: First='Staffan' | Last='Hellman'
+   Location: (empty)
+   Headline: (empty)
+   LinkedIn: https://www.linkedin.com/in/hellmans
+   Last Refreshed: 2025-10-21 17:01:51.291031-04:00
+   Data counts: 0 emails | 0 jobs | 0 GitHub
+
+14. Jae Young Chung
+   ──────────────────────────────────────────────────────────────────────
+   Person ID: 46f893ea-1307-4fd6-bc15-4a3450e0a1aa
+   Name fields: First='Jae' | Last='Chung'
+   Location: (empty)
+   Headline: (empty)
+   LinkedIn: https://www.linkedin.com/in/jae-young-chung-4991287
+   Last Refreshed: 2025-10-21 17:01:51.290897-04:00
+   Data counts: 0 emails | 0 jobs | 0 GitHub
+
+15. Shaw Vrana
+   ──────────────────────────────────────────────────────────────────────
+   Person ID: 25e2b11c-fffd-41c3-83e5-ef20b19f8252
+   Name fields: First='Shaw' | Last='Vrana'
+   Location: (empty)
+   Headline: (empty)
+   LinkedIn: https://www.linkedin.com/in/shawvrana
+   Last Refreshed: 2025-10-21 17:01:51.290761-04:00
+   Data counts: 0 emails | 0 jobs | 0 GitHub
+
+================================================================================
+
+================================================================================
+ANALYSIS COMPLETE
+================================================================================
+
+✓ Found 13,328 skipped records that had LinkedIn/GitHub URLs
+✓ Displayed enrichment details for recently updated profiles
+

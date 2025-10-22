@@ -1,0 +1,83 @@
+Company Import Report
+================================================================================
+
+Timestamp: 2025-10-21T20:24:35.014723
+Source: /Users/charlie.kerr/Downloads/Portfolios-vc_portfolio_companies-Default-view-export-1761086233689.csv
+
+Statistics:
+  total_rows: 1333
+  duplicates_skipped: 264
+  companies_found: 1065
+  companies_enriched: 0
+  companies_created: 4
+  companies_already_complete: 1065
+  websites_added: 4
+  linkedin_added: 4
+  github_added: 0
+  employee_count_added: 4
+  skipped_invalid: 0
+
+Errors (21):
+  - Error adding GitHub org trusttoken: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(trusttoken/trusttoken) already exists.
+
+  - Error adding GitHub org blocknative: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(blocknative/blocknative) already exists.
+
+  - Error adding GitHub org hellobloom: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(hellobloom/hellobloom) already exists.
+
+  - Error adding GitHub org blowfishxyz: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(blowfishxyz/blowfishxyz) already exists.
+
+  - Error adding GitHub org compound-finance: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(compound-finance/compound-finance) already exists.
+
+  - Error adding GitHub org coordinape: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(coordinape/coordinape) already exists.
+
+  - Error adding GitHub org digital-asset: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(digital-asset/digital-asset) already exists.
+
+  - Error adding GitHub org turbo-eth: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(turbo-eth/turbo-eth) already exists.
+
+  - Error adding GitHub org evmos: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(evmos/evmos) already exists.
+
+  - Error adding GitHub org gitcoinco: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(gitcoinco/gitcoinco) already exists.
+
+  - Error adding GitHub org hashgraph: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(hashgraph/hashgraph) already exists.
+
+  - Error adding GitHub org hop-protocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(hop-protocol/hop-protocol) already exists.
+
+  - Error adding GitHub org 0xsequence: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(0xsequence/0xsequence) already exists.
+
+  - Error adding GitHub org immutable: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(immutable/immutable) already exists.
+
+  - Error adding GitHub org liquality: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(liquality/liquality) already exists.
+
+  - Error adding GitHub org liquity: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(liquity/liquity) already exists.
+
+  - Error adding GitHub org omgnetwork: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(omgnetwork/omgnetwork) already exists.
+
+  - Error adding GitHub org ethereum-optimism: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(ethereum-optimism/ethereum-optimism) already exists.
+
+  - Error adding GitHub org perpetual-protocol: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(perpetual-protocol/perpetual-protocol) already exists.
+
+  - Error adding GitHub org spacemeshos: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(spacemeshos/spacemeshos) already exists.
+
+  - Error adding GitHub org streamingfast: duplicate key value violates unique constraint "github_repository_full_name_key"
+DETAIL:  Key (full_name)=(streamingfast/streamingfast) already exists.
+

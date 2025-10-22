@@ -1,0 +1,433 @@
+================================================================================
+COMPREHENSIVE DATABASE ANALYSIS - PostgreSQL talent
+Generated:  Tue Oct 21 15:25:15 -03 2025
+================================================================================
+
+================================================================================
+TABLE INVENTORY & SIZES
+================================================================================
+
+ schemaname |       tablename       | total_size | table_size | index_size 
+------------+-----------------------+------------+------------+------------
+ public     | edge_coemployment     | 19 GB      | 11 GB      | 7571 MB
+ public     | person                | 59 MB      | 46 MB      | 13 MB
+ public     | employment            | 44 MB      | 25 MB      | 19 MB
+ public     | company               | 18 MB      | 9208 kB    | 9688 kB
+ public     | github_profile        | 7792 kB    | 4736 kB    | 3056 kB
+ public     | education             | 5160 kB    | 3936 kB    | 1224 kB
+ public     | github_contribution   | 2040 kB    | 776 kB     | 1264 kB
+ public     | person_email          | 1360 kB    | 456 kB     | 904 kB
+ public     | github_repository     | 248 kB     | 88 kB      | 160 kB
+ public     | migration_log         | 64 kB      | 8192 bytes | 56 kB
+ public     | domain_company_map    | 16 kB      | 0 bytes    | 16 kB
+ public     | company_funding_round | 16 kB      | 0 bytes    | 16 kB
+(12 rows)
+
+
+================================================================================
+ROW COUNTS FOR ALL TABLES
+================================================================================
+
+     table_name      | row_count |  size   
+---------------------+-----------+---------
+ employment          |    203076 | 44 MB
+ company             |     91722 | 18 MB
+ person              |     35262 | 59 MB
+ education           |     28732 | 5160 kB
+ github_profile      |     17534 | 7792 kB
+ github_contribution |      7802 | 2040 kB
+ person_email        |      3628 | 1360 kB
+ github_repository   |       374 | 248 kB
+ migration_log       |        11 | 64 kB
+(9 rows)
+
+
+================================================================================
+PERSON TABLE - DETAILED STATISTICS
+================================================================================
+
+ total_people | unique_ids | has_full_name | has_first_name | has_last_name | has_linkedin | has_normalized_linkedin | unique_linkedin_urls | unique_normalized_linkedin | has_location | has_headline | has_description | has_followers | has_profile_img | avg_followers | max_followers 
+--------------+------------+---------------+----------------+---------------+--------------+-------------------------+----------------------+----------------------------+--------------+--------------+-----------------+---------------+-----------------+---------------+---------------
+        35262 |      35262 |         35262 |          33013 |         33005 |        35262 |                   35262 |                35262 |                      35262 |        22868 |        30264 |           20159 |         30266 |           26405 |       2089.16 |       5806971
+(1 row)
+
+
+Person completeness percentages:
+      field      | filled | total | completeness_pct 
+-----------------+--------+-------+------------------
+ LinkedIn URL    |  35262 | 35262 |           100.00
+ Headline        |  30264 | 35262 |            85.83
+ Description     |  20159 | 35262 |            57.17
+ Full Name       |  35262 | 35262 |           100.00
+ Location        |  22868 | 35262 |            64.85
+ Followers Count |  30266 | 35262 |            85.83
+(6 rows)
+
+
+Top 10 people by followers:
+            full_name            |                                                          headline                                                          |               location               | followers_count |                      linkedin_url_short                      
+---------------------------------+----------------------------------------------------------------------------------------------------------------------------+--------------------------------------+-----------------+--------------------------------------------------------------
+ Gary Vaynerchuk                 | Chairman – VaynerX, CEO – VaynerMedia, Creator – VeeFriends                                                                | New York, New York, United States    |         5806971 | https://www.linkedin.com/in/garyvaynerchuk/
+ Gang Liu                        | Partner@Alpha Startup Fund｜Innovation & Startups Blogger | LinkedIn TopVoice *3｜Forbes U30 ‘19 |                         | Chaoyang District, Beijing, China    |          706360 | https://www.linkedin.com/in/mrgangliu/
+ Eric Larchevêque                | Entrepreneur                                                                                                               | Vierzon, Centre-Val de Loire, France |          402432 | https://www.linkedin.com/in/ericlarch/
+ David Marcus                    | CEO & co-founder of Lightspark                                                                                             | Los Angeles Metropolitan Area        |          252502 | https://www.linkedin.com/in/dmarcus/
+ Shreyas Doshi                   | ex-Stripe, Twitter, Google, Yahoo. Startup advisor.                                                                        | San Francisco Bay Area               |          223958 | https://www.linkedin.com/in/shreyasdoshi/
+ Dave Gerhardt                   | Drive 2025 - Burlington, VT - September 10-11, 2025 exitfive.com/drive                                                     | United States                        |          188106 | https://www.linkedin.com/in/davegerhardt/
+ Karl-Theodor (KT) zu Guttenberg | currently...formerly...                                                                                                    | Germany                              |          173315 | https://www.linkedin.com/in/karl-theodor-kt-zu-guttenberg-22
+ Anthony Day                     | Founder | Blockchain Leader | LinkedIn Top Voice | 116k+ | Web3 | Podcast Host | Keynote Speaker | I Help Web3 Teams GROW🚀 | Sintra, Lisbon, Portugal             |          116078 | https://www.linkedin.com/in/anthonyjjday/
+ Fleur Pellerin                  | CEI & Founder of Korelya Capital, European VC Fund.                                                                       +| Greater Paris Metropolitan Region    |          100275 | https://www.linkedin.com/in/fleurpellerin/
+                                 | French Junior Minister for SMEs, Innovation and the Digital Economy                                                        |                                      |                 | 
+ Kieran Flanagan                 | Marketing (CMO, SVP) | All things AI | Sequoia Scout | Advisor                                                             | Ireland                              |           95170 | https://www.linkedin.com/in/kieran-flanagan-8278a24/
+(10 rows)
+
+
+Sample person records (random 5):
+              person_id               |       full_name       |                      location                      |                                                                           headline                                                                            | followers_count |                      linkedin_url_short                      
+--------------------------------------+-----------------------+----------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+--------------------------------------------------------------
+ 7e81e2d0-6a61-44c7-9da4-95ecb725bcc5 | Desiree Smith         | New York, New York, United States                  |                                                                                                                                                               |                 | linkedin.com/in/desireesmith789
+ 5022983f-96dd-7ae1-bd7c-bdc562bf03d4 | MohammedTabrez Shaikh | San Francisco Bay Area                             | Dynamic IT Administrator/Desktop Support Analyst ⭐Technology Enthusiast ⭐Team Player ⭐ To be a leader to my team, live a balanced life and make a difference. |             987 | https://www.linkedin.com/in/mohammedtabrez-shaikh-972169146/
+ 364992af-8977-8091-a317-b3e7f7d8a2b1 | Tim Chen              | Toronto, Ontario, Canada                           | Managing Director at EQ Capital Partners                                                                                                                      |            5146 | https://www.linkedin.com/in/timchen1996/
+ 9fe7d664-73c7-6839-8ad6-007f5151014d | Miriam Kiwan          | Abu Dhabi, Abu Dhabi Emirate, United Arab Emirates | Senior Executive Officer | Vice President, Middle East & Africa @Circle | Ex-ADGM | Ex-DIFC | Stablecoins | Digital Assets | Board Member                     |           12340 | https://www.linkedin.com/in/miriamkiwan/
+ b8360883-9f04-b323-ba1c-f3aff2521860 | Adarsh Abhinav        | San Francisco Bay Area                             | Product @ TikTok/ByteDance | Search Ads | RecSys | Retail Media | AdTech | APIs/Programmatic | Previously @ Walmart Connect                                   |            3157 | https://www.linkedin.com/in/adarshabhinav/
+(5 rows)
+
+
+================================================================================
+COMPANY TABLE - DETAILED STATISTICS
+================================================================================
+
+
+Company completeness percentages:
+
+Top 15 industries by company count:
+ industry | company_count | pct_of_total 
+----------+---------------+--------------
+(0 rows)
+
+
+Sample companies (random 5):
+
+================================================================================
+EMPLOYMENT TABLE - DETAILED STATISTICS
+================================================================================
+
+
+Employment tenure analysis (for records with dates):
+ avg_tenure_years | min_tenure_years | max_tenure_years 
+------------------+------------------+------------------
+             2.14 |             0.00 |           101.00
+(1 row)
+
+
+Top 15 job titles:
+             title              | count | pct_of_total 
+--------------------------------+-------+--------------
+ Senior Software Engineer       |    39 |         4.02
+ Software Engineer              |    31 |         3.20
+ Staff Software Engineer        |    20 |         2.06
+ Founder                        |    13 |         1.34
+ Investor                       |     9 |         0.93
+ Founder & CEO                  |     6 |         0.62
+ Senior Staff Software Engineer |     6 |         0.62
+ Principal Software Engineer    |     6 |         0.62
+ Chief Technology Officer       |     5 |         0.52
+ Engineering Manager            |     5 |         0.52
+ Product Manager                |     5 |         0.52
+ Board Member                   |     5 |         0.52
+ Co-Founder                     |     4 |         0.41
+ Executive Assistant            |     4 |         0.41
+ Business Development Manager   |     4 |         0.41
+(15 rows)
+
+
+Sample employment records:
+
+================================================================================
+EDUCATION TABLE - DETAILED STATISTICS
+================================================================================
+
+
+Top 10 schools by attendance:
+                          school_name                          | student_count 
+---------------------------------------------------------------+---------------
+ https://linkedin.com/school/uc-berkeley                       |           452
+ https://linkedin.com/school/uwaterloo                         |           341
+ https://linkedin.com/school/national-university-of-singapore  |           303
+ https://linkedin.com/school/stanford-university               |           260
+ https://linkedin.com/school/university-of-southern-california |           201
+ https://linkedin.com/school/cornell-university                |           189
+ https://linkedin.com/school/columbia-university               |           177
+ https://linkedin.com/school/carnegie-mellon-university        |           173
+ https://linkedin.com/school/georgia-institute-of-technology   |           170
+ https://linkedin.com/school/ucla                              |           170
+(10 rows)
+
+
+Sample education records:
+
+================================================================================
+PERSON_EMAIL TABLE - DETAILED STATISTICS
+================================================================================
+
+ total_email_records | unique_emails | people_with_emails | email_coverage_pct | primary_emails | work_emails | personal_emails | unknown_type_emails | verified_emails 
+---------------------+---------------+--------------------+--------------------+----------------+-------------+-----------------+---------------------+-----------------
+                3628 |          3628 |               3621 |              10.27 |           3605 |           1 |              24 |                   0 |               0
+(1 row)
+
+
+Email type distribution:
+ email_type | count |  pct  
+------------+-------+-------
+ primary    |  3603 | 99.31
+ personal   |    24 |  0.66
+ work       |     1 |  0.03
+(3 rows)
+
+
+Sample email records:
+  full_name   |         email          | email_type | is_primary |      source      
+--------------+------------------------+------------+------------+------------------
+ Wenhan Shi   | wgshi722@gmail.com     | primary    | t          | sqlite_import
+ Aidan Gordon | arcsolo@hotmail.com    | primary    | t          | sqlite_migration
+ Marta L      | marta.lohova@gmail.com | primary    | t          | sqlite_import
+ Pauline Kim  | paulinekim@gmail.com   | primary    | t          | sqlite_migration
+ Ronald Falls | rcfalls@gmail.com      | primary    | t          | sqlite_migration
+(5 rows)
+
+
+================================================================================
+GITHUB_PROFILE TABLE - DETAILED STATISTICS
+================================================================================
+
+ total_github_profiles | unique_profile_ids | unique_usernames | profiles_linked_to_person | profiles_not_linked | linkage_pct | has_name | has_email | has_company | has_location | has_bio | has_twitter | avg_followers | avg_public_repos | max_followers | max_repos 
+-----------------------+--------------------+------------------+---------------------------+---------------------+-------------+----------+-----------+-------------+--------------+---------+-------------+---------------+------------------+---------------+-----------
+                 17534 |              17534 |            17534 |                       208 |               17326 |        1.19 |    13871 |      5000 |        6269 |         8735 |    6562 |        4178 |        175.63 |            57.81 |        252870 |     38284
+(1 row)
+
+
+GitHub profile coverage:
+ total_people | people_with_github | github_coverage_pct 
+--------------+--------------------+---------------------
+        35262 |                203 |                0.58
+(1 row)
+
+
+Top 10 GitHub users by followers:
+ github_username |    github_name    |   github_company    | followers | public_repos | person_linkage 
+-----------------+-------------------+---------------------+-----------+--------------+----------------
+ torvalds        | Linus Torvalds    | Linux Foundation    |    252870 |            9 | Not Linked
+ gaearon         | dan               |                     |     89965 |          288 | Not Linked
+ sindresorhus    | Sindre Sorhus     |                     |     75513 |         1121 | Not Linked
+ IDouble         | Alp ₿📈🚀🌕          | IDEX/USD            |     46753 |           61 | Not Linked
+ geohot          | George Hotz       | @commaai @tinygrad  |     45431 |           95 | Not Linked
+ antfu           | Anthony Fu        | @vercel / @nuxt     |     37404 |          384 | Not Linked
+ paulirish       | Paul Irish        | Google Chrome, ♥z   |     31708 |          370 | Not Linked
+ kennethreitz    | Kenneth Reitz     |                     |     29632 |           74 | Not Linked
+ tiangolo        | Sebastián Ramírez |                     |     29527 |           73 | Not Linked
+ hadley          | Hadley Wickham    | @posit-pbc          |     26367 |          354 | Not Linked
+(10 rows)
+
+
+Sample GitHub profiles:
+ github_username | github_name  | followers | public_repos | linked_person 
+-----------------+--------------+-----------+--------------+---------------
+ jacobrobertbaca | Jacob Baca   |         0 |            1 | 
+ HaoranYi        |              |        33 |           33 | 
+ isstuev         | Igor Stuev   |        12 |            2 | 
+ bartosjiri      | bartosjiri ⚡ |        10 |           38 | 
+ guibescos       | guibescos    |        22 |           37 | 
+(5 rows)
+
+
+================================================================================
+GITHUB_REPOSITORY TABLE - DETAILED STATISTICS
+================================================================================
+
+ total_repositories | unique_repo_ids | unique_repo_full_names | repos_linked_to_company | repos_not_linked | unique_languages | has_language | has_stars | has_forks | has_description | avg_stars | avg_forks | max_stars | max_forks 
+--------------------+-----------------+------------------------+-------------------------+------------------+------------------+--------------+-----------+-----------+-----------------+-----------+-----------+-----------+-----------
+                374 |             374 |                    374 |                     374 |                0 |               26 |          318 |       374 |       374 |             245 |     44.78 |     44.80 |      5381 |      5379
+(1 row)
+
+
+Top 10 repositories by stars:
+                  full_name                   |  language  | stars | forks |                 description_short                  
+----------------------------------------------+------------+-------+-------+----------------------------------------------------
+ Uniswap/interface                            | TypeScript |  5381 |  5379 | 🦄 Open source interfaces for the Uniswap protocol
+ ava-labs/avalanchego                         | Go         |  2300 |   810 | Go implementation of an Avalanche node.
+ alchemyplatform/create-web3-dapp             | JavaScript |   910 |   261 | The complete toolbox to create web3 applications. 
+ ava-labs/avalanche-faucet                    | TypeScript |   486 |   229 | Avalanche Faucet for Fuji Network and Subnets.
+ alchemyplatform/alchemy-sdk-js               | TypeScript |   453 |   237 | The easiest way to connect your dApp to the blockc
+ alchemyplatform/rundler                      | Rust       |   356 |    81 | An ERC-4337 Bundler in Rust
+ ava-labs/avalanchejs                         | TypeScript |   352 |   175 | The Avalanche Platform JavaScript Library
+ alchemyplatform/learn-solidity-presentations | Solidity   |   298 |   178 | All of the presentations in the Learn Solidity cou
+ alchemyplatform/aa-sdk                       | TypeScript |   277 |   198 | 
+ ava-labs/subnet-evm                          | Go         |   271 |   275 | Launch your own EVM as an Avalanche Subnet
+(10 rows)
+
+
+Top 10 programming languages:
+  language  | repo_count |  pct  
+------------+------------+-------
+ JavaScript |         83 | 26.10
+ TypeScript |         63 | 19.81
+ Go         |         27 |  8.49
+ Python     |         27 |  8.49
+ Rust       |         19 |  5.97
+ Solidity   |         18 |  5.66
+ Java       |         14 |  4.40
+ R          |         10 |  3.14
+ Ruby       |          9 |  2.83
+ Shell      |          8 |  2.52
+(10 rows)
+
+
+================================================================================
+GITHUB_CONTRIBUTION TABLE - DETAILED STATISTICS
+================================================================================
+
+ total_contributions | unique_profiles_contributing | unique_repos_contributed_to | has_contribution_count | avg_contributions_per_link | max_contributions 
+---------------------+------------------------------+-----------------------------+------------------------+----------------------------+-------------------
+                7802 |                         5815 |                         362 |                   7802 |                      39.43 |             16338
+(1 row)
+
+
+Top 10 contributors by contribution count:
+ github_username |            repo            | contribution_count 
+-----------------+----------------------------+--------------------
+ ilovezfs        | ava-labs/homebrew-core     |              16338
+ chenrui333      | ava-labs/homebrew-core     |               8541
+ mikemcquaid     | ava-labs/homebrew-core     |               6993
+ BrewTestBot     | ava-labs/homebrew-core     |               5980
+ chriseth        | utopia-group/solidity      |               5868
+ lightsighter    | utopia-group/legion        |               5594
+ StephenButtolph | ava-labs/avalanchego       |               4851
+ shortcuts       | ava-labs/docsearch-configs |               4848
+ adamv           | ava-labs/homebrew-core     |               4692
+ jacknagel       | ava-labs/homebrew-core     |               4476
+(10 rows)
+
+
+================================================================================
+DUPLICATE ANALYSIS - PERSON TABLE
+================================================================================
+
+Checking for duplicate LinkedIn URLs (should be 0):
+ duplicate_groups 
+------------------
+                0
+(1 row)
+
+
+Any duplicate LinkedIn URLs found:
+ linkedin_url | duplicate_count | person_ids 
+--------------+-----------------+------------
+(0 rows)
+
+
+Checking for duplicate normalized LinkedIn URLs (should be 0):
+ duplicate_groups 
+------------------
+                0
+(1 row)
+
+
+Any duplicate normalized LinkedIn URLs found:
+ normalized_linkedin_url | duplicate_count | person_ids 
+-------------------------+-----------------+------------
+(0 rows)
+
+
+================================================================================
+DUPLICATE ANALYSIS - COMPANY TABLE
+================================================================================
+
+Companies with duplicate LinkedIn URLs:
+ linkedin_url | duplicate_count | company_names 
+--------------+-----------------+---------------
+(0 rows)
+
+
+================================================================================
+DUPLICATE ANALYSIS - EMAIL TABLE
+================================================================================
+
+Emails assigned to multiple people (should be 0 due to unique constraint):
+ email | people_count 
+-------+--------------
+(0 rows)
+
+
+================================================================================
+DUPLICATE ANALYSIS - GITHUB_PROFILE TABLE
+================================================================================
+
+GitHub usernames assigned to multiple profiles (should be 0):
+ github_username | duplicate_count 
+-----------------+-----------------
+(0 rows)
+
+
+================================================================================
+DATA QUALITY SCORES
+================================================================================
+
+Overall completeness by table:
+
+================================================================================
+MIGRATION LOG
+================================================================================
+
+       migration_name       | migration_phase |  status   | records_processed | records_created | records_updated | records_skipped |     started_at      |    completed_at     |     duration     
+----------------------------+-----------------+-----------+-------------------+-----------------+-----------------+-----------------+---------------------+---------------------+------------------
+ schema_enhancement         | schema          | completed |                 0 |               0 |               0 |               0 | 2025-10-20 15:07:39 |                     | In Progress
+ email_migration            | email           | completed |              7036 |            1014 |               0 |            6022 | 2025-10-20 16:07:48 | 2025-10-20 16:07:48 | 0.397577 seconds
+ github_migration           | github          | failed    |                 0 |               0 |               0 |               0 | 2025-10-20 16:07:59 | 2025-10-20 16:07:59 | 0.074762 seconds
+ github_migration           | github          | failed    |                 0 |               0 |               0 |               0 | 2025-10-20 16:08:35 | 2025-10-20 16:08:38 | 2.615765 seconds
+ github_migration           | github          | completed |             18029 |             374 |               0 |               0 | 2025-10-20 16:09:59 | 2025-10-20 16:10:01 | 2.161456 seconds
+ person_deduplication       | deduplication   | completed |                 0 |               0 |               0 |               0 | 2025-10-20 16:10:09 | 2025-10-20 16:10:09 | 0.077077 seconds
+ job_title_enrichment       | data_enrichment | completed |                 4 |               0 |               4 |               0 | 2025-10-20 16:19:01 | 2025-10-20 16:19:01 | 0.000000 seconds
+ github_matching_enrichment | data_enrichment | completed |                 0 |              22 |              18 |              18 | 2025-10-20 16:20:32 | 2025-10-20 16:20:32 | 0.000000 seconds
+ github_matching_enrichment | data_enrichment | completed |                 0 |               1 |               0 |              56 | 2025-10-21 14:23:12 | 2025-10-21 14:23:12 | 0.000000 seconds
+ job_title_enrichment       | data_enrichment | completed |                 0 |               0 |               0 |               0 | 2025-10-21 14:23:15 | 2025-10-21 14:23:15 | 0.000000 seconds
+ github_matching_enrichment | data_enrichment | completed |                 0 |               0 |               0 |              57 | 2025-10-21 14:24:53 | 2025-10-21 14:24:53 | 0.000000 seconds
+(11 rows)
+
+
+================================================================================
+DATABASE SIZE SUMMARY
+================================================================================
+
+ total_database_size 
+---------------------
+ 19 GB
+(1 row)
+
+
+================================================================================
+KEY METRICS SUMMARY
+================================================================================
+
+           metric           |       value       
+----------------------------+-------------------
+ Total People               | 35262
+ Total Companies            | 91722
+ Total Employment Records   | 203076
+ Avg Jobs per Person        | 6.75
+ Total Education Records    | 28732
+ People with Education %    | 81.48%
+ Total Emails               | 3628
+ Email Coverage %           | 10.27%
+ Total GitHub Profiles      | 17534
+ GitHub Coverage %          | 0.58%
+ Total GitHub Repos         | 374
+ Total GitHub Contributions | 7802
+ LinkedIn Coverage %        | 100.00%
+ Duplicate Person Records   | 0 (Clean)
+ Data Integrity             | 100% (No orphans)
+(15 rows)
+
+
+================================================================================
+ANALYSIS COMPLETE
+Report generated:  Tue Oct 21 15:25:16 -03 2025
+================================================================================

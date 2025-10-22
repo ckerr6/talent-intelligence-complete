@@ -1,20 +1,22 @@
 # Talent Intelligence Database - Complete Solution
 
-**Last Updated:** October 20, 2025  
-**Status:** ✅ Migration Complete - PostgreSQL Production Ready
+**Last Updated:** October 22, 2025  
+**Status:** ✅ Production Ready - High Performance
 
 ---
 
 ## 🎯 What Is This?
 
 A comprehensive talent intelligence database containing:
-- **32,515 unique people** with LinkedIn profiles
-- **91,722 companies** with full employment history
-- **203,076 employment records** (6.2 jobs/person average)
-- **1,014 email addresses** across multiple people
-- **17,534 GitHub profiles** with repositories and contributions
+- **60,045 unique people** with LinkedIn profiles
+- **93,387 companies** with full employment history
+- **206,697 employment records** (3.4 jobs/person average)
+- **8,477 email addresses** across multiple people
+- **100,883 GitHub profiles** linked to 333,947 repositories
+- **4,210 GitHub→Person links** (4.2% linkage rate)
 
-**Primary Database:** PostgreSQL `talent` @ localhost:5432
+**Primary Database:** PostgreSQL `talent` @ localhost:5432  
+**Performance:** Optimized with 1.3GB of indexes, 60-second query timeouts
 
 ---
 
@@ -66,35 +68,47 @@ open dashboard/index.html
 ### PostgreSQL `talent` Database
 
 #### Core Tables
-- **`person`** - 32,515 people with LinkedIn profiles
+- **`person`** - 60,045 people with LinkedIn profiles
   - `person_id`, `full_name`, `linkedin_url`, `location`, `headline`, etc.
   - `normalized_linkedin_url` for efficient matching
+  - Indexed for fast lookups (< 1ms)
 
-- **`company`** - 91,722 companies
+- **`company`** - 93,387 companies
   - `company_id`, `company_name`, `linkedin_url`, `website`, etc.
   - `normalized_linkedin_url` for efficient matching
+  - Indexed for fast lookups (< 1ms)
 
-- **`employment`** - 203,076 employment records
+- **`employment`** - 206,697 employment records
   - Full employment history (not just current job)
   - `person_id`, `company_id`, `title`, `start_date`, `end_date`
+  - Composite indexes for fast queries (< 10ms)
 
 #### Enhanced Tables (Added Oct 2025)
 
-- **`person_email`** - 1,014 email addresses
+- **`person_email`** - 8,477 email addresses
   - Multiple emails per person support
   - `person_id`, `email`, `email_type`, `is_primary`
+  - 14.1% email coverage
 
-- **`github_profile`** - 17,534 GitHub profiles
+- **`github_profile`** - 100,883 GitHub profiles
   - `person_id`, `github_username`, `github_name`, `followers`, `public_repos`
-  - Links to `person` table
+  - 4,210 linked to people (4.2% linkage)
+  - Filtered indexes for fast linked profile queries
 
-- **`github_repository`** - 374 repositories
-  - `company_id`, `repo_name`, `full_name`, `language`, `stars`, `forks`
-  - Links to `company` table
+- **`github_repository`** - 333,947 repositories
+  - `repo_id`, `full_name`, `description`, `language`, `stars`, `forks`
+  - Comprehensive repository metadata
 
 - **`github_contribution`** - 7,802 contributions
   - Many-to-many relationship between profiles and repositories
   - `github_profile_id`, `repo_id`, `contribution_count`
+
+#### Graph Tables
+
+- **`edge_coemployment`** - 1.3M+ co-employment relationships
+  - Network analysis of people who worked together
+  - Optimized with composite indexes (added Oct 22, 2025)
+  - Query performance: ~50ms for typical network queries
 
 #### Utility Tables
 
@@ -410,14 +424,16 @@ cd archived_databases
 
 | Metric | Value | Status |
 |--------|-------|--------|
-| **People** | 32,515 | ✅ |
-| **Companies** | 91,722 | ✅ |
-| **Employment Records** | 203,076 | ✅ (6.2 jobs/person) |
-| **LinkedIn Coverage** | 100% | ✅ Excellent |
-| **Email Coverage** | 3.1% | ⚠️ Limited |
-| **GitHub Coverage** | 53.9% | ✅ Good |
+| **People** | 60,045 | ✅ Excellent |
+| **Companies** | 93,387 | ✅ Excellent |
+| **Employment Records** | 206,697 | ✅ (3.4 jobs/person avg) |
+| **LinkedIn Coverage** | 100% | ✅ All people have LinkedIn |
+| **Email Coverage** | 14.1% (8,477) | ⚠️ Moderate |
+| **GitHub Profiles** | 100,883 | ✅ Excellent scale |
+| **GitHub Linked** | 4.2% (4,210) | ⚠️ Growing (up from 3.6%) |
 | **Duplicates** | 0 | ✅ Clean |
 | **Data Integrity** | 100% | ✅ Perfect |
+| **Query Performance** | < 60s | ✅ Optimized (Oct 22) |
 
 ---
 
@@ -537,19 +553,37 @@ SELECT * FROM migration_log ORDER BY started_at DESC;
 
 ## ✅ System Status
 
-**Current State (October 20, 2025):**
+**Current State (October 22, 2025):**
 - ✅ Single primary database (PostgreSQL `talent`)
-- ✅ All legacy databases archived
-- ✅ Email support added (1,014 emails)
-- ✅ GitHub integration complete (17,534 profiles)
+- ✅ 60K+ people, 100K+ GitHub profiles
+- ✅ Performance optimized (emergency fix Oct 22)
+- ✅ 1.3GB of optimized indexes
+- ✅ Query timeouts implemented (60s API, 5min pool)
+- ✅ Connection pooling (5-50 connections)
 - ✅ No duplicates
 - ✅ 100% data integrity
-- ✅ Configuration updated
-- ✅ Documentation current
+- ✅ Dashboard fully functional
+- ✅ API fully operational
 
 **Primary Database:** `postgresql://charlie.kerr@localhost:5432/talent`
 
-**System Ready:** ✅ Production Ready
+**Recent Updates (Oct 22, 2025):**
+- 🚀 Major performance optimization completed
+- 📊 51 hung queries terminated
+- 🔧 VACUUM ANALYZE on all critical tables
+- 📈 1.3GB of new indexes added
+- ⏱️ Query timeouts implemented
+- 🔗 GitHub profile matching improved (+641 links)
+
+**System Ready:** ✅ Production Ready - High Performance
+
+---
+
+## 📄 Quick Reference
+
+For current database state, see: `QUICK_STATS.txt`  
+For performance details, see: `reports/current/PERFORMANCE_FIX_SUMMARY.md`  
+For complete audit, see: `REPOSITORY_AUDIT_2025.md`
 
 ---
 
@@ -559,6 +593,6 @@ Internal use only - Talent Intelligence Database
 
 ---
 
-**Last Updated:** October 20, 2025  
-**Database Version:** PostgreSQL `talent` (Post-migration)  
-**Migration Status:** ✅ Complete
+**Last Updated:** October 22, 2025  
+**Database Version:** PostgreSQL `talent` (Post-performance-optimization)  
+**Performance Status:** ✅ Optimized & Production Ready
