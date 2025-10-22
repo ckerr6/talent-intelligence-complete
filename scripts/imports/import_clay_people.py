@@ -38,6 +38,10 @@ import json
 sys.path.insert(0, str(Path(__file__).parent))
 from config import get_db_connection, Config
 
+# Import data quality filters
+sys.path.insert(0, str(Path(__file__).parent.parent / 'scripts'))
+from data_quality_filters import is_valid_company_name, get_company_validation_message
+
 # Import migration utilities
 try:
     from migration_scripts.migration_utils import (
@@ -150,6 +154,12 @@ class ClayPeopleImporter:
             return None
         
         company_name = company_name.strip()
+        
+        # DATA QUALITY CHECK: Validate company name
+        if not is_valid_company_name(company_name):
+            error_msg = get_company_validation_message(company_name)
+            self.stats['errors'].append(f"Invalid company name skipped: {error_msg}")
+            return None
         name_key = company_name.lower()
         
         # Check cache

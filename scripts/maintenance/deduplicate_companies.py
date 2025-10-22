@@ -27,6 +27,10 @@ import logging
 sys.path.insert(0, str(Path(__file__).parent))
 from config import get_db_connection, Config
 
+# Import data quality filters
+sys.path.insert(0, str(Path(__file__).parent.parent / 'scripts'))
+from data_quality_filters import should_skip_company_deduplication
+
 # Setup logging
 log_filename = f"company_deduplication_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
 logging.basicConfig(
@@ -166,6 +170,16 @@ class CompanyDeduplicator:
         self.stats['companies_analyzed'] = len(companies)
         logger.info(f"Found {len(companies):,} companies in database")
         print(f"   Analyzed {len(companies):,} companies\n")
+        
+        # DATA QUALITY FILTER: Skip suffix-only and invalid companies
+        companies_before_filter = len(companies)
+        companies = [c for c in companies if not should_skip_company_deduplication(c['company_name'])]
+        skipped_count = companies_before_filter - len(companies)
+        
+        if skipped_count > 0:
+            logger.info(f"Skipped {skipped_count} companies with invalid/suffix-only names")
+            print(f"   ⚠️  Skipped {skipped_count} companies with invalid names (suffix-only, too short, etc.)")
+            print(f"   Remaining: {len(companies):,} companies for deduplication\n")
         
         # Group by normalized name
         name_groups = {}
