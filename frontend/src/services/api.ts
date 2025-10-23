@@ -300,6 +300,54 @@ class API {
     const response = await this.client.get('/stats/overview');
     return response.data;
   }
+
+  // ===== AI SERVICES =====
+
+  async generateProfileSummary(
+    personId: string,
+    jobContext?: string,
+    provider: string = 'openai'
+  ) {
+    const response = await this.client.post('/ai/profile-summary', {
+      person_id: personId,
+      job_context: jobContext,
+      provider,
+    });
+    return response.data;
+  }
+
+  async analyzeCodeQuality(
+    personId: string,
+    jobRequirements?: string,
+    provider: string = 'openai'
+  ) {
+    const response = await this.client.post('/ai/code-analysis', {
+      person_id: personId,
+      job_requirements: jobRequirements,
+      provider,
+    });
+    return response.data;
+  }
+
+  async askAI(
+    personId: string,
+    question: string,
+    conversationHistory?: Array<{ role: string; content: string }>,
+    provider: string = 'openai'
+  ) {
+    const response = await this.client.post('/ai/ask', {
+      person_id: personId,
+      question,
+      conversation_history: conversationHistory,
+      provider,
+    });
+    return response.data;
+  }
+
+  async getAIStatus() {
+    const response = await this.client.get('/ai/status');
+    return response.data;
+  }
 }
 
 // Export singleton instance

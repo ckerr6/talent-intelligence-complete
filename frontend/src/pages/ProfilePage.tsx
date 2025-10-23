@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import api from '../services/api';
@@ -8,16 +9,74 @@ import ContactInfo from '../components/profile/ContactInfo';
 import GitHubActivity from '../components/profile/GitHubActivity';
 import HowToReach from '../components/profile/HowToReach';
 import QuickActions from '../components/profile/QuickActions';
+import AISummaryCard from '../components/ai/AISummaryCard';
+import CodeAnalysisCard from '../components/ai/CodeAnalysisCard';
+import AskAIChat from '../components/ai/AskAIChat';
 
 export default function ProfilePage() {
   const { personId } = useParams<{ personId: string }>();
   const navigate = useNavigate();
+  
+  // AI State
+  const [aiSummary, setAiSummary] = useState<any>(null);
+  const [codeAnalysis, setCodeAnalysis] = useState<any>(null);
+  const [summaryLoading, setSummaryLoading] = useState(false);
+  const [analysisLoading, setAnalysisLoading] = useState(false);
+  const [summaryError, setSummaryError] = useState<string | null>(null);
+  const [analysisError, setAnalysisError] = useState<string | null>(null);
 
   const { data: profile, isLoading, error } = useQuery({
     queryKey: ['profile', personId],
     queryFn: () => api.getPersonProfile(personId!),
     enabled: !!personId,
   });
+
+  // AI Handlers
+  const handleGenerateSummary = async () => {
+    if (!personId) return;
+    
+    setSummaryLoading(true);
+    setSummaryError(null);
+    
+    try {
+      const result = await api.generateProfileSummary(personId);
+      setAiSummary(result.summary);
+    } catch (err) {
+      setSummaryError(err instanceof Error ? err.message : 'Failed to generate summary');
+    } finally {
+      setSummaryLoading(false);
+    }
+  };
+
+  const handleAnalyzeCode = async () => {
+    if (!personId) return;
+    
+    setAnalysisLoading(true);
+    setAnalysisError(null);
+    
+    try {
+      const result = await api.analyzeCodeQuality(personId);
+      setCodeAnalysis(result.analysis);
+    } catch (err) {
+      setAnalysisError(err instanceof Error ? err.message : 'Failed to analyze code');
+    } finally {
+      setAnalysisLoading(false);
+    }
+  };
+
+  const handleAskAI = async (
+    question: string,
+    history: Array<{ role: string; content: string }>
+  ): Promise<string> => {
+    if (!personId) throw new Error('No person ID');
+    
+    try {
+      const result = await api.askAI(personId, question, history);
+      return result.answer;
+    } catch (err) {
+      throw new Error(err instanceof Error ? err.message : 'Failed to get answer');
+    }
+  };
 
   if (isLoading) {
     return <LoadingSpinner message="Loading profile..." />;
@@ -60,11 +119,32 @@ export default function ProfilePage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column - Main Content */}
         <div className="lg:col-span-2 space-y-6">
-          {/* How to Reach - THE WOW MOMENT */}
+          {/* AI Career Intelligence - NEW WOW MOMENT */}
+          <AISummaryCard
+            personId={profile.person.person_id}
+            summary={aiSummary}
+            onGenerate={handleGenerateSummary}
+            loading={summaryLoading}
+            error={summaryError}
+          />
+
+          {/* How to Reach */}
           <HowToReach targetPersonId={profile.person.person_id} />
 
           {/* Employment Timeline */}
           <EmploymentTimeline employment={profile.employment} />
+
+          {/* AI Code Analysis - Next to GitHub */}
+          {profile.github_profile && (
+            <CodeAnalysisCard
+              personId={profile.person.person_id}
+              analysis={codeAnalysis}
+              onGenerate={handleAnalyzeCode}
+              loading={analysisLoading}
+              error={analysisError}
+              hasGitHub={!!profile.github_profile}
+            />
+          )}
 
           {/* GitHub Activity */}
           <GitHubActivity
@@ -136,6 +216,13 @@ export default function ProfilePage() {
           )}
         </div>
       </div>
+
+      {/* Floating Ask AI Chat */}
+      <AskAIChat
+        personId={profile.person.person_id}
+        personName={profile.person.full_name}
+        onAsk={handleAskAI}
+      />
     </div>
   );
 }
