@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { ArrowLeft, AlertCircle } from 'lucide-react';
 import api from '../services/api';
-import LoadingSpinner from '../components/common/LoadingSpinner';
 import ProfileHeader from '../components/profile/ProfileHeader';
 import EmploymentTimeline from '../components/profile/EmploymentTimeline';
 import ContactInfo from '../components/profile/ContactInfo';
@@ -12,6 +12,10 @@ import QuickActions from '../components/profile/QuickActions';
 import AISummaryCard from '../components/ai/AISummaryCard';
 import CodeAnalysisCard from '../components/ai/CodeAnalysisCard';
 import AskAIChat from '../components/ai/AskAIChat';
+import { SkeletonProfile } from '../components/common/Skeleton';
+import Button from '../components/common/Button';
+import Card from '../components/common/Card';
+import EmptyState from '../components/common/EmptyState';
 
 export default function ProfilePage() {
   const { personId } = useParams<{ personId: string }>();
@@ -79,24 +83,42 @@ export default function ProfilePage() {
   };
 
   if (isLoading) {
-    return <LoadingSpinner message="Loading profile..." />;
+    return (
+      <div className="space-y-4">
+        <Button
+          variant="ghost"
+          onClick={() => navigate(-1)}
+          icon={<ArrowLeft className="w-4 h-4" />}
+        >
+          Back
+        </Button>
+        <SkeletonProfile />
+      </div>
+    );
   }
 
   if (error || !profile || !profile.person) {
     return (
-      <div className="space-y-6">
-        <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-          <h2 className="text-lg font-semibold text-red-900 mb-2">Error Loading Profile</h2>
-          <p className="text-red-700">
-            {error instanceof Error ? error.message : 'Unable to load profile. Please try again.'}
-          </p>
-          <button
-            onClick={() => navigate('/search')}
-            className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-          >
-            ← Back to Search
-          </button>
-        </div>
+      <div className="space-y-4">
+        <Button
+          variant="ghost"
+          onClick={() => navigate(-1)}
+          icon={<ArrowLeft className="w-4 h-4" />}
+        >
+          Back
+        </Button>
+        <Card>
+          <EmptyState
+            icon={<AlertCircle className="w-8 h-8" />}
+            title="Profile Not Found"
+            description={error instanceof Error ? error.message : 'Unable to load profile. Please try again.'}
+            action={
+              <Button onClick={() => navigate('/search')}>
+                Back to Search
+              </Button>
+            }
+          />
+        </Card>
       </div>
     );
   }
@@ -104,13 +126,13 @@ export default function ProfilePage() {
   return (
     <div className="space-y-6">
       {/* Back button */}
-      <button
+      <Button
+        variant="ghost"
         onClick={() => navigate(-1)}
-        className="text-primary-600 hover:text-primary-700 flex items-center space-x-1"
+        icon={<ArrowLeft className="w-4 h-4" />}
       >
-        <span>←</span>
-        <span>Back</span>
-      </button>
+        Back
+      </Button>
 
       {/* Profile Header */}
       <ProfileHeader person={profile.person} />
