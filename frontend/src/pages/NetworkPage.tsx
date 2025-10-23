@@ -23,6 +23,10 @@ export default function NetworkPage() {
   const [repoFilter, setRepoFilter] = useState(
     searchParams.get('repo') || ''
   );
+  const [connectionTypes, setConnectionTypes] = useState<string[]>([
+    'coworker',
+    'github_collaborator',
+  ]);
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searching, setSearching] = useState(false);
 
@@ -154,7 +158,7 @@ export default function NetworkPage() {
       </div>
 
       {/* Controls */}
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="bg-white rounded-lg shadow-md p-6 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Degrees of Separation */}
           <div>
@@ -201,15 +205,68 @@ export default function NetworkPage() {
           </div>
         </div>
 
-        <div className="mt-4 flex gap-3">
+        {/* Connection Type Filter */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-3">
+            Connection Types
+          </label>
+          <div className="flex gap-4">
+            <label className="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={connectionTypes.includes('coworker')}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setConnectionTypes([...connectionTypes, 'coworker']);
+                  } else {
+                    setConnectionTypes(connectionTypes.filter((t) => t !== 'coworker'));
+                  }
+                }}
+                className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+              />
+              <span className="text-sm text-gray-700 font-medium">
+                Co-workers
+              </span>
+              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                <span className="w-2 h-2 mr-1 rounded-full bg-green-500"></span>
+                Employment
+              </span>
+            </label>
+
+            <label className="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={connectionTypes.includes('github_collaborator')}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setConnectionTypes([...connectionTypes, 'github_collaborator']);
+                  } else {
+                    setConnectionTypes(connectionTypes.filter((t) => t !== 'github_collaborator'));
+                  }
+                }}
+                className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+              />
+              <span className="text-sm text-gray-700 font-medium">
+                GitHub Collaborators
+              </span>
+              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800">
+                <span className="w-2 h-2 mr-1 rounded-full bg-purple-500"></span>
+                Code
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div className="flex gap-3">
           <button
             onClick={() => {
               setCompanyFilter('');
               setRepoFilter('');
+              setConnectionTypes(['coworker', 'github_collaborator']);
             }}
             className="px-4 py-2 text-sm text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
           >
-            Clear Filters
+            Clear All Filters
           </button>
           <button
             onClick={() => setCenterPersonId('')}
@@ -228,6 +285,7 @@ export default function NetworkPage() {
           maxDegree={maxDegree}
           companyFilter={companyFilter || undefined}
           repoFilter={repoFilter || undefined}
+          connectionTypes={connectionTypes}
         />
       </div>
     </div>

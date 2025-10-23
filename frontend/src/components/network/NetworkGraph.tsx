@@ -8,6 +8,7 @@ interface NetworkGraphProps {
   maxDegree: number;
   companyFilter?: string;
   repoFilter?: string;
+  connectionTypes?: string[];
   onNodeClick?: (personId: string) => void;
 }
 
@@ -31,6 +32,7 @@ export default function NetworkGraph({
   maxDegree,
   companyFilter,
   repoFilter,
+  connectionTypes = ['coworker', 'github_collaborator'],
   onNodeClick,
 }: NetworkGraphProps) {
   const navigate = useNavigate();
@@ -133,6 +135,23 @@ export default function NetworkGraph({
       return; // Wait until both are ready
     }
 
+    // Filter edges based on connection types
+    const filteredEdges = graphData.edges.filter((edge: any) => {
+      const type = edge.title === 'Co-worker' ? 'coworker' : 'github_collaborator';
+      return connectionTypes.includes(type);
+    });
+
+    // Filter nodes to only include those that have at least one connection
+    const connectedNodeIds = new Set<string>();
+    filteredEdges.forEach((edge: any) => {
+      connectedNodeIds.add(edge.from);
+      connectedNodeIds.add(edge.to);
+    });
+
+    const filteredNodes = graphData.nodes.filter((node: any) =>
+      connectedNodeIds.has(node.id)
+    );
+
     const options: Options = {
       nodes: {
         shape: 'dot',
@@ -182,8 +201,13 @@ export default function NetworkGraph({
       networkRef.current.destroy();
     }
 
-    // Create new network
-    const network = new Network(containerRef.current, graphData, options);
+    // Create new network with filtered data
+    const filteredGraphData: Data = {
+      nodes: filteredNodes,
+      edges: filteredEdges,
+    };
+
+    const network = new Network(containerRef.current, filteredGraphData, options);
     networkRef.current = network;
 
     // Add click event
@@ -218,7 +242,7 @@ export default function NetworkGraph({
         networkRef.current = null;
       }
     };
-  }, [graphData, navigate, onNodeClick]);
+  }, [graphData, connectionTypes, navigate, onNodeClick]);
 
   const getNodeColor = (degree: number, isCenter: boolean) => {
     if (isCenter) {
