@@ -7,11 +7,14 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from typing import List, Optional
 from collections import deque
 from psycopg2.extras import RealDictCursor
+import logging
 
 from api.dependencies import get_db
 from api.crud import network as network_crud
+from api.services.cache_service import get_cache
 
 router = APIRouter(prefix="/api/network", tags=["network"])
+logger = logging.getLogger(__name__)
 
 
 @router.get("/connections/{person_id}")
@@ -185,11 +188,28 @@ async def get_network_graph(
     db=Depends(get_db)
 ):
     """
-    Get network graph data for visualization - OPTIMIZED
+    Get network graph data for visualization - OPTIMIZED WITH CACHING
     
     Returns nodes and edges formatted for vis.js/d3
     Uses optimized batch queries instead of N+1 pattern
+    Results are cached for 10 minutes
     """
+    
+    # Build cache key from parameters
+    cache = get_cache()
+    cache_key = f"network_graph:{center}:{max_degree}:{limit}"
+    if company_filter:
+        cache_key += f":company={company_filter}"
+    if repo_filter:
+        cache_key += f":repo={repo_filter}"
+    
+    # Try to get from cache
+    cached_result = cache.get(cache_key)
+    if cached_result:
+        logger.info(f"✨ Cache hit: network_graph for {center}")
+        return cached_result
+    
+    logger.info(f"🔄 Cache miss: network_graph for {center}, querying database...")
     
     try:
         cursor = db.cursor(cursor_factory=RealDictCursor)
@@ -382,7 +402,7 @@ async def get_network_graph(
         
         cursor.close()
         
-        return {
+        result = {
             'center_person_id': center,
             'max_degree': max_degree,
             'node_count': len(nodes),
@@ -390,6 +410,12 @@ async def get_network_graph(
             'nodes': nodes,
             'edges': edges
         }
+        
+        # Cache result for 10 minutes (600 seconds)
+        cache.set(cache_key, result, ttl=600)
+        logger.info(f"💾 Cached network_graph for {center}")
+        
+        return result
         
     except Exception as e:
         import traceback

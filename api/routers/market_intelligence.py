@@ -11,6 +11,7 @@ import logging
 
 from api.dependencies import get_db
 from api.services.market_intelligence import MarketIntelligenceService
+from api.services.cache_service import get_cache
 
 router = APIRouter(prefix="/api/market", tags=["market-intelligence"])
 logger = logging.getLogger(__name__)
@@ -33,7 +34,7 @@ async def get_hiring_patterns(
     db=Depends(get_db)
 ):
     """
-    Get hiring patterns for a company.
+    Get hiring patterns for a company - CACHED
     
     Returns:
     - Hiring volume over time (monthly breakdown)
@@ -41,8 +42,21 @@ async def get_hiring_patterns(
     - Total hires in period
     - Average tenure
     
+    Results cached for 30 minutes
     Example: /api/market/hiring-patterns?company_name=Uniswap&time_period_months=24
     """
+    # Build cache key
+    cache = get_cache()
+    cache_key = f"hiring_patterns:{company_id or company_name}:{time_period_months}"
+    
+    # Try cache first
+    cached_result = cache.get(cache_key)
+    if cached_result:
+        logger.info(f"✨ Cache hit: hiring_patterns for {company_id or company_name}")
+        return cached_result
+    
+    logger.info(f"🔄 Cache miss: hiring_patterns for {company_id or company_name}")
+    
     try:
         service = MarketIntelligenceService(db)
         patterns = service.get_hiring_patterns(
@@ -54,10 +68,15 @@ async def get_hiring_patterns(
         if "error" in patterns:
             raise HTTPException(status_code=404, detail=patterns["error"])
         
-        return {
+        result = {
             "success": True,
             "data": patterns
         }
+        
+        # Cache for 30 minutes (1800 seconds)
+        cache.set(cache_key, result, ttl=1800)
+        
+        return result
         
     except HTTPException:
         raise

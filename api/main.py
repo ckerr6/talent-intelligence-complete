@@ -11,7 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from api.config import settings
-from api.routers import people, companies, stats, graph, query, analytics, network, recruiter_workflow, ai, market_intelligence
+from api.routers import people, companies, stats, graph, query, analytics, network, recruiter_workflow, ai, market_intelligence, cache
 from api.models.common import HealthResponse
 from config import Config
 
@@ -49,6 +49,7 @@ app.include_router(network.router)  # Has /api/network prefix in router
 app.include_router(recruiter_workflow.router)  # Has /api/workflow prefix in router
 app.include_router(ai.router)  # Has /api/ai prefix in router
 app.include_router(market_intelligence.router)  # Has /api/market prefix in router
+app.include_router(cache.router)  # Has /api/cache prefix in router
 
 
 @app.on_event("startup")
