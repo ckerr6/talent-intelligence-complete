@@ -39,6 +39,12 @@ export interface GitHubProfile {
   bio?: string;
   location?: string;
   twitter_username?: string;
+  // Phase 2: PR enrichment data
+  is_pro_account?: boolean;
+  total_merged_prs?: number;
+  total_stars_earned?: number;
+  total_lines_contributed?: number;
+  enriched_at?: string;
 }
 
 export interface GitHubContribution {
@@ -55,6 +61,15 @@ export interface GitHubContribution {
   contributed_at?: string;
   owner_company_id?: string;
   owner_company_name?: string;
+  // Phase 2: PR enrichment data
+  pr_count?: number;
+  merged_pr_count?: number;
+  open_pr_count?: number;
+  lines_added?: number;
+  lines_deleted?: number;
+  files_changed?: number;
+  contribution_quality_score?: number;
+  last_merged_pr_date?: string;
 }
 
 export interface FullProfile {

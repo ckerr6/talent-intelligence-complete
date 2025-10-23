@@ -85,6 +85,36 @@ export default function GitHubActivity({ githubProfile, contributions }: GitHubA
         </div>
       </div>
 
+      {/* Enhanced Stats (Phase 2 Data) */}
+      {githubProfile.total_merged_prs !== undefined && githubProfile.total_merged_prs > 0 && (
+        <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-lg p-4">
+            <p className="text-2xl font-bold text-green-900">{githubProfile.total_merged_prs}</p>
+            <p className="text-sm text-green-700 font-medium">✓ Merged Pull Requests</p>
+            <p className="text-xs text-green-600 mt-1">Confirmed code contributions</p>
+          </div>
+          
+          {githubProfile.total_lines_contributed !== undefined && githubProfile.total_lines_contributed > 0 && (
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-4">
+              <p className="text-2xl font-bold text-blue-900">{githubProfile.total_lines_contributed.toLocaleString()}</p>
+              <p className="text-sm text-blue-700 font-medium">Lines of Code</p>
+              <p className="text-xs text-blue-600 mt-1">Career total contributed</p>
+            </div>
+          )}
+          
+          {githubProfile.is_pro_account && (
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-lg p-4">
+              <div className="flex items-center justify-center h-full">
+                <div className="text-center">
+                  <p className="text-lg font-bold text-purple-900">✓ GitHub Pro</p>
+                  <p className="text-xs text-purple-600 mt-1">Has private repositories</p>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Bio */}
       {githubProfile.bio && (
         <div className="mb-6">
@@ -169,7 +199,7 @@ function renderContribution(contrib: any, githubUsername: string, quality: 'succ
       <div className="flex items-start justify-between">
         <div className="flex-1">
           {/* Repository Name with Link */}
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex items-center gap-2 mb-2 flex-wrap">
             <a
               href={repoUrl}
               target="_blank"
@@ -186,6 +216,21 @@ function renderContribution(contrib: any, githubUsername: string, quality: 'succ
             {quality === 'success' && (
               <Badge variant="success" size="sm">
                 High Quality
+              </Badge>
+            )}
+            {/* Phase 2: Show merged PR count if available */}
+            {contrib.merged_pr_count !== undefined && contrib.merged_pr_count > 0 && (
+              <Badge variant="success" size="sm">
+                ✓ {contrib.merged_pr_count} Merged PR{contrib.merged_pr_count > 1 ? 's' : ''}
+              </Badge>
+            )}
+            {/* Phase 2: Show quality score if available */}
+            {contrib.contribution_quality_score !== undefined && (
+              <Badge 
+                variant={contrib.contribution_quality_score >= 70 ? 'success' : contrib.contribution_quality_score >= 40 ? 'info' : 'default'}
+                size="sm"
+              >
+                Score: {contrib.contribution_quality_score.toFixed(0)}/100
               </Badge>
             )}
           </div>
@@ -219,6 +264,12 @@ function renderContribution(contrib: any, githubUsername: string, quality: 'succ
             <span className="font-medium text-gray-700">
               {contrib.contribution_count} commit{contrib.contribution_count !== 1 ? 's' : ''}
             </span>
+            {/* Phase 2: Show lines of code if available */}
+            {contrib.lines_added !== undefined && contrib.lines_added > 0 && (
+              <span className="font-medium text-green-700">
+                +{contrib.lines_added.toLocaleString()} lines
+              </span>
+            )}
           </div>
 
           {/* Action Links */}
