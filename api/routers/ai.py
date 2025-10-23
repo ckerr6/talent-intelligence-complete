@@ -95,7 +95,7 @@ def _fetch_candidate_data(person_id: str, db) -> Dict[str, Any]:
                 """
                 SELECT 
                     gc.contribution_count,
-                    gc.contributed_at,
+                    gc.last_contribution_date,
                     gr.repo_id,
                     gr.full_name as repo_full_name,
                     gr.repo_name,
@@ -107,7 +107,7 @@ def _fetch_candidate_data(person_id: str, db) -> Dict[str, Any]:
                     c.company_name as owner_company_name
                 FROM github_contribution gc
                 JOIN github_repository gr ON gc.repo_id = gr.repo_id
-                LEFT JOIN company c ON gr.owner_company_id = c.company_id
+                LEFT JOIN company c ON gr.company_id = c.company_id
                 WHERE gc.github_profile_id = %s
                 ORDER BY gr.stars DESC, gc.contribution_count DESC
                 LIMIT 20
