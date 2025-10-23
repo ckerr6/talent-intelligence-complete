@@ -1,26 +1,68 @@
 import { useState, useEffect } from 'react';
-import { Search, TrendingUp, Users, Code2, Sparkles, BarChart3 } from 'lucide-react';
-import api from '../services/api';
+import { Search, TrendingUp, Users, Code2, MapPin, Building2, Github, Mail, ChevronDown } from 'lucide-react';
+import Card from '../components/common/Card';
+import Badge from '../components/common/Badge';
+import Button from '../components/common/Button';
+import { Skeleton } from '../components/common/Skeleton';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, LineChart, Line } from 'recharts';
 import HiringTrendsChart from '../components/market/HiringTrendsChart';
 import TalentFlowChart from '../components/market/TalentFlowChart';
 import TechnologyDistributionChart from '../components/market/TechnologyDistributionChart';
-import AIChartBuilder from '../components/market/AIChartBuilder';
+
+const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300', '#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A28DFF', '#FF6F61'];
 
 export default function MarketIntelligencePage() {
+  // Overall statistics state
+  const [overallStats, setOverallStats] = useState<any>(null);
+  const [hiringTrends, setHiringTrends] = useState<any>(null);
+  const [techDistribution, setTechDistribution] = useState<any>(null);
+  const [topCompanies, setTopCompanies] = useState<any>(null);
+  const [locations, setLocations] = useState<any>(null);
+  
+  // Company filter state
+  const [showCompanyFilter, setShowCompanyFilter] = useState(false);
   const [selectedCompany, setSelectedCompany] = useState<string>('');
   const [selectedCompanyName, setSelectedCompanyName] = useState<string>('');
   const [companySearch, setCompanySearch] = useState('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searching, setSearching] = useState(false);
-  const [activeTab, setActiveTab] = useState<'overview' | 'ai-builder'>('overview');
   
-  // Data states
-  const [hiringData, setHiringData] = useState<any>(null);
-  const [talentFlowData, setTalentFlowData] = useState<any>(null);
-  const [techData, setTechData] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
+  // Company-specific data
+  const [companyHiring, setCompanyHiring] = useState<any>(null);
+  const [companyTalentFlow, setCompanyTalentFlow] = useState<any>(null);
+  const [companyTech, setCompanyTech] = useState<any>(null);
+  
+  const [loading, setLoading] = useState(true);
 
-  // Search for companies
+  // Load overall dataset statistics on mount
+  useEffect(() => {
+    loadOverallData();
+  }, []);
+
+  const loadOverallData = async () => {
+    setLoading(true);
+    try {
+      const [stats, trends, tech, companies, locs] = await Promise.all([
+        fetch('/api/market/overall/statistics').then(r => r.json()),
+        fetch('/api/market/overall/hiring-trends?months=24').then(r => r.json()),
+        fetch('/api/market/overall/technology-distribution?limit=15').then(r => r.json()),
+        fetch('/api/market/overall/top-companies?limit=15').then(r => r.json()),
+        fetch('/api/market/overall/location-distribution?limit=10').then(r => r.json())
+      ]);
+
+      setOverallStats(stats.data);
+      setHiringTrends(trends.data);
+      setTechDistribution(tech.data);
+      setTopCompanies(companies.data);
+      setLocations(locs.data);
+    } catch (error) {
+      console.error('Error loading overall data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Company search
   const handleSearch = async (query: string) => {
     if (!query.trim() || query.length < 2) {
       setSearchResults([]);
@@ -39,36 +81,36 @@ export default function MarketIntelligencePage() {
     }
   };
 
-  // Select company and load data
   const handleSelectCompany = async (companyId: string, companyName: string) => {
     setSelectedCompany(companyId);
     setSelectedCompanyName(companyName);
     setCompanySearch(companyName);
     setSearchResults([]);
-    
-    // Load all market intelligence data
-    await loadMarketData(companyId, companyName);
-  };
+    setShowCompanyFilter(false);
 
-  const loadMarketData = async (companyId: string, companyName: string) => {
-    setLoading(true);
-    
+    // Load company-specific data
     try {
-      // Load all data in parallel
       const [hiring, flow, tech] = await Promise.all([
         fetch(`/api/market/hiring-patterns?company_id=${companyId}&time_period_months=24`).then(r => r.json()),
         fetch(`/api/market/talent-flow?company_id=${companyId}&direction=both`).then(r => r.json()),
         fetch(`/api/market/technology-distribution?company_id=${companyId}&limit=15`).then(r => r.json())
       ]);
 
-      setHiringData(hiring.data);
-      setTalentFlowData(flow.data);
-      setTechData(tech.data);
+      setCompanyHiring(hiring.data);
+      setCompanyTalentFlow(flow.data);
+      setCompanyTech(tech.data);
     } catch (error) {
-      console.error('Error loading market data:', error);
-    } finally {
-      setLoading(false);
+      console.error('Error loading company data:', error);
     }
+  };
+
+  const clearCompanyFilter = () => {
+    setSelectedCompany('');
+    setSelectedCompanyName('');
+    setCompanySearch('');
+    setCompanyHiring(null);
+    setCompanyTalentFlow(null);
+    setCompanyTech(null);
   };
 
   // Debounce search
@@ -78,181 +120,325 @@ export default function MarketIntelligencePage() {
         handleSearch(companySearch);
       }
     }, 300);
+
     return () => clearTimeout(timer);
   }, [companySearch]);
+
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <Skeleton className="h-32" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[...Array(4)].map((_, i) => (
+            <Skeleton key={i} className="h-32" />
+          ))}
+        </div>
+        <Skeleton className="h-96" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900">Market Intelligence</h1>
-        <p className="mt-2 text-gray-600">
-          AI-powered insights about hiring patterns, talent flow, and technology trends
-        </p>
-      </div>
-
-      {/* Company Search */}
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <div className="relative">
-          <div className="flex items-center space-x-3">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                value={companySearch}
-                onChange={(e) => setCompanySearch(e.target.value)}
-                placeholder="Search for a company to analyze..."
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              />
-            </div>
-            {selectedCompany && (
-              <button
-                onClick={() => loadMarketData(selectedCompany, selectedCompanyName)}
-                disabled={loading}
-                className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 transition-colors font-medium"
-              >
-                {loading ? 'Loading...' : 'Refresh Data'}
-              </button>
-            )}
-          </div>
-
-          {/* Search Results Dropdown */}
-          {searchResults.length > 0 && (
-            <div className="absolute z-10 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-64 overflow-y-auto">
-              {searchResults.map((company) => (
-                <button
-                  key={company.company_id}
-                  onClick={() => handleSelectCompany(company.company_id, company.company_name)}
-                  className="w-full px-4 py-3 text-left hover:bg-purple-50 transition-colors border-b border-gray-100 last:border-b-0"
-                >
-                  <div className="font-medium text-gray-900">{company.company_name}</div>
-                  <div className="text-sm text-gray-500">
-                    {company.employee_count} employees in database
-                  </div>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {searching && (
-          <div className="mt-2 text-sm text-gray-500">Searching...</div>
-        )}
-      </div>
-
-      {/* No Company Selected State */}
-      {!selectedCompany && (
-        <div className="bg-gradient-to-br from-purple-50 to-blue-50 border-2 border-purple-200 rounded-lg p-12 text-center">
-          <BarChart3 className="w-16 h-16 text-purple-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-semibold text-gray-900 mb-2">
-            Get Started
-          </h2>
-          <p className="text-gray-600 max-w-md mx-auto">
-            Search for a company above to explore hiring patterns, talent flow, and technology trends
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
+            <TrendingUp className="w-8 h-8 mr-3 text-primary-600" />
+            Market Intelligence
+          </h1>
+          <p className="mt-2 text-gray-600">
+            Comprehensive insights across {overallStats?.total_people?.toLocaleString()} professionals
           </p>
-          <div className="mt-6 flex items-center justify-center space-x-4 text-sm text-gray-500">
-            <span className="flex items-center">
-              <TrendingUp className="w-4 h-4 mr-1" />
-              Hiring Trends
-            </span>
-            <span className="flex items-center">
-              <Users className="w-4 h-4 mr-1" />
-              Talent Flow
-            </span>
-            <span className="flex items-center">
-              <Code2 className="w-4 h-4 mr-1" />
-              Tech Stacks
-            </span>
-            <span className="flex items-center">
-              <Sparkles className="w-4 h-4 mr-1" />
-              AI Insights
-            </span>
-          </div>
         </div>
-      )}
+        <Button
+          variant={selectedCompany ? 'primary' : 'outline'}
+          onClick={() => setShowCompanyFilter(!showCompanyFilter)}
+          icon={<Search className="w-4 h-4" />}
+        >
+          {selectedCompany ? `Viewing: ${selectedCompanyName}` : 'Filter by Company'}
+        </Button>
+      </div>
 
-      {/* Dashboard Content */}
-      {selectedCompany && (
-        <>
-          {/* Tabs */}
-          <div className="bg-white rounded-lg shadow-md">
-            <div className="border-b border-gray-200">
-              <div className="flex space-x-8 px-6">
-                <button
-                  onClick={() => setActiveTab('overview')}
-                  className={`py-4 px-1 border-b-2 font-medium transition-colors ${
-                    activeTab === 'overview'
-                      ? 'border-purple-600 text-purple-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  }`}
-                >
-                  <div className="flex items-center space-x-2">
-                    <BarChart3 className="w-5 h-5" />
-                    <span>Overview Dashboard</span>
-                  </div>
-                </button>
-                <button
-                  onClick={() => setActiveTab('ai-builder')}
-                  className={`py-4 px-1 border-b-2 font-medium transition-colors ${
-                    activeTab === 'ai-builder'
-                      ? 'border-purple-600 text-purple-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  }`}
-                >
-                  <div className="flex items-center space-x-2">
-                    <Sparkles className="w-5 h-5" />
-                    <span>AI Chart Builder</span>
-                  </div>
-                </button>
+      {/* Company Filter Dropdown */}
+      {showCompanyFilter && (
+        <Card>
+          <div className="space-y-4">
+            <div className="flex items-center space-x-4">
+              <div className="flex-1">
+                <input
+                  type="text"
+                  placeholder="Search companies..."
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  value={companySearch}
+                  onChange={(e) => setCompanySearch(e.target.value)}
+                />
               </div>
-            </div>
-          </div>
-
-          {/* Overview Tab */}
-          {activeTab === 'overview' && (
-            <div className="space-y-6">
-              {loading ? (
-                <div className="bg-white rounded-lg shadow-md p-12 text-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
-                  <p className="text-gray-600">Loading market intelligence data...</p>
-                </div>
-              ) : (
-                <>
-                  {/* Hiring Trends */}
-                  <HiringTrendsChart
-                    data={hiringData}
-                    companyName={selectedCompanyName}
-                  />
-
-                  {/* Two Column Layout */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {/* Talent Flow */}
-                    <TalentFlowChart
-                      data={talentFlowData}
-                      companyName={selectedCompanyName}
-                    />
-
-                    {/* Technology Distribution */}
-                    <TechnologyDistributionChart
-                      data={techData}
-                      companyName={selectedCompanyName}
-                    />
-                  </div>
-                </>
+              {selectedCompany && (
+                <Button variant="outline" onClick={clearCompanyFilter}>
+                  Show All
+                </Button>
               )}
             </div>
+            
+            {searching && <p className="text-sm text-gray-500">Searching...</p>}
+            
+            {searchResults.length > 0 && (
+              <div className="max-h-64 overflow-y-auto space-y-2">
+                {searchResults.map((company) => (
+                  <button
+                    key={company.company_id}
+                    onClick={() => handleSelectCompany(company.company_id, company.company_name)}
+                    className="w-full text-left px-4 py-2 hover:bg-gray-50 rounded-lg transition-colors flex items-center justify-between"
+                  >
+                    <span className="font-medium">{company.company_name}</span>
+                    <Badge size="sm">{company.employee_count} people</Badge>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </Card>
+      )}
+
+      {/* Overall Statistics Cards */}
+      {!selectedCompany && overallStats && (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-blue-100 text-sm font-medium">Total Professionals</p>
+                  <p className="text-3xl font-bold mt-2">{overallStats.total_people.toLocaleString()}</p>
+                </div>
+                <Users className="w-12 h-12 text-blue-200" />
+              </div>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-purple-100 text-sm font-medium">GitHub Profiles</p>
+                  <p className="text-3xl font-bold mt-2">{overallStats.people_with_github.toLocaleString()}</p>
+                  <p className="text-purple-200 text-xs mt-1">{overallStats.github_percentage}% coverage</p>
+                </div>
+                <Github className="w-12 h-12 text-purple-200" />
+              </div>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-green-500 to-green-600 text-white">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-green-100 text-sm font-medium">Email Contacts</p>
+                  <p className="text-3xl font-bold mt-2">{overallStats.people_with_email.toLocaleString()}</p>
+                  <p className="text-green-200 text-xs mt-1">{overallStats.email_percentage}% coverage</p>
+                </div>
+                <Mail className="w-12 h-12 text-green-200" />
+              </div>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-orange-500 to-orange-600 text-white">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-orange-100 text-sm font-medium">Companies Tracked</p>
+                  <p className="text-3xl font-bold mt-2">{overallStats.total_companies.toLocaleString()}</p>
+                  <p className="text-orange-200 text-xs mt-1">{overallStats.total_repositories.toLocaleString()} repositories</p>
+                </div>
+                <Building2 className="w-12 h-12 text-orange-200" />
+              </div>
+            </Card>
+          </div>
+
+          {/* Hiring Trends Chart */}
+          {hiringTrends && hiringTrends.monthly_hires && (
+            <Card>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-6">Market Hiring Trends (24 Months)</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <p className="text-sm text-blue-600 font-medium">Total Hires</p>
+                  <p className="text-2xl font-bold text-blue-900">{hiringTrends.total_hires.toLocaleString()}</p>
+                </div>
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <p className="text-sm text-green-600 font-medium">Avg/Month</p>
+                  <p className="text-2xl font-bold text-green-900">{hiringTrends.average_per_month.toLocaleString()}</p>
+                </div>
+                <div className="bg-purple-50 p-4 rounded-lg">
+                  <p className="text-sm text-purple-600 font-medium">Time Period</p>
+                  <p className="text-2xl font-bold text-purple-900">{hiringTrends.time_period_months} months</p>
+                </div>
+              </div>
+              <ResponsiveContainer width="100%" height={350}>
+                <LineChart data={hiringTrends.monthly_hires.map((m: any) => ({
+                  month: new Date(m.month).toLocaleDateString('en-US', { month: 'short', year: '2-digit' }),
+                  hires: m.hires,
+                  companies: m.companies_hiring
+                }))}>
+                  <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
+                  <XAxis dataKey="month" tick={{ fill: '#6B7280', fontSize: 12 }} />
+                  <YAxis tick={{ fill: '#6B7280', fontSize: 12 }} />
+                  <Tooltip 
+                    contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '0.5rem' }}
+                  />
+                  <Legend />
+                  <Line type="monotone" dataKey="hires" stroke="#8884d8" strokeWidth={2} name="New Hires" />
+                  <Line type="monotone" dataKey="companies" stroke="#82ca9d" strokeWidth={2} name="Companies Hiring" />
+                </LineChart>
+              </ResponsiveContainer>
+            </Card>
           )}
 
-          {/* AI Chart Builder Tab */}
-          {activeTab === 'ai-builder' && (
-            <AIChartBuilder
-              companyId={selectedCompany}
-              companyName={selectedCompanyName}
+          {/* Technology Distribution */}
+          {techDistribution && techDistribution.languages && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-6">Top Technologies</h2>
+                <ResponsiveContainer width="100%" height={400}>
+                  <BarChart data={techDistribution.languages.slice(0, 10)} layout="vertical">
+                    <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
+                    <XAxis type="number" tick={{ fill: '#6B7280', fontSize: 12 }} />
+                    <YAxis dataKey="language" type="category" width={100} tick={{ fill: '#6B7280', fontSize: 12 }} />
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '0.5rem' }}
+                    />
+                    <Bar dataKey="developer_count" name="Developers">
+                      {techDistribution.languages.slice(0, 10).map((entry: any, index: number) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </Card>
+
+              <Card>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-6">Technology Distribution</h2>
+                <ResponsiveContainer width="100%" height={400}>
+                  <PieChart>
+                    <Pie
+                      data={techDistribution.languages.slice(0, 8)}
+                      dataKey="developer_count"
+                      nameKey="language"
+                      cx="50%"
+                      cy="50%"
+                      outerRadius={120}
+                      label
+                    >
+                      {techDistribution.languages.slice(0, 8).map((entry: any, index: number) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              </Card>
+            </div>
+          )}
+
+          {/* Top Companies and Locations */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Top Companies */}
+            {topCompanies && topCompanies.companies && (
+              <Card>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                  <Building2 className="w-6 h-6 mr-2 text-primary-600" />
+                  Top Companies by Headcount
+                </h2>
+                <div className="space-y-3">
+                  {topCompanies.companies.slice(0, 10).map((company: any, index: number) => (
+                    <div 
+                      key={company.company_id}
+                      className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+                      onClick={() => handleSelectCompany(company.company_id, company.company_name)}
+                    >
+                      <div className="flex items-center space-x-3">
+                        <span className="text-lg font-bold text-primary-600 w-8">{index + 1}</span>
+                        <span className="font-medium text-gray-900">{company.company_name}</span>
+                      </div>
+                      <Badge variant="primary">{company.total_people} people</Badge>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            )}
+
+            {/* Top Locations */}
+            {locations && locations.locations && (
+              <Card>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                  <MapPin className="w-6 h-6 mr-2 text-primary-600" />
+                  Top Locations
+                </h2>
+                <div className="space-y-3">
+                  {locations.locations.slice(0, 10).map((location: any, index: number) => (
+                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center space-x-3">
+                        <span className="text-lg font-bold text-primary-600 w-8">{index + 1}</span>
+                        <span className="font-medium text-gray-900">{location.location}</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Badge variant="success">{location.person_count} total</Badge>
+                        <Badge variant="info">{location.with_github} GitHub</Badge>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            )}
+          </div>
+        </>
+      )}
+
+      {/* Company-Specific View */}
+      {selectedCompany && (
+        <div className="space-y-6">
+          <Card className="bg-gradient-to-r from-primary-500 to-primary-600 text-white">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold">{selectedCompanyName}</h2>
+                <p className="text-primary-100 mt-1">Company-specific market intelligence</p>
+              </div>
+              <Button 
+                variant="outline" 
+                onClick={clearCompanyFilter}
+                className="text-white border-white hover:bg-white hover:text-primary-600"
+              >
+                View All Companies
+              </Button>
+            </div>
+          </Card>
+
+          {/* Company-specific charts */}
+          {companyHiring && (
+            <HiringTrendsChart 
+              data={companyHiring} 
+              loading={false} 
             />
           )}
-        </>
+
+          {companyTalentFlow && (
+            <TalentFlowChart 
+              data={companyTalentFlow} 
+              loading={false} 
+            />
+          )}
+
+          {companyTech && (
+            <TechnologyDistributionChart 
+              data={companyTech} 
+              loading={false} 
+            />
+          )}
+
+          {!companyHiring && !companyTalentFlow && !companyTech && (
+            <Card>
+              <div className="text-center py-12">
+                <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gray-300 border-t-primary-600 mb-4"></div>
+                <p className="text-gray-500">Loading company data...</p>
+              </div>
+            </Card>
+          )}
+        </div>
       )}
     </div>
   );
 }
-

@@ -263,3 +263,204 @@ async def search_companies(
         logger.error(f"Error searching companies: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+
+@router.get("/overall/statistics")
+async def get_overall_statistics(db=Depends(get_db)):
+    """
+    Get overall dataset statistics - CACHED
+    
+    Returns comprehensive metrics about the entire talent pool:
+    - Total people, companies, repositories
+    - GitHub and email coverage
+    - Overall dataset health
+    
+    Results cached for 1 hour
+    """
+    cache = get_cache()
+    cache_key = "overall_statistics"
+    
+    cached_result = cache.get(cache_key)
+    if cached_result:
+        logger.info("✨ Cache hit: overall_statistics")
+        return cached_result
+    
+    logger.info("🔄 Cache miss: overall_statistics")
+    
+    try:
+        service = MarketIntelligenceService(db)
+        stats = service.get_overall_statistics()
+        
+        result = {
+            "success": True,
+            "data": stats.get("data", {})
+        }
+        
+        # Cache for 1 hour (3600 seconds)
+        cache.set(cache_key, result, ttl=3600)
+        
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error getting overall statistics: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/overall/hiring-trends")
+async def get_overall_hiring_trends(
+    months: int = Query(24, ge=1, le=60, description="Time period in months"),
+    db=Depends(get_db)
+):
+    """
+    Get overall hiring trends across all companies - CACHED
+    
+    Returns monthly hiring volume for the entire market.
+    Results cached for 30 minutes.
+    """
+    cache = get_cache()
+    cache_key = f"overall_hiring_trends:{months}"
+    
+    cached_result = cache.get(cache_key)
+    if cached_result:
+        logger.info(f"✨ Cache hit: overall_hiring_trends:{months}")
+        return cached_result
+    
+    logger.info(f"🔄 Cache miss: overall_hiring_trends:{months}")
+    
+    try:
+        service = MarketIntelligenceService(db)
+        trends = service.get_overall_hiring_trends(months=months)
+        
+        result = {
+            "success": True,
+            "data": trends
+        }
+        
+        # Cache for 30 minutes (1800 seconds)
+        cache.set(cache_key, result, ttl=1800)
+        
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error getting overall hiring trends: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/overall/technology-distribution")
+async def get_overall_technology_distribution(
+    limit: int = Query(20, ge=5, le=50, description="Number of languages to return"),
+    db=Depends(get_db)
+):
+    """
+    Get overall technology distribution - CACHED
+    
+    Returns most popular languages across entire dataset.
+    Results cached for 1 hour.
+    """
+    cache = get_cache()
+    cache_key = f"overall_tech_distribution:{limit}"
+    
+    cached_result = cache.get(cache_key)
+    if cached_result:
+        logger.info(f"✨ Cache hit: overall_tech_distribution:{limit}")
+        return cached_result
+    
+    logger.info(f"🔄 Cache miss: overall_tech_distribution:{limit}")
+    
+    try:
+        service = MarketIntelligenceService(db)
+        tech = service.get_overall_technology_distribution(limit=limit)
+        
+        result = {
+            "success": True,
+            "data": tech
+        }
+        
+        # Cache for 1 hour (3600 seconds)
+        cache.set(cache_key, result, ttl=3600)
+        
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error getting technology distribution: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/overall/top-companies")
+async def get_top_companies(
+    limit: int = Query(20, ge=5, le=100, description="Number of companies to return"),
+    db=Depends(get_db)
+):
+    """
+    Get top companies by headcount - CACHED
+    
+    Returns companies ranked by number of people in dataset.
+    Results cached for 1 hour.
+    """
+    cache = get_cache()
+    cache_key = f"top_companies:{limit}"
+    
+    cached_result = cache.get(cache_key)
+    if cached_result:
+        logger.info(f"✨ Cache hit: top_companies:{limit}")
+        return cached_result
+    
+    logger.info(f"🔄 Cache miss: top_companies:{limit}")
+    
+    try:
+        service = MarketIntelligenceService(db)
+        companies = service.get_top_companies(limit=limit)
+        
+        result = {
+            "success": True,
+            "data": companies
+        }
+        
+        # Cache for 1 hour (3600 seconds)
+        cache.set(cache_key, result, ttl=3600)
+        
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error getting top companies: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/overall/location-distribution")
+async def get_location_distribution(
+    limit: int = Query(15, ge=5, le=50, description="Number of locations to return"),
+    db=Depends(get_db)
+):
+    """
+    Get geographic distribution of talent - CACHED
+    
+    Returns top locations by talent concentration.
+    Results cached for 1 hour.
+    """
+    cache = get_cache()
+    cache_key = f"location_distribution:{limit}"
+    
+    cached_result = cache.get(cache_key)
+    if cached_result:
+        logger.info(f"✨ Cache hit: location_distribution:{limit}")
+        return cached_result
+    
+    logger.info(f"🔄 Cache miss: location_distribution:{limit}")
+    
+    try:
+        service = MarketIntelligenceService(db)
+        locations = service.get_location_distribution(limit=limit)
+        
+        result = {
+            "success": True,
+            "data": locations
+        }
+        
+        # Cache for 1 hour (3600 seconds)
+        cache.set(cache_key, result, ttl=3600)
+        
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error getting location distribution: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+

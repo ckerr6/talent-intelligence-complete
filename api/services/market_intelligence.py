@@ -520,4 +520,205 @@ Please provide a clear, strategic answer based on the data. Include:
                     parts.append(f"  - {lang['language']}: {lang['developer_count']} developers, {lang['total_contributions']} contributions")
         
         return "\n".join(parts) if parts else "No market intelligence data available"
+    
+    def get_overall_statistics(self) -> Dict[str, Any]:
+        """
+        Get overall dataset statistics and insights.
+        
+        Returns comprehensive metrics about the entire talent pool.
+        """
+        cursor = self.conn.cursor(cursor_factory=RealDictCursor)
+        
+        try:
+            # Overall counts
+            cursor.execute("""
+                SELECT 
+                    COUNT(DISTINCT p.person_id) as total_people,
+                    COUNT(DISTINCT CASE WHEN gp.github_profile_id IS NOT NULL THEN p.person_id END) as people_with_github,
+                    COUNT(DISTINCT CASE WHEN pe.email_id IS NOT NULL THEN p.person_id END) as people_with_email,
+                    COUNT(DISTINCT e.company_id) as total_companies,
+                    COUNT(DISTINCT gp.github_profile_id) as total_github_profiles,
+                    COUNT(DISTINCT gr.repo_id) as total_repositories
+                FROM person p
+                LEFT JOIN github_profile gp ON p.person_id = gp.person_id
+                LEFT JOIN person_email pe ON p.person_id = pe.person_id
+                LEFT JOIN employment e ON p.person_id = e.person_id
+                LEFT JOIN github_contribution gc ON gp.github_profile_id = gc.github_profile_id
+                LEFT JOIN github_repository gr ON gc.repo_id = gr.repo_id
+            """)
+            overall = dict(cursor.fetchone())
+            
+            # Calculate percentages
+            total = overall['total_people']
+            overall['github_percentage'] = round((overall['people_with_github'] / total * 100), 2) if total > 0 else 0
+            overall['email_percentage'] = round((overall['people_with_email'] / total * 100), 2) if total > 0 else 0
+            
+            return {
+                "success": True,
+                "data": overall
+            }
+            
+        except Exception as e:
+            logger.error(f"Error getting overall statistics: {e}")
+            return {"error": str(e)}
+        finally:
+            cursor.close()
+    
+    def get_overall_hiring_trends(self, months: int = 24) -> Dict[str, Any]:
+        """
+        Get hiring trends across all companies in the dataset.
+        
+        Returns monthly hiring volume for the entire market.
+        """
+        cursor = self.conn.cursor(cursor_factory=RealDictCursor)
+        
+        try:
+            cutoff_date = datetime.now() - timedelta(days=months * 30)
+            
+            cursor.execute("""
+                SELECT 
+                    DATE_TRUNC('month', e.start_date) as month,
+                    COUNT(DISTINCT e.person_id) as hires,
+                    COUNT(DISTINCT e.company_id) as companies_hiring
+                FROM employment e
+                WHERE e.start_date >= %s
+                    AND e.start_date IS NOT NULL
+                GROUP BY DATE_TRUNC('month', e.start_date)
+                ORDER BY month
+            """, (cutoff_date,))
+            
+            monthly_data = [dict(row) for row in cursor.fetchall()]
+            
+            # Calculate total
+            total_hires = sum(m['hires'] for m in monthly_data)
+            
+            return {
+                "time_period_months": months,
+                "total_hires": total_hires,
+                "monthly_hires": monthly_data,
+                "average_per_month": round(total_hires / len(monthly_data), 1) if monthly_data else 0
+            }
+            
+        except Exception as e:
+            logger.error(f"Error getting overall hiring trends: {e}")
+            return {"error": str(e)}
+        finally:
+            cursor.close()
+    
+    def get_overall_technology_distribution(self, limit: int = 20) -> Dict[str, Any]:
+        """
+        Get technology/language distribution across entire dataset.
+        
+        Returns most popular languages and their adoption.
+        """
+        cursor = self.conn.cursor(cursor_factory=RealDictCursor)
+        
+        try:
+            cursor.execute("""
+                SELECT 
+                    gr.language,
+                    COUNT(DISTINCT gc.github_profile_id) as developer_count,
+                    COUNT(DISTINCT gr.repo_id) as repo_count,
+                    SUM(gc.contribution_count) as total_contributions
+                FROM github_repository gr
+                JOIN github_contribution gc ON gr.repo_id = gc.repo_id
+                WHERE gr.language IS NOT NULL
+                    AND gr.language != ''
+                GROUP BY gr.language
+                ORDER BY developer_count DESC
+                LIMIT %s
+            """, (limit,))
+            
+            languages = [dict(row) for row in cursor.fetchall()]
+            
+            return {
+                "languages": languages,
+                "total_languages": len(languages)
+            }
+            
+        except Exception as e:
+            logger.error(f"Error getting technology distribution: {e}")
+            return {"error": str(e)}
+        finally:
+            cursor.close()
+    
+    def get_top_companies(self, limit: int = 20) -> Dict[str, Any]:
+        """
+        Get top companies by current headcount in dataset.
+        
+        Returns companies ranked by number of people.
+        """
+        cursor = self.conn.cursor(cursor_factory=RealDictCursor)
+        
+        try:
+            cursor.execute("""
+                SELECT 
+                    c.company_id,
+                    c.company_name,
+                    COUNT(DISTINCT e.person_id) as total_people,
+                    COUNT(DISTINCT CASE 
+                        WHEN gp.github_profile_id IS NOT NULL THEN e.person_id 
+                    END) as people_with_github,
+                    COUNT(DISTINCT CASE 
+                        WHEN pe.email_id IS NOT NULL THEN e.person_id 
+                    END) as people_with_email
+                FROM company c
+                JOIN employment e ON c.company_id = e.company_id
+                LEFT JOIN github_profile gp ON e.person_id = gp.person_id
+                LEFT JOIN person_email pe ON e.person_id = pe.person_id
+                GROUP BY c.company_id, c.company_name
+                ORDER BY total_people DESC
+                LIMIT %s
+            """, (limit,))
+            
+            companies = [dict(row) for row in cursor.fetchall()]
+            
+            return {
+                "companies": companies,
+                "total_shown": len(companies)
+            }
+            
+        except Exception as e:
+            logger.error(f"Error getting top companies: {e}")
+            return {"error": str(e)}
+        finally:
+            cursor.close()
+    
+    def get_location_distribution(self, limit: int = 15) -> Dict[str, Any]:
+        """
+        Get geographic distribution of talent.
+        
+        Returns top locations by talent concentration.
+        """
+        cursor = self.conn.cursor(cursor_factory=RealDictCursor)
+        
+        try:
+            cursor.execute("""
+                SELECT 
+                    location,
+                    COUNT(*) as person_count,
+                    COUNT(DISTINCT CASE 
+                        WHEN gp.github_profile_id IS NOT NULL THEN p.person_id 
+                    END) as with_github
+                FROM person p
+                LEFT JOIN github_profile gp ON p.person_id = gp.person_id
+                WHERE location IS NOT NULL 
+                    AND location != ''
+                GROUP BY location
+                ORDER BY person_count DESC
+                LIMIT %s
+            """, (limit,))
+            
+            locations = [dict(row) for row in cursor.fetchall()]
+            
+            return {
+                "locations": locations,
+                "total_shown": len(locations)
+            }
+            
+        except Exception as e:
+            logger.error(f"Error getting location distribution: {e}")
+            return {"error": str(e)}
+        finally:
+            cursor.close()
 
