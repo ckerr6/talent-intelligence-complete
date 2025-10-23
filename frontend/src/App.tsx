@@ -6,6 +6,7 @@ import ProfilePage from './pages/ProfilePage';
 import NetworkPage from './pages/NetworkPage';
 import ListsPage from './pages/ListsPage';
 import AnalyticsPage from './pages/AnalyticsPage';
+import MarketIntelligencePage from './pages/MarketIntelligencePage';
 
 // Create React Query client
 const queryClient = new QueryClient({
@@ -29,6 +30,7 @@ function App() {
             <Route path="profile/:personId" element={<ProfilePage />} />
             <Route path="network" element={<NetworkPage />} />
             <Route path="network/:personId" element={<NetworkPage />} />
+            <Route path="market" element={<MarketIntelligencePage />} />
             <Route path="lists" element={<ListsPage />} />
             <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="*" element={<Navigate to="/search" replace />} />

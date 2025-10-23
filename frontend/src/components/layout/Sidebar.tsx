@@ -5,7 +5,8 @@ const navigation = [
   { name: 'Search', path: '/search', icon: '🔍', description: 'Find candidates' },
   { name: 'Lists', path: '/lists', icon: '📋', description: 'Manage lists' },
   { name: 'Network', path: '/network', icon: '🕸️', description: 'Network graph' },
-  { name: 'Analytics', path: '/analytics', icon: '📊', description: 'Market intel' },
+  { name: 'Market Intel', path: '/market', icon: '📈', description: 'AI insights' },
+  { name: 'Analytics', path: '/analytics', icon: '📊', description: 'Reports' },
 ];
 
 export default function Sidebar() {
