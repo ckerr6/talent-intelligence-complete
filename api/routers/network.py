@@ -185,94 +185,200 @@ async def get_network_graph(
     db=Depends(get_db)
 ):
     """
-    Get network graph data for visualization
+    Get network graph data for visualization - OPTIMIZED
     
     Returns nodes and edges formatted for vis.js/d3
-    Performs BFS from center person up to max_degree hops
+    Uses optimized batch queries instead of N+1 pattern
     """
     
     try:
-        nodes = []
-        edges = []
-        visited = set()
-        
-        # BFS to build graph
-        queue = deque([(center, 0)])
-        
         cursor = db.cursor(cursor_factory=RealDictCursor)
         
-        while queue and len(nodes) < limit:
-            person_id, degree = queue.popleft()
-            
-            if person_id in visited or degree > max_degree:
-                continue
-            
-            visited.add(person_id)
-            
-            # Get person details
-            cursor.execute(
-                "SELECT person_id, full_name, headline, location FROM person WHERE person_id = %s",
-                (person_id,)
-            )
-            
-            person = cursor.fetchone()
-            
-            if not person:
-                continue
-            
-            nodes.append({
-                'person_id': person['person_id'],
-                'name': person['full_name'],
-                'title': person['headline'],
-                'location': person['location'],
-                'degree': degree
-            })
-            
-            # Get connections
-            connections_query = """
-                SELECT DISTINCT dst_person_id as connected_id, 'coworker' as type
-                FROM edge_coemployment
-                WHERE src_person_id = %s
+        # Get center person
+        cursor.execute(
+            "SELECT person_id, full_name, headline, location FROM person WHERE person_id = %s",
+            (center,)
+        )
+        center_person = cursor.fetchone()
+        
+        if not center_person:
+            raise HTTPException(status_code=404, detail="Person not found")
+        
+        nodes = [{
+            'person_id': str(center_person['person_id']),
+            'name': center_person['full_name'],
+            'title': center_person['headline'],
+            'location': center_person['location'],
+            'degree': 0
+        }]
+        
+        # OPTIMIZED: Get all 1st degree connections in ONE batch query
+        conn_query = """
+            WITH coworker_connections AS (
+                SELECT DISTINCT 
+                    e.dst_person_id as connected_id,
+                    'coworker' as type,
+                    %s as source_id
+                FROM edge_coemployment e
+                WHERE e.src_person_id = %s
+        """
+        params = [center, center]
+        
+        if company_filter:
+            conn_query += """
+                AND e.company_id IN (
+                    SELECT company_id FROM company 
+                    WHERE company_name ILIKE %s
+                )
             """
-            
-            params = [person_id]
-            
-            if company_filter:
-                connections_query += " AND company_id IN (SELECT company_id FROM company WHERE company_name ILIKE %s)"
-                params.append(f"%{company_filter}%")
-            
-            connections_query += """
-                UNION
-                SELECT DISTINCT p2.person_id, 'github_collaborator' as type
-                FROM github_contribution gc1
+            params.append(f"%{company_filter}%")
+        
+        conn_query += """
+                LIMIT 150
+            ),
+            github_connections AS (
+                SELECT DISTINCT 
+                    p2.person_id as connected_id,
+                    'github_collaborator' as type,
+                    %s as source_id
+                FROM github_profile gp1
+                JOIN github_contribution gc1 ON gp1.github_profile_id = gc1.github_profile_id
                 JOIN github_contribution gc2 ON gc1.repo_id = gc2.repo_id
                 JOIN github_profile gp2 ON gc2.github_profile_id = gp2.github_profile_id
                 JOIN person p2 ON gp2.person_id = p2.person_id
-                JOIN github_profile gp1 ON gc1.github_profile_id = gp1.github_profile_id
-                WHERE gp1.person_id = %s AND p2.person_id != %s
+                WHERE gp1.person_id = %s 
+                AND p2.person_id != %s
+        """
+        params.extend([center, center, center])
+        
+        if repo_filter:
+            conn_query += """
+                AND gc1.repo_id IN (
+                    SELECT repo_id FROM github_repository 
+                    WHERE full_name ILIKE %s
+                )
             """
+            params.append(f"%{repo_filter}%")
+        
+        conn_query += """
+                LIMIT 150
+            ),
+            all_connections AS (
+                SELECT * FROM coworker_connections
+                UNION
+                SELECT * FROM github_connections
+            )
+            SELECT 
+                ac.source_id,
+                ac.connected_id,
+                ac.type,
+                p.person_id,
+                p.full_name,
+                p.headline,
+                p.location
+            FROM all_connections ac
+            JOIN person p ON ac.connected_id = p.person_id
+            LIMIT %s
+        """
+        params.append(limit - 1)  # -1 for center node
+        
+        cursor.execute(conn_query, params)
+        degree1_connections = cursor.fetchall()
+        
+        edges = []
+        degree1_ids = set()
+        
+        for conn in degree1_connections:
+            person_id = str(conn['person_id'])
+            degree1_ids.add(person_id)
             
-            params.extend([person_id, person_id])
+            nodes.append({
+                'person_id': person_id,
+                'name': conn['full_name'],
+                'title': conn['headline'],
+                'location': conn['location'],
+                'degree': 1
+            })
+            edges.append({
+                'source': center,
+                'target': person_id,
+                'connection_type': conn['type']
+            })
+        
+        # For degree 2+, add more efficient queries if needed
+        if max_degree >= 2 and len(nodes) < limit and len(degree1_ids) > 0:
+            # Get 2nd degree connections in batch
+            degree1_list = list(degree1_ids)[:20]  # Limit to top 20 1st degree for 2nd degree expansion
             
-            if repo_filter:
-                connections_query += " AND gc1.repo_id IN (SELECT repo_id FROM github_repository WHERE full_name ILIKE %s)"
-                params.append(f"%{repo_filter}%")
+            conn_query_2 = """
+                WITH source_people AS (
+                    SELECT unnest(%s::uuid[]) as person_id
+                ),
+                coworker_connections AS (
+                    SELECT DISTINCT 
+                        e.src_person_id as source_id,
+                        e.dst_person_id as connected_id,
+                        'coworker' as type
+                    FROM edge_coemployment e
+                    WHERE e.src_person_id = ANY(%s::uuid[])
+                    AND e.dst_person_id != %s
+            """
+            params_2 = [degree1_list, degree1_list, center]
             
-            connections_query += " LIMIT 50"
+            if company_filter:
+                conn_query_2 += """
+                    AND e.company_id IN (
+                        SELECT company_id FROM company 
+                        WHERE company_name ILIKE %s
+                    )
+                """
+                params_2.append(f"%{company_filter}%")
             
-            cursor.execute(connections_query, params)
-            connections = cursor.fetchall()
+            conn_query_2 += """
+                    LIMIT 100
+                ),
+                all_connections AS (
+                    SELECT * FROM coworker_connections
+                )
+                SELECT 
+                    ac.source_id,
+                    ac.connected_id,
+                    ac.type,
+                    p.person_id,
+                    p.full_name,
+                    p.headline,
+                    p.location
+                FROM all_connections ac
+                JOIN person p ON ac.connected_id = p.person_id
+                WHERE p.person_id != %s
+                LIMIT %s
+            """
+            params_2.extend([center, limit - len(nodes)])
             
-            for conn in connections:
-                conn_id = conn['connected_id']
+            cursor.execute(conn_query_2, params_2)
+            degree2_connections = cursor.fetchall()
+            
+            degree2_ids = set()
+            for conn in degree2_connections:
+                person_id = str(conn['person_id'])
+                
+                # Skip if already in graph
+                if person_id not in degree2_ids and person_id not in degree1_ids and person_id != center:
+                    degree2_ids.add(person_id)
+                    
+                    nodes.append({
+                        'person_id': person_id,
+                        'name': conn['full_name'],
+                        'title': conn['headline'],
+                        'location': conn['location'],
+                        'degree': 2
+                    })
+                
                 edges.append({
-                    'source': person_id,
-                    'target': conn_id,
+                    'source': str(conn['source_id']),
+                    'target': person_id,
                     'connection_type': conn['type']
                 })
-                
-                if degree < max_degree and len(visited) < limit:
-                    queue.append((conn_id, degree + 1))
         
         cursor.close()
         
@@ -286,5 +392,7 @@ async def get_network_graph(
         }
         
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Error building network graph: {str(e)}")
 

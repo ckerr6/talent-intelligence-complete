@@ -47,6 +47,10 @@ export default function NetworkGraph({
       setLoading(true);
       setError(null);
 
+      // Create abort controller for timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
       try {
         const params = new URLSearchParams({
           center: centerPersonId,
@@ -57,7 +61,11 @@ export default function NetworkGraph({
         if (companyFilter) params.append('company_filter', companyFilter);
         if (repoFilter) params.append('repo_filter', repoFilter);
 
-        const response = await fetch(`/api/network/graph?${params}`);
+        const response = await fetch(`/api/network/graph?${params}`, {
+          signal: controller.signal,
+        });
+        
+        clearTimeout(timeoutId);
         
         if (!response.ok) {
           throw new Error('Failed to fetch network graph data');
@@ -185,8 +193,14 @@ export default function NetworkGraph({
 
         setLoading(false);
       } catch (err) {
+        clearTimeout(timeoutId);
         console.error('Error loading network graph:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load network graph');
+        
+        if (err instanceof Error && err.name === 'AbortError') {
+          setError('Request timed out. Try reducing degrees of separation or adding company/repo filters to narrow the search.');
+        } else {
+          setError(err instanceof Error ? err.message : 'Failed to load network graph');
+        }
         setLoading(false);
       }
     };
