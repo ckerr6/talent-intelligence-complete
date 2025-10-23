@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { Users, Building2, Code2, Network, Search, X } from 'lucide-react';
 import api from '../services/api';
 import NetworkGraph from '../components/network/NetworkGraph';
-import LoadingSpinner from '../components/common/LoadingSpinner';
+import Card from '../components/common/Card';
+import Button from '../components/common/Button';
+import Badge from '../components/common/Badge';
+import EmptyState from '../components/common/EmptyState';
+import { Skeleton } from '../components/common/Skeleton';
 
 export default function NetworkPage() {
   const { personId } = useParams<{ personId?: string }>();
@@ -71,15 +76,20 @@ export default function NetworkPage() {
   if (!centerPersonId) {
     return (
       <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Network Graph</h1>
-          <p className="mt-2 text-gray-600">
-            Explore professional networks and discover connection paths
-          </p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 flex items-center">
+              <Network className="w-8 h-8 mr-3 text-primary-600" />
+              Network Graph
+            </h1>
+            <p className="mt-2 text-gray-600">
+              Explore professional networks and discover connection paths
+            </p>
+          </div>
         </div>
 
         {/* Search for a person to start */}
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <Card>
           <h2 className="text-xl font-semibold text-gray-900 mb-4">
             Search for a person to explore their network
           </h2>
@@ -93,72 +103,154 @@ export default function NetworkPage() {
               placeholder="Search by name or company..."
               className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
-            <button
+            <Button
               onClick={handleSearch}
               disabled={searching}
-              className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50"
+              loading={searching}
+              icon={<Search className="w-4 h-4" />}
             >
-              {searching ? 'Searching...' : 'Search'}
-            </button>
+              Search
+            </Button>
           </div>
 
           {searchResults.length > 0 && (
             <div className="mt-4 space-y-2">
               <h3 className="font-medium text-gray-900">Results:</h3>
               {searchResults.map((person) => (
-                <button
+                <Card
                   key={person.person_id}
+                  hover
+                  padding="md"
                   onClick={() => setCenterPersonId(person.person_id)}
-                  className="w-full text-left px-4 py-3 border border-gray-200 rounded-lg hover:border-primary-300 hover:bg-primary-50 transition-colors"
+                  className="cursor-pointer"
                 >
                   <div className="font-medium text-gray-900">{person.full_name}</div>
                   {person.headline && (
-                    <div className="text-sm text-gray-600">{person.headline}</div>
+                    <div className="text-sm text-gray-600 mt-1">{person.headline}</div>
                   )}
                   {person.location && (
-                    <div className="text-xs text-gray-500">{person.location}</div>
+                    <div className="text-xs text-gray-500 mt-1">{person.location}</div>
                   )}
-                </button>
+                </Card>
               ))}
             </div>
           )}
-        </div>
+        </Card>
 
         {/* Example use cases */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-blue-900 mb-3">
+        <Card className="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200">
+          <h3 className="text-lg font-semibold text-blue-900 mb-3 flex items-center">
+            <Network className="w-5 h-5 mr-2" />
             What You Can Do:
           </h3>
           <ul className="space-y-2 text-blue-800">
-            <li>• Visualize professional networks up to 3 degrees of separation</li>
-            <li>• Discover connection paths between people</li>
-            <li>• Filter by company or GitHub repository</li>
-            <li>• See both co-employment and GitHub collaboration connections</li>
-            <li>• Click on any person to view their full profile</li>
+            <li className="flex items-start">
+              <span className="text-blue-600 mr-2">•</span>
+              <span>Visualize professional networks up to 3 degrees of separation</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-blue-600 mr-2">•</span>
+              <span>Discover connection paths between people</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-blue-600 mr-2">•</span>
+              <span>Filter by company or GitHub repository</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-blue-600 mr-2">•</span>
+              <span>See both co-employment and GitHub collaboration connections</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-blue-600 mr-2">•</span>
+              <span>Click on any person to view their full profile</span>
+            </li>
           </ul>
-        </div>
+        </Card>
       </div>
     );
   }
 
   if (loadingPerson) {
-    return <LoadingSpinner message="Loading network..." />;
+    return (
+      <div className="space-y-6">
+        <Skeleton className="h-24" />
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          {[...Array(4)].map((_, i) => (
+            <Skeleton key={i} className="h-24" />
+          ))}
+        </div>
+        <Skeleton className="h-96" />
+      </div>
+    );
   }
 
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900">
-          Network: {centerPerson?.full_name || 'Unknown'}
-        </h1>
-        <p className="mt-2 text-gray-600">
-          {centerPerson?.headline || 'Professional network visualization'}
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
+            <Network className="w-8 h-8 mr-3 text-primary-600" />
+            Network: {centerPerson?.full_name || 'Unknown'}
+          </h1>
+          <p className="mt-2 text-gray-600">
+            {centerPerson?.headline || 'Professional network visualization'}
+          </p>
+        </div>
+        <Button
+          variant="outline"
+          onClick={() => setCenterPersonId('')}
+          icon={<Search className="w-4 h-4" />}
+        >
+          Change Person
+        </Button>
+      </div>
+
+      {/* Network Statistics - Placeholder for now, would be real data from graph */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white" padding="md">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-blue-100 text-sm">Network Size</p>
+              <p className="text-2xl font-bold mt-1">View Graph</p>
+            </div>
+            <Users className="w-8 h-8 text-blue-200" />
+          </div>
+        </Card>
+        
+        <Card className="bg-gradient-to-br from-green-500 to-green-600 text-white" padding="md">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-green-100 text-sm">Companies</p>
+              <p className="text-2xl font-bold mt-1">Multiple</p>
+            </div>
+            <Building2 className="w-8 h-8 text-green-200" />
+          </div>
+        </Card>
+        
+        <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white" padding="md">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-purple-100 text-sm">Repositories</p>
+              <p className="text-2xl font-bold mt-1">Shared</p>
+            </div>
+            <Code2 className="w-8 h-8 text-purple-200" />
+          </div>
+        </Card>
+        
+        <Card className="bg-gradient-to-br from-orange-500 to-orange-600 text-white" padding="md">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-orange-100 text-sm">Max Degree</p>
+              <p className="text-2xl font-bold mt-1">{maxDegree}°</p>
+            </div>
+            <Network className="w-8 h-8 text-orange-200" />
+          </div>
+        </Card>
       </div>
 
       {/* Controls */}
-      <div className="bg-white rounded-lg shadow-md p-6 space-y-6">
+      <Card className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Degrees of Separation */}
           <div>
@@ -258,27 +350,79 @@ export default function NetworkPage() {
         </div>
 
         <div className="flex gap-3">
-          <button
+          <Button
+            variant="outline"
             onClick={() => {
               setCompanyFilter('');
               setRepoFilter('');
               setConnectionTypes(['coworker', 'github_collaborator']);
             }}
-            className="px-4 py-2 text-sm text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
+            icon={<X className="w-4 h-4" />}
           >
             Clear All Filters
-          </button>
-          <button
-            onClick={() => setCenterPersonId('')}
-            className="px-4 py-2 text-sm text-primary-700 bg-primary-100 rounded-lg hover:bg-primary-200"
-          >
-            Change Center Person
-          </button>
+          </Button>
         </div>
-      </div>
+      </Card>
+
+      {/* Legend Card */}
+      <Card>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">📊 Graph Legend</h3>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Node Types */}
+          <div>
+            <h4 className="text-sm font-medium text-gray-700 mb-3">Node Colors (By Degree)</h4>
+            <div className="space-y-2">
+              <div className="flex items-center space-x-3">
+                <div className="w-6 h-6 rounded-full bg-blue-500 border-2 border-blue-600"></div>
+                <span className="text-sm text-gray-700">Center Person (You're viewing)</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-6 h-6 rounded-full bg-green-500 border-2 border-green-600"></div>
+                <span className="text-sm text-gray-700">1st Degree (Direct connections)</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-6 h-6 rounded-full bg-yellow-500 border-2 border-yellow-600"></div>
+                <span className="text-sm text-gray-700">2nd Degree (Friend of friend)</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-6 h-6 rounded-full bg-orange-500 border-2 border-orange-600"></div>
+                <span className="text-sm text-gray-700">3rd Degree (Extended network)</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Connection Types */}
+          <div>
+            <h4 className="text-sm font-medium text-gray-700 mb-3">Connection Types</h4>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-0.5 bg-green-500"></div>
+                <Badge variant="success" size="sm">Co-workers</Badge>
+                <span className="text-xs text-gray-600">Worked at same company</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-0.5 bg-purple-500"></div>
+                <Badge variant="primary" size="sm">GitHub</Badge>
+                <span className="text-xs text-gray-600">Contributed to same repository</span>
+              </div>
+            </div>
+            
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <p className="text-xs text-gray-500">
+                💡 <strong>Pro Tip:</strong> Click any node to view that person's profile. 
+                Larger nodes indicate more connections in the network.
+              </p>
+            </div>
+          </div>
+        </div>
+      </Card>
 
       {/* Network Graph */}
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <Card>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          🕸️ Interactive Network Visualization
+        </h3>
         <NetworkGraph
           centerPersonId={centerPersonId}
           centerPersonName={centerPerson?.full_name || 'Unknown'}
@@ -287,7 +431,7 @@ export default function NetworkPage() {
           repoFilter={repoFilter || undefined}
           connectionTypes={connectionTypes}
         />
-      </div>
+      </Card>
     </div>
   );
 }
