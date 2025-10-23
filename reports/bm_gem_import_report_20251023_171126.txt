@@ -1,0 +1,30 @@
+BM Gem Protocol Import Report
+================================================================================
+
+Date: 2025-10-23 17:11:26
+Source: /Users/charlie.kerr/Desktop/Imports for TI Final/Import_10_23_rd2 - Sheet1.csv
+
+Statistics:
+  total_rows: 9940
+  profiles_enriched: 3134
+  profiles_created: 6763
+  employment_records_added: 6968
+  education_records_added: 8592
+  emails_added: 26767
+  github_profiles_added: 0
+  twitter_profiles_added: 7
+  companies_matched: 1
+  companies_created: 1272
+  skipped_no_linkedin: 1
+  skipped_duplicate_linkedin: 0
+  skipped_invalid: 42
+  people_before: 148410
+  people_after: 155173
+  companies_before: 95602
+  companies_after: 96860
+
+Errors:
+  - Invalid company name skipped: Company name too short: 'X' (< 2 characters)
+  - Invalid company name skipped: Company name too short: 'X' (< 2 characters)
+  - Invalid company name skipped: Company name too short: 'X' (< 2 characters)
+  - Invalid company name skipped: Company name too short: '-' (< 2 characters)

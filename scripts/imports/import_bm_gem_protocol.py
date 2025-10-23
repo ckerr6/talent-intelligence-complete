@@ -110,10 +110,11 @@ except ImportError:
 CSV_PATH = "/Users/charlie.kerr/Desktop/Imports for TI Final/BM_Gem_Protocol_BE_FE.csv"
 
 class BMGemImporter:
-    def __init__(self):
+    def __init__(self, csv_path=None):
         self.conn = get_db_connection(use_pool=False)
         self.conn.autocommit = True  # Use autocommit to avoid transaction issues
         self.cursor = self.conn.cursor()
+        self.csv_path = csv_path or CSV_PATH
         
         # Statistics tracking
         self.stats = {
@@ -630,7 +631,7 @@ class BMGemImporter:
         print(f"\n{'='*80}")
         print(f"BM GEM PROTOCOL CSV IMPORT")
         print(f"{'='*80}")
-        print(f"\nSource: {CSV_PATH}")
+        print(f"\nSource: {self.csv_path}")
         print(f"Database: {Config.PG_DATABASE}@{Config.PG_HOST}\n")
         
         # Get database counts before import
@@ -640,7 +641,7 @@ class BMGemImporter:
         companies_before = self.cursor.fetchone()['count']
         
         # Read and process CSV
-        with open(CSV_PATH, 'r', encoding='utf-8') as f:
+        with open(self.csv_path, 'r', encoding='utf-8') as f:
             reader = csv.DictReader(f)
             
             batch_size = 100
@@ -696,7 +697,7 @@ class BMGemImporter:
         print(f"\n{'='*80}")
         print(f"IMPORT COMPLETE - FINAL REPORT")
         print(f"{'='*80}")
-        print(f"\nSource File: {CSV_PATH}")
+        print(f"\nSource File: {self.csv_path}")
         
         print(f"\n📊 PROCESSING STATISTICS:")
         print(f"   Total Rows Processed: {self.stats['total_rows']:,}")
@@ -762,7 +763,7 @@ class BMGemImporter:
             f.write(f"BM Gem Protocol Import Report\n")
             f.write(f"{'='*80}\n\n")
             f.write(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-            f.write(f"Source: {CSV_PATH}\n\n")
+            f.write(f"Source: {self.csv_path}\n\n")
             f.write(f"Statistics:\n")
             for key, value in self.stats.items():
                 if key not in ['errors', 'created_people_sample', 'companies_created_list']:
@@ -788,7 +789,7 @@ class BMGemImporter:
                                self.stats['skipped_duplicate_linkedin'] + 
                                self.stats['skipped_invalid']),
                 metadata={
-                    'source_file': CSV_PATH,
+                    'source_file': self.csv_path,
                     'companies_created': self.stats['companies_created'],
                     'employment_added': self.stats['employment_records_added'],
                     'emails_added': self.stats['emails_added'],
@@ -807,13 +808,18 @@ class BMGemImporter:
 
 def main():
     """Main execution"""
+    # Accept CSV path as command line argument
+    csv_path = CSV_PATH  # Default
+    if len(sys.argv) > 1:
+        csv_path = sys.argv[1]
+    
     # Check if CSV exists
-    if not Path(CSV_PATH).exists():
-        print(f"❌ CSV file not found: {CSV_PATH}")
+    if not Path(csv_path).exists():
+        print(f"❌ CSV file not found: {csv_path}")
         return 1
     
     # Count rows
-    with open(CSV_PATH, 'r', encoding='utf-8') as f:
+    with open(csv_path, 'r', encoding='utf-8') as f:
         row_count = sum(1 for line in f) - 1  # -1 for header
     
     print(f"\n{'='*80}")
@@ -851,7 +857,7 @@ def main():
         return 0
     
     try:
-        importer = BMGemImporter()
+        importer = BMGemImporter(csv_path)
         importer.process_csv()
         importer.generate_report()
         importer.close()
