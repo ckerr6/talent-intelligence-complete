@@ -402,7 +402,13 @@ def get_full_profile(conn, person_id: str) -> Optional[Dict]:
             public_repos,
             created_at_github::text as github_created_at,
             updated_at_github::text as github_updated_at,
-            last_enriched::text as last_refreshed
+            last_enriched::text as last_refreshed,
+            -- Phase 2 PR enrichment fields
+            is_pro_account,
+            total_merged_prs,
+            total_stars_earned,
+            total_lines_contributed,
+            enriched_at::text as enriched_at
         FROM github_profile
         WHERE person_id = %s::uuid
     """, (person_id,))
@@ -426,7 +432,17 @@ def get_full_profile(conn, person_id: str) -> Optional[Dict]:
                 gr.forks,
                 gr.is_fork,
                 c.company_id::text as owner_company_id,
-                c.company_name as owner_company_name
+                c.company_name as owner_company_name,
+                -- Phase 2 PR enrichment fields
+                gc.pr_count,
+                gc.merged_pr_count,
+                gc.open_pr_count,
+                gc.closed_unmerged_pr_count,
+                gc.lines_added,
+                gc.lines_deleted,
+                gc.files_changed,
+                gc.contribution_quality_score,
+                gc.last_merged_pr_date::text as last_merged_pr_date
             FROM github_contribution gc
             JOIN github_repository gr ON gc.repo_id = gr.repo_id
             LEFT JOIN company c ON gr.company_id = c.company_id
