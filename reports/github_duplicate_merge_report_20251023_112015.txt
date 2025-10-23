@@ -1,0 +1,32 @@
+GitHub Duplicate Merge Report
+================================================================================
+
+Date: 2025-10-23 11:20:15
+Mode: LIVE RUN
+
+Statistics:
+  duplicates_found: 7820
+  github_profiles_moved: 5640
+  person_records_deleted: 7322
+
+Merged Records Examples:
+  - Alex: kept 6ec0172a-6208-43e0-ab0d-080d8f57a9fd, deleted 25
+  - Ben: kept 5afd9a0c-2c0a-4e4b-bcf0-7521e476b3e2, deleted 21
+  - Andrew: kept 5925d457-1344-4a9a-bd19-d7cdc122421a, deleted 18
+  - Matt: kept 40b1cabe-5563-4c93-8ae8-dd3af7cd511a, deleted 18
+  - Max: kept 92ff3b8f-91ac-40b1-8d3c-03140a4d22e8, deleted 17
+  - Mike: kept 8d23bcda-fb8f-481c-be68-3093bf2df915, deleted 17
+  - Roman: kept 0704bcbc-8892-4d3f-a4ea-8a353aa8b91e, deleted 17
+  - David: kept 5a2f14ba-cd89-4de9-a3f9-92ea0e0043c1, deleted 15
+  - James: kept 42bcd7c7-b677-4d16-ad28-f1271b21d502, deleted 13
+  - Paul: kept 11e3f5c6-3b94-48cd-83d4-56d547938f7e, deleted 13
+  - Ryan: kept f3d766b2-d4f3-4987-b169-7ef97b022d1c, deleted 13
+  - Chris: kept 44bf0cca-ecdf-4bc5-85ec-cc9a93108a16, deleted 12
+  - Josh: kept 90c4d4da-747f-46ce-b362-a0ca0d6cc972, deleted 12
+  - Thomas: kept 5e32e370-a60f-441e-a313-8e6b18a3695b, deleted 12
+  - Kevin: kept aa4efa62-dfeb-49f8-ba42-588119dd4f29, deleted 11
+  - Victor: kept 59d8cf9f-18db-4290-bf75-f772dad1db06, deleted 11
+  - michael: kept 2e8da938-a19f-4fc3-8e9b-c2b3bee062d9, deleted 11
+  - J: kept 12036aaf-ee05-46b1-b7bb-c1fd568a5c3d, deleted 10
+  - Tom: kept 38219383-738d-4c07-9f53-7475cfcad790, deleted 10
+  - Alexander: kept db5f6338-dc22-4b69-aff0-9c56c1a38f86, deleted 9

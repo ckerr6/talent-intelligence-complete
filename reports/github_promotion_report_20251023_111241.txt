@@ -1,0 +1,40 @@
+GitHub Profile Promotion Report
+================================================================================
+
+Date: 2025-10-23 11:12:41
+Mode: LIVE RUN
+
+Statistics:
+  total_orphaned_profiles: 94808
+  tier1_contributors: 89936
+  tier1_high_followers: 338
+  tier1_has_identity: 1973
+  tier2_company_match: 197
+  tier2_active_developer: 681
+  tier2_crypto_bio: 4
+  tier3_skipped: 1679
+  people_created: 93129
+  profiles_linked: 93129
+  emails_added: 7747
+
+Promoted Profiles Sample:
+  - dependabot[bot] (@dependabot[bot]): tier1 - contributor (2262 contributions)
+  - github-actions[bot] (@github-actions[bot]): tier1 - contributor (548 contributions)
+  - renovate[bot] (@renovate[bot]): tier1 - contributor (281 contributions)
+  - dependabot-preview[bot] (@dependabot-preview[bot]): tier1 - contributor (280 contributions)
+  - Semantic Release Bot (@semantic-release-bot): tier1 - contributor (167 contributions)
+  - Ikko Eltociear Ashimine (@eltociear): tier1 - contributor (153 contributions)
+  - 0xngmi (@0xngmi): tier1 - contributor (143 contributions)
+  - waynebruce0x (@waynebruce0x): tier1 - contributor (126 contributions)
+  - Define101 (@Define101): tier1 - contributor (113 contributions)
+  - Real Shaman (@realdealshaman): tier1 - contributor (110 contributions)
+  - g1nt0ki (@g1nt0ki): tier1 - contributor (108 contributions)
+  - skyge (@skyge): tier1 - contributor (108 contributions)
+  - vrotend (@vrtnd): tier1 - contributor (107 contributions)
+  - dtmkeng (@dtmkeng): tier1 - contributor (105 contributions)
+  - ethers (@ethers): tier1 - contributor (103 contributions)
+  - Frank Pagan (@frankpagan): tier1 - contributor (100 contributions)
+  - Michalis Kargakis (@0xmichalis): tier1 - contributor (92 contributions)
+  - Llama0x (@Llama0x): tier1 - contributor (92 contributions)
+  - dblane-digicatapult (@dblane-digicatapult): tier1 - contributor (92 contributions)
+  - Merlin (@0xmer1in): tier1 - contributor (91 contributions)

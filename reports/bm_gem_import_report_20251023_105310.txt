@@ -1,0 +1,42 @@
+BM Gem Protocol Import Report
+================================================================================
+
+Date: 2025-10-23 10:53:10
+Source: /tmp/test_bm_gem_10rows.csv
+
+Statistics:
+  total_rows: 10
+  profiles_enriched: 8
+  profiles_created: 2
+  employment_records_added: 0
+  education_records_added: 10
+  emails_added: 47
+  github_profiles_added: 0
+  twitter_profiles_added: 0
+  companies_matched: 0
+  companies_created: 0
+  skipped_no_linkedin: 0
+  skipped_duplicate_linkedin: 0
+  skipped_invalid: 0
+  people_before: 60045
+  people_after: 60047
+  companies_before: 92387
+  companies_after: 92387
+
+Errors:
+  - Error adding employment: column "is_current" of relation "employment" does not exist
+LINE 2: ...ent (employment_id, person_id, company_id, title, is_current...
+                                                             ^
+
+  - Error adding employment: column "is_current" of relation "employment" does not exist
+LINE 2: ...ent (employment_id, person_id, company_id, title, is_current...
+                                                             ^
+
+  - Error adding employment: column "is_current" of relation "employment" does not exist
+LINE 2: ...ent (employment_id, person_id, company_id, title, is_current...
+                                                             ^
+
+  - Error adding employment: column "is_current" of relation "employment" does not exist
+LINE 2: ...ent (employment_id, person_id, company_id, title, is_current...
+                                                             ^
+

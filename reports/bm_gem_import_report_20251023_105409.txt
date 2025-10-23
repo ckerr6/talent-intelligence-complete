@@ -1,0 +1,24 @@
+BM Gem Protocol Import Report
+================================================================================
+
+Date: 2025-10-23 10:54:09
+Source: /tmp/test_bm_gem_10rows.csv
+
+Statistics:
+  total_rows: 10
+  profiles_enriched: 10
+  profiles_created: 0
+  employment_records_added: 4
+  education_records_added: 0
+  emails_added: 0
+  github_profiles_added: 0
+  twitter_profiles_added: 0
+  companies_matched: 0
+  companies_created: 0
+  skipped_no_linkedin: 0
+  skipped_duplicate_linkedin: 0
+  skipped_invalid: 0
+  people_before: 60047
+  people_after: 60047
+  companies_before: 92387
+  companies_after: 92387

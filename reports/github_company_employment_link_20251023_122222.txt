@@ -1,0 +1,34 @@
+GitHub Company to Employment Linking Report
+================================================================================
+
+Date: 2025-10-23 12:22:22
+Mode: DRY RUN
+
+Statistics:
+  total_github_companies: 0
+  matched_companies: 1163
+  people_to_link: 2776
+  already_have_employment: 878
+  new_employment_created: 1898
+
+Top Companies:
+  - Microsoft: 71 new, 24 existing
+  - Google: 70 new, 60 existing
+  - Red Hat: 32 new, 21 existing
+  - Freelance: 21 new, 5 existing
+  - IBM: 14 new, 4 existing
+  - Hasura: 14 new, 0 existing
+  - @paritytech: 12 new, 5 existing
+  - Freelancer: 11 new, 6 existing
+  - HashiCorp: 11 new, 1 existing
+  - Ledger: 10 new, 7 existing
+  - Bitwarden: 10 new, 0 existing
+  - Facebook: 9 new, 19 existing
+  - Ethereum Foundation: 9 new, 3 existing
+  - ByteDance: 9 new, 3 existing
+  - Juniper Networks: 9 new, 0 existing
+  - Grafana Labs: 8 new, 2 existing
+  - GitHub: 8 new, 9 existing
+  - NVIDIA: 8 new, 10 existing
+  - none: 8 new, 0 existing
+  - Amazon Web Services: 8 new, 5 existing

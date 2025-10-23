@@ -1,0 +1,23 @@
+PhantomBuster Import Report
+================================================================================
+
+Date: 2025-10-23 10:54:31
+Source: /tmp/test_phantombuster_10rows.csv
+
+Statistics:
+  total_rows: 1
+  profiles_enriched: 1
+  profiles_deleted: 0
+  profiles_flagged_for_review: 0
+  employment_records_added: 1
+  education_records_added: 0
+  companies_matched: 0
+  companies_created: 0
+  skipped_no_error_profile: 0
+  skipped_invalid: 0
+  people_before: 60047
+  people_after: 60047
+  employment_before: 214724
+  employment_after: 214725
+  education_before: 28742
+  education_after: 28742
