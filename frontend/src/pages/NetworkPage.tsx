@@ -43,7 +43,7 @@ export default function NetworkPage() {
       if (repoFilter) params.set('repo', repoFilter);
       setSearchParams(params);
     }
-  }, [centerPersonId, maxDegree, companyFilter, repoFilter, setSearchParams]);
+  }, [centerPersonId, maxDegree, companyFilter, repoFilter]); // Removed setSearchParams to prevent infinite loop
 
   // Search for people
   const handleSearch = async () => {

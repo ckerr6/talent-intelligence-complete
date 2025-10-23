@@ -6,8 +6,8 @@ export interface Person {
   linkedin_url: string;
   location?: string;
   headline?: string;
-  created_at: string;
-  updated_at: string;
+  created_at?: string;
+  refreshed_at?: string;  // Changed from updated_at to match backend
 }
 
 export interface Employment {
