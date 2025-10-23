@@ -39,7 +39,9 @@ export default function NetworkGraph({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [stats, setStats] = useState({ nodeCount: 0, edgeCount: 0 });
+  const [graphData, setGraphData] = useState<{ nodes: any[]; edges: any[] } | null>(null);
 
+  // Effect 1: Fetch graph data
   useEffect(() => {
     const fetchGraphData = async () => {
       setLoading(true);
@@ -103,92 +105,11 @@ export default function NetworkGraph({
           },
         }));
 
-        const graphData: Data = {
+        // Store the transformed data
+        setGraphData({
           nodes: visNodes,
           edges: visEdges,
-        };
-
-        const options: Options = {
-          nodes: {
-            shape: 'dot',
-            borderWidth: 2,
-            borderWidthSelected: 4,
-            shadow: true,
-          },
-          edges: {
-            arrows: {
-              to: { enabled: false },
-            },
-            smooth: {
-              enabled: true,
-              type: 'continuous',
-              roundness: 0.5,
-            },
-          },
-          physics: {
-            enabled: true,
-            barnesHut: {
-              gravitationalConstant: -8000,
-              centralGravity: 0.3,
-              springLength: 150,
-              springConstant: 0.04,
-              damping: 0.09,
-            },
-            stabilization: {
-              iterations: 150,
-            },
-          },
-          interaction: {
-            hover: true,
-            tooltipDelay: 100,
-            zoomView: true,
-            dragView: true,
-          },
-          layout: {
-            improvedLayout: true,
-            hierarchical: {
-              enabled: false,
-            },
-          },
-        };
-
-        // Destroy existing network if it exists
-        if (networkRef.current) {
-          networkRef.current.destroy();
-        }
-
-        // Create new network
-        if (!containerRef.current) {
-          throw new Error('Container ref is null');
-        }
-        const network = new Network(containerRef.current, graphData, options);
-        networkRef.current = network;
-
-        // Add click event
-        network.on('click', (params) => {
-          if (params.nodes.length > 0) {
-            const nodeId = params.nodes[0] as string;
-            if (onNodeClick) {
-              onNodeClick(nodeId);
-            } else {
-              navigate(`/profile/${nodeId}`);
-            }
-          }
         });
-
-        // Add hover effect
-        network.on('hoverNode', () => {
-          if (containerRef.current) {
-            containerRef.current.style.cursor = 'pointer';
-          }
-        });
-
-        network.on('blurNode', () => {
-          if (containerRef.current) {
-            containerRef.current.style.cursor = 'default';
-          }
-        });
-
         setLoading(false);
       } catch (err) {
         clearTimeout(timeoutId);
@@ -204,6 +125,91 @@ export default function NetworkGraph({
     };
 
     fetchGraphData();
+  }, [centerPersonId, maxDegree, companyFilter, repoFilter]);
+
+  // Effect 2: Create visualization when both data and container are ready
+  useEffect(() => {
+    if (!graphData || !containerRef.current) {
+      return; // Wait until both are ready
+    }
+
+    const options: Options = {
+      nodes: {
+        shape: 'dot',
+        borderWidth: 2,
+        borderWidthSelected: 4,
+        shadow: true,
+      },
+      edges: {
+        arrows: {
+          to: { enabled: false },
+        },
+        smooth: {
+          enabled: true,
+          type: 'continuous',
+          roundness: 0.5,
+        },
+      },
+      physics: {
+        enabled: true,
+        barnesHut: {
+          gravitationalConstant: -8000,
+          centralGravity: 0.3,
+          springLength: 150,
+          springConstant: 0.04,
+          damping: 0.09,
+        },
+        stabilization: {
+          iterations: 150,
+        },
+      },
+      interaction: {
+        hover: true,
+        tooltipDelay: 100,
+        zoomView: true,
+        dragView: true,
+      },
+      layout: {
+        improvedLayout: true,
+        hierarchical: {
+          enabled: false,
+        },
+      },
+    };
+
+    // Destroy existing network if it exists
+    if (networkRef.current) {
+      networkRef.current.destroy();
+    }
+
+    // Create new network
+    const network = new Network(containerRef.current, graphData, options);
+    networkRef.current = network;
+
+    // Add click event
+    network.on('click', (params) => {
+      if (params.nodes.length > 0) {
+        const nodeId = params.nodes[0] as string;
+        if (onNodeClick) {
+          onNodeClick(nodeId);
+        } else {
+          navigate(`/profile/${nodeId}`);
+        }
+      }
+    });
+
+    // Add hover effect
+    network.on('hoverNode', () => {
+      if (containerRef.current) {
+        containerRef.current.style.cursor = 'pointer';
+      }
+    });
+
+    network.on('blurNode', () => {
+      if (containerRef.current) {
+        containerRef.current.style.cursor = 'default';
+      }
+    });
 
     // Cleanup
     return () => {
@@ -212,7 +218,7 @@ export default function NetworkGraph({
         networkRef.current = null;
       }
     };
-  }, [centerPersonId, maxDegree, companyFilter, repoFilter, navigate, onNodeClick]);
+  }, [graphData, navigate, onNodeClick]);
 
   const getNodeColor = (degree: number, isCenter: boolean) => {
     if (isCenter) {
