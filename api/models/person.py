@@ -24,7 +24,7 @@ class EmailBase(BaseModel):
 
 class EmailResponse(EmailBase):
     """Email response schema"""
-    email_id: int
+    email_id: UUID
     person_id: UUID
     verified: bool = False
     source: Optional[str] = None
@@ -38,7 +38,7 @@ class SocialProfileBase(BaseModel):
 
 class SocialProfileResponse(SocialProfileBase):
     """Social profile response schema"""
-    profile_id: int
+    profile_id: UUID
     person_id: UUID
 
 
@@ -53,7 +53,7 @@ class EmploymentBase(BaseModel):
 
 class EmploymentResponse(EmploymentBase):
     """Employment response schema"""
-    employment_id: int
+    employment_id: UUID
     person_id: UUID
     company_id: Optional[UUID] = None
 
@@ -98,8 +98,8 @@ class PersonResponse(PersonBase):
     person_id: UUID
     normalized_linkedin_url: Optional[str] = None
     followers_count: Optional[int] = None
-    created_at: Optional[datetime] = None
-    refreshed_at: Optional[datetime] = None
+    created_at: Optional[str] = None  # String to handle various datetime formats
+    refreshed_at: Optional[str] = None  # String to handle various datetime formats
     
     # Optional nested data
     emails: Optional[List[EmailResponse]] = None
