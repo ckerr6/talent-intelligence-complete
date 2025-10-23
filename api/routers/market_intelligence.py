@@ -208,7 +208,8 @@ async def search_companies(
     Helper endpoint for autocomplete/search in market intelligence queries.
     """
     try:
-        cursor = db.cursor()
+        from psycopg2.extras import RealDictCursor
+        cursor = db.cursor(cursor_factory=RealDictCursor)
         
         cursor.execute(
             """
@@ -231,9 +232,9 @@ async def search_companies(
             "success": True,
             "companies": [
                 {
-                    "company_id": str(c[0]),
-                    "company_name": c[1],
-                    "employee_count": c[2]
+                    "company_id": str(c['company_id']),
+                    "company_name": c['company_name'],
+                    "employee_count": c['employee_count']
                 }
                 for c in companies
             ]
