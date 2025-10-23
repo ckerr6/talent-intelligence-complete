@@ -41,8 +41,6 @@ export default function NetworkGraph({
   const [stats, setStats] = useState({ nodeCount: 0, edgeCount: 0 });
 
   useEffect(() => {
-    if (!containerRef.current) return;
-
     const fetchGraphData = async () => {
       setLoading(true);
       setError(null);
