@@ -9,7 +9,7 @@ import StickyActionBar from '../components/profile/StickyActionBar';
 import EmploymentTimeline from '../components/profile/EmploymentTimeline';
 import ContactInfo from '../components/profile/ContactInfo';
 import GitHubActivity from '../components/profile/GitHubActivity';
-import HowToReach from '../components/profile/HowToReach';
+import HowToReachEnhanced from '../components/profile/HowToReachEnhanced';
 import QuickActions from '../components/profile/QuickActions';
 import AISummaryCard from '../components/ai/AISummaryCard';
 import CodeAnalysisCard from '../components/ai/CodeAnalysisCard';
@@ -145,15 +145,33 @@ export default function ProfilePage() {
 
       {/* NEW: Profile Hero Section */}
       <ProfileHero
-        person={profile.person}
-        emails={profile.emails}
+        person={{
+          person_id: profile.person.person_id,
+          full_name: profile.person.full_name,
+          headline: profile.person.headline,
+          location: profile.person.location,
+          linkedin_url: profile.person.linkedin_url,
+          refreshed_at: profile.person.refreshed_at,
+          has_email: profile.emails && profile.emails.length > 0,
+          has_github: !!profile.github_profile,
+          github_username: profile.github_profile?.github_username
+        }}
         matchScore={85} // TODO: Calculate real match score
       />
 
       {/* NEW: Sticky Action Bar (appears on scroll) */}
       <StickyActionBar
-        person={profile.person}
-        emails={profile.emails}
+        person={{
+          person_id: profile.person.person_id,
+          full_name: profile.person.full_name,
+          headline: profile.person.headline,
+          location: profile.person.location,
+          linkedin_url: profile.person.linkedin_url,
+          refreshed_at: profile.person.refreshed_at,
+          has_email: profile.emails && profile.emails.length > 0,
+          has_github: !!profile.github_profile,
+          github_username: profile.github_profile?.github_username
+        } as any}
       />
 
       {/* NEW: Tab Navigation */}
@@ -161,11 +179,11 @@ export default function ProfilePage() {
         activeTab={activeTab}
         onTabChange={setActiveTab}
         tabs={[
-          { id: 'overview', label: 'Overview', count: undefined },
-          { id: 'experience', label: 'Experience', count: profile.employment?.length },
-          { id: 'code', label: 'Code', count: githubCount },
-          { id: 'network', label: 'Network', count: networkCount },
-          { id: 'ai-insights', label: 'AI Insights', count: aiSummary ? 1 : undefined }
+          { id: 'overview', label: 'Overview' },
+          { id: 'experience', label: 'Experience', badge: profile.employment?.length },
+          { id: 'code', label: 'Code', badge: githubCount },
+          { id: 'network', label: 'Network', badge: networkCount },
+          { id: 'ai-insights', label: 'AI Insights', badge: aiSummary ? 1 : undefined }
         ]}
       />
 
@@ -185,7 +203,7 @@ export default function ProfilePage() {
               />
 
               {/* How to Reach */}
-              <HowToReach targetPersonId={profile.person.person_id} />
+              <HowToReachEnhanced profile={profile} />
 
               {/* Quick Stats */}
               <Card hierarchy="secondary">
