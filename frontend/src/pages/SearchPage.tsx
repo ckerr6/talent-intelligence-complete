@@ -9,9 +9,11 @@ import Card from '../components/common/Card';
 import EmptyState from '../components/common/EmptyState';
 import { SkeletonList } from '../components/common/Skeleton';
 import SmartFilters, { SmartFilterValues } from '../components/search/SmartFilters';
+import NaturalLanguageFilter from '../components/search/NaturalLanguageFilter';
 import SearchResultCard from '../components/search/SearchResultCard';
 import QuickPreviewModal from '../components/search/QuickPreviewModal';
 import GitHubIngestionModal from '../components/github/GitHubIngestionModal';
+import { FirstSearchEmptyState } from '../components/common/EmptyStates';
 
 export default function SearchPage() {
   const navigate = useNavigate();
@@ -120,6 +122,23 @@ export default function SearchPage() {
         }}
       />
 
+      {/* Natural Language Filter */}
+      <NaturalLanguageFilter
+        onFiltersGenerated={(filters) => {
+          setSmartFilters(filters);
+          setPage(0);
+        }}
+        onClear={() => {
+          setSmartFilters({
+            companies: [],
+            locations: [],
+            titles: [],
+            skills: []
+          });
+          setPage(0);
+        }}
+      />
+
       {/* Smart Filters */}
       <SmartFilters
         initialFilters={smartFilters}
@@ -201,29 +220,17 @@ export default function SearchPage() {
       {data && !isLoading && (
         <>
           {data.data.length === 0 ? (
-            <Card>
-              <EmptyState
-                icon={<Users className="w-8 h-8" />}
-                title="No candidates found"
-                description="Try adjusting your filters or use AI filter suggestions to find more results."
-                action={
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      setSmartFilters({
-                        companies: [],
-                        locations: [],
-                        titles: [],
-                        skills: []
-                      });
-                      setPage(0);
-                    }}
-                  >
-                    Clear All Filters
-                  </Button>
-                }
-              />
-            </Card>
+            <FirstSearchEmptyState
+              onAction={() => {
+                setSmartFilters({
+                  companies: [],
+                  locations: [],
+                  titles: [],
+                  skills: []
+                });
+                setPage(0);
+              }}
+            />
           ) : (
             <>
               {/* Results Header */}
