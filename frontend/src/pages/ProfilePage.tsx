@@ -13,7 +13,7 @@ import HowToReachEnhanced from '../components/profile/HowToReachEnhanced';
 import QuickActions from '../components/profile/QuickActions';
 import AISummaryCard from '../components/ai/AISummaryCard';
 import CodeAnalysisCard from '../components/ai/CodeAnalysisCard';
-import AskAIChat from '../components/ai/AskAIChat';
+import FloatingAIAssistant from '../components/ai/FloatingAIAssistant';
 import { SkeletonProfile } from '../components/common/Skeleton';
 import Button from '../components/common/Button';
 import Card from '../components/common/Card';
@@ -73,19 +73,6 @@ export default function ProfilePage() {
     }
   };
 
-  const handleAskAI = async (
-    question: string,
-    history: Array<{ role: string; content: string }>
-  ): Promise<string> => {
-    if (!personId) throw new Error('No person ID');
-    
-    try {
-      const result = await api.askAI(personId, question, history);
-      return result.answer;
-    } catch (err) {
-      throw new Error(err instanceof Error ? err.message : 'Failed to get answer');
-    }
-  };
 
   if (isLoading) {
     return (
@@ -375,11 +362,14 @@ export default function ProfilePage() {
         )}
       </div>
 
-      {/* Floating Ask AI Chat */}
-      <AskAIChat
-        personId={profile.person.person_id}
-        personName={profile.person.full_name}
-        onAsk={handleAskAI}
+      {/* Floating AI Assistant */}
+      <FloatingAIAssistant
+        context="profile"
+        contextData={{
+          personName: profile.person.full_name,
+          personId: profile.person.person_id,
+          currentPage: 'profile'
+        }}
       />
     </div>
   );
