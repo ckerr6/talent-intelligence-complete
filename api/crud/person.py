@@ -82,6 +82,23 @@ def get_people(conn, filters: Dict[str, Any], offset: int = 0, limit: int = 50) 
     where_clauses = []
     params = []
     
+    # General search parameter - searches across name, headline, and company
+    if filters.get('search'):
+        search_term = f"%{filters['search']}%"
+        where_clauses.append("""
+            (
+                LOWER(p.full_name) LIKE LOWER(%s)
+                OR LOWER(p.headline) LIKE LOWER(%s)
+                OR EXISTS (
+                    SELECT 1 FROM employment e
+                    JOIN company c ON e.company_id = c.company_id
+                    WHERE e.person_id = p.person_id
+                    AND LOWER(c.company_name) LIKE LOWER(%s)
+                )
+            )
+        """)
+        params.extend([search_term, search_term, search_term])
+    
     if filters.get('company'):
         where_clauses.append("""
             EXISTS (

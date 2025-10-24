@@ -22,6 +22,7 @@ router = APIRouter(prefix="/people", tags=["people"])
 
 @router.get("/", response_model=PaginatedResponse[PersonListResponse])
 def list_people(
+    search: Optional[str] = Query(None, description="General search across name, company, headline"),
     company: Optional[str] = Query(None, description="Filter by company name"),
     location: Optional[str] = Query(None, description="Filter by location"),
     headline: Optional[str] = Query(None, description="Filter by headline"),
@@ -32,6 +33,7 @@ def list_people(
 ):
     """List people with optional filters"""
     filters = {
+        'search': search,
         'company': company,
         'location': location,
         'headline': headline,

@@ -2,8 +2,10 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Layout from './components/layout/Layout';
 import SearchPage from './pages/SearchPage';
+import AdvancedSearchPage from './pages/AdvancedSearchPage';
 import ProfilePage from './pages/ProfilePage';
 import NetworkPage from './pages/NetworkPage';
+import EnhancedNetworkPage from './pages/EnhancedNetworkPage';
 import ListsPage from './pages/ListsPage';
 import ListDetailPage from './pages/ListDetailPage';
 import AnalyticsPage from './pages/AnalyticsPage';
@@ -28,9 +30,11 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Navigate to="/search" replace />} />
             <Route path="search" element={<SearchPage />} />
+            <Route path="search/advanced" element={<AdvancedSearchPage />} />
             <Route path="profile/:personId" element={<ProfilePage />} />
             <Route path="network" element={<NetworkPage />} />
             <Route path="network/:personId" element={<NetworkPage />} />
+            <Route path="network/enhanced" element={<EnhancedNetworkPage />} />
             <Route path="market" element={<MarketIntelligencePage />} />
             <Route path="lists" element={<ListsPage />} />
             <Route path="lists/:listId" element={<ListDetailPage />} />

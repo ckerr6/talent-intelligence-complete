@@ -18,6 +18,13 @@ import type {
   DeveloperActivity,
   Company,
 } from '../types';
+import type {
+  AdvancedSearchFilters,
+  AdvancedSearchResponse,
+  JobDescriptionParseResponse,
+  Technology,
+  CompanyOption,
+} from '../types/search';
 
 class API {
   private client: AxiosInstance;
@@ -81,11 +88,11 @@ class API {
       person: {
         person_id: rawProfile.person_id,
         full_name: rawProfile.full_name,
-        linkedin_url: rawProfile.linkedin_url,
+        linkedin_url: rawProfile.linkedin_url || rawProfile.normalized_linkedin_url,
         location: rawProfile.location,
         headline: rawProfile.headline,
         created_at: rawProfile.created_at || '',
-        updated_at: rawProfile.updated_at || '',
+        refreshed_at: rawProfile.refreshed_at || rawProfile.updated_at || '',
       },
       employment: rawProfile.employment || [],
       emails: rawProfile.emails || [],
@@ -347,6 +354,48 @@ class API {
   async getAIStatus() {
     const response = await this.client.get('/ai/status');
     return response.data;
+  }
+
+  // ===== ADVANCED SEARCH =====
+
+  async advancedSearch(
+    filters: AdvancedSearchFilters,
+    offset: number = 0,
+    limit: number = 50
+  ): Promise<AdvancedSearchResponse> {
+    const response = await this.client.post('/search/advanced', filters, {
+      params: { offset, limit },
+    });
+    return response.data;
+  }
+
+  async parseJobDescription(
+    jdText: string,
+    autoSearch: boolean = false,
+    offset: number = 0,
+    limit: number = 50
+  ): Promise<JobDescriptionParseResponse> {
+    const response = await this.client.post('/search/parse-jd', {
+      jd_text: jdText,
+      auto_search: autoSearch,
+    }, {
+      params: { offset, limit },
+    });
+    return response.data;
+  }
+
+  async getAvailableTechnologies(limit: number = 100): Promise<Technology[]> {
+    const response = await this.client.get('/search/technologies', {
+      params: { limit },
+    });
+    return response.data.technologies;
+  }
+
+  async autocompleteCompanies(query: string, limit: number = 20): Promise<CompanyOption[]> {
+    const response = await this.client.get('/search/companies/autocomplete', {
+      params: { q: query, limit },
+    });
+    return response.data.companies;
   }
 }
 

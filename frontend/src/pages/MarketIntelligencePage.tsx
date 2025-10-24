@@ -8,6 +8,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import HiringTrendsChart from '../components/market/HiringTrendsChart';
 import TalentFlowChart from '../components/market/TalentFlowChart';
 import TechnologyDistributionChart from '../components/market/TechnologyDistributionChart';
+import TechnologistsModal from '../components/market/TechnologistsModal';
 
 const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300', '#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A28DFF', '#FF6F61'];
 
@@ -31,6 +32,10 @@ export default function MarketIntelligencePage() {
   const [companyHiring, setCompanyHiring] = useState<any>(null);
   const [companyTalentFlow, setCompanyTalentFlow] = useState<any>(null);
   const [companyTech, setCompanyTech] = useState<any>(null);
+  
+  // Interactive features
+  const [showTechnologistsModal, setShowTechnologistsModal] = useState(false);
+  const [selectedTechnology, setSelectedTechnology] = useState<string>('');
   
   const [loading, setLoading] = useState(true);
 
@@ -102,6 +107,11 @@ export default function MarketIntelligencePage() {
     } catch (error) {
       console.error('Error loading company data:', error);
     }
+  };
+
+  const handleTechnologyClick = (technology: string) => {
+    setSelectedTechnology(technology);
+    setShowTechnologistsModal(true);
   };
 
   const clearCompanyFilter = () => {
@@ -291,14 +301,38 @@ export default function MarketIntelligencePage() {
           {techDistribution && techDistribution.languages && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <Card>
-                <h2 className="text-2xl font-semibold text-gray-900 mb-6">Top Technologies</h2>
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-2xl font-semibold text-gray-900">Top Technologies</h2>
+                  <Badge variant="info" size="sm">Click bars to view developers</Badge>
+                </div>
                 <ResponsiveContainer width="100%" height={400}>
-                  <BarChart data={techDistribution.languages.slice(0, 10)} layout="vertical">
+                  <BarChart 
+                    data={techDistribution.languages.slice(0, 10)} 
+                    layout="vertical"
+                    onClick={(data) => {
+                      if (data && data.activeLabel) {
+                        handleTechnologyClick(data.activeLabel);
+                      }
+                    }}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
                     <XAxis type="number" tick={{ fill: '#6B7280', fontSize: 12 }} />
                     <YAxis dataKey="language" type="category" width={100} tick={{ fill: '#6B7280', fontSize: 12 }} />
                     <Tooltip 
                       contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '0.5rem' }}
+                      content={({ active, payload }) => {
+                        if (active && payload && payload.length) {
+                          return (
+                            <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
+                              <p className="font-semibold text-gray-900">{payload[0].payload.language}</p>
+                              <p className="text-sm text-gray-600">{payload[0].value} developers</p>
+                              <p className="text-xs text-primary-600 mt-1">Click to view profiles →</p>
+                            </div>
+                          );
+                        }
+                        return null;
+                      }}
                     />
                     <Bar dataKey="developer_count" name="Developers">
                       {techDistribution.languages.slice(0, 10).map((entry: any, index: number) => (
@@ -439,6 +473,13 @@ export default function MarketIntelligencePage() {
           )}
         </div>
       )}
+
+      {/* Technologists Modal */}
+      <TechnologistsModal
+        isOpen={showTechnologistsModal}
+        onClose={() => setShowTechnologistsModal(false)}
+        technology={selectedTechnology}
+      />
     </div>
   );
 }

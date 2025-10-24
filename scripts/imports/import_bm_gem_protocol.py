@@ -40,6 +40,11 @@ from config import get_db_connection, Config
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from data_quality_filters import is_valid_company_name, get_company_validation_message
 
+# Import logging and employment utilities
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from logging_utils import Logger
+from imports.employment_utils import EmploymentDataExtractor, EmploymentRecordManager
+
 # Import migration utilities
 try:
     sys.path.insert(0, str(Path(__file__).parent.parent.parent / 'migration_scripts'))
@@ -110,11 +115,16 @@ except ImportError:
 CSV_PATH = "/Users/charlie.kerr/Desktop/Imports for TI Final/BM_Gem_Protocol_BE_FE.csv"
 
 class BMGemImporter:
-    def __init__(self, csv_path=None):
+    def __init__(self, csv_path=None, verbose=True):
         self.conn = get_db_connection(use_pool=False)
         self.conn.autocommit = True  # Use autocommit to avoid transaction issues
         self.cursor = self.conn.cursor()
         self.csv_path = csv_path or CSV_PATH
+        
+        # Initialize logger and employment utilities
+        self.logger = Logger("bm_gem_import", verbose=verbose)
+        self.employment_manager = EmploymentRecordManager(self.cursor, self.logger)
+        self.employment_extractor = EmploymentDataExtractor()
         
         # Statistics tracking
         self.stats = {
@@ -478,34 +488,44 @@ class BMGemImporter:
         # Add emails
         self.add_emails(person_id, row.get('Primary Email', ''), row.get('All Emails', ''))
         
-        # Add employment record if company exists
+        # Add employment record with date support
         if row.get('Company'):
-            company_id = self.find_or_create_company(row['Company'])
+            company_id = self.employment_manager.find_or_create_company(
+                row['Company'],
+                self.company_cache
+            )
             
             if company_id:
-                try:
-                    # Check if employment already exists
-                    self.cursor.execute("""
-                        SELECT employment_id
-                        FROM employment
-                        WHERE person_id = %s::uuid 
-                        AND company_id = %s::uuid
-                        LIMIT 1
-                    """, (person_id, company_id))
-                    
-                    if not self.cursor.fetchone():
-                        # Insert employment (end_date = NULL means current)
-                        self.cursor.execute("""
-                            INSERT INTO employment (employment_id, person_id, company_id, title)
-                            VALUES (gen_random_uuid(), %s::uuid, %s::uuid, %s)
-                            RETURNING employment_id
-                        """, (person_id, company_id, row.get('Title')))
-                        
-                        if self.cursor.fetchone():
-                            self.stats['employment_records_added'] += 1
-                            updated = True
-                except Exception as e:
-                    self.stats['errors'].append(f"Error adding employment: {e}")
+                # Extract title and dates
+                title = row.get('Title') or row.get('Job Title')
+                
+                # BM Gem may have date fields, check for them
+                date_range = row.get('Date Range') or row.get('Employment Dates')
+                start_date, end_date = None, None
+                
+                if date_range:
+                    start_date, end_date = self.employment_extractor.parse_date_range(date_range)
+                else:
+                    # Try individual date columns
+                    if row.get('Start Date'):
+                        start_date, _ = self.employment_extractor.parse_date_range(row['Start Date'])
+                    if row.get('End Date'):
+                        _, end_date = self.employment_extractor.parse_date_range(row['End Date'])
+                
+                # Add the employment record
+                if self.employment_manager.add_employment_record(
+                    person_id=person_id,
+                    company_id=company_id,
+                    title=title,
+                    start_date=start_date,
+                    end_date=end_date,
+                    location=row.get('Location'),
+                    source_text_ref='bm_gem_import',
+                    source_confidence=0.8,
+                    check_duplicates=True
+                ):
+                    self.stats['employment_records_added'] += 1
+                    updated = True
         
         # Add GitHub profile
         if row.get('Github'):
@@ -593,20 +613,43 @@ class BMGemImporter:
             # Add emails
             self.add_emails(person_id, row.get('Primary Email', ''), row.get('All Emails', ''))
             
-            # Add employment
+            # Add employment with date support
             if row.get('Company'):
-                company_id = self.find_or_create_company(row['Company'])
+                company_id = self.employment_manager.find_or_create_company(
+                    row['Company'],
+                    self.company_cache
+                )
                 
                 if company_id:
-                    try:
-                        # Insert employment (end_date = NULL means current)
-                        self.cursor.execute("""
-                            INSERT INTO employment (employment_id, person_id, company_id, title)
-                            VALUES (gen_random_uuid(), %s::uuid, %s::uuid, %s)
-                        """, (person_id, company_id, row.get('Title')))
+                    # Extract title and dates
+                    title = row.get('Title') or row.get('Job Title')
+                    
+                    # BM Gem may have date fields, check for them
+                    date_range = row.get('Date Range') or row.get('Employment Dates')
+                    start_date, end_date = None, None
+                    
+                    if date_range:
+                        start_date, end_date = self.employment_extractor.parse_date_range(date_range)
+                    else:
+                        # Try individual date columns
+                        if row.get('Start Date'):
+                            start_date, _ = self.employment_extractor.parse_date_range(row['Start Date'])
+                        if row.get('End Date'):
+                            _, end_date = self.employment_extractor.parse_date_range(row['End Date'])
+                    
+                    # Add the employment record
+                    if self.employment_manager.add_employment_record(
+                        person_id=person_id,
+                        company_id=company_id,
+                        title=title,
+                        start_date=start_date,
+                        end_date=end_date,
+                        location=row.get('Location'),
+                        source_text_ref='bm_gem_import',
+                        source_confidence=0.8,
+                        check_duplicates=False  # New profile, no need to check
+                    ):
                         self.stats['employment_records_added'] += 1
-                    except Exception as e:
-                        self.stats['errors'].append(f"Error adding employment: {e}")
             
             # Add GitHub profile
             if row.get('Github'):

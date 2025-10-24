@@ -33,6 +33,11 @@ from config import get_db_connection, Config
 sys.path.insert(0, str(Path(__file__).parent.parent / 'scripts'))
 from data_quality_filters import is_valid_company_name, get_company_validation_message
 
+# Import logging and employment utilities
+sys.path.insert(0, str(Path(__file__).parent.parent / 'scripts'))
+from logging_utils import Logger
+from imports.employment_utils import EmploymentDataExtractor, EmploymentRecordManager
+
 # Import migration utilities
 try:
     from migration_scripts.migration_utils import (
@@ -108,10 +113,15 @@ except ImportError:
 CSV_PATH = "/Users/charlie.kerr/DataBlend1021/dedupe_PB_test.csv"
 
 class ProfileImporter:
-    def __init__(self):
+    def __init__(self, verbose=True):
         self.conn = get_db_connection(use_pool=False)  # Direct connection for transaction control
         self.conn.autocommit = True  # Use autocommit to avoid transaction issues
         self.cursor = self.conn.cursor()
+        
+        # Initialize logger and employment utilities
+        self.logger = Logger("csv_datablend_import", verbose=verbose)
+        self.employment_manager = EmploymentRecordManager(self.cursor, self.logger)
+        self.employment_extractor = EmploymentDataExtractor()
         
         # Statistics tracking
         self.stats = {
@@ -394,36 +404,48 @@ class ProfileImporter:
                 except Exception as e:
                     self.stats['errors'].append(f"Error adding GitHub {github_username}: {e}")
         
-        # Add employment record if doesn't exist
+        # Add employment record with date support
         if row.get('Company'):
-            company_id = self.find_or_create_company(row['Company'])
+            company_id = self.employment_manager.find_or_create_company(
+                row['Company'],
+                self.company_cache
+            )
             if company_id:
-                try:
-                    # Check if employment already exists
-                    self.cursor.execute("""
-                        SELECT employment_id
-                        FROM employment
-                        WHERE person_id = %s::uuid 
-                        AND company_id = %s::uuid
-                        LIMIT 1
-                    """, (person_id, company_id))
-                    
-                    if not self.cursor.fetchone():
-                        # Insert employment
-                        self.cursor.execute("""
-                            INSERT INTO employment (employment_id, person_id, company_id, title)
-                            VALUES (gen_random_uuid(), %s::uuid, %s::uuid, %s)
-                            RETURNING employment_id
-                        """, (person_id, company_id, row.get('Job Title')))
-                        
-                        if self.cursor.fetchone():
-                            self.stats['employment_records_added'] += 1
-                            updated = True
-                except Exception as e:
-                    self.stats['errors'].append(f"Error adding employment: {e}")
+                # Extract title and dates
+                title = row.get('Job Title') or row.get('Title')
+                
+                # Try to parse dates from various column names
+                date_range = (row.get('Date Range') or row.get('Employment Dates') or 
+                             row.get('Dates') or row.get('Job Dates'))
+                start_date, end_date = None, None
+                
+                if date_range:
+                    start_date, end_date = self.employment_extractor.parse_date_range(date_range)
+                else:
+                    # Try individual date columns
+                    if row.get('Start Date'):
+                        start_date, _ = self.employment_extractor.parse_date_range(row['Start Date'])
+                    if row.get('End Date'):
+                        _, end_date = self.employment_extractor.parse_date_range(row['End Date'])
+                
+                # Add the employment record
+                if self.employment_manager.add_employment_record(
+                    person_id=person_id,
+                    company_id=company_id,
+                    title=title,
+                    start_date=start_date,
+                    end_date=end_date,
+                    location=row.get('Location') or row.get('Job Location'),
+                    source_text_ref='csv_datablend_enrichment',
+                    source_confidence=0.8,
+                    check_duplicates=True
+                ):
+                    self.stats['employment_records_added'] += 1
+                    updated = True
         
         if updated:
             self.stats['profiles_enriched'] += 1
+            self.logger.info(f"Enriched profile for person {person_id[:8]}...")
     
     def create_new_profile(self, row: Dict):
         """Create a new profile from CSV row - accepts LinkedIn OR GitHub"""
@@ -550,32 +572,58 @@ class ProfileImporter:
                     except Exception as e:
                         self.stats['errors'].append(f"Error adding GitHub {github_username}: {e}")
             
-            # Add employment
+            # Add employment with date support
             if row.get('Company'):
-                company_id = self.find_or_create_company(row['Company'])
+                company_id = self.employment_manager.find_or_create_company(
+                    row['Company'],
+                    self.company_cache
+                )
                 if company_id:
-                    try:
-                        self.cursor.execute("""
-                            INSERT INTO employment (employment_id, person_id, company_id, title)
-                            VALUES (gen_random_uuid(), %s::uuid, %s::uuid, %s)
-                        """, (person_id, company_id, row.get('Job Title')))
+                    # Extract title and dates
+                    title = row.get('Job Title') or row.get('Title')
+                    
+                    # Try to parse dates from various column names
+                    date_range = (row.get('Date Range') or row.get('Employment Dates') or 
+                                 row.get('Dates') or row.get('Job Dates'))
+                    start_date, end_date = None, None
+                    
+                    if date_range:
+                        start_date, end_date = self.employment_extractor.parse_date_range(date_range)
+                    else:
+                        # Try individual date columns
+                        if row.get('Start Date'):
+                            start_date, _ = self.employment_extractor.parse_date_range(row['Start Date'])
+                        if row.get('End Date'):
+                            _, end_date = self.employment_extractor.parse_date_range(row['End Date'])
+                    
+                    # Add the employment record
+                    if self.employment_manager.add_employment_record(
+                        person_id=person_id,
+                        company_id=company_id,
+                        title=title,
+                        start_date=start_date,
+                        end_date=end_date,
+                        location=row.get('Location') or row.get('Job Location'),
+                        source_text_ref='csv_datablend_import',
+                        source_confidence=0.8,
+                        check_duplicates=True
+                    ):
                         self.stats['employment_records_added'] += 1
-                    except Exception as e:
-                        self.stats['errors'].append(f"Error adding employment: {e}")
             
             self.stats['profiles_created'] += 1
+            self.logger.success(f"✓ Created profile: {full_name}")
             
         except Exception as e:
             self.stats['errors'].append(f"Error creating profile for {row.get('Full Name', 'unknown')}: {e}")
             self.stats['skipped_invalid'] += 1
     
     def process_csv(self):
-        """Main processing loop"""
-        print(f"\n{'='*80}")
-        print(f"CSV IMPORT AND PROFILE ENRICHMENT")
-        print(f"{'='*80}")
-        print(f"\nSource: {CSV_PATH}")
-        print(f"Database: {Config.PG_DATABASE}@{Config.PG_HOST}\n")
+        """Main processing loop with extensive logging"""
+        self.logger.header("CSV IMPORT AND PROFILE ENRICHMENT")
+        self.logger.section("📁 Configuration")
+        self.logger.info(f"Source: {CSV_PATH}")
+        self.logger.info(f"Database: {Config.PG_DATABASE}@{Config.PG_HOST}")
+        self.logger.info(f"Features: Date parsing, title extraction, deduplication")
         
         # Skip logging for now to avoid transaction issues
         # Will log at the end
@@ -630,39 +678,37 @@ class ProfileImporter:
     
     def generate_report(self):
         """Generate comprehensive import report"""
-        print(f"\n{'='*80}")
-        print(f"IMPORT REPORT")
-        print(f"{'='*80}")
-        print(f"\nTimestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        print(f"Source File: {CSV_PATH}")
+        self.logger.section("📊 IMPORT REPORT")
+        self.logger.info(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        self.logger.info(f"Source File: {CSV_PATH}")
         
-        print(f"\n📊 PROCESSING STATISTICS:")
-        print(f"   Total Rows Processed: {self.stats['total_rows']:,}")
-        print(f"   Skipped (Invalid/Empty): {self.stats['skipped_invalid']:,}")
-        print(f"   Skipped (Duplicate LinkedIn): {self.stats['skipped_duplicate_linkedin']:,}")
-        print(f"   Valid Records: {self.stats['total_rows'] - self.stats['skipped_invalid'] - self.stats['skipped_duplicate_linkedin']:,}")
+        self.logger.stats({
+            "Total Rows Processed": f"{self.stats['total_rows']:,}",
+            "Skipped (Invalid/Empty)": f"{self.stats['skipped_invalid']:,}",
+            "Skipped (Duplicate LinkedIn)": f"{self.stats['skipped_duplicate_linkedin']:,}",
+            "Valid Records": f"{self.stats['total_rows'] - self.stats['skipped_invalid'] - self.stats['skipped_duplicate_linkedin']:,}"
+        })
         
-        print(f"\n👤 PROFILE CHANGES:")
-        print(f"   Existing Profiles Enriched: {self.stats['profiles_enriched']:,}")
-        print(f"   New Profiles Created: {self.stats['profiles_created']:,}")
-        print(f"   Total Profiles Affected: {self.stats['profiles_enriched'] + self.stats['profiles_created']:,}")
+        self.logger.stats({
+            "PROFILE CHANGES": "",
+            "Existing Profiles Enriched": f"{self.stats['profiles_enriched']:,}",
+            "New Profiles Created": f"{self.stats['profiles_created']:,}",
+            "Total Profiles Affected": f"{self.stats['profiles_enriched'] + self.stats['profiles_created']:,}"
+        })
         
-        print(f"\n🆕 NEW PROFILE TYPES:")
-        print(f"   GitHub-Only Profiles: {self.stats['github_only_profiles']:,}")
-        print(f"   LinkedIn-Only Profiles: {self.stats['linkedin_only_profiles']:,}")
-        print(f"   Profiles Marked for Enrichment: {self.stats['profiles_needing_enrichment']:,}")
+        self.logger.stats({
+            "EMAIL & EMPLOYMENT": "",
+            "Emails Added": f"{self.stats['emails_added']:,}",
+            "Employment Records Added": f"{self.stats['employment_records_added']:,}",
+        })
         
-        print(f"\n📧 EMAIL ADDITIONS:")
-        print(f"   Emails Added: {self.stats['emails_added']:,}")
-        
-        print(f"\n💼 EMPLOYMENT RECORDS:")
-        print(f"   Employment Records Added: {self.stats['employment_records_added']:,}")
-        
-        print(f"\n🔗 GITHUB MATCHING:")
-        print(f"   GitHub Profiles Linked to Existing People: {self.stats['github_matched_existing']:,}")
-        print(f"   GitHub Profiles Added to New People: {self.stats['github_matched_new']:,}")
-        print(f"   GitHub Conflicts (already linked): {self.stats['github_conflicts']:,}")
-        print(f"   Total GitHub Matches: {self.stats['github_matched_existing'] + self.stats['github_matched_new']:,}")
+        self.logger.stats({
+            "GITHUB MATCHING": "",
+            "Profiles Linked to Existing": f"{self.stats['github_matched_existing']:,}",
+            "Profiles Added to New": f"{self.stats['github_matched_new']:,}",
+            "Conflicts (already linked)": f"{self.stats['github_conflicts']:,}",
+            "Total GitHub Matches": f"{self.stats['github_matched_existing'] + self.stats['github_matched_new']:,}"
+        })
         
         # Calculate enrichment rate
         valid_records = self.stats['total_rows'] - self.stats['skipped_invalid'] - self.stats['skipped_duplicate_linkedin']
@@ -670,9 +716,11 @@ class ProfileImporter:
             enrichment_rate = (self.stats['profiles_enriched'] / valid_records) * 100
             creation_rate = (self.stats['profiles_created'] / valid_records) * 100
             
-            print(f"\n📈 ENRICHMENT METRICS:")
-            print(f"   Enrichment Rate: {enrichment_rate:.1f}%")
-            print(f"   New Profile Rate: {creation_rate:.1f}%")
+            self.logger.stats({
+                "ENRICHMENT METRICS": "",
+                "Enrichment Rate": f"{enrichment_rate:.1f}%",
+                "New Profile Rate": f"{creation_rate:.1f}%"
+            })
         
         # Get updated database stats
         self.cursor.execute("""
@@ -689,21 +737,22 @@ class ProfileImporter:
         self.cursor.execute("SELECT COUNT(*) as cnt FROM github_profile WHERE person_id IS NOT NULL")
         github_count = self.cursor.fetchone()['cnt']
         
-        print(f"\n🗄️  UPDATED DATABASE TOTALS:")
-        print(f"   Total People: {db_stats['total_people']:,}")
-        print(f"   With LinkedIn: {db_stats['with_linkedin']:,}")
-        print(f"   Total Emails: {email_count:,}")
-        print(f"   Total GitHub Profiles (matched): {github_count:,}")
+        self.logger.stats({
+            "UPDATED DATABASE TOTALS": "",
+            "Total People": f"{db_stats['total_people']:,}",
+            "With LinkedIn": f"{db_stats['with_linkedin']:,}",
+            "Total Emails": f"{email_count:,}",
+            "Total GitHub Profiles (matched)": f"{github_count:,}"
+        })
         
         if self.stats['errors']:
-            print(f"\n⚠️  ERRORS ENCOUNTERED: {len(self.stats['errors'])}")
-            print(f"   (Showing first 20)")
+            self.logger.warning(f"⚠️  ERRORS ENCOUNTERED: {len(self.stats['errors'])}")
+            self.logger.warning(f"(Showing first 20)")
             for error in self.stats['errors'][:20]:
-                print(f"   - {error}")
+                self.logger.warning(f"  - {error}")
         
-        print(f"\n{'='*80}")
-        print(f"✅ IMPORT COMPLETE")
-        print(f"{'='*80}\n")
+        self.logger.success("✅ IMPORT COMPLETE")
+        self.logger.summary()
         
         # Log completion (with error handling)
         try:

@@ -225,7 +225,7 @@ function renderContribution(contrib: any, githubUsername: string, quality: 'succ
               </Badge>
             )}
             {/* Phase 2: Show quality score if available */}
-            {contrib.contribution_quality_score !== undefined && (
+            {contrib.contribution_quality_score !== undefined && contrib.contribution_quality_score !== null && (
               <Badge 
                 variant={contrib.contribution_quality_score >= 70 ? 'success' : contrib.contribution_quality_score >= 40 ? 'info' : 'default'}
                 size="sm"

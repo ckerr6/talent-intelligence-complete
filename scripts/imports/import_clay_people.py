@@ -42,6 +42,11 @@ from config import get_db_connection, Config
 sys.path.insert(0, str(Path(__file__).parent.parent / 'scripts'))
 from data_quality_filters import is_valid_company_name, get_company_validation_message
 
+# Import logging and employment utilities
+sys.path.insert(0, str(Path(__file__).parent.parent / 'scripts'))
+from logging_utils import Logger
+from imports.employment_utils import EmploymentDataExtractor, EmploymentRecordManager
+
 # Import migration utilities
 try:
     from migration_scripts.migration_utils import (
@@ -87,10 +92,15 @@ except ImportError:
 CSV_PATH = "/Users/charlie.kerr/Desktop/Imports for TI Final/clay_find_people_crypto.csv"
 
 class ClayPeopleImporter:
-    def __init__(self):
+    def __init__(self, verbose=True):
         self.conn = get_db_connection(use_pool=False)
         self.conn.autocommit = True  # Use autocommit to avoid transaction issues
         self.cursor = self.conn.cursor()
+        
+        # Initialize logger and employment utilities
+        self.logger = Logger("clay_people_import", verbose=verbose)
+        self.employment_manager = EmploymentRecordManager(self.cursor, self.logger)
+        self.employment_extractor = EmploymentDataExtractor()
         
         # Statistics tracking
         self.stats = {
@@ -256,40 +266,48 @@ class ClayPeopleImporter:
             except Exception as e:
                 self.stats['errors'].append(f"Error updating person {person_id}: {e}")
         
-        # Add employment record if company exists and employment doesn't exist
+        # Add employment record with date support
         if row.get('Current Company'):
-            company_id = self.find_or_create_company(
+            company_id = self.employment_manager.find_or_create_company(
                 row['Current Company'],
-                row.get('Company Domain')
+                self.company_cache
             )
             
             if company_id:
-                try:
-                    # Check if employment already exists
-                    self.cursor.execute("""
-                        SELECT employment_id
-                        FROM employment
-                        WHERE person_id = %s::uuid 
-                        AND company_id = %s::uuid
-                        LIMIT 1
-                    """, (person_id, company_id))
-                    
-                    if not self.cursor.fetchone():
-                        # Insert employment
-                        self.cursor.execute("""
-                            INSERT INTO employment (employment_id, person_id, company_id, title)
-                            VALUES (gen_random_uuid(), %s::uuid, %s::uuid, %s)
-                            RETURNING employment_id
-                        """, (person_id, company_id, row.get('Job Title')))
-                        
-                        if self.cursor.fetchone():
-                            self.stats['employment_records_added'] += 1
-                            updated = True
-                except Exception as e:
-                    self.stats['errors'].append(f"Error adding employment: {e}")
+                # Extract title and dates
+                title = row.get('Job Title') or row.get('Title')
+                
+                # Clay typically has current employment, so check for date fields
+                date_range = row.get('Date Range') or row.get('Employment Dates')
+                start_date, end_date = None, None
+                
+                if date_range:
+                    start_date, end_date = self.employment_extractor.parse_date_range(date_range)
+                else:
+                    # Try individual date columns
+                    if row.get('Start Date'):
+                        start_date, _ = self.employment_extractor.parse_date_range(row['Start Date'])
+                    if row.get('End Date'):
+                        _, end_date = self.employment_extractor.parse_date_range(row['End Date'])
+                
+                # Add the employment record
+                if self.employment_manager.add_employment_record(
+                    person_id=person_id,
+                    company_id=company_id,
+                    title=title,
+                    start_date=start_date,
+                    end_date=end_date,
+                    location=row.get('Location') or row.get('Job Location'),
+                    source_text_ref='clay_import',
+                    source_confidence=0.85,  # Clay data is typically high quality
+                    check_duplicates=True
+                ):
+                    self.stats['employment_records_added'] += 1
+                    updated = True
         
         if updated:
             self.stats['profiles_enriched'] += 1
+            self.logger.info(f"Enriched profile for person {person_id[:8]}...")
     
     def create_new_profile(self, row: Dict):
         """Create a new profile from CSV row"""
@@ -354,24 +372,46 @@ class ClayPeopleImporter:
             if normalized_linkedin:
                 self.person_cache[normalized_linkedin] = person_id
             
-            # Add employment
+            # Add employment with date support
             if row.get('Current Company'):
-                company_id = self.find_or_create_company(
+                company_id = self.employment_manager.find_or_create_company(
                     row['Current Company'],
-                    row.get('Company Domain')
+                    self.company_cache
                 )
                 
                 if company_id:
-                    try:
-                        self.cursor.execute("""
-                            INSERT INTO employment (employment_id, person_id, company_id, title)
-                            VALUES (gen_random_uuid(), %s::uuid, %s::uuid, %s)
-                        """, (person_id, company_id, row.get('Job Title')))
+                    # Extract title and dates
+                    title = row.get('Job Title') or row.get('Title')
+                    
+                    # Clay typically has current employment, check for date fields
+                    date_range = row.get('Date Range') or row.get('Employment Dates')
+                    start_date, end_date = None, None
+                    
+                    if date_range:
+                        start_date, end_date = self.employment_extractor.parse_date_range(date_range)
+                    else:
+                        # Try individual date columns
+                        if row.get('Start Date'):
+                            start_date, _ = self.employment_extractor.parse_date_range(row['Start Date'])
+                        if row.get('End Date'):
+                            _, end_date = self.employment_extractor.parse_date_range(row['End Date'])
+                    
+                    # Add the employment record
+                    if self.employment_manager.add_employment_record(
+                        person_id=person_id,
+                        company_id=company_id,
+                        title=title,
+                        start_date=start_date,
+                        end_date=end_date,
+                        location=row.get('Location') or row.get('Job Location'),
+                        source_text_ref='clay_import',
+                        source_confidence=0.85,
+                        check_duplicates=False  # New profile, no need to check
+                    ):
                         self.stats['employment_records_added'] += 1
-                    except Exception as e:
-                        self.stats['errors'].append(f"Error adding employment: {e}")
             
             self.stats['profiles_created'] += 1
+            self.logger.success(f"✓ Created profile: {full_name}")
             
         except Exception as e:
             self.stats['errors'].append(f"Error processing row: {e}")

@@ -3,11 +3,11 @@
 export interface Person {
   person_id: string;
   full_name: string;
-  linkedin_url: string;
+  linkedin_url?: string;
   location?: string;
   headline?: string;
   created_at?: string;
-  refreshed_at?: string;  // Changed from updated_at to match backend
+  refreshed_at?: string;
 }
 
 export interface Employment {

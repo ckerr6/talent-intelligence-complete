@@ -11,7 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from api.config import settings
-from api.routers import people, companies, stats, graph, query, analytics, network, recruiter_workflow, ai, market_intelligence, cache
+from api.routers import people, companies, stats, graph, query, analytics, network, recruiter_workflow, ai, market_intelligence, cache, advanced_search, github_ingestion, network_enhanced, market_intelligence_enhanced, profile_enrichment
 from api.models.common import HealthResponse
 from config import Config
 
@@ -50,6 +50,11 @@ app.include_router(recruiter_workflow.router)  # Has /api/workflow prefix in rou
 app.include_router(ai.router)  # Has /api/ai prefix in router
 app.include_router(market_intelligence.router)  # Has /api/market prefix in router
 app.include_router(cache.router)  # Has /api/cache prefix in router
+app.include_router(advanced_search.router, prefix="/api")  # Advanced multi-criteria search
+app.include_router(github_ingestion.router)  # Has /api/github/ingest prefix in router
+app.include_router(network_enhanced.router)  # Enhanced network features (multi-node, tech filter)
+app.include_router(market_intelligence_enhanced.router)  # Interactive market intel (technologists, 10x engineers)
+app.include_router(profile_enrichment.router)  # On-demand GitHub stats enrichment
 
 
 @app.on_event("startup")
