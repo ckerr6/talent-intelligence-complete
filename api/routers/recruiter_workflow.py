@@ -36,6 +36,11 @@ class CreateNoteRequest(BaseModel):
     person_id: str
     note_text: str
     user_id: Optional[str] = None
+    note_type: str = 'general'  # 'general', 'call', 'meeting', 'screen', 'email', 'timing', 'reference', 'ai_generated'
+    note_category: Optional[str] = 'general'
+    priority: str = 'normal'  # 'low', 'normal', 'high', 'urgent'
+    tags: Optional[List[str]] = []
+    metadata: Optional[Dict[str, Any]] = {}
 
 
 class AddTagRequest(BaseModel):
@@ -347,17 +352,43 @@ async def create_note(
     db=Depends(get_db)
 ):
     """
-    Add a note to a person
+    Add an enhanced note to a person with type, priority, tags, and metadata
+    Uses add_person_note() database function
     """
     
     try:
         cursor = db.cursor(cursor_factory=RealDictCursor)
         
+        # Use the database function to add note with all enhanced fields
         cursor.execute("""
-            INSERT INTO person_notes (person_id, user_id, note_text, created_at, updated_at)
-            VALUES (%s, %s, %s, NOW(), NOW())
-            RETURNING *
-        """, (request.person_id, request.user_id, request.note_text))
+            SELECT add_person_note(
+                %s::uuid,
+                %s::uuid,
+                %s,
+                %s,
+                %s,
+                %s,
+                %s,
+                %s::jsonb
+            ) as note_id
+        """, (
+            request.person_id,
+            request.user_id,
+            request.note_text,
+            request.note_type,
+            request.note_category,
+            request.priority,
+            request.tags or [],
+            json.dumps(request.metadata or {})
+        ))
+        
+        result = cursor.fetchone()
+        note_id = str(result['note_id'])
+        
+        # Fetch the complete note to return
+        cursor.execute("""
+            SELECT * FROM person_notes WHERE note_id = %s
+        """, (note_id,))
         
         note = dict(cursor.fetchone())
         db.commit()
@@ -365,6 +396,7 @@ async def create_note(
         
         return {
             'success': True,
+            'note_id': note_id,
             'note': note
         }
         
@@ -476,6 +508,66 @@ async def delete_note(
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Error deleting note: {str(e)}")
+
+
+@router.get("/notes/search")
+async def search_notes(
+    q: str,
+    person_id: Optional[str] = None,
+    note_type: Optional[str] = None,
+    note_category: Optional[str] = None,
+    priority: Optional[str] = None,
+    tags: Optional[str] = None,
+    limit: int = 100,
+    db=Depends(get_db)
+):
+    """
+    Search notes using full-text search
+    Uses search_person_notes() database function
+    
+    Params:
+    - q: Search query text
+    - person_id: Filter by specific person (optional)
+    - note_type: Filter by note type (optional)
+    - note_category: Filter by category (optional)
+    - priority: Filter by priority (optional)
+    - tags: Comma-separated tags to filter by (optional)
+    - limit: Max results (default 100)
+    """
+    
+    try:
+        cursor = db.cursor(cursor_factory=RealDictCursor)
+        
+        # Convert string filters to arrays for database function
+        note_types = [note_type] if note_type else None
+        note_categories = [note_category] if note_category else None
+        priorities = [priority] if priority else None
+        search_tags = tags.split(',') if tags else None
+        
+        cursor.execute("""
+            SELECT * FROM search_person_notes(
+                %s,
+                %s::uuid,
+                %s,
+                %s,
+                %s,
+                %s,
+                %s
+            )
+        """, (q, person_id, note_types, note_categories, priorities, search_tags, limit))
+        
+        results = [dict(row) for row in cursor.fetchall()]
+        cursor.close()
+        
+        return {
+            'success': True,
+            'query': q,
+            'count': len(results),
+            'results': results
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error searching notes: {str(e)}")
 
 
 # ===== TAGS =====

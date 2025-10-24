@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import NotificationBell from '../notifications/NotificationBell';
 
 export default function Header() {
   return (
@@ -28,6 +29,9 @@ export default function Header() {
               <span className="sm:hidden">🔍</span>
               <span className="hidden sm:inline ml-2 text-xs text-gray-400">⌘K</span>
             </button>
+
+            {/* Notification Bell */}
+            <NotificationBell />
 
             <div className="relative">
               <button className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors">

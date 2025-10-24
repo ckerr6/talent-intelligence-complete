@@ -109,6 +109,7 @@ class SearchResultPerson(BaseModel):
     headline: Optional[str] = None
     has_email: bool = False
     has_github: bool = False
+    importance_score: Optional[float] = None
     
     # Summary data for display
     current_company: Optional[str] = None

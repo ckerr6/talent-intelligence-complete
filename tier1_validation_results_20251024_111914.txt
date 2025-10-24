@@ -1,0 +1,25 @@
+=======================================================================
+Test 1: Skills System
+=======================================================================
+
+Test 1.1: Solidity Developers (Top 10)
+    full_name     |        location        | proficiency_score | evidence_sources 
+------------------+------------------------+-------------------+------------------
+ Raman            | London                 |                90 | {title}
+ Max Kaplan       | Greater Tampa Bay Area |                90 | {headline}
+ Artem Chystiakov | Ukraine                |                85 | {title}
+ Rens Rooimans    | Netherlands            |                85 | {title,headline}
+ Sanders P        | United States          |                80 | {title,headline}
+ 0age             |                        |                80 | {repos}
+ crispymangoes    |                        |                80 | {repos}
+ Romain Milon     | Paris, France          |                80 | {repos}
+ Merlin Egalite   | France                 |                80 | {repos}
+ Savage           |                        |                80 | {title}
+(10 rows)
+
+
+Test 1.2: Skills Coverage Stats
+ERROR:  function round(double precision, integer) does not exist
+LINE 7:     ROUND(COUNT(ps.person_skills_id)::FLOAT / NULLIF(COUNT(D...
+            ^
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.

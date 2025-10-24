@@ -1,0 +1,161 @@
+=======================================================================
+Test 1: Skills System
+=======================================================================
+
+Test 1.1: Solidity Developers (Top 10)
+    full_name     |        location        | proficiency_score | evidence_sources 
+------------------+------------------------+-------------------+------------------
+ Raman            | London                 |                90 | {title}
+ Max Kaplan       | Greater Tampa Bay Area |                90 | {headline}
+ Artem Chystiakov | Ukraine                |                85 | {title}
+ Rens Rooimans    | Netherlands            |                85 | {title,headline}
+ Sanders P        | United States          |                80 | {title,headline}
+ 0age             |                        |                80 | {repos}
+ crispymangoes    |                        |                80 | {repos}
+ Romain Milon     | Paris, France          |                80 | {repos}
+ Merlin Egalite   | France                 |                80 | {repos}
+ Savage           |                        |                80 | {title}
+(10 rows)
+
+
+Test 1.2: Skills Coverage Stats
+ total_people | people_with_skills | coverage_pct | total_skill_records | avg_skills_per_person 
+--------------+--------------------+--------------+---------------------+-----------------------
+       156880 |              99303 |        63.30 |              178667 |                  1.80
+(1 row)
+
+
+Test 1.3: Top 10 Skills by Popularity
+ skill_name | category | people_count 
+------------+----------+--------------
+ GitHub     | platform |        90351
+ TypeScript | language |        16018
+ JavaScript | language |        13866
+ Go         | language |        12043
+ Python     | language |        10814
+ Rust       | language |         8978
+ C++        | language |         4268
+ Java       | language |         3008
+ C          | language |         2815
+ Shell      | language |         2754
+(10 rows)
+
+
+=======================================================================
+Test 2: Ecosystem Organization
+=======================================================================
+
+Test 2.1: Top Ecosystems by Developer Count
+         ecosystem_name         | developer_count | total_contributions 
+--------------------------------+-----------------+---------------------
+ Ethereum Virtual Machine Stack |            2420 |              122297
+ Avalanche                      |            1429 |               56403
+ Ethereum                       |             885 |               61310
+ Ethereum L2s                   |             151 |                8165
+ Uniswap                        |             147 |                6963
+ Paradigm (Investment Firm)     |             127 |                9383
+ Cosmos Network Stack           |             101 |                1851
+ Cosmos Network                 |             101 |                1851
+ Ethereum Execution             |              90 |                9107
+ Base                           |              40 |                3170
+(10 rows)
+
+
+Test 2.2: Repository Ecosystem Coverage
+ total_repos | repos_with_ecosystems | coverage_pct 
+-------------+-----------------------+--------------
+      334052 |                319573 |        95.67
+(1 row)
+
+
+=======================================================================
+Test 3: Email Management
+=======================================================================
+
+Test 3.1: Email Coverage
+ total_people | people_with_emails | coverage_pct | total_email_records 
+--------------+--------------------+--------------+---------------------
+       156880 |              28964 |        18.46 |               63100
+(1 row)
+
+
+Test 3.2: Email Type Distribution
+ email_type | count |  pct  
+------------+-------+-------
+ work       | 37742 | 59.81
+ personal   | 19083 | 30.24
+ primary    |  3537 |  5.61
+ unknown    |  2590 |  4.10
+ github     |   148 |  0.23
+(5 rows)
+
+
+=======================================================================
+Test 4: GitHub Integration
+=======================================================================
+
+Test 4.1: GitHub Profile Linkage
+ total_profiles | linked_profiles | unlinked_profiles | linkage_pct 
+----------------+-----------------+-------------------+-------------
+         101485 |          101485 |                 0 |      100.00
+(1 row)
+
+
+Test 4.2: People with GitHub Coverage
+ total_people | people_with_github | coverage_pct 
+--------------+--------------------+--------------
+       156880 |              98695 |        62.91
+(1 row)
+
+
+=======================================================================
+Test 5: Cross-Functional Query (Recruiter Use Case)
+=======================================================================
+
+Test 5.1: Find Senior Solidity Developers with GitHub (Top 5)
+    full_name     |        location        | solidity_proficiency | github_username | followers | email_count 
+------------------+------------------------+----------------------+-----------------+-----------+-------------
+ Raman            | London                 |                   90 | RamanSB         |        30 |           1
+ Raman            | London                 |                   90 | ramansb         |        30 |           1
+ Max Kaplan       | Greater Tampa Bay Area |                   90 |                 |           |           3
+ Artem Chystiakov | Ukraine                |                   85 | Arvolear        |       253 |           0
+ Rens Rooimans    | Netherlands            |                   85 | RensR           |        25 |           0
+(5 rows)
+
+
+=======================================================================
+Test 6: Data Quality
+=======================================================================
+
+Test 6.1: Check for Duplicate Person-Skills
+ duplicate_count 
+-----------------
+               0
+(1 row)
+
+
+Test 6.2: Check for Missing Critical Data
+  table_name   | total  | missing_names 
+---------------+--------+---------------
+ person_email  |  63100 |             0
+ person_skills | 178667 |             0
+ person        | 156880 |             0
+(3 rows)
+
+
+=======================================================================
+Summary
+=======================================================================
+
+✅ Validation tests complete!
+📄 Full results saved to: tier1_validation_results_20251024_111928.txt
+
+Key Metrics to Check:
+  - Skills coverage should be > 60%
+  - Email coverage should be > 15%
+  - GitHub linkage should be 100%
+  - Ecosystem repo coverage should be > 90%
+  - No duplicate person-skills records
+
+Review the output above and check tier1_validation_results_20251024_111928.txt for details.
+

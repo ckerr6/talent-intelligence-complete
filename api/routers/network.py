@@ -93,6 +93,59 @@ async def find_path(
         raise HTTPException(status_code=500, detail=f"Error finding path: {str(e)}")
 
 
+@router.get("/collaborators/{person_id}")
+async def get_person_collaborators(
+    person_id: str,
+    min_strength: float = Query(0.0, ge=0.0, le=1.0, description="Minimum collaboration strength (0-1)"),
+    limit: int = Query(100, ge=1, le=500, description="Maximum collaborators to return"),
+    db=Depends(get_db)
+):
+    """
+    Get GitHub collaborators and co-workers for a person
+    Uses get_person_collaborators() database function from collaboration network
+    
+    Returns both GitHub collaboration edges and employment connections
+    """
+    
+    try:
+        cursor = db.cursor(cursor_factory=RealDictCursor)
+        cursor.execute("""
+            SELECT * FROM get_person_collaborators(
+                %s::uuid,
+                %s,
+                %s
+            )
+        """, (person_id, min_strength, limit))
+        
+        collaborators = [dict(row) for row in cursor.fetchall()]
+        cursor.close()
+        
+        # Rename collaboration_type to connection_type for consistency with frontend
+        for c in collaborators:
+            if 'collaboration_type' in c:
+                c['connection_type'] = c.pop('collaboration_type')
+            if 'collaborator_id' in c:
+                c['person_id'] = c.pop('collaborator_id')
+            if 'collaborator_name' in c:
+                c['full_name'] = c.pop('collaborator_name')
+        
+        # Separate by type for summary stats
+        github_collab = [c for c in collaborators if c.get('connection_type') == 'github']
+        employment_collab = [c for c in collaborators if c.get('connection_type') == 'employment']
+        
+        return {
+            'person_id': person_id,
+            'total_collaborators': len(collaborators),
+            'github_collaborators': len(github_collab),
+            'employment_connections': len(employment_collab),
+            'collaborators': collaborators
+        }
+        
+    except Exception as e:
+        logger.error(f"Error fetching collaborators for {person_id}: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error fetching collaborators: {str(e)}")
+
+
 @router.get("/mutual/{person1_id}/{person2_id}")
 async def get_mutual_connections(
     person1_id: str,
@@ -102,17 +155,22 @@ async def get_mutual_connections(
 ):
     """
     Find mutual connections between two people
+    Uses find_common_connections() database function
     
-    Returns list of people connected to both
+    Returns list of people connected to both via GitHub or employment
     """
     
     try:
-        mutual = network_crud.get_mutual_connections(
-            person1_id=person1_id,
-            person2_id=person2_id,
-            limit=limit,
-            db=db
-        )
+        cursor = db.cursor(cursor_factory=RealDictCursor)
+        
+        # Use the database function for mutual connections
+        cursor.execute("""
+            SELECT * FROM find_common_connections(%s::uuid, %s::uuid)
+            LIMIT %s
+        """, (person1_id, person2_id, limit))
+        
+        mutual = [dict(row) for row in cursor.fetchall()]
+        cursor.close()
         
         return {
             'person1_id': person1_id,
@@ -122,6 +180,7 @@ async def get_mutual_connections(
         }
         
     except Exception as e:
+        logger.error(f"Error finding mutual connections between {person1_id} and {person2_id}: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error finding mutual connections: {str(e)}")
 
 
@@ -238,9 +297,9 @@ async def get_network_graph(
                 SELECT DISTINCT 
                     e.dst_person_id as connected_id,
                     'coworker' as type,
-                    %s as source_id
+                    %s::uuid as source_id
                 FROM edge_coemployment e
-                WHERE e.src_person_id = %s
+                WHERE e.src_person_id = %s::uuid
         """
         params = [center, center]
         
@@ -260,14 +319,14 @@ async def get_network_graph(
                 SELECT DISTINCT 
                     p2.person_id as connected_id,
                     'github_collaborator' as type,
-                    %s as source_id
+                    %s::uuid as source_id
                 FROM github_profile gp1
                 JOIN github_contribution gc1 ON gp1.github_profile_id = gc1.github_profile_id
                 JOIN github_contribution gc2 ON gc1.repo_id = gc2.repo_id
                 JOIN github_profile gp2 ON gc2.github_profile_id = gp2.github_profile_id
                 JOIN person p2 ON gp2.person_id = p2.person_id
-                WHERE gp1.person_id = %s 
-                AND p2.person_id != %s
+                WHERE gp1.person_id = %s::uuid 
+                AND p2.person_id != %s::uuid
         """
         params.extend([center, center, center])
         

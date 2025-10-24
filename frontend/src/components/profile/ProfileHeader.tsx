@@ -5,7 +5,11 @@ import type { Person } from '../../types';
 import Button from '../common/Button';
 
 interface ProfileHeaderProps {
-  person: Person;
+  person: Person & {
+    github_username?: string;
+    has_email?: boolean;
+    has_github?: boolean;
+  };
 }
 
 export default function ProfileHeader({ person }: ProfileHeaderProps) {

@@ -71,6 +71,55 @@ def get_person(conn, person_id: str) -> Optional[Dict]:
         emp_dict['person_id'] = person_id
         person['employment'].append(emp_dict)
     
+    # Get GitHub profile with ecosystem tags
+    cursor.execute("""
+        SELECT 
+            github_profile_id::text,
+            github_username,
+            github_name,
+            github_company,
+            bio,
+            location as github_location,
+            github_email,
+            blog,
+            twitter_username,
+            followers,
+            following,
+            public_repos,
+            avatar_url,
+            ecosystem_tags,
+            importance_score,
+            created_at::text as discovered_at,
+            last_enriched::text
+        FROM github_profile
+        WHERE person_id = %s::uuid
+    """, (person_id,))
+    
+    github_row = cursor.fetchone()
+    if github_row:
+        github_data = dict(github_row)
+        
+        # Get contributions for this GitHub profile
+        cursor.execute("""
+            SELECT 
+                r.full_name as repo_name,
+                r.stars,
+                r.language,
+                r.description,
+                gc.contribution_count,
+                gc.created_at::text as first_contributed
+            FROM github_contribution gc
+            JOIN github_repository r ON gc.repo_id = r.repo_id
+            WHERE gc.github_profile_id = %s::uuid
+            ORDER BY gc.contribution_count DESC
+            LIMIT 20
+        """, (github_row['github_profile_id'],))
+        
+        github_data['contributions'] = [dict(row) for row in cursor.fetchall()]
+        person['github'] = github_data
+    else:
+        person['github'] = None
+    
     return person
 
 
@@ -439,6 +488,7 @@ def get_full_profile(conn, person_id: str) -> Optional[Dict]:
             SELECT 
                 gc.contribution_id::text,
                 gc.contribution_count,
+                gc.first_contribution_date::text as first_contributed,
                 gc.last_contribution_date::text as contributed_at,
                 gr.repo_id::text as repository_id,
                 gr.repo_name,
@@ -464,7 +514,9 @@ def get_full_profile(conn, person_id: str) -> Optional[Dict]:
             JOIN github_repository gr ON gc.repo_id = gr.repo_id
             LEFT JOIN company c ON gr.company_id = c.company_id
             WHERE gc.github_profile_id = %s::uuid
-            ORDER BY gc.contribution_count DESC
+            ORDER BY gc.merged_pr_count DESC NULLS LAST,
+                     gc.contribution_quality_score DESC NULLS LAST,
+                     gc.contribution_count DESC
             LIMIT 50
         """, (person['github_profile']['github_profile_id'],))
         

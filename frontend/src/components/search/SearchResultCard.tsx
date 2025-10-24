@@ -15,6 +15,7 @@ interface SearchResultCardProps {
     github_username?: string;
     total_merged_prs?: number;
     total_stars_earned?: number;
+    importance_score?: number;
   };
   onQuickPreview: (person: Person) => void;
   isSelected?: boolean;
@@ -136,6 +137,24 @@ export default function SearchResultCard({
                   <TrendingUp className="w-4 h-4" />
                   {formatMatchScore(matchScore.totalScore)}
                 </div>
+                {/* Importance Score Badge */}
+                {person.importance_score && person.importance_score > 0 && (
+                  <div
+                    className={`
+                      px-3 py-1 rounded-full font-bold text-sm border-2 flex items-center gap-1
+                      ${person.importance_score >= 40 
+                        ? 'border-yellow-400 bg-yellow-50 text-yellow-800' 
+                        : person.importance_score >= 20
+                        ? 'border-blue-400 bg-blue-50 text-blue-800'
+                        : 'border-gray-400 bg-gray-50 text-gray-700'
+                      }
+                    `}
+                    title={`Developer Importance Score: ${person.importance_score.toFixed(1)}/100`}
+                  >
+                    <Sparkles className="w-4 h-4" />
+                    {person.importance_score.toFixed(0)}
+                  </div>
+                )}
               </div>
               
               {person.headline && (

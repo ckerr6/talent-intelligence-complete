@@ -58,6 +58,38 @@ class EmploymentResponse(EmploymentBase):
     company_id: Optional[UUID] = None
 
 
+class GitHubContributionResponse(BaseModel):
+    """GitHub contribution response"""
+    repo_name: str
+    stars: Optional[int] = None
+    language: Optional[str] = None
+    description: Optional[str] = None
+    contribution_count: int
+    first_contributed: Optional[str] = None
+
+
+class GitHubProfileResponse(BaseModel):
+    """GitHub profile response"""
+    github_profile_id: UUID
+    github_username: str
+    github_name: Optional[str] = None
+    github_company: Optional[str] = None
+    bio: Optional[str] = None
+    github_location: Optional[str] = None
+    github_email: Optional[str] = None
+    blog: Optional[str] = None
+    twitter_username: Optional[str] = None
+    followers: Optional[int] = None
+    following: Optional[int] = None
+    public_repos: Optional[int] = None
+    avatar_url: Optional[str] = None
+    ecosystem_tags: Optional[List[str]] = Field(default_factory=list)
+    importance_score: Optional[float] = None
+    discovered_at: Optional[str] = None
+    last_enriched: Optional[str] = None
+    contributions: Optional[List[GitHubContributionResponse]] = Field(default_factory=list)
+
+
 class PersonBase(BaseModel):
     """Base person schema"""
     full_name: Optional[str] = Field(None, max_length=255)
@@ -104,6 +136,7 @@ class PersonResponse(PersonBase):
     # Optional nested data
     emails: Optional[List[EmailResponse]] = None
     employment: Optional[List[EmploymentResponse]] = None
+    github: Optional[GitHubProfileResponse] = None  # GitHub profile and contributions
     
     class Config:
         from_attributes = True

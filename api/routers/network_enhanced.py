@@ -107,10 +107,10 @@ async def get_multi_node_graph(
                 SELECT DISTINCT 
                     gp1.person_id as source_id,
                     gp2.person_id as connected_id,
-                    NULL as company_id,
+                    NULL::uuid as company_id,
                     'github_collaborator' as type,
-                    NULL as overlap_months,
-                    NULL as employment_status
+                    NULL::integer as overlap_months,
+                    NULL::text as employment_status
                 FROM github_profile gp1
                 JOIN github_contribution gc1 ON gp1.github_profile_id = gc1.github_profile_id
                 JOIN github_contribution gc2 ON gc1.repo_id = gc2.repo_id

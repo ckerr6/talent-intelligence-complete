@@ -11,9 +11,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from api.config import settings
-from api.routers import people, companies, stats, graph, query, analytics, network, recruiter_workflow, ai, market_intelligence, cache, advanced_search, github_ingestion, network_enhanced, market_intelligence_enhanced, profile_enrichment
+from api.routers import people, companies, stats, graph, query, analytics, network, recruiter_workflow, ai, market_intelligence, cache, advanced_search, github_ingestion, network_enhanced, market_intelligence_enhanced, profile_enrichment, github, discovery, market_analytics_deep, notifications
 from api.models.common import HealthResponse
 from config import Config
+from api.services.background_scheduler import start_scheduler, stop_scheduler
 
 
 # Create FastAPI application
@@ -52,9 +53,13 @@ app.include_router(market_intelligence.router)  # Has /api/market prefix in rout
 app.include_router(cache.router)  # Has /api/cache prefix in router
 app.include_router(advanced_search.router, prefix="/api")  # Advanced multi-criteria search
 app.include_router(github_ingestion.router)  # Has /api/github/ingest prefix in router
+app.include_router(github.router, prefix="/api")  # GitHub discovery data endpoints
+app.include_router(discovery.router, prefix="/api")  # Discovery system endpoints
 app.include_router(network_enhanced.router)  # Enhanced network features (multi-node, tech filter)
 app.include_router(market_intelligence_enhanced.router)  # Interactive market intel (technologists, 10x engineers)
 app.include_router(profile_enrichment.router)  # On-demand GitHub stats enrichment
+app.include_router(market_analytics_deep.router, prefix="/api")  # Deep market analytics and company insights
+app.include_router(notifications.router, prefix="/api")  # AI-powered notifications and monitoring
 
 
 @app.on_event("startup")
@@ -72,6 +77,14 @@ async def startup_event():
         print(f"⚠️  Warning: Connection pool initialization failed: {e}")
         print("   API will use direct connections")
     
+    # Start background scheduler for AI monitoring
+    try:
+        start_scheduler()
+        print("✅ Background scheduler started (AI monitoring)")
+    except Exception as e:
+        print(f"⚠️  Warning: Background scheduler failed to start: {e}")
+        print("   AI monitoring will not run automatically")
+    
     print(f"📍 API available at: http://{settings.HOST}:{settings.PORT}")
     print(f"📚 Docs available at: http://{settings.HOST}:{settings.PORT}/docs")
     print("="*80)
@@ -83,6 +96,13 @@ async def shutdown_event():
     print("\n" + "="*80)
     print("🛑 Shutting down Talent Intelligence API")
     print("="*80)
+    
+    # Stop background scheduler
+    try:
+        stop_scheduler()
+        print("✅ Background scheduler stopped")
+    except Exception as e:
+        print(f"⚠️  Warning: Error stopping scheduler: {e}")
     
     try:
         Config.close_connection_pool()

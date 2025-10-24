@@ -1,383 +1,253 @@
-# 🚀 Database Enrichment Scripts
+# PhantomBuster LinkedIn Enrichment Scripts
 
-**Purpose:** Address high-priority data quality issues identified in the database audit
+## Overview
 
-**Status:** Ready to run  
-**Target Database:** PostgreSQL `talent` @ localhost:5432  
-**Source Data:** SQLite `talent_intelligence.db`
+This directory contains a complete PhantomBuster MCP integration for enriching LinkedIn profiles with full employment and education history.
 
----
+## File Structure
 
-## 📊 Problems Being Solved
-
-### Current State (Before Enrichment):
-- ⚠️ **Email Coverage:** 3.11% (1,014 of 32,515 people)
-- ⚠️ **Job Title Coverage:** 0.48% (965 of 203,076 employment records)
-- ⚠️ **GitHub Linkage:** 0.57% (184 of 32,515 people)
-- ⚠️ **Unused GitHub Emails:** 5,000 GitHub profiles have emails not in `person_email` table
-
-### Expected State (After Enrichment):
-- ✅ **Email Coverage:** ~45% (boost from 3% → 45%)
-- ✅ **Job Title Coverage:** ~90%+ (extract from LinkedIn headlines)
-- ✅ **GitHub Linkage:** 5-10% (improved matching by email + name)
-- ✅ **GitHub Emails:** All 5,000 GitHub emails added to `person_email`
-
----
-
-## 🎯 What These Scripts Do
-
-### 1. **`01_import_sqlite_people.py`** - Import SQLite People & Emails
-
-**Problem:** Only 1,014 of 7,034 SQLite emails were migrated (14% match rate) because SQLite contains different people than PostgreSQL.
-
-**Solution:**
-- Import ~15,350 people from SQLite who aren't in PostgreSQL yet
-- Import their 7,034 emails
-- Link via LinkedIn URLs (normalized for matching)
-
-**Expected Results:**
-- **Before:** 32,515 people, 1,014 emails (3.11%)
-- **After:** ~47,865 people, ~8,048 emails (~17-45% depending on duplicates)
-
-**Runtime:** 5-10 minutes
-
----
-
-### 2. **`02_enrich_job_titles.py`** - Extract Job Titles from Headlines
-
-**Problem:** Only 965 of 203,076 employment records (0.48%) have job titles populated, even though 100% of people have LinkedIn profiles with job titles in their headlines.
-
-**Root Cause:** Job titles are stored in `person.headline` field (e.g., "Principal Engineer at Google") but not extracted into `employment.title`
-
-**Solution:**
-- Parse `person.headline` to extract current job titles
-- Update `employment.title` for current jobs (where `end_date IS NULL`)
-- Use pattern matching: "Title at Company" → extract "Title"
-
-**Examples:**
 ```
-"Principal Site Reliability Engineer at GoDaddy"
-  → title = "Principal Site Reliability Engineer"
-
-"Founder & CEO @ Company"
-  → title = "Founder & CEO"
-
-"Software Engineer | Tech Lead at Google"
-  → title = "Software Engineer"
+enrichment_scripts/
+├── README.md                              ← You are here
+├── QUICK_START.md                         ← Start here for setup
+├── PHANTOMBUSTER_SETUP.md                 ← Detailed setup instructions
+│
+├── phantombuster_linkedin_enrichment.py   ← Main enrichment script (630 lines)
+├── monitor_enrichment_progress.py         ← Monitoring dashboard (290 lines)
+├── validate_test_batch.py                 ← Pre-flight validation (110 lines)
+├── test_workflow_dry_run.py               ← System test (270 lines)
+│
+├── run_test_enrichment.sh                 ← Automated test workflow
+├── watch_enrichment.sh                    ← Real-time monitoring
+│
+└── requirements-phantombuster.txt         ← Python dependencies
 ```
 
-**Expected Results:**
-- **Before:** 965 titles (0.48%)
-- **After:** ~27,000 titles (90%+ for current jobs with LinkedIn data)
+## Quick Start
 
-**Runtime:** 2-5 minutes
+### 1. Install Dependencies (already done)
+```bash
+pip3 install -r requirements-phantombuster.txt
+```
 
----
+### 2. Add API Key
+Edit `.env` file in project root:
+```bash
+PHANTOMBUSTER_API_KEY=your_key_here
+```
 
-### 3. **`03_improve_github_matching_and_emails.py`** - GitHub Matching & Email Extraction
+### 3. Run Test (15 profiles)
+```bash
+./run_test_enrichment.sh 15
+```
 
-**Problems:**
-1. Only 184 of 32,515 people (0.57%) have linked GitHub profiles
-2. 5,000 GitHub profiles have emails that aren't in `person_email` table
-3. 17,534 GitHub profiles exist but 17,345 (98.9%) aren't linked to people
+### 4. Monitor Progress
+```bash
+python3 monitor_enrichment_progress.py
+```
 
-**Solutions:**
+## Main Scripts
 
-#### A. Extract Emails from GitHub Profiles
-- Take 5,000 emails from `github_profile.github_email` 
-- Add to `person_email` table for linked profiles
-- Mark source as 'github_profile'
+### phantombuster_linkedin_enrichment.py
 
-#### B. Match GitHub Profiles to People by Email
-- Compare `github_profile.github_email` to `person_email.email`
-- Link matching profiles automatically
-- This is high-confidence matching (email = strong identifier)
+**Purpose**: Main enrichment engine
 
-#### C. Match by Name + Company (Conservative)
-- Compare `github_profile.github_name` to `person.full_name`
-- AND compare `github_profile.github_company` to current `employment.company`
-- Only link if exactly 1 match (avoid ambiguity)
-- **Accuracy over volume** - skip ambiguous matches
+**Usage**:
+```bash
+# Test mode (random 15 profiles)
+python3 phantombuster_linkedin_enrichment.py --test --batch-size 15
 
-**Expected Results:**
-- **Emails from GitHub:** +5,000 emails added to `person_email`
-- **GitHub Linkage:** 0.57% → 5-10% (actual number depends on email overlaps)
-- **People with GitHub:** 184 → 1,500-3,000 (estimated)
+# Production mode (priority order, 50 profiles)
+python3 phantombuster_linkedin_enrichment.py --batch-size 50
 
-**Runtime:** 3-8 minutes
+# Custom rate limiting (3 seconds between calls)
+python3 phantombuster_linkedin_enrichment.py --rate-limit 3.0
+```
 
----
+**Features**:
+- PhantomBuster MCP API client
+- Queue management (pending → in_progress → completed/failed)
+- Employment & education enrichment
+- Company matching & creation
+- Date parsing (PhantomBuster format)
+- Comprehensive error handling
+- Rate limiting
+- Detailed logging
 
-## 🚀 How to Run
+### monitor_enrichment_progress.py
 
-### Option 1: Run All Enrichments (Recommended)
+**Purpose**: Real-time progress monitoring
+
+**Usage**:
+```bash
+# One-time status check
+python3 monitor_enrichment_progress.py
+
+# Continuous monitoring (use watch script)
+./watch_enrichment.sh 10  # Update every 10 seconds
+```
+
+**Shows**:
+- Overall queue status (completed/pending/failed/in progress)
+- Success rate percentage
+- Priority breakdown
+- Processing rate (profiles/hour) and ETA
+- Recent activity (last hour)
+- Top error types
+- Retry candidates
+
+### validate_test_batch.py
+
+**Purpose**: Pre-flight validation
+
+**Usage**:
+```bash
+python3 validate_test_batch.py
+```
+
+**Checks**:
+- LinkedIn URLs exist
+- Profiles are ready for enrichment
+- Provides next steps
+
+### test_workflow_dry_run.py
+
+**Purpose**: System validation without API calls
+
+**Usage**:
+```bash
+python3 test_workflow_dry_run.py
+```
+
+**Tests**:
+- Database connectivity
+- Queue operations
+- Date parsing
+- Company/employment/education tables
+- Dependencies
+- Logging
+
+## Shell Scripts
+
+### run_test_enrichment.sh
+
+Automated workflow:
+1. Validates test batch
+2. Asks for confirmation
+3. Runs enrichment
+4. Shows results
 
 ```bash
-cd enrichment_scripts
-./RUN_ALL_ENRICHMENTS.sh
+./run_test_enrichment.sh [batch_size]
 ```
 
-This will:
-1. Check prerequisites (PostgreSQL connection, SQLite database, Python dependencies)
-2. Show current state
-3. Ask for confirmation at each phase
-4. Run all 3 enrichments in sequence
-5. Show final results
+### watch_enrichment.sh
 
-**Total Runtime:** 10-25 minutes
-
----
-
-### Option 2: Run Individual Scripts
-
-#### Import SQLite People
+Real-time monitoring with auto-refresh:
 ```bash
-python3 01_import_sqlite_people.py \
-    --sqlite-db ../talent_intelligence.db \
-    --pg-host localhost \
-    --pg-port 5432 \
-    --pg-db talent
+./watch_enrichment.sh [interval_seconds]
 ```
 
-#### Enrich Job Titles
+## Current Queue Status
+
+```
+Total profiles:     3,869
+  Priority 5:       2,698 (highest value)
+  Priority 3:       1,090 (medium)
+  Priority 1:          81 (lowest)
+
+Status:             100% pending (ready to process)
+```
+
+## Expected Results
+
+**Per Profile (Average)**:
+- Employment records: 2-4
+- Education records: 1-2
+- Processing time: ~2 seconds (with rate limit)
+
+**Test Batch (15 profiles)**:
+- Employment added: 30-60 records
+- Education added: 15-30 records
+- New companies: 5-10
+- Duration: ~45 seconds
+- Success rate: 90-95%
+
+## Monitoring
+
+### Dashboard
 ```bash
-python3 02_enrich_job_titles.py \
-    --pg-host localhost \
-    --pg-port 5432 \
-    --pg-db talent
+python3 monitor_enrichment_progress.py
 ```
 
-#### Improve GitHub Matching
+### SQL Queries
 ```bash
-python3 03_improve_github_matching_and_emails.py \
-    --pg-host localhost \
-    --pg-port 5432 \
-    --pg-db talent
+psql postgresql://localhost/talent -f ../sql/queries/enrichment_monitor.sql
 ```
 
----
-
-## 🔒 Safety Features
-
-### Transaction Safety
-- ✅ All operations use PostgreSQL transactions
-- ✅ Rollback on error
-- ✅ Commit every 100 records for progress tracking
-- ✅ Can be rerun safely (idempotent where possible)
-
-### Duplicate Prevention
-- ✅ LinkedIn URL normalization prevents duplicates
-- ✅ `ON CONFLICT DO NOTHING` clauses
-- ✅ Unique constraints enforced
-- ✅ Conservative matching (accuracy over volume)
-
-### Logging
-- ✅ All operations logged to `migration_log` table
-- ✅ Detailed statistics printed
-- ✅ Error tracking and reporting
-
----
-
-## 📊 Expected Improvements
-
-### Email Coverage
-```
-Before:  1,014 emails (3.11% of people)
-After:   ~8,000-13,000 emails (17-45% of people)
-
-Sources:
-- 7,034 from SQLite primary_email
-- 7,030 from SQLite emails table
-- 5,000 from GitHub profiles
-= ~19,000 total emails (deduplicated to ~8-13K unique)
-```
-
-### Job Title Coverage
-```
-Before:  965 titles (0.48% of employment records)
-After:   ~27,000 titles (90%+ of current jobs)
-
-Limitation: Only current jobs can be enriched from headline
-Historical jobs require additional data sources
-```
-
-### GitHub Linkage
-```
-Before:  184 people with GitHub (0.57%)
-After:   1,500-3,000 people with GitHub (5-10%)
-
-Method:
-- Email matching: High confidence, ~500-1,000 matches
-- Name+Company: Conservative, ~500-1,000 matches
-- Remaining unlinked: Standalone GitHub dataset
-```
-
----
-
-## ⚠️ Important Notes
-
-### Why Not 100% Email Coverage?
-Even after importing all SQLite people, email coverage will be ~45%, not 100%, because:
-1. Not all SQLite people have emails (7,034 of 15,350 = 45.8%)
-2. Some emails will be duplicates
-3. Email validation may filter some invalid addresses
-
-### Why Not Match All GitHub Profiles?
-We prioritize **accuracy over volume**:
-- Email matching: ✅ High confidence
-- Name+Company: ✅ Conservative (skip ambiguous)
-- Name-only: ❌ Too risky (many people share names)
-- Username: ❌ Unreliable (usernames != real names)
-
-**Result:** Lower linkage rate but higher data quality
-
-### Historical Job Titles
-Enrichment focuses on **current jobs** because:
-- `person.headline` only shows current role
-- Historical titles require employment history scraping
-- Can be addressed in future enrichment phases
-
----
-
-## 🧪 Testing
-
-### Pre-flight Checks
-The master script (`RUN_ALL_ENRICHMENTS.sh`) checks:
-- ✅ PostgreSQL connection
-- ✅ SQLite database exists
-- ✅ Python dependencies installed
-
-### Validation
-Each script includes validation that:
-- Counts before/after states
-- Verifies no data loss
-- Checks constraint integrity
-- Logs to `migration_log` table
-
----
-
-## 📈 Success Metrics
-
-| Metric | Before | After | Target |
-|--------|--------|-------|--------|
-| **People** | 32,515 | ~47,865 | +15,350 |
-| **Email Coverage** | 3.11% | ~45% | 40-50% |
-| **Emails Total** | 1,014 | ~8,000 | 7,000+ |
-| **Job Title Coverage** | 0.48% | ~90% | 85%+ |
-| **GitHub Linkage** | 0.57% | ~5-10% | 5%+ |
-| **People with GitHub** | 184 | ~2,000 | 1,500+ |
-
----
-
-## 🐛 Troubleshooting
-
-### Script fails with "Cannot connect to PostgreSQL"
+### Logs
 ```bash
-# Check PostgreSQL is running
-pg_isready
-
-# Test connection
-psql -d talent -c "SELECT 1"
+tail -f ../logs/phantombuster_enrichment.log
 ```
 
-### Script fails with "psycopg2 not found"
-```bash
-pip install psycopg2-binary
-```
+## Error Handling
 
-### Script fails with "SQLite database not found"
-```bash
-# Check the database path
-ls -la ../talent_intelligence.db
+### Automatic Retries
 
-# If it's elsewhere, use full path:
-python3 01_import_sqlite_people.py --sqlite-db /full/path/to/talent_intelligence.db
-```
-
-### Want to see what will happen without making changes?
-Add a `--dry-run` flag to any script (requires code modification, or manually review the SQL before running)
-
----
-
-## 📝 Logs & Audit Trail
-
-All enrichment operations are logged to the `migration_log` table:
+Failed profiles with < 3 attempts can be retried:
 
 ```sql
--- View enrichment history
-SELECT 
-    migration_name,
-    migration_phase,
-    status,
-    records_processed,
-    records_created,
-    started_at,
-    completed_at
-FROM migration_log
-WHERE migration_name LIKE '%enrichment%' OR migration_name LIKE '%import%'
-ORDER BY started_at DESC;
+UPDATE enrichment_queue
+SET status = 'pending', error_message = NULL
+WHERE status = 'failed' AND attempts < 3;
 ```
 
----
+### View Errors
 
-## 🔄 Re-running Scripts
+```sql
+SELECT 
+    p.full_name,
+    eq.error_message,
+    eq.attempts
+FROM enrichment_queue eq
+JOIN person p ON eq.person_id = p.person_id
+WHERE eq.status = 'failed'
+ORDER BY eq.last_attempt DESC
+LIMIT 20;
+```
 
-### Safe to Re-run
-All scripts use `ON CONFLICT DO NOTHING` or similar patterns, making them safe to re-run:
-- Won't create duplicate people (LinkedIn URL unique constraint)
-- Won't create duplicate emails (person_id + email unique constraint)
-- Won't overwrite existing good data
+## Troubleshooting
 
-### When to Re-run
-- After adding new people to SQLite
-- After getting more GitHub data
-- To fill gaps from partial runs
-- After fixing data quality issues
+### "API key not found"
+- Check `.env` file has `PHANTOMBUSTER_API_KEY=...`
+- Restart terminal or source `.env`
 
----
+### "No profiles found"
+- Check queue: `psql postgresql://localhost/talent -c "SELECT COUNT(*) FROM enrichment_queue WHERE status='pending';"`
 
-## 📚 Related Documentation
+### Rate limit errors
+- Increase delay: `--rate-limit 5.0`
+- Check PhantomBuster quota
 
-- **`MIGRATION_COMPLETE.md`** - Original migration documentation
-- **`DATABASE_QUALITY_REPORT.md`** - Complete database analysis showing these issues
-- **`comprehensive_analysis.sql`** - SQL queries to analyze database state
-- **`migration_scripts/`** - Original consolidation scripts
+### Database errors
+- Verify PostgreSQL running
+- Test: `psql postgresql://localhost/talent -c "SELECT 1;"`
 
----
+## Documentation
 
-## 🎓 Next Steps After Enrichment
+- **Quick Start**: `QUICK_START.md`
+- **Setup Guide**: `PHANTOMBUSTER_SETUP.md`
+- **Full Implementation**: `../PHANTOMBUSTER_MCP_IMPLEMENTATION.md`
+- **Completion Summary**: `../PHANTOMBUSTER_IMPLEMENTATION_COMPLETE.md`
 
-1. **Validate Results:**
-   ```bash
-   psql -d talent -f ../comprehensive_analysis.sql > post_enrichment_report.txt
-   ```
+## Next Steps
 
-2. **Test Queries:**
-   ```sql
-   -- People with emails
-   SELECT COUNT(DISTINCT person_id) FROM person_email;
-   
-   -- Employment records with titles
-   SELECT COUNT(*) FROM employment WHERE title IS NOT NULL;
-   
-   -- People with GitHub
-   SELECT COUNT(DISTINCT person_id) FROM github_profile WHERE person_id IS NOT NULL;
-   ```
-
-3. **Update Applications:**
-   - Update dashboards with new metrics
-   - Enable email-based features
-   - Build GitHub-based insights
-
-4. **Plan Next Enrichments:**
-   - Historical job title extraction
-   - Company metadata enrichment
-   - Email verification
-   - Advanced GitHub matching algorithms
+1. Add PhantomBuster API key to `.env`
+2. Run test: `./run_test_enrichment.sh 15`
+3. Verify results
+4. Process full queue: `python3 phantombuster_linkedin_enrichment.py --batch-size 3869`
 
 ---
 
-**Created:** October 20, 2025  
-**Status:** ✅ Ready for Production  
-**Estimated Runtime:** 10-25 minutes total
-
+**Status**: ✅ Ready for testing (pending API key)  
+**Last Updated**: October 24, 2025

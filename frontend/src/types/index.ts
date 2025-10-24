@@ -1,5 +1,8 @@
 // Core types for the Talent Intelligence Platform
 
+// Export notification types
+export * from './notifications';
+
 export interface Person {
   person_id: string;
   full_name: string;
@@ -33,12 +36,18 @@ export interface GitHubProfile {
   github_username: string;
   github_name?: string;
   github_email?: string;
+  github_company?: string;
+  bio?: string;
+  github_location?: string;
+  blog?: string;
+  twitter_username?: string;
   followers: number;
   following: number;
   public_repos: number;
-  bio?: string;
-  location?: string;
-  twitter_username?: string;
+  avatar_url?: string;
+  ecosystem_tags?: string[];
+  importance_score?: number;
+  discovered_at?: string;
   // Phase 2: PR enrichment data
   is_pro_account?: boolean;
   total_merged_prs?: number;

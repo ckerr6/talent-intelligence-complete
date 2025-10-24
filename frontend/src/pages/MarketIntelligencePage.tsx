@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, TrendingUp, Users, Code2, MapPin, Building2, Github, Mail, ChevronDown } from 'lucide-react';
+import { Search, TrendingUp, Users, MapPin, Building2, Github, Mail } from 'lucide-react';
 import Card from '../components/common/Card';
 import Badge from '../components/common/Badge';
 import Button from '../components/common/Button';
@@ -9,6 +9,7 @@ import HiringTrendsChart from '../components/market/HiringTrendsChart';
 import TalentFlowChart from '../components/market/TalentFlowChart';
 import TechnologyDistributionChart from '../components/market/TechnologyDistributionChart';
 import TechnologistsModal from '../components/market/TechnologistsModal';
+import DeepAnalyticsPanel from '../components/market/DeepAnalyticsPanel';
 
 const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300', '#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A28DFF', '#FF6F61'];
 
@@ -36,6 +37,9 @@ export default function MarketIntelligencePage() {
   // Interactive features
   const [showTechnologistsModal, setShowTechnologistsModal] = useState(false);
   const [selectedTechnology, setSelectedTechnology] = useState<string>('');
+  
+  // View state
+  const [viewMode, setViewMode] = useState<'standard' | 'deep'>('standard');
   
   const [loading, setLoading] = useState(true);
 
@@ -161,13 +165,38 @@ export default function MarketIntelligencePage() {
             Comprehensive insights across {overallStats?.total_people?.toLocaleString()} professionals
           </p>
         </div>
-        <Button
-          variant={selectedCompany ? 'primary' : 'outline'}
-          onClick={() => setShowCompanyFilter(!showCompanyFilter)}
-          icon={<Search className="w-4 h-4" />}
-        >
-          {selectedCompany ? `Viewing: ${selectedCompanyName}` : 'Filter by Company'}
-        </Button>
+        <div className="flex items-center gap-3">
+          {/* View Toggle */}
+          <div className="flex bg-gray-100 rounded-lg p-1">
+            <button
+              onClick={() => setViewMode('standard')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                viewMode === 'standard'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Standard View
+            </button>
+            <button
+              onClick={() => setViewMode('deep')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                viewMode === 'deep'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              🔬 Deep Analytics
+            </button>
+          </div>
+          <Button
+            variant={selectedCompany ? 'primary' : 'outline'}
+            onClick={() => setShowCompanyFilter(!showCompanyFilter)}
+            icon={<Search className="w-4 h-4" />}
+          >
+            {selectedCompany ? `Viewing: ${selectedCompanyName}` : 'Filter by Company'}
+          </Button>
+        </div>
       </div>
 
       {/* Company Filter Dropdown */}
@@ -211,8 +240,16 @@ export default function MarketIntelligencePage() {
         </Card>
       )}
 
-      {/* Overall Statistics Cards */}
-      {!selectedCompany && overallStats && (
+      {/* Deep Analytics View */}
+      {viewMode === 'deep' && (
+        <DeepAnalyticsPanel companyId={selectedCompany || undefined} />
+      )}
+
+      {/* Standard View */}
+      {viewMode === 'standard' && (
+        <>
+          {/* Overall Statistics Cards */}
+          {!selectedCompany && overallStats && (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white">
@@ -335,7 +372,7 @@ export default function MarketIntelligencePage() {
                       }}
                     />
                     <Bar dataKey="developer_count" name="Developers">
-                      {techDistribution.languages.slice(0, 10).map((entry: any, index: number) => (
+                      {techDistribution.languages.slice(0, 10).map((_entry: any, index: number) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Bar>
@@ -356,7 +393,7 @@ export default function MarketIntelligencePage() {
                       outerRadius={120}
                       label
                     >
-                      {techDistribution.languages.slice(0, 8).map((entry: any, index: number) => (
+                      {techDistribution.languages.slice(0, 8).map((_entry: any, index: number) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
@@ -444,22 +481,22 @@ export default function MarketIntelligencePage() {
           {/* Company-specific charts */}
           {companyHiring && (
             <HiringTrendsChart 
-              data={companyHiring} 
-              loading={false} 
+              data={companyHiring}
+              companyName={selectedCompanyName}
             />
           )}
 
           {companyTalentFlow && (
             <TalentFlowChart 
-              data={companyTalentFlow} 
-              loading={false} 
+              data={companyTalentFlow}
+              companyName={selectedCompanyName}
             />
           )}
 
           {companyTech && (
             <TechnologyDistributionChart 
-              data={companyTech} 
-              loading={false} 
+              data={companyTech}
+              companyName={selectedCompanyName}
             />
           )}
 
@@ -472,6 +509,9 @@ export default function MarketIntelligencePage() {
             </Card>
           )}
         </div>
+      )}
+
+        </>
       )}
 
       {/* Technologists Modal */}

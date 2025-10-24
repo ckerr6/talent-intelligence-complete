@@ -167,11 +167,12 @@ class AdvancedSearchService:
                     p.location,
                     p.headline,
                     EXISTS (SELECT 1 FROM person_email WHERE person_id = p.person_id) as has_email,
-                    EXISTS (SELECT 1 FROM github_profile WHERE person_id = p.person_id) as has_github
+                    EXISTS (SELECT 1 FROM github_profile WHERE person_id = p.person_id) as has_github,
+                    (SELECT importance_score FROM github_profile WHERE person_id = p.person_id LIMIT 1) as importance_score
                 FROM person p
                 {joins_sql}
                 WHERE {where_sql}
-                ORDER BY p.full_name
+                ORDER BY importance_score DESC NULLS LAST, p.full_name
                 LIMIT %s OFFSET %s
             """
             
@@ -350,6 +351,7 @@ class AdvancedSearchService:
             headline=base_data.get('headline'),
             has_email=base_data.get('has_email', False),
             has_github=base_data.get('has_github', False),
+            importance_score=base_data.get('importance_score'),
             current_company=current_job['company_name'] if current_job else None,
             current_title=current_job['title'] if current_job else None,
             years_experience=years_experience,
