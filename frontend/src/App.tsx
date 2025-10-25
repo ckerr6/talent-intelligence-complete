@@ -11,6 +11,8 @@ import ListDetailPage from './pages/ListDetailPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import MarketIntelligencePage from './pages/MarketIntelligencePage';
 import NotificationsPage from './pages/NotificationsPage';
+import GitHubDeveloperProfile from './pages/github_native/GitHubDeveloperProfile';
+import GitHubSearch from './pages/github_native/GitHubSearch';
 
 // Create React Query client
 const queryClient = new QueryClient({
@@ -41,6 +43,8 @@ function App() {
             <Route path="lists/:listId" element={<ListDetailPage />} />
             <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="notifications" element={<NotificationsPage />} />
+            <Route path="github" element={<GitHubSearch />} />
+            <Route path="github/:username" element={<GitHubDeveloperProfile />} />
             <Route path="*" element={<Navigate to="/search" replace />} />
           </Route>
         </Routes>
