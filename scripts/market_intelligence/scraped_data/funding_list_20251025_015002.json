@@ -1,0 +1,1598 @@
+{
+  "funding_list": [
+    {
+      "company_name": "Depinsim",
+      "cryptorank_slug": "depinsim",
+      "amount_usd": 8000000.0,
+      "round_stage": "Strategic",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "Outlier Ventures",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/depinsim"
+    },
+    {
+      "company_name": "Pieverse PIEVERSE",
+      "cryptorank_slug": "pieverse",
+      "amount_usd": 7000000.0,
+      "round_stage": "Strategic",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "Animoca Brands",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/pieverse"
+    },
+    {
+      "company_name": "PadrePADRE",
+      "cryptorank_slug": "padre#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "M&A",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "pump.fun",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/padre#funding-rounds"
+    },
+    {
+      "company_name": "Me3GG",
+      "cryptorank_slug": "me-3#funding-rounds",
+      "amount_usd": 3000000.0,
+      "round_stage": "Undisclosed",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "MV Global",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/me-3#funding-rounds"
+    },
+    {
+      "company_name": "Berglinde",
+      "cryptorank_slug": "berglinde",
+      "amount_usd": null,
+      "round_stage": "M&A",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Blockstream",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/berglinde"
+    },
+    {
+      "company_name": "Stable Finance",
+      "cryptorank_slug": "stable-finance",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Aave",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/stable-finance"
+    },
+    {
+      "company_name": "ClankerCLANKER",
+      "cryptorank_slug": "tokenbotbase",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Farcaster",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/tokenbotbase"
+    },
+    {
+      "company_name": "Pave Bank",
+      "cryptorank_slug": "pave-bank",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Accel",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/pave-bank"
+    },
+    {
+      "company_name": "Dynamic",
+      "cryptorank_slug": "dynamic-xyz",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Fireblocks",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/dynamic-xyz"
+    },
+    {
+      "company_name": "StraitsX",
+      "cryptorank_slug": "straitsx",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "UQPAY",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/straitsx"
+    },
+    {
+      "company_name": "21Shares",
+      "cryptorank_slug": "21-shares",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "FalconX",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/21-shares"
+    },
+    {
+      "company_name": "beam",
+      "cryptorank_slug": "beam-payments",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "Modern Treasury",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/beam-payments"
+    },
+    {
+      "company_name": "KinetiqKNTQ",
+      "cryptorank_slug": "kinetiq",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "Maven 11 Capital",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/kinetiq"
+    },
+    {
+      "company_name": "BluwhaleBLUAI",
+      "cryptorank_slug": "bluwhale#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "UOB Venture",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/bluwhale#funding-rounds"
+    },
+    {
+      "company_name": "Cybrid",
+      "cryptorank_slug": "cybrid",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [],
+      "detail_url": "https://cryptorank.io/ico/cybrid"
+    },
+    {
+      "company_name": "bitsCrunchBCUT",
+      "cryptorank_slug": "bitscrunch#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "FD LABS",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/bitscrunch#funding-rounds"
+    },
+    {
+      "company_name": "Tesser",
+      "cryptorank_slug": "tesser",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "Castle Island Ventures",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/tesser"
+    },
+    {
+      "company_name": "aifinyo",
+      "cryptorank_slug": "aifinyo",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "UTXO Management",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/aifinyo"
+    },
+    {
+      "company_name": "TBook",
+      "cryptorank_slug": "tbook",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "Sui Foundation",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/tbook"
+    },
+    {
+      "company_name": "Depinsim",
+      "cryptorank_slug": "depinsim",
+      "amount_usd": 8000000.0,
+      "round_stage": "Strategic",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "Outlier Ventures",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/depinsim"
+    },
+    {
+      "company_name": "Pieverse PIEVERSE",
+      "cryptorank_slug": "pieverse",
+      "amount_usd": 7000000.0,
+      "round_stage": "Strategic",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "Animoca Brands",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/pieverse"
+    },
+    {
+      "company_name": "PadrePADRE",
+      "cryptorank_slug": "padre#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "M&A",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "pump.fun",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/padre#funding-rounds"
+    },
+    {
+      "company_name": "Me3GG",
+      "cryptorank_slug": "me-3#funding-rounds",
+      "amount_usd": 3000000.0,
+      "round_stage": "Undisclosed",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "MV Global",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/me-3#funding-rounds"
+    },
+    {
+      "company_name": "Berglinde",
+      "cryptorank_slug": "berglinde",
+      "amount_usd": null,
+      "round_stage": "M&A",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Blockstream",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/berglinde"
+    },
+    {
+      "company_name": "Stable Finance",
+      "cryptorank_slug": "stable-finance",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Aave",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/stable-finance"
+    },
+    {
+      "company_name": "ClankerCLANKER",
+      "cryptorank_slug": "tokenbotbase",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Farcaster",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/tokenbotbase"
+    },
+    {
+      "company_name": "Pave Bank",
+      "cryptorank_slug": "pave-bank",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Accel",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/pave-bank"
+    },
+    {
+      "company_name": "Dynamic",
+      "cryptorank_slug": "dynamic-xyz",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Fireblocks",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/dynamic-xyz"
+    },
+    {
+      "company_name": "StraitsX",
+      "cryptorank_slug": "straitsx",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "UQPAY",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/straitsx"
+    },
+    {
+      "company_name": "21Shares",
+      "cryptorank_slug": "21-shares",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "FalconX",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/21-shares"
+    },
+    {
+      "company_name": "beam",
+      "cryptorank_slug": "beam-payments",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "Modern Treasury",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/beam-payments"
+    },
+    {
+      "company_name": "KinetiqKNTQ",
+      "cryptorank_slug": "kinetiq",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "Maven 11 Capital",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/kinetiq"
+    },
+    {
+      "company_name": "BluwhaleBLUAI",
+      "cryptorank_slug": "bluwhale#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "UOB Venture",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/bluwhale#funding-rounds"
+    },
+    {
+      "company_name": "Cybrid",
+      "cryptorank_slug": "cybrid",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [],
+      "detail_url": "https://cryptorank.io/ico/cybrid"
+    },
+    {
+      "company_name": "bitsCrunchBCUT",
+      "cryptorank_slug": "bitscrunch#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "FD LABS",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/bitscrunch#funding-rounds"
+    },
+    {
+      "company_name": "Tesser",
+      "cryptorank_slug": "tesser",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "Castle Island Ventures",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/tesser"
+    },
+    {
+      "company_name": "aifinyo",
+      "cryptorank_slug": "aifinyo",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "UTXO Management",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/aifinyo"
+    },
+    {
+      "company_name": "TBook",
+      "cryptorank_slug": "tbook",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "Sui Foundation",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/tbook"
+    },
+    {
+      "company_name": "Pieverse PIEVERSE",
+      "cryptorank_slug": "pieverse",
+      "amount_usd": 7000000.0,
+      "round_stage": "Strategic",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "Animoca Brands",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/pieverse"
+    },
+    {
+      "company_name": "Me3GG",
+      "cryptorank_slug": "me-3#funding-rounds",
+      "amount_usd": 3000000.0,
+      "round_stage": "Undisclosed",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "MV Global",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/me-3#funding-rounds"
+    },
+    {
+      "company_name": "Depinsim",
+      "cryptorank_slug": "depinsim",
+      "amount_usd": 8000000.0,
+      "round_stage": "Strategic",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "Outlier Ventures",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/depinsim"
+    },
+    {
+      "company_name": "PadrePADRE",
+      "cryptorank_slug": "padre#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "M&A",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "pump.fun",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/padre#funding-rounds"
+    },
+    {
+      "company_name": "Pave Bank",
+      "cryptorank_slug": "pave-bank",
+      "amount_usd": 39000000.0,
+      "round_stage": "Series A",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Accel",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/pave-bank"
+    },
+    {
+      "company_name": "Stable Finance",
+      "cryptorank_slug": "stable-finance",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Aave",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/stable-finance"
+    },
+    {
+      "company_name": "Dynamic",
+      "cryptorank_slug": "dynamic-xyz",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Fireblocks",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/dynamic-xyz"
+    },
+    {
+      "company_name": "ClankerCLANKER",
+      "cryptorank_slug": "tokenbotbase",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Farcaster",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/tokenbotbase"
+    },
+    {
+      "company_name": "Berglinde",
+      "cryptorank_slug": "berglinde",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Blockstream",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/berglinde"
+    },
+    {
+      "company_name": "21Shares",
+      "cryptorank_slug": "21-shares",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "FalconX",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/21-shares"
+    },
+    {
+      "company_name": "BluwhaleBLUAI",
+      "cryptorank_slug": "bluwhale#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "UOB Venture",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/bluwhale#funding-rounds"
+    },
+    {
+      "company_name": "StraitsX",
+      "cryptorank_slug": "straitsx",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "UQPAY",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/straitsx"
+    },
+    {
+      "company_name": "beam",
+      "cryptorank_slug": "beam-payments",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "Modern Treasury",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/beam-payments"
+    },
+    {
+      "company_name": "KinetiqKNTQ",
+      "cryptorank_slug": "kinetiq",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "Maven 11 Capital",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/kinetiq"
+    },
+    {
+      "company_name": "bitsCrunchBCUT",
+      "cryptorank_slug": "bitscrunch#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "FD LABS",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/bitscrunch#funding-rounds"
+    },
+    {
+      "company_name": "Cybrid",
+      "cryptorank_slug": "cybrid",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [],
+      "detail_url": "https://cryptorank.io/ico/cybrid"
+    },
+    {
+      "company_name": "Echo",
+      "cryptorank_slug": "echodotxyz",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "Coinbase Ventures",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/echodotxyz"
+    },
+    {
+      "company_name": "Printr",
+      "cryptorank_slug": "printr",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "Mirana Ventures",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/printr"
+    },
+    {
+      "company_name": "Kotani",
+      "cryptorank_slug": "kotani",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "Tether",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/kotani"
+    },
+    {
+      "company_name": "SignSIGN",
+      "cryptorank_slug": "ethsign",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "YZi Labs (Prev. Binance Labs)",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/ethsign"
+    },
+    {
+      "company_name": "Depinsim",
+      "cryptorank_slug": "depinsim",
+      "amount_usd": 8000000.0,
+      "round_stage": "Strategic",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "Outlier Ventures",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/depinsim"
+    },
+    {
+      "company_name": "Pieverse PIEVERSE",
+      "cryptorank_slug": "pieverse",
+      "amount_usd": 7000000.0,
+      "round_stage": "Strategic",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "Animoca Brands",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/pieverse"
+    },
+    {
+      "company_name": "PadrePADRE",
+      "cryptorank_slug": "padre#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "M&A",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "pump.fun",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/padre#funding-rounds"
+    },
+    {
+      "company_name": "Me3GG",
+      "cryptorank_slug": "me-3#funding-rounds",
+      "amount_usd": 3000000.0,
+      "round_stage": "Undisclosed",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "MV Global",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/me-3#funding-rounds"
+    },
+    {
+      "company_name": "Berglinde",
+      "cryptorank_slug": "berglinde",
+      "amount_usd": null,
+      "round_stage": "M&A",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Blockstream",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/berglinde"
+    },
+    {
+      "company_name": "Stable Finance",
+      "cryptorank_slug": "stable-finance",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Aave",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/stable-finance"
+    },
+    {
+      "company_name": "ClankerCLANKER",
+      "cryptorank_slug": "tokenbotbase",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Farcaster",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/tokenbotbase"
+    },
+    {
+      "company_name": "Pave Bank",
+      "cryptorank_slug": "pave-bank",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Accel",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/pave-bank"
+    },
+    {
+      "company_name": "Dynamic",
+      "cryptorank_slug": "dynamic-xyz",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Fireblocks",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/dynamic-xyz"
+    },
+    {
+      "company_name": "StraitsX",
+      "cryptorank_slug": "straitsx",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "UQPAY",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/straitsx"
+    },
+    {
+      "company_name": "21Shares",
+      "cryptorank_slug": "21-shares",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "FalconX",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/21-shares"
+    },
+    {
+      "company_name": "beam",
+      "cryptorank_slug": "beam-payments",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "Modern Treasury",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/beam-payments"
+    },
+    {
+      "company_name": "KinetiqKNTQ",
+      "cryptorank_slug": "kinetiq",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "Maven 11 Capital",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/kinetiq"
+    },
+    {
+      "company_name": "BluwhaleBLUAI",
+      "cryptorank_slug": "bluwhale#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "UOB Venture",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/bluwhale#funding-rounds"
+    },
+    {
+      "company_name": "Cybrid",
+      "cryptorank_slug": "cybrid",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [],
+      "detail_url": "https://cryptorank.io/ico/cybrid"
+    },
+    {
+      "company_name": "bitsCrunchBCUT",
+      "cryptorank_slug": "bitscrunch#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "FD LABS",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/bitscrunch#funding-rounds"
+    },
+    {
+      "company_name": "Tesser",
+      "cryptorank_slug": "tesser",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "Castle Island Ventures",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/tesser"
+    },
+    {
+      "company_name": "aifinyo",
+      "cryptorank_slug": "aifinyo",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "UTXO Management",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/aifinyo"
+    },
+    {
+      "company_name": "TBook",
+      "cryptorank_slug": "tbook",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "Sui Foundation",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/tbook"
+    },
+    {
+      "company_name": "Pieverse PIEVERSE",
+      "cryptorank_slug": "pieverse",
+      "amount_usd": 7000000.0,
+      "round_stage": "Strategic",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "Animoca Brands",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/pieverse"
+    },
+    {
+      "company_name": "Me3GG",
+      "cryptorank_slug": "me-3#funding-rounds",
+      "amount_usd": 3000000.0,
+      "round_stage": "Undisclosed",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "MV Global",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/me-3#funding-rounds"
+    },
+    {
+      "company_name": "Depinsim",
+      "cryptorank_slug": "depinsim",
+      "amount_usd": 8000000.0,
+      "round_stage": "Strategic",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "Outlier Ventures",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/depinsim"
+    },
+    {
+      "company_name": "PadrePADRE",
+      "cryptorank_slug": "padre#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "M&A",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "pump.fun",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/padre#funding-rounds"
+    },
+    {
+      "company_name": "Pave Bank",
+      "cryptorank_slug": "pave-bank",
+      "amount_usd": 39000000.0,
+      "round_stage": "Series A",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Accel",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/pave-bank"
+    },
+    {
+      "company_name": "Stable Finance",
+      "cryptorank_slug": "stable-finance",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Aave",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/stable-finance"
+    },
+    {
+      "company_name": "Dynamic",
+      "cryptorank_slug": "dynamic-xyz",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Fireblocks",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/dynamic-xyz"
+    },
+    {
+      "company_name": "ClankerCLANKER",
+      "cryptorank_slug": "tokenbotbase",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Farcaster",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/tokenbotbase"
+    },
+    {
+      "company_name": "Berglinde",
+      "cryptorank_slug": "berglinde",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Blockstream",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/berglinde"
+    },
+    {
+      "company_name": "21Shares",
+      "cryptorank_slug": "21-shares",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "FalconX",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/21-shares"
+    },
+    {
+      "company_name": "BluwhaleBLUAI",
+      "cryptorank_slug": "bluwhale#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "UOB Venture",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/bluwhale#funding-rounds"
+    },
+    {
+      "company_name": "StraitsX",
+      "cryptorank_slug": "straitsx",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "UQPAY",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/straitsx"
+    },
+    {
+      "company_name": "beam",
+      "cryptorank_slug": "beam-payments",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "Modern Treasury",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/beam-payments"
+    },
+    {
+      "company_name": "KinetiqKNTQ",
+      "cryptorank_slug": "kinetiq",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "Maven 11 Capital",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/kinetiq"
+    },
+    {
+      "company_name": "bitsCrunchBCUT",
+      "cryptorank_slug": "bitscrunch#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "FD LABS",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/bitscrunch#funding-rounds"
+    },
+    {
+      "company_name": "Cybrid",
+      "cryptorank_slug": "cybrid",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [],
+      "detail_url": "https://cryptorank.io/ico/cybrid"
+    },
+    {
+      "company_name": "Echo",
+      "cryptorank_slug": "echodotxyz",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "Coinbase Ventures",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/echodotxyz"
+    },
+    {
+      "company_name": "Printr",
+      "cryptorank_slug": "printr",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "Mirana Ventures",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/printr"
+    },
+    {
+      "company_name": "Kotani",
+      "cryptorank_slug": "kotani",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "Tether",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/kotani"
+    },
+    {
+      "company_name": "SignSIGN",
+      "cryptorank_slug": "ethsign",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "YZi Labs (Prev. Binance Labs)",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/ethsign"
+    },
+    {
+      "company_name": "Depinsim",
+      "cryptorank_slug": "depinsim",
+      "amount_usd": 8000000.0,
+      "round_stage": "Strategic",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "Outlier Ventures",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/depinsim"
+    },
+    {
+      "company_name": "Pieverse PIEVERSE",
+      "cryptorank_slug": "pieverse",
+      "amount_usd": 7000000.0,
+      "round_stage": "Strategic",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "Animoca Brands",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/pieverse"
+    },
+    {
+      "company_name": "PadrePADRE",
+      "cryptorank_slug": "padre#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "M&A",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "pump.fun",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/padre#funding-rounds"
+    },
+    {
+      "company_name": "Me3GG",
+      "cryptorank_slug": "me-3#funding-rounds",
+      "amount_usd": 3000000.0,
+      "round_stage": "Undisclosed",
+      "announced_date": "2025-10-24",
+      "investors_preview": [
+        {
+          "name": "MV Global",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/me-3#funding-rounds"
+    },
+    {
+      "company_name": "Berglinde",
+      "cryptorank_slug": "berglinde",
+      "amount_usd": null,
+      "round_stage": "M&A",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Blockstream",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/berglinde"
+    },
+    {
+      "company_name": "Stable Finance",
+      "cryptorank_slug": "stable-finance",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Aave",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/stable-finance"
+    },
+    {
+      "company_name": "ClankerCLANKER",
+      "cryptorank_slug": "tokenbotbase",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Farcaster",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/tokenbotbase"
+    },
+    {
+      "company_name": "Pave Bank",
+      "cryptorank_slug": "pave-bank",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Accel",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/pave-bank"
+    },
+    {
+      "company_name": "Dynamic",
+      "cryptorank_slug": "dynamic-xyz",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-23",
+      "investors_preview": [
+        {
+          "name": "Fireblocks",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/dynamic-xyz"
+    },
+    {
+      "company_name": "StraitsX",
+      "cryptorank_slug": "straitsx",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "UQPAY",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/straitsx"
+    },
+    {
+      "company_name": "21Shares",
+      "cryptorank_slug": "21-shares",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "FalconX",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/21-shares"
+    },
+    {
+      "company_name": "beam",
+      "cryptorank_slug": "beam-payments",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "Modern Treasury",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/beam-payments"
+    },
+    {
+      "company_name": "KinetiqKNTQ",
+      "cryptorank_slug": "kinetiq",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "Maven 11 Capital",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/kinetiq"
+    },
+    {
+      "company_name": "BluwhaleBLUAI",
+      "cryptorank_slug": "bluwhale#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "UOB Venture",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/bluwhale#funding-rounds"
+    },
+    {
+      "company_name": "Cybrid",
+      "cryptorank_slug": "cybrid",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [],
+      "detail_url": "https://cryptorank.io/ico/cybrid"
+    },
+    {
+      "company_name": "bitsCrunchBCUT",
+      "cryptorank_slug": "bitscrunch#funding-rounds",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-22",
+      "investors_preview": [
+        {
+          "name": "FD LABS",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/bitscrunch#funding-rounds"
+    },
+    {
+      "company_name": "Tesser",
+      "cryptorank_slug": "tesser",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "Castle Island Ventures",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/tesser"
+    },
+    {
+      "company_name": "aifinyo",
+      "cryptorank_slug": "aifinyo",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "UTXO Management",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/aifinyo"
+    },
+    {
+      "company_name": "TBook",
+      "cryptorank_slug": "tbook",
+      "amount_usd": null,
+      "round_stage": "",
+      "announced_date": "2025-10-21",
+      "investors_preview": [
+        {
+          "name": "Sui Foundation",
+          "cryptorank_slug": "rounds"
+        }
+      ],
+      "detail_url": "https://cryptorank.io/ico/tbook"
+    }
+  ]
+}
