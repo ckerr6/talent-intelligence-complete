@@ -268,11 +268,36 @@ class CryptoRankScraper:
         Scrape funding rounds list
         
         Args:
-            pages: Number of pages to scrape (50 companies per page)
+            pages: Number of pages to scrape (50 companies per page). Use -1 for all pages.
         
         Returns:
             List of funding round summaries
         """
+        # Detect total pages if requested
+        if pages == -1:
+            logger.info("Detecting total number of pages...")
+            await self.page.goto(self.FUNDING_LIST_URL, wait_until='networkidle')
+            await self.page.wait_for_selector('table tbody tr', timeout=10000)
+            
+            # Try to find pagination info
+            try:
+                # Look for pagination elements (e.g., "1 - 20 from 10357")
+                page_text = await self.page.text_content('body')
+                
+                # Try to extract total count
+                import re
+                match = re.search(r'from\s+([\d,]+)', page_text)
+                if match:
+                    total_items = int(match.group(1).replace(',', ''))
+                    pages = (total_items + 49) // 50  # Round up, 50 per page
+                    logger.info(f"✅ Detected {total_items} total items = {pages} pages")
+                else:
+                    logger.warning("Could not detect total pages, defaulting to 100")
+                    pages = 100
+            except Exception as e:
+                logger.warning(f"Could not detect total pages: {e}, defaulting to 100")
+                pages = 100
+        
         logger.info(f"Scraping funding list (first {pages} page(s))...")
         
         all_rounds = []
@@ -291,6 +316,10 @@ class CryptoRankScraper:
             rows = await self.page.query_selector_all('table tbody tr')
             logger.info(f"Found {len(rows)} funding rounds on page {page_num}")
             
+            if len(rows) == 0:
+                logger.info(f"No more data found on page {page_num}, stopping.")
+                break
+            
             for idx, row in enumerate(rows, 1):
                 try:
                     round_data = await self._extract_funding_row(row)
@@ -305,7 +334,7 @@ class CryptoRankScraper:
             if page_num < pages:
                 await asyncio.sleep(2)
         
-        logger.info(f"✅ Scraped {len(all_rounds)} funding rounds from {pages} page(s)")
+        logger.info(f"✅ Scraped {len(all_rounds)} funding rounds from {page_num} page(s)")
         return all_rounds
     
     async def _extract_funding_row(self, row) -> Optional[Dict[str, Any]]:

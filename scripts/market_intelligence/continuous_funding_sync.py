@@ -300,7 +300,9 @@ Examples:
     )
     
     parser.add_argument('--pages', type=int, default=1,
-                       help='Number of pages to scrape (50 companies per page)')
+                       help='Number of pages to scrape (50 companies per page). Use -1 or --all-pages for all pages.')
+    parser.add_argument('--all-pages', action='store_true',
+                       help='Scrape all available pages (auto-detect total)')
     parser.add_argument('--company', type=str,
                        help='Scrape specific company by cryptorank slug')
     parser.add_argument('--with-details', action='store_true', default=True,
@@ -330,6 +332,9 @@ Examples:
         logger.warning("No login credentials provided. Some data may not be accessible.")
         logger.warning("Set CRYPTORANK_EMAIL and CRYPTORANK_PASSWORD env vars or use --email/--password")
     
+    # Determine number of pages
+    pages = -1 if args.all_pages else args.pages
+    
     # Initialize orchestrator
     orchestrator = FundingSyncOrchestrator(
         email=email,
@@ -353,7 +358,7 @@ Examples:
     else:
         # One-time sync
         await orchestrator.sync_funding_list(
-            pages=args.pages,
+            pages=pages,
             with_details=args.with_details
         )
 
