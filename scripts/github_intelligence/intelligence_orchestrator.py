@@ -373,7 +373,13 @@ class IntelligenceOrchestrator:
                 query += f" LIMIT {limit}"
             
             cursor.execute(query)
-            usernames = [row[0] for row in cursor.fetchall()]
+            results = cursor.fetchall()
+            
+            # Handle both dict and tuple results
+            if results and isinstance(results[0], dict):
+                usernames = [row['github_username'] for row in results]
+            else:
+                usernames = [row[0] for row in results]
         
         print(f"   ✅ Found {len(usernames)} profiles to enrich")
         

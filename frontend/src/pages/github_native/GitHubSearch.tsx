@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Search, Github, Filter, Star, TrendingUp, Mail } from 'lucide-react';
+import { Search, Github, Filter, Star, TrendingUp, Mail, Users, Code } from 'lucide-react';
 import Card from '../../components/common/Card';
 import Button from '../../components/common/Button';
 import { SkeletonList } from '../../components/common/Skeleton';
@@ -38,6 +38,17 @@ export default function GitHubSearch() {
   const { data: results, isLoading } = useQuery({
     queryKey: ['github-search', filters],
     queryFn: async () => {
+      // If no filters applied, show all profiles
+      if (filters.seniority_levels.length === 0 && 
+          filters.languages.length === 0 &&
+          !filters.min_influence && 
+          !filters.min_reachability) {
+        const response = await fetch(`/api/github-intelligence/profiles/all?limit=${filters.limit}`);
+        if (!response.ok) throw new Error('Failed to fetch profiles');
+        return response.json();
+      }
+      
+      // Otherwise use search endpoint
       const response = await fetch('/api/github-intelligence/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -212,7 +223,7 @@ export default function GitHubSearch() {
               </div>
 
               <div className="space-y-4">
-                {results?.profiles?.map((profile: SearchResult) => (
+                {results?.profiles?.map((profile: any) => (
                   <Card 
                     key={profile.username}
                     className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
@@ -223,20 +234,47 @@ export default function GitHubSearch() {
                         <div className="flex items-center space-x-3 mb-2">
                           <Github className="w-5 h-5 text-gray-600" />
                           <h3 className="text-lg font-bold">@{profile.username}</h3>
-                          <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
-                            {profile.seniority}
-                          </span>
+                          {profile.seniority && (
+                            <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+                              {profile.seniority}
+                            </span>
+                          )}
+                          {!profile.is_enriched && (
+                            <span className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs">
+                              Not yet enriched
+                            </span>
+                          )}
                         </div>
+                        
+                        {profile.name && (
+                          <div className="text-sm text-gray-600 mb-2">{profile.name}</div>
+                        )}
+                        
+                        {profile.bio && (
+                          <div className="text-sm text-gray-600 mb-2 line-clamp-2">{profile.bio}</div>
+                        )}
                         
                         <div className="flex items-center space-x-6 text-sm text-gray-600">
                           <span className="flex items-center">
-                            <Star className="w-4 h-4 mr-1 text-yellow-500" />
-                            {profile.influence_score} Influence
+                            <Users className="w-4 h-4 mr-1" />
+                            {profile.followers} followers
                           </span>
                           <span className="flex items-center">
-                            <Mail className="w-4 h-4 mr-1 text-green-500" />
-                            {profile.reachability_score} Reachability
+                            <Code className="w-4 h-4 mr-1" />
+                            {profile.public_repos} repos
                           </span>
+                          {profile.is_enriched && (
+                            <>
+                              <span className="flex items-center">
+                                <Star className="w-4 h-4 mr-1 text-yellow-500" />
+                                {profile.influence_score} Influence
+                              </span>
+                              <span className="flex items-center">
+                                <Mail className="w-4 h-4 mr-1 text-green-500" />
+                                {profile.reachability_score} Reachability
+                              </span>
+                            </>
+                          )}
                         </div>
                       </div>
 

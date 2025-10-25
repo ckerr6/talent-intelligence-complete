@@ -258,3 +258,78 @@ async def get_stats():
                 }
             }
 
+
+@router.get("/profiles/all")
+async def get_all_profiles(
+    limit: int = Query(50, le=200),
+    offset: int = Query(0, ge=0)
+):
+    """
+    Get all GitHub profiles (enriched or not) for browsing.
+    Shows enrichment data when available.
+    """
+    with get_db_context() as conn:
+        cursor = conn.cursor()
+        
+        # Get profiles with optional enrichment data
+        cursor.execute("""
+            SELECT 
+                gp.github_username,
+                gp.github_name,
+                gp.followers,
+                gp.public_repos,
+                gp.bio,
+                gi.inferred_seniority,
+                gi.influence_score,
+                gi.reachability_score,
+                CASE WHEN gi.github_profile_id IS NOT NULL THEN true ELSE false END as is_enriched
+            FROM github_profile gp
+            LEFT JOIN github_intelligence gi ON gp.github_profile_id = gi.github_profile_id
+            WHERE gp.github_username IS NOT NULL
+            ORDER BY 
+                CASE WHEN gi.github_profile_id IS NOT NULL THEN 0 ELSE 1 END,
+                gp.followers DESC
+            LIMIT %s OFFSET %s
+        """, (limit, offset))
+        
+        results = cursor.fetchall()
+        
+        # Get total count
+        cursor.execute("SELECT COUNT(*) FROM github_profile WHERE github_username IS NOT NULL")
+        total_result = cursor.fetchone()
+        total = total_result[0] if isinstance(total_result, tuple) else total_result['count']
+        
+        profiles = []
+        for row in results:
+            if isinstance(row, dict):
+                profiles.append({
+                    'username': row['github_username'],
+                    'name': row['github_name'],
+                    'followers': row['followers'] or 0,
+                    'public_repos': row['public_repos'] or 0,
+                    'bio': row['bio'],
+                    'seniority': row['inferred_seniority'],
+                    'influence_score': row['influence_score'] or 0,
+                    'reachability_score': row['reachability_score'] or 0,
+                    'is_enriched': row['is_enriched']
+                })
+            else:
+                profiles.append({
+                    'username': row[0],
+                    'name': row[1],
+                    'followers': row[2] or 0,
+                    'public_repos': row[3] or 0,
+                    'bio': row[4],
+                    'seniority': row[5],
+                    'influence_score': row[6] or 0,
+                    'reachability_score': row[7] or 0,
+                    'is_enriched': row[8]
+                })
+        
+        return {
+            "total": total,
+            "profiles": profiles,
+            "showing": len(profiles),
+            "offset": offset
+        }
+

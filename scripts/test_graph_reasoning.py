@@ -7,7 +7,8 @@ ABOUTME: Demonstrates graph analysis, community detection, and path sampling cap
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
+# Add parent directory to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from config import get_db_context
 from api.services.graph_reasoning_service import GraphReasoningService

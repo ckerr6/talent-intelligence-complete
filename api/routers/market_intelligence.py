@@ -1,466 +1,205 @@
 """
-Market Intelligence API endpoints
-
-Provides insights about hiring patterns, talent flow, and market trends.
+ABOUTME: Market intelligence API endpoints for ecosystem-level metrics
+ABOUTME: Language leaderboards, project comparisons, trend analysis
 """
 
-from fastapi import APIRouter, Depends, HTTPException, Query
-from pydantic import BaseModel, Field
-from typing import Optional
-import logging
+from fastapi import APIRouter, Query
+from typing import Optional, List
+from config import get_db_context
+import json
 
-from api.dependencies import get_db
-from api.services.market_intelligence import MarketIntelligenceService
-from api.services.cache_service import get_cache
-
-router = APIRouter(prefix="/api/market", tags=["market-intelligence"])
-logger = logging.getLogger(__name__)
+router = APIRouter(prefix="/api/market", tags=["market"])
 
 
-# Request/Response Models
-class MarketQuestionRequest(BaseModel):
-    """Request for natural language market intelligence questions."""
-    question: str = Field(..., description="Natural language question about market intelligence")
-    company_id: Optional[str] = Field(None, description="Optional company ID for context")
-    company_name: Optional[str] = Field(None, description="Optional company name for context")
-    provider: str = Field("openai", description="AI provider: 'openai' or 'anthropic'")
-
-
-@router.get("/hiring-patterns")
-async def get_hiring_patterns(
-    company_id: Optional[str] = Query(None, description="Company UUID"),
-    company_name: Optional[str] = Query(None, description="Company name (fuzzy match)"),
-    time_period_months: int = Query(24, ge=1, le=120, description="Time period in months"),
-    db=Depends(get_db)
+@router.get("/languages")
+async def get_language_leaderboard(
+    limit: int = Query(20, le=100),
+    min_developers: int = Query(0, ge=0)
 ):
     """
-    Get hiring patterns for a company - CACHED
-    
-    Returns:
-    - Hiring volume over time (monthly breakdown)
-    - Most common roles hired
-    - Total hires in period
-    - Average tenure
-    
-    Results cached for 30 minutes
-    Example: /api/market/hiring-patterns?company_name=Uniswap&time_period_months=24
+    Get language ecosystem leaderboard.
+    Shows top languages by developer count with aggregate metrics.
     """
-    # Build cache key
-    cache = get_cache()
-    cache_key = f"hiring_patterns:{company_id or company_name}:{time_period_months}"
-    
-    # Try cache first
-    cached_result = cache.get(cache_key)
-    if cached_result:
-        logger.info(f"✨ Cache hit: hiring_patterns for {company_id or company_name}")
-        return cached_result
-    
-    logger.info(f"🔄 Cache miss: hiring_patterns for {company_id or company_name}")
-    
-    try:
-        service = MarketIntelligenceService(db)
-        patterns = service.get_hiring_patterns(
-            company_id=company_id,
-            company_name=company_name,
-            time_period_months=time_period_months
-        )
+    with get_db_context() as conn:
+        cursor = conn.cursor()
         
-        if "error" in patterns:
-            raise HTTPException(status_code=404, detail=patterns["error"])
-        
-        result = {
-            "success": True,
-            "data": patterns
-        }
-        
-        # Cache for 30 minutes (1800 seconds)
-        cache.set(cache_key, result, ttl=1800)
-        
-        return result
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error getting hiring patterns: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.get("/talent-flow")
-async def get_talent_flow(
-    company_id: Optional[str] = Query(None, description="Company UUID"),
-    company_name: Optional[str] = Query(None, description="Company name (fuzzy match)"),
-    direction: str = Query("both", description="Flow direction: 'inbound', 'outbound', or 'both'"),
-    db=Depends(get_db)
-):
-    """
-    Get talent flow analysis for a company.
-    
-    Returns:
-    - Feeder companies (where hires come from) if inbound/both
-    - Destination companies (where people go) if outbound/both
-    - Person counts for each flow
-    
-    Example: /api/market/talent-flow?company_name=Coinbase&direction=inbound
-    """
-    try:
-        if direction not in ["inbound", "outbound", "both"]:
-            raise HTTPException(
-                status_code=400,
-                detail="direction must be 'inbound', 'outbound', or 'both'"
-            )
-        
-        service = MarketIntelligenceService(db)
-        flow = service.get_talent_flow(
-            company_id=company_id,
-            company_name=company_name,
-            direction=direction
-        )
-        
-        if "error" in flow:
-            raise HTTPException(status_code=404, detail=flow["error"])
-        
-        return {
-            "success": True,
-            "data": flow
-        }
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error getting talent flow: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.get("/technology-distribution")
-async def get_technology_distribution(
-    company_id: Optional[str] = Query(None, description="Company UUID"),
-    company_name: Optional[str] = Query(None, description="Company name (fuzzy match)"),
-    limit: int = Query(20, ge=1, le=50, description="Max number of technologies to return"),
-    db=Depends(get_db)
-):
-    """
-    Get technology/language distribution at a company.
-    
-    Based on GitHub activity of employees.
-    
-    Returns:
-    - Languages used
-    - Number of developers using each
-    - Total contributions
-    - Repository count
-    
-    Example: /api/market/technology-distribution?company_name=Uniswap&limit=10
-    """
-    try:
-        service = MarketIntelligenceService(db)
-        tech_dist = service.get_technology_distribution(
-            company_id=company_id,
-            company_name=company_name,
-            limit=limit
-        )
-        
-        if "error" in tech_dist:
-            raise HTTPException(status_code=404, detail=tech_dist["error"])
-        
-        return {
-            "success": True,
-            "data": tech_dist
-        }
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error getting technology distribution: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.post("/ask")
-async def ask_market_question(
-    request: MarketQuestionRequest,
-    db=Depends(get_db)
-):
-    """
-    Ask a natural language question about market intelligence.
-    
-    Uses AI to analyze data and provide strategic insights.
-    
-    Example questions:
-    - "What are the hiring trends at Uniswap?"
-    - "Where does Coinbase get most of its engineers from?"
-    - "What technologies are popular at DeFi companies?"
-    - "How does talent flow between Uniswap and Coinbase?"
-    - "What roles is Paradigm hiring for?"
-    
-    The AI will analyze hiring patterns, talent flow, and technology data
-    to provide strategic insights for recruiting.
-    """
-    try:
-        service = MarketIntelligenceService(db)
-        result = service.ask_market_intelligence(
-            question=request.question,
-            company_id=request.company_id,
-            company_name=request.company_name,
-            provider=request.provider
-        )
-        
-        return {
-            "success": True,
-            **result
-        }
-        
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        logger.error(f"Error answering market question: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.get("/companies/search")
-async def search_companies(
-    query: str = Query(..., min_length=1, description="Company name search query"),
-    limit: int = Query(20, ge=1, le=100, description="Max number of results"),
-    db=Depends(get_db)
-):
-    """
-    Search for companies by name.
-    
-    Helper endpoint for autocomplete/search in market intelligence queries.
-    """
-    try:
-        from psycopg2.extras import RealDictCursor
-        cursor = db.cursor(cursor_factory=RealDictCursor)
-        
-        cursor.execute(
-            """
+        cursor.execute("""
             SELECT 
-                company_id,
-                company_name,
-                (SELECT COUNT(*) FROM employment WHERE company_id = c.company_id) as employee_count
-            FROM company c
-            WHERE company_name ILIKE %s
-            ORDER BY employee_count DESC, company_name
+                language,
+                developer_count,
+                avg_influence,
+                seniority_distribution,
+                top_developers,
+                last_updated
+            FROM language_ecosystem_metrics
+            WHERE developer_count >= %s
+            ORDER BY developer_count DESC
             LIMIT %s
-            """,
-            (f"%{query}%", limit)
-        )
+        """, (min_developers, limit))
         
-        companies = cursor.fetchall()
-        cursor.close()
+        results = cursor.fetchall()
+        
+        languages = []
+        for row in results:
+            if isinstance(row, dict):
+                languages.append({
+                    'language': row['language'],
+                    'developer_count': row['developer_count'],
+                    'avg_influence': row['avg_influence'],
+                    'seniority_distribution': row['seniority_distribution'],
+                    'top_developers': row['top_developers'][:5],  # Top 5 only for API
+                    'last_updated': str(row['last_updated'])
+                })
+            else:
+                languages.append({
+                    'language': row[0],
+                    'developer_count': row[1],
+                    'avg_influence': row[2],
+                    'seniority_distribution': row[3],
+                    'top_developers': row[4][:5] if row[4] else [],
+                    'last_updated': str(row[5])
+                })
         
         return {
-            "success": True,
-            "companies": [
+            'total_languages': len(languages),
+            'languages': languages
+        }
+
+
+@router.get("/languages/{language}")
+async def get_language_details(language: str):
+    """
+    Get detailed information about a specific language ecosystem.
+    """
+    with get_db_context() as conn:
+        cursor = conn.cursor()
+        
+        cursor.execute("""
+            SELECT 
+                language,
+                developer_count,
+                avg_influence,
+                seniority_distribution,
+                top_developers,
+                last_updated
+            FROM language_ecosystem_metrics
+            WHERE LOWER(language) = LOWER(%s)
+        """, (language,))
+        
+        result = cursor.fetchone()
+        
+        if not result:
+            return {'error': 'Language not found'}
+        
+        if isinstance(result, dict):
+            return {
+                'language': result['language'],
+                'developer_count': result['developer_count'],
+                'avg_influence': result['avg_influence'],
+                'seniority_distribution': result['seniority_distribution'],
+                'top_developers': result['top_developers'],
+                'last_updated': str(result['last_updated'])
+            }
+        else:
+            return {
+                'language': result[0],
+                'developer_count': result[1],
+                'avg_influence': result[2],
+                'seniority_distribution': result[3],
+                'top_developers': result[4],
+                'last_updated': str(result[5])
+            }
+
+
+@router.get("/overview")
+async def get_market_overview():
+    """
+    Get high-level market overview statistics.
+    """
+    with get_db_context() as conn:
+        cursor = conn.cursor()
+        
+        # Total profiles
+        cursor.execute("SELECT COUNT(*) FROM github_profile WHERE github_username IS NOT NULL")
+        result = cursor.fetchone()
+        total_profiles = result[0] if isinstance(result, tuple) else (result['count'] if result else 0)
+        
+        # Total enriched developers
+        cursor.execute("SELECT COUNT(*) FROM github_intelligence")
+        result = cursor.fetchone()
+        total_enriched = result[0] if isinstance(result, tuple) else (result['count'] if result else 0)
+        
+        # Languages tracked
+        cursor.execute("SELECT COUNT(*) FROM language_ecosystem_metrics")
+        result = cursor.fetchone()
+        languages_tracked = result[0] if isinstance(result, tuple) else (result['count'] if result else 0)
+        
+        # Top 5 languages
+        cursor.execute("""
+            SELECT language, developer_count 
+            FROM language_ecosystem_metrics 
+            ORDER BY developer_count DESC 
+            LIMIT 5
+        """)
+        top_languages = cursor.fetchall()
+        
+        # Seniority distribution
+        cursor.execute("""
+            SELECT inferred_seniority, COUNT(*) 
+            FROM github_intelligence 
+            WHERE inferred_seniority IS NOT NULL
+            GROUP BY inferred_seniority
+        """)
+        seniority_dist = cursor.fetchall()
+        
+        return {
+            'total_profiles': total_profiles,
+            'total_enriched': total_enriched,
+            'languages_tracked': languages_tracked,
+            'top_languages': [
+                {'language': row[0] if isinstance(row, tuple) else row['language'], 
+                 'developers': row[1] if isinstance(row, tuple) else row['developer_count']} 
+                for row in top_languages
+            ],
+            'seniority_distribution': {
+                (row[0] if isinstance(row, tuple) else row['inferred_seniority']): 
+                (row[1] if isinstance(row, tuple) else row['count'])
+                for row in seniority_dist
+            }
+        }
+
+
+@router.get("/trending")
+async def get_trending_languages(days: int = Query(30, le=90)):
+    """
+    Get trending languages (placeholder for now - will track growth over time).
+    """
+    # For now, return top languages by avg influence as a proxy for "hot"
+    with get_db_context() as conn:
+        cursor = conn.cursor()
+        
+        cursor.execute("""
+            SELECT 
+                language,
+                developer_count,
+                avg_influence
+            FROM language_ecosystem_metrics
+            WHERE developer_count > 0
+            ORDER BY avg_influence DESC, developer_count DESC
+            LIMIT 10
+        """)
+        
+        results = cursor.fetchall()
+        
+        return {
+            'trending_languages': [
                 {
-                    "company_id": str(c['company_id']),
-                    "company_name": c['company_name'],
-                    "employee_count": c['employee_count']
+                    'language': row[0],
+                    'developer_count': row[1],
+                    'avg_influence': row[2],
+                    'trend': 'hot'  # Placeholder
                 }
-                for c in companies
-            ]
+                for row in results
+            ],
+            'note': 'Growth tracking will be enabled as more historical data accumulates'
         }
-        
-    except Exception as e:
-        logger.error(f"Error searching companies: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.get("/overall/statistics")
-async def get_overall_statistics(db=Depends(get_db)):
-    """
-    Get overall dataset statistics - CACHED
-    
-    Returns comprehensive metrics about the entire talent pool:
-    - Total people, companies, repositories
-    - GitHub and email coverage
-    - Overall dataset health
-    
-    Results cached for 1 hour
-    """
-    cache = get_cache()
-    cache_key = "overall_statistics"
-    
-    cached_result = cache.get(cache_key)
-    if cached_result:
-        logger.info("✨ Cache hit: overall_statistics")
-        return cached_result
-    
-    logger.info("🔄 Cache miss: overall_statistics")
-    
-    try:
-        service = MarketIntelligenceService(db)
-        stats = service.get_overall_statistics()
-        
-        result = {
-            "success": True,
-            "data": stats.get("data", {})
-        }
-        
-        # Cache for 1 hour (3600 seconds)
-        cache.set(cache_key, result, ttl=3600)
-        
-        return result
-        
-    except Exception as e:
-        logger.error(f"Error getting overall statistics: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.get("/overall/hiring-trends")
-async def get_overall_hiring_trends(
-    months: int = Query(24, ge=1, le=60, description="Time period in months"),
-    db=Depends(get_db)
-):
-    """
-    Get overall hiring trends across all companies - CACHED
-    
-    Returns monthly hiring volume for the entire market.
-    Results cached for 30 minutes.
-    """
-    cache = get_cache()
-    cache_key = f"overall_hiring_trends:{months}"
-    
-    cached_result = cache.get(cache_key)
-    if cached_result:
-        logger.info(f"✨ Cache hit: overall_hiring_trends:{months}")
-        return cached_result
-    
-    logger.info(f"🔄 Cache miss: overall_hiring_trends:{months}")
-    
-    try:
-        service = MarketIntelligenceService(db)
-        trends = service.get_overall_hiring_trends(months=months)
-        
-        result = {
-            "success": True,
-            "data": trends
-        }
-        
-        # Cache for 30 minutes (1800 seconds)
-        cache.set(cache_key, result, ttl=1800)
-        
-        return result
-        
-    except Exception as e:
-        logger.error(f"Error getting overall hiring trends: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.get("/overall/technology-distribution")
-async def get_overall_technology_distribution(
-    limit: int = Query(20, ge=5, le=50, description="Number of languages to return"),
-    db=Depends(get_db)
-):
-    """
-    Get overall technology distribution - CACHED
-    
-    Returns most popular languages across entire dataset.
-    Results cached for 1 hour.
-    """
-    cache = get_cache()
-    cache_key = f"overall_tech_distribution:{limit}"
-    
-    cached_result = cache.get(cache_key)
-    if cached_result:
-        logger.info(f"✨ Cache hit: overall_tech_distribution:{limit}")
-        return cached_result
-    
-    logger.info(f"🔄 Cache miss: overall_tech_distribution:{limit}")
-    
-    try:
-        service = MarketIntelligenceService(db)
-        tech = service.get_overall_technology_distribution(limit=limit)
-        
-        result = {
-            "success": True,
-            "data": tech
-        }
-        
-        # Cache for 1 hour (3600 seconds)
-        cache.set(cache_key, result, ttl=3600)
-        
-        return result
-        
-    except Exception as e:
-        logger.error(f"Error getting technology distribution: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.get("/overall/top-companies")
-async def get_top_companies(
-    limit: int = Query(20, ge=5, le=100, description="Number of companies to return"),
-    db=Depends(get_db)
-):
-    """
-    Get top companies by headcount - CACHED
-    
-    Returns companies ranked by number of people in dataset.
-    Results cached for 1 hour.
-    """
-    cache = get_cache()
-    cache_key = f"top_companies:{limit}"
-    
-    cached_result = cache.get(cache_key)
-    if cached_result:
-        logger.info(f"✨ Cache hit: top_companies:{limit}")
-        return cached_result
-    
-    logger.info(f"🔄 Cache miss: top_companies:{limit}")
-    
-    try:
-        service = MarketIntelligenceService(db)
-        companies = service.get_top_companies(limit=limit)
-        
-        result = {
-            "success": True,
-            "data": companies
-        }
-        
-        # Cache for 1 hour (3600 seconds)
-        cache.set(cache_key, result, ttl=3600)
-        
-        return result
-        
-    except Exception as e:
-        logger.error(f"Error getting top companies: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.get("/overall/location-distribution")
-async def get_location_distribution(
-    limit: int = Query(15, ge=5, le=50, description="Number of locations to return"),
-    db=Depends(get_db)
-):
-    """
-    Get geographic distribution of talent - CACHED
-    
-    Returns top locations by talent concentration.
-    Results cached for 1 hour.
-    """
-    cache = get_cache()
-    cache_key = f"location_distribution:{limit}"
-    
-    cached_result = cache.get(cache_key)
-    if cached_result:
-        logger.info(f"✨ Cache hit: location_distribution:{limit}")
-        return cached_result
-    
-    logger.info(f"🔄 Cache miss: location_distribution:{limit}")
-    
-    try:
-        service = MarketIntelligenceService(db)
-        locations = service.get_location_distribution(limit=limit)
-        
-        result = {
-            "success": True,
-            "data": locations
-        }
-        
-        # Cache for 1 hour (3600 seconds)
-        cache.set(cache_key, result, ttl=3600)
-        
-        return result
-        
-    except Exception as e:
-        logger.error(f"Error getting location distribution: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-

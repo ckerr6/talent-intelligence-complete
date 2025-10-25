@@ -82,7 +82,7 @@ class GraphReasoningService:
                 gp.followers,
                 gp.public_repos
             FROM person p
-            LEFT JOIN github_profile gp ON p.github_profile_id = gp.github_profile_id
+            LEFT JOIN github_profile gp ON gp.person_id = p.person_id
             WHERE p.person_id IS NOT NULL
         """
         
@@ -92,14 +92,24 @@ class GraphReasoningService:
         cursor.execute(node_query)
         
         for row in cursor.fetchall():
-            person_id = str(row[0])
-            G.add_node(person_id, 
-                      full_name=row[1],
-                      headline=row[2],
-                      location=row[3],
-                      github_username=row[4],
-                      github_followers=row[5] or 0,
-                      github_repos=row[6] or 0)
+            if isinstance(row, dict):
+                person_id = str(row['person_id'])
+                G.add_node(person_id, 
+                          full_name=row['full_name'],
+                          headline=row['headline'],
+                          location=row['location'],
+                          github_username=row['github_username'],
+                          github_followers=row['followers'] or 0,
+                          github_repos=row['public_repos'] or 0)
+            else:
+                person_id = str(row[0])
+                G.add_node(person_id, 
+                          full_name=row[1],
+                          headline=row[2],
+                          location=row[3],
+                          github_username=row[4],
+                          github_followers=row[5] or 0,
+                          github_repos=row[6] or 0)
         
         logger.info(f"Loaded {G.number_of_nodes()} person nodes")
         
@@ -120,16 +130,28 @@ class GraphReasoningService:
         
         github_edges = 0
         for row in cursor.fetchall():
-            src_id = str(row[0])
-            dst_id = str(row[1])
-            
-            if G.has_node(src_id) and G.has_node(dst_id):
-                G.add_edge(src_id, dst_id,
-                          edge_type='github_collaboration',
-                          strength=row[2] or 0,
-                          shared_repos=row[3] or 0,
-                          shared_contributions=row[4] or 0)
-                github_edges += 1
+            if isinstance(row, dict):
+                src_id = str(row['src_person_id'])
+                dst_id = str(row['dst_person_id'])
+                
+                if G.has_node(src_id) and G.has_node(dst_id):
+                    G.add_edge(src_id, dst_id,
+                              edge_type='github_collaboration',
+                              strength=row['collaboration_strength'] or 0,
+                              shared_repos=row['shared_repos'] or 0,
+                              shared_contributions=row['shared_contributions'] or 0)
+                    github_edges += 1
+            else:
+                src_id = str(row[0])
+                dst_id = str(row[1])
+                
+                if G.has_node(src_id) and G.has_node(dst_id):
+                    G.add_edge(src_id, dst_id,
+                              edge_type='github_collaboration',
+                              strength=row[2] or 0,
+                              shared_repos=row[3] or 0,
+                              shared_contributions=row[4] or 0)
+                    github_edges += 1
         
         logger.info(f"Loaded {github_edges} GitHub collaboration edges")
         
@@ -150,22 +172,40 @@ class GraphReasoningService:
         
         coemployment_edges = 0
         for row in cursor.fetchall():
-            src_id = str(row[0])
-            dst_id = str(row[1])
-            
-            if G.has_node(src_id) and G.has_node(dst_id):
-                # If edge already exists (GitHub collab), add coemployment as attribute
-                if G.has_edge(src_id, dst_id):
-                    G[src_id][dst_id]['coemployment'] = True
-                    G[src_id][dst_id]['overlap_months'] = row[2] or 0
-                    G[src_id][dst_id]['company_name'] = row[3]
-                else:
-                    G.add_edge(src_id, dst_id,
-                              edge_type='coemployment',
-                              overlap_months=row[2] or 0,
-                              company_name=row[3],
-                              strength=min((row[2] or 0) / 12.0, 1.0))  # Normalize by year
-                coemployment_edges += 1
+            if isinstance(row, dict):
+                src_id = str(row['src_person_id'])
+                dst_id = str(row['dst_person_id'])
+                
+                if G.has_node(src_id) and G.has_node(dst_id):
+                    # If edge already exists (GitHub collab), add coemployment as attribute
+                    if G.has_edge(src_id, dst_id):
+                        G[src_id][dst_id]['coemployment'] = True
+                        G[src_id][dst_id]['overlap_months'] = row['overlap_months'] or 0
+                        G[src_id][dst_id]['company_name'] = row['company_name']
+                    else:
+                        G.add_edge(src_id, dst_id,
+                                  edge_type='coemployment',
+                                  overlap_months=row['overlap_months'] or 0,
+                                  company_name=row['company_name'],
+                                  strength=min((row['overlap_months'] or 0) / 12.0, 1.0))  # Normalize by year
+                    coemployment_edges += 1
+            else:
+                src_id = str(row[0])
+                dst_id = str(row[1])
+                
+                if G.has_node(src_id) and G.has_node(dst_id):
+                    # If edge already exists (GitHub collab), add coemployment as attribute
+                    if G.has_edge(src_id, dst_id):
+                        G[src_id][dst_id]['coemployment'] = True
+                        G[src_id][dst_id]['overlap_months'] = row[2] or 0
+                        G[src_id][dst_id]['company_name'] = row[3]
+                    else:
+                        G.add_edge(src_id, dst_id,
+                                  edge_type='coemployment',
+                                  overlap_months=row[2] or 0,
+                                  company_name=row[3],
+                                  strength=min((row[2] or 0) / 12.0, 1.0))  # Normalize by year
+                    coemployment_edges += 1
         
         logger.info(f"Loaded {coemployment_edges} coemployment edges")
         
@@ -463,8 +503,9 @@ class GraphReasoningService:
         matching_nodes = []
         
         for node_id in self.graph.nodes():
-            headline = self.graph.nodes[node_id].get('headline', '').lower()
-            if concept_lower in headline:
+            headline = self.graph.nodes[node_id].get('headline') or ''
+            headline_lower = headline.lower() if headline else ''
+            if concept_lower in headline_lower:
                 matching_nodes.append(node_id)
         
         return matching_nodes
@@ -613,7 +654,26 @@ class GraphReasoningService:
         if not self.graph:
             raise ValueError("Graph not built")
         
-        nx.write_graphml(self.graph, output_path)
+        # Create a copy with only serializable attributes
+        G_export = self.graph.copy()
+        
+        # Clean node attributes
+        for node in G_export.nodes():
+            for attr, value in list(G_export.nodes[node].items()):
+                if value is None or isinstance(value, type):
+                    del G_export.nodes[node][attr]
+                elif isinstance(value, (list, dict)):
+                    G_export.nodes[node][attr] = str(value)
+        
+        # Clean edge attributes
+        for u, v in G_export.edges():
+            for attr, value in list(G_export[u][v].items()):
+                if value is None or isinstance(value, type):
+                    del G_export[u][v][attr]
+                elif isinstance(value, (list, dict)):
+                    G_export[u][v][attr] = str(value)
+        
+        nx.write_graphml(G_export, output_path)
         logger.info(f"Graph exported to {output_path}")
     
     def export_graph_to_json(self, output_path: str):

@@ -46,3 +46,9 @@ python config.py               # Check database connection
 Read `.cursorrules` in project root for comprehensive guide.
 
 
+
+
+
+
+
+
