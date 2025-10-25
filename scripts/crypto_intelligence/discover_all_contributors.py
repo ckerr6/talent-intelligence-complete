@@ -96,11 +96,18 @@ def discover_all_contributors(ecosystem_id: str, repos: list, batch_size: int = 
                 if response.status_code == 200:
                     contributors = response.json()
                     
-                    for contributor in contributors:
+                    # Filter out bots
+                    bot_stats = get_bot_stats(contributors)
+                    human_contributors = filter_bots(contributors)
+                    
+                    if bot_stats['bot_count'] > 0:
+                        logger.debug(f"      Filtered {bot_stats['bot_count']} bots: {', '.join(bot_stats['bot_usernames'][:3])}")
+                    
+                    for contributor in human_contributors:
                         username = contributor.get('login')
                         contributions = contributor.get('contributions', 0)
                         
-                        if username and username not in ['dependabot', 'dependabot[bot]', 'github-actions[bot]']:
+                        if username:
                             if username not in all_contributors:
                                 all_contributors[username] = {
                                     'repos': [],

@@ -68,22 +68,24 @@ class FundingSyncOrchestrator:
         self.data_dir = Path(__file__).parent / "scraped_data"
         self.data_dir.mkdir(exist_ok=True)
     
-    async def sync_funding_list(self, pages: int = 1) -> dict:
+    async def sync_funding_list(self, pages: int = 1, with_details: bool = True) -> dict:
         """
         Scrape and ingest funding list
         
         Args:
             pages: Number of pages to scrape (50 companies per page)
+            with_details: If True, visit each company detail page for complete data
         
         Returns:
             Statistics about what was synced
         """
-        logger.info(f"Starting funding list sync ({pages} page(s))...")
+        logger.info(f"Starting funding list sync ({pages} page(s), with_details={with_details})...")
         start_time = datetime.now()
         
         stats = {
             'pages_scraped': pages,
             'companies_scraped': 0,
+            'companies_detailed': 0,
             'companies_stored': 0,
             'rounds_created': 0,
             'investors_created': 0,
@@ -106,6 +108,34 @@ class FundingSyncOrchestrator:
                 # Scrape funding list
                 funding_list = await scraper.scrape_funding_list(pages=pages)
                 stats['companies_scraped'] = len(funding_list)
+                
+                # If with_details, visit each company page for complete data
+                if with_details:
+                    logger.info(f"Step 1b: Scraping details for {len(funding_list)} companies...")
+                    
+                    for idx, company_preview in enumerate(funding_list, 1):
+                        try:
+                            slug = company_preview['cryptorank_slug']
+                            logger.info(f"  [{idx}/{len(funding_list)}] Scraping {slug}...")
+                            
+                            # Scrape full company details
+                            company_data = await scraper.scrape_company_detail(slug)
+                            
+                            # Merge preview data with detailed data
+                            company_data['company_name'] = company_preview.get('company_name', company_data.get('metadata', {}).get('company_name'))
+                            
+                            # Replace funding_list entry with detailed data
+                            funding_list[idx - 1] = company_data
+                            stats['companies_detailed'] += 1
+                            
+                            # Add small delay to be respectful
+                            await asyncio.sleep(2)
+                        
+                        except Exception as e:
+                            logger.error(f"  Error scraping details for {company_preview.get('cryptorank_slug')}: {e}")
+                            stats['errors'] += 1
+                            # Keep the preview data
+                            continue
                 
                 # Save raw data
                 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -134,7 +164,7 @@ class FundingSyncOrchestrator:
         
         except Exception as e:
             logger.error(f"Error during sync: {e}", exc_info=True)
-            stats['errors'] = 1
+            stats['errors'] += 1
         
         finally:
             stats['duration_seconds'] = (datetime.now() - start_time).total_seconds()
@@ -273,6 +303,10 @@ Examples:
                        help='Number of pages to scrape (50 companies per page)')
     parser.add_argument('--company', type=str,
                        help='Scrape specific company by cryptorank slug')
+    parser.add_argument('--with-details', action='store_true', default=True,
+                       help='Visit each company detail page for complete data (default: True)')
+    parser.add_argument('--no-details', dest='with_details', action='store_false',
+                       help='Skip company detail pages, only scrape list view')
     parser.add_argument('--email', type=str,
                        help='CryptoRank login email (or set CRYPTORANK_EMAIL env var)')
     parser.add_argument('--password', type=str,
@@ -318,7 +352,10 @@ Examples:
     
     else:
         # One-time sync
-        await orchestrator.sync_funding_list(pages=args.pages)
+        await orchestrator.sync_funding_list(
+            pages=args.pages,
+            with_details=args.with_details
+        )
 
 
 if __name__ == '__main__':

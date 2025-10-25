@@ -16,19 +16,34 @@ from api.services.graph_reasoning_service import GraphReasoningService
 
 router = APIRouter(prefix="/api/graph-reasoning", tags=["graph-reasoning"])
 
-# Global graph service (loaded on startup)
+# Global graph service (initialized lazily)
 _graph_service: Optional[GraphReasoningService] = None
+_graph_initialized: bool = False
 
 
-def get_graph_service() -> GraphReasoningService:
-    """Get or initialize graph reasoning service"""
-    global _graph_service
+def get_graph_service(require_graph: bool = True) -> GraphReasoningService:
+    """
+    Get or initialize graph reasoning service.
     
+    Args:
+        require_graph: If True, raises error if graph not built. If False, returns service anyway.
+    
+    Returns:
+        GraphReasoningService instance
+    """
+    global _graph_service, _graph_initialized
+    
+    # Initialize service object (fast)
     if _graph_service is None:
         with get_db_context() as conn:
             _graph_service = GraphReasoningService(db_connection=conn)
-            _graph_service.build_graph_from_database(limit=10000)  # Limit for performance
-            _graph_service.compute_node_embeddings()
+    
+    # Check if graph is built
+    if require_graph and not _graph_initialized:
+        raise HTTPException(
+            status_code=503,
+            detail="Graph not initialized. Please call POST /api/graph-reasoning/rebuild-graph first."
+        )
     
     return _graph_service
 
@@ -289,13 +304,16 @@ async def rebuild_graph(limit: Optional[int] = Query(None, le=50000)):
     Use this after significant data changes.
     Note: Betweenness centrality is NOT computed during rebuild for performance.
     """
-    global _graph_service
+    global _graph_service, _graph_initialized
     
     try:
         with get_db_context() as conn:
             _graph_service = GraphReasoningService(db_connection=conn)
             _graph_service.build_graph_from_database(limit=limit)
             _graph_service.compute_node_embeddings()
+        
+        # Mark as initialized
+        _graph_initialized = True
         
         # Get fast stats (without betweenness)
         stats = _graph_service.compute_graph_statistics(compute_betweenness=False)
@@ -306,6 +324,7 @@ async def rebuild_graph(limit: Optional[int] = Query(None, le=50000)):
             "statistics": stats
         }
     except Exception as e:
+        _graph_initialized = False
         raise HTTPException(status_code=500, detail=f"Error rebuilding graph: {str(e)}")
 
 
@@ -361,17 +380,27 @@ async def get_graph_info():
     Get quick graph info without expensive computations.
     
     Returns basic info about graph state and cache status.
+    This endpoint works even if graph is not initialized.
     """
-    service = get_graph_service()
+    global _graph_initialized
     
     try:
+        service = get_graph_service(require_graph=False)
         info = service.get_graph_info()
+        info['initialized'] = _graph_initialized
         return {
             "status": "success",
             "graph_info": info
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error getting graph info: {str(e)}")
+        return {
+            "status": "success",
+            "graph_info": {
+                "status": "not_initialized",
+                "initialized": False,
+                "message": "Call POST /api/graph-reasoning/rebuild-graph to initialize"
+            }
+        }
 
 
 @router.post("/add-person")

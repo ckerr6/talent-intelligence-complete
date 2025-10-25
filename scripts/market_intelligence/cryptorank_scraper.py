@@ -303,66 +303,108 @@ class CryptoRankScraper:
         funding_rounds = []
         
         try:
-            # Look for funding rounds section
-            # This selector may need adjustment based on actual page structure
-            rounds_section = await self.page.query_selector('div[class*="funding"]')
-            if not rounds_section:
-                return []
+            # Wait for page to load
+            await asyncio.sleep(2)
             
-            # Extract each funding round
-            round_elements = await rounds_section.query_selector_all('div[class*="round"]')
+            # The funding rounds are typically displayed in a section
+            # Let's try to find text patterns first
+            page_text = await self.page.text_content('body')
             
-            for round_elem in round_elements:
+            # Look for "Funding Rounds" heading and extract from there
+            # Try to find by searching for stage types: Strategic, Seed, Series A, etc.
+            
+            # Get all text that might contain funding round info
+            # Common pattern: Stage name, Date, Amount, Investors
+            
+            # Try finding specific elements
+            # Look for round containers - they typically have stage, date, amount
+            
+            # Method 1: Look for elements containing round stages
+            stage_keywords = ['Strategic', 'Seed', 'Series A', 'Series B', 'Private', 'M&A', 'Undisclosed', 'Pre-Seed']
+            
+            # Get all divs and check their text
+            all_elements = await self.page.query_selector_all('div, section, article')
+            
+            for elem in all_elements:
                 try:
-                    # Extract round details
-                    # Note: Selectors will need adjustment based on actual HTML
-                    round_data = {}
+                    text = await elem.text_content()
+                    if not text:
+                        continue
                     
-                    # Get round type/stage
-                    stage_elem = await round_elem.query_selector('[class*="stage"]')
-                    if stage_elem:
-                        round_data['round_stage'] = (await stage_elem.text_content()).strip()
+                    text = text.strip()
                     
-                    # Get amount
-                    amount_elem = await round_elem.query_selector('[class*="amount"]')
-                    if amount_elem:
-                        amount_text = await amount_elem.text_content()
-                        round_data['amount_usd'] = self._parse_amount(amount_text)
+                    # Check if this might be a funding round container
+                    # Look for stage keywords
+                    round_stage = None
+                    for keyword in stage_keywords:
+                        if keyword in text and len(text) < 500:  # Not too long
+                            round_stage = keyword
+                            break
                     
-                    # Get date
-                    date_elem = await round_elem.query_selector('[class*="date"]')
-                    if date_elem:
-                        date_text = await date_elem.text_content()
-                        round_data['announced_date'] = self._parse_date(date_text)
+                    if not round_stage:
+                        continue
                     
-                    # Get investors
+                    # Try to extract round info
+                    round_data = {'round_stage': round_stage}
+                    
+                    # Look for date pattern (e.g., "21 Oct 2025")
+                    date_match = re.search(r'(\d{1,2}\s+\w{3}(?:\s+\d{4})?)', text)
+                    if date_match:
+                        round_data['announced_date'] = self._parse_date(date_match.group(1))
+                    
+                    # Look for amount pattern (e.g., "$ 5.00M")
+                    amount_match = re.search(r'\$\s*([\d.]+)\s*([MKB])?', text)
+                    if amount_match:
+                        round_data['amount_usd'] = self._parse_amount(amount_match.group(0))
+                    
+                    # Look for investors - links to /funds/
+                    investor_links = await elem.query_selector_all('a[href*="/funds/"]')
                     investors = []
-                    investor_elems = await round_elem.query_selector_all('a[href*="/funds/"]')
-                    for inv_elem in investor_elems:
-                        inv_name = await inv_elem.text_content()
-                        inv_href = await inv_elem.get_attribute('href')
-                        inv_slug = inv_href.split('/')[-1] if inv_href else None
-                        
-                        # Determine if lead investor (usually marked differently)
-                        is_lead = 'lead' in (await inv_elem.get_attribute('class') or '').lower()
-                        
-                        investors.append({
-                            'name': inv_name.strip(),
-                            'cryptorank_slug': inv_slug,
-                            'role': 'lead' if is_lead else 'participant'
-                        })
                     
-                    round_data['investors'] = investors
-                    funding_rounds.append(round_data)
+                    for inv_link in investor_links:
+                        inv_name = await inv_link.text_content()
+                        inv_href = await inv_link.get_attribute('href')
+                        inv_slug = inv_href.split('/')[-1].replace('/rounds', '') if inv_href else None
+                        
+                        # Check if marked as Lead
+                        parent_text = text
+                        is_lead = 'Lead' in parent_text and inv_name in parent_text[:parent_text.index('Lead') + 50]
+                        
+                        if inv_name and inv_name.strip():
+                            investors.append({
+                                'name': inv_name.strip(),
+                                'cryptorank_slug': inv_slug,
+                                'role': 'lead' if is_lead else 'participant'
+                            })
+                    
+                    if investors:
+                        round_data['investors'] = investors
+                    
+                    # Only add if we have at least stage and date or amount
+                    if 'announced_date' in round_data or 'amount_usd' in round_data:
+                        funding_rounds.append(round_data)
+                        logger.debug(f"  Extracted round: {round_stage}, ${round_data.get('amount_usd', 'N/A')}")
                 
                 except Exception as e:
-                    logger.warning(f"Error extracting funding round: {e}")
                     continue
         
         except Exception as e:
-            logger.warning(f"Error finding funding rounds section: {e}")
+            logger.warning(f"Error extracting funding rounds: {e}")
         
-        return funding_rounds
+        # Deduplicate rounds (sometimes we catch the same round multiple times)
+        unique_rounds = []
+        seen = set()
+        for round_data in funding_rounds:
+            key = (
+                round_data.get('round_stage'),
+                round_data.get('announced_date'),
+                round_data.get('amount_usd')
+            )
+            if key not in seen:
+                seen.add(key)
+                unique_rounds.append(round_data)
+        
+        return unique_rounds
     
     async def _extract_social_links(self) -> Dict[str, str]:
         """Extract social media links from overview page"""
