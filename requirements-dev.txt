@@ -34,3 +34,8 @@ redis>=5.0.0
 # Background Jobs (AI Monitoring)
 apscheduler>=3.10.4
 
+# Graph Analysis & Network Reasoning
+networkx>=3.1
+numpy>=1.24.0
+python-louvain>=0.16  # For community detection (optional but recommended)
+

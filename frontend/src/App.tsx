@@ -13,6 +13,9 @@ import MarketIntelligencePage from './pages/MarketIntelligencePage';
 import NotificationsPage from './pages/NotificationsPage';
 import GitHubDeveloperProfile from './pages/github_native/GitHubDeveloperProfile';
 import GitHubSearch from './pages/github_native/GitHubSearch';
+import EnhancedGitHubProfile from './pages/github_native/EnhancedGitHubProfile';
+import GraphReasoningDashboard from './pages/github_native/GraphReasoningDashboard';
+import LanguageLeaderboard from './pages/market/LanguageLeaderboard';
 
 // Create React Query client
 const queryClient = new QueryClient({
@@ -45,6 +48,9 @@ function App() {
             <Route path="notifications" element={<NotificationsPage />} />
             <Route path="github" element={<GitHubSearch />} />
             <Route path="github/:username" element={<GitHubDeveloperProfile />} />
+            <Route path="github/:username/enhanced" element={<EnhancedGitHubProfile />} />
+            <Route path="graph-reasoning" element={<GraphReasoningDashboard />} />
+            <Route path="market/languages" element={<LanguageLeaderboard />} />
             <Route path="*" element={<Navigate to="/search" replace />} />
           </Route>
         </Routes>
