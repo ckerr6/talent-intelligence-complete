@@ -1,0 +1,103 @@
+{
+  "company_data": {
+    "cryptorank_slug": "tbook",
+    "funding_rounds": [
+      {
+        "round_stage": "Strategic",
+        "announced_date": "2025-10-21",
+        "amount_usd": 5000000.0,
+        "investors": [
+          {
+            "name": "Sui FoundationLead",
+            "cryptorank_slug": "rounds",
+            "role": "lead"
+          },
+          {
+            "name": "KuCoin Ventures",
+            "cryptorank_slug": "rounds",
+            "role": "lead"
+          },
+          {
+            "name": "Bonfire Union",
+            "cryptorank_slug": "rounds",
+            "role": "lead"
+          },
+          {
+            "name": "HT Capital",
+            "cryptorank_slug": "rounds",
+            "role": "lead"
+          },
+          {
+            "name": "Vista Labs",
+            "cryptorank_slug": "rounds",
+            "role": "participant"
+          }
+        ]
+      },
+      {
+        "round_stage": "Strategic",
+        "announced_date": "2025-10-21"
+      },
+      {
+        "round_stage": "Strategic",
+        "amount_usd": 5000000.0
+      },
+      {
+        "round_stage": "Strategic",
+        "announced_date": null,
+        "investors": [
+          {
+            "name": "KuCoin Ventures",
+            "cryptorank_slug": "rounds",
+            "role": "lead"
+          },
+          {
+            "name": "Sui FoundationLead",
+            "cryptorank_slug": "rounds",
+            "role": "lead"
+          },
+          {
+            "name": "Bonfire Union",
+            "cryptorank_slug": "rounds",
+            "role": "lead"
+          },
+          {
+            "name": "HT Capital",
+            "cryptorank_slug": "rounds",
+            "role": "participant"
+          },
+          {
+            "name": "Vista Labs",
+            "cryptorank_slug": "rounds",
+            "role": "participant"
+          }
+        ]
+      },
+      {
+        "round_stage": "M&A",
+        "announced_date": "2025-10-21",
+        "amount_usd": 40000000.0
+      },
+      {
+        "round_stage": "M&A",
+        "announced_date": "2025-10-22",
+        "amount_usd": 40000000.0
+      },
+      {
+        "round_stage": "Undisclosed",
+        "announced_date": "2025-10-21",
+        "amount_usd": 10000000.0
+      }
+    ],
+    "social_links": {
+      "website_url": "https://www.tbook.com/",
+      "twitter_url": "https://x.com/CryptoRank_VCs",
+      "telegram_url": "https://t.me/cryptorank_io_sup",
+      "linkedin_url": "https://linkedin.com/company/cryptorank"
+    },
+    "metadata": {
+      "company_name": "What is TBook?",
+      "description": "Current TBook () token data: Price $ 0.00, Trading Volume $ 0.00, Market Cap $ 0.00, Circ. Supply , Total Supply . Official links to websites, social networks and documents."
+    }
+  }
+}

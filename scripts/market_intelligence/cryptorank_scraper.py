@@ -39,19 +39,24 @@ class CryptoRankScraper:
     BASE_URL = "https://cryptorank.io"
     FUNDING_LIST_URL = f"{BASE_URL}/funding-rounds?rows=50"
     
-    def __init__(self, headless: bool = True, save_screenshots: bool = False):
+    def __init__(self, headless: bool = True, save_screenshots: bool = False, use_saved_session: bool = True):
         """
         Initialize scraper
         
         Args:
             headless: Run browser in headless mode
             save_screenshots: Save screenshots for debugging
+            use_saved_session: Load saved browser session (cookies, storage) if available
         """
         self.headless = headless
         self.save_screenshots = save_screenshots
+        self.use_saved_session = use_saved_session
         self.browser: Optional[Browser] = None
         self.context = None
         self.page: Optional[Page] = None
+        
+        # Session storage path
+        self.session_dir = Path(__file__).parent / "browser_session"
         
         # Create output directory for screenshots if needed
         if save_screenshots:
@@ -74,11 +79,25 @@ class CryptoRankScraper:
         self.playwright = await async_playwright().start()
         self.browser = await self.playwright.chromium.launch(headless=self.headless)
         
-        # Create context with realistic user agent
-        self.context = await self.browser.new_context(
-            viewport={'width': 1920, 'height': 1080},
-            user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
-        )
+        # Try to load saved session if available and requested
+        session_file = self.session_dir / "state.json"
+        
+        if self.use_saved_session and session_file.exists():
+            logger.info("Loading saved browser session...")
+            self.context = await self.browser.new_context(
+                viewport={'width': 1920, 'height': 1080},
+                user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
+                storage_state=str(session_file)
+            )
+            logger.info("✅ Loaded saved session")
+        else:
+            # Create fresh context
+            self.context = await self.browser.new_context(
+                viewport={'width': 1920, 'height': 1080},
+                user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+            )
+            if self.use_saved_session:
+                logger.info("No saved session found, will need to login")
         
         self.page = await self.context.new_page()
         logger.info("✅ Browser started")
@@ -94,6 +113,120 @@ class CryptoRankScraper:
         if self.playwright:
             await self.playwright.stop()
         logger.info("✅ Browser closed")
+    
+    async def save_session(self):
+        """Save current browser session (cookies, storage) for future use"""
+        if not self.context:
+            logger.warning("No context to save")
+            return False
+        
+        try:
+            self.session_dir.mkdir(exist_ok=True)
+            session_file = self.session_dir / "state.json"
+            
+            # Save storage state (cookies, localStorage, sessionStorage)
+            await self.context.storage_state(path=str(session_file))
+            
+            logger.info(f"✅ Session saved to {session_file}")
+            return True
+        
+        except Exception as e:
+            logger.error(f"Failed to save session: {e}")
+            return False
+    
+    async def manual_login(self, timeout: int = 300):
+        """
+        Allow manual login (e.g., via Google OAuth) and save the session
+        
+        Args:
+            timeout: How long to wait for user to complete login (seconds)
+        
+        Returns:
+            True if login successful and session saved
+        """
+        logger.info("=" * 60)
+        logger.info("MANUAL LOGIN MODE")
+        logger.info("=" * 60)
+        logger.info("1. A browser window will open")
+        logger.info("2. Login to CryptoRank using Google (or any method)")
+        logger.info("3. Once logged in, the session will be saved automatically")
+        logger.info(f"4. You have {timeout} seconds to complete login")
+        logger.info("=" * 60)
+        
+        try:
+            # Navigate to cryptorank
+            await self.page.goto(self.BASE_URL, wait_until='networkidle')
+            
+            # Wait for user to login
+            logger.info("Waiting for login...")
+            logger.info("The browser will close automatically once you're logged in.")
+            
+            # Wait for user to be logged in
+            # We can detect login by checking if certain elements appear
+            # Or just wait for user to complete and navigate around
+            
+            # Wait for either:
+            # 1. User profile element to appear (logged in)
+            # 2. Timeout
+            try:
+                # Wait for some indicator of being logged in
+                # This might need adjustment based on actual page structure
+                await self.page.wait_for_url("**/funding-rounds**", timeout=timeout * 1000)
+                logger.info("✅ Detected navigation - assuming login successful")
+            except:
+                # If timeout, ask user if they're done
+                logger.info(f"Timeout reached. Checking if login was successful...")
+                current_url = self.page.url
+                if current_url != f"{self.BASE_URL}/login":
+                    logger.info("You appear to be logged in (not on login page)")
+                else:
+                    logger.warning("Still on login page - login may not be complete")
+            
+            # Save the session
+            success = await self.save_session()
+            
+            if success:
+                logger.info("=" * 60)
+                logger.info("✅ Login complete and session saved!")
+                logger.info("Future runs will automatically use this session.")
+                logger.info("You won't need to login again unless the session expires.")
+                logger.info("=" * 60)
+            
+            return success
+        
+        except Exception as e:
+            logger.error(f"Error during manual login: {e}")
+            return False
+    
+    async def check_login_status(self) -> bool:
+        """
+        Check if currently logged in
+        
+        Returns:
+            True if logged in, False otherwise
+        """
+        try:
+            # Navigate to cryptorank and check if we're logged in
+            await self.page.goto(self.BASE_URL, wait_until='networkidle', timeout=10000)
+            
+            # Look for indicators that we're logged in
+            # This could be user profile element, logout button, etc.
+            page_content = await self.page.content()
+            
+            # Simple check: if we see "login" button, we're not logged in
+            # If we see "logout" or profile elements, we're logged in
+            is_logged_out = 'login' in page_content.lower() and 'logout' not in page_content.lower()
+            
+            if is_logged_out:
+                logger.info("❌ Not logged in")
+                return False
+            else:
+                logger.info("✅ Logged in successfully")
+                return True
+        
+        except Exception as e:
+            logger.warning(f"Could not determine login status: {e}")
+            return False
     
     async def login(self, email: str, password: str):
         """
