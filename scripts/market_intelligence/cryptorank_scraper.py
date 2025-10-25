@@ -305,12 +305,26 @@ class CryptoRankScraper:
         for page_num in range(1, pages + 1):
             logger.info(f"Scraping page {page_num}/{pages}...")
             
-            # Navigate to funding list
+            # Navigate to funding list with retry logic
             url = f"{self.FUNDING_LIST_URL}&page={page_num}"
-            await self.page.goto(url, wait_until='networkidle')
             
-            # Wait for table to load
-            await self.page.wait_for_selector('table tbody tr', timeout=10000)
+            max_retries = 3
+            for retry in range(max_retries):
+                try:
+                    await self.page.goto(url, wait_until='domcontentloaded', timeout=60000)
+                    
+                    # Wait for table to load
+                    await self.page.wait_for_selector('table tbody tr', timeout=30000)
+                    break
+                
+                except Exception as e:
+                    if retry < max_retries - 1:
+                        logger.warning(f"Failed to load page {page_num} (attempt {retry + 1}/{max_retries}): {e}")
+                        logger.info(f"Retrying in 5 seconds...")
+                        await asyncio.sleep(5)
+                    else:
+                        logger.error(f"Failed to load page {page_num} after {max_retries} attempts, skipping")
+                        break
             
             # Extract funding rounds from table
             rows = await self.page.query_selector_all('table tbody tr')
