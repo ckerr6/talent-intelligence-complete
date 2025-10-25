@@ -153,7 +153,11 @@ class IntelligenceOrchestrator:
                     print(f"   ⚠️  No github_profile found for @{username}, skipping storage")
                     return False
                 
-                github_profile_id = result[0]
+                # Handle both dict and tuple results
+                if isinstance(result, dict):
+                    github_profile_id = result['github_profile_id']
+                else:
+                    github_profile_id = result[0]
                 
                 # Extract data for storage
                 skills = intelligence['skills']

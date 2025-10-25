@@ -59,3 +59,4 @@ fi
 echo ""
 echo "✨ Setup complete! Your project is now AI-agent optimized."
 
+

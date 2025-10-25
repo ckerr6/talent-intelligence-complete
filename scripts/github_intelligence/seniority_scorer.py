@@ -4,7 +4,7 @@ ABOUTME: Infers developer seniority from GitHub activity patterns and behavior.
 ABOUTME: Analyzes years active, output volume, leadership signals, and influence metrics.
 """
 
-from typing import Dict, Any, Tuple
+from typing import Dict, Any, Tuple, List
 from datetime import datetime
 
 

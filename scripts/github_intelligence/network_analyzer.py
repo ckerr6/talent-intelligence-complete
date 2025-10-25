@@ -213,7 +213,7 @@ class NetworkAnalyzer:
             'total_unique_collaborators': len(collaborators),
             'total_organizations': len(orgs),
             'top_collaborator': top_collaborator,
-            'organization_names': [org['name'] for org in orgs]
+            'organization_names': [org.get('name') or org.get('login', '') for org in orgs]
         }
     
     def find_connection_path(self, from_username: str, to_username: str, 
