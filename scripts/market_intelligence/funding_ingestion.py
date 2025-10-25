@@ -24,8 +24,12 @@ from typing import Dict, List, Optional, Any
 from uuid import UUID, uuid4
 from datetime import datetime, date
 import json
+import psycopg2.extras
 
 from config import get_db_context, Config
+
+# Register UUID adapter for psycopg2
+psycopg2.extras.register_uuid()
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
