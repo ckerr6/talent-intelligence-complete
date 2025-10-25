@@ -13,10 +13,13 @@ Complete documentation for the Talent Intelligence Database.
 2. [**GETTING_STARTED.md**](GETTING_STARTED.md) - Detailed setup instructions
 3. [**QUICK_STATS.txt**](../QUICK_STATS.txt) - Current database statistics
 
-### For Developers
-1. [**API_DOCUMENTATION.md**](../api/README.md) - API reference
-2. [**TESTING.md**](TESTING.md) - Testing guide
-3. [**GITHUB_AUTOMATION.md**](GITHUB_AUTOMATION.md) - GitHub automation
+### For Developers & AI Agents
+1. [**AI_AGENT_QUICKSTART.md**](AI_AGENT_QUICKSTART.md) - 2-minute orientation for AI assistants
+2. [**.cursorrules**](../.cursorrules) - Comprehensive AI agent guide
+3. [**API README**](../api/README.md) - Backend API architecture
+4. [**Frontend README**](../frontend/README.md) - React application guide
+5. [**TESTING.md**](TESTING.md) - Testing guide
+6. [**GITHUB_AUTOMATION.md**](GITHUB_AUTOMATION.md) - GitHub automation
 
 ### For Troubleshooting
 1. [**PERFORMANCE_FIX_SUMMARY.md**](../reports/current/PERFORMANCE_FIX_SUMMARY.md) - Recent performance fixes

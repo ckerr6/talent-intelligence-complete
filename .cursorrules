@@ -1,0 +1,362 @@
+# Talent Intelligence Platform - AI Agent Guide
+
+## Project Identity
+A recruiting intelligence platform with 155K+ developer profiles, GitHub contribution tracking (62% linkage rate), and AI-powered insights. We help recruiters find and reach technical talent using data no competitor has.
+
+## Current State (October 2025)
+- 155,173 people with comprehensive profiles
+- 100,877 GitHub profiles with merged PR tracking (24K+ confirmed PRs)
+- PostgreSQL primary database (consolidated Oct 2025)
+- FastAPI backend + React/TypeScript frontend
+- Production-ready MVP, investor-demo quality
+
+## Tech Stack
+**Backend:**
+- Python 3.13 + FastAPI (async)
+- PostgreSQL 14+ ('talent' database)
+- Redis (caching - 17x performance boost)
+- Psycopg2 (connection pooling enabled)
+
+**Frontend:**
+- React 18 + TypeScript (strict mode)
+- Vite build tool
+- Tailwind CSS
+- React Query for data fetching
+- Zustand for state management
+
+**AI/ML:**
+- OpenAI GPT-4o-mini (primary)
+- Anthropic Claude 3.5 Sonnet (alternative)
+- Custom AI services for profile analysis, code quality scoring
+
+**Data Sources:**
+- LinkedIn (employment history)
+- GitHub (contributions, PRs, repos)
+- Clay (enrichment)
+- PhantomBuster (automation)
+
+## Architecture Overview
+
+### Directory Structure
+```
+talent-intelligence-complete/
+├── api/                          # FastAPI backend
+│   ├── routers/                  # API endpoints (one per resource)
+│   │   ├── people.py            # Person CRUD + search
+│   │   ├── ai.py                # AI analysis endpoints
+│   │   ├── github.py            # GitHub operations
+│   │   └── network.py           # Network graph
+│   ├── crud/                     # Database operations (pure SQL)
+│   │   ├── person.py            # Person queries
+│   │   ├── company.py           # Company queries
+│   │   └── analytics.py         # Analytics queries
+│   ├── services/                 # Business logic
+│   │   ├── ai_service.py        # AI analysis (profile summaries, Q&A)
+│   │   ├── ai_research_assistant.py  # Background intelligence
+│   │   ├── ai_pattern_learning.py    # Learn from user behavior
+│   │   └── cache_service.py     # Redis caching
+│   └── models/                   # Pydantic models for requests/responses
+│
+├── frontend/src/                 # React application
+│   ├── pages/                    # Top-level route components
+│   ├── components/               # Reusable UI components
+│   │   ├── ai/                  # AI-related components
+│   │   ├── github/              # GitHub display components
+│   │   ├── profile/             # Profile page components
+│   │   └── search/              # Search components
+│   └── services/                 # API client functions
+│
+├── scripts/                      # User-facing operational scripts
+│   ├── database/                # Backup, quality checks
+│   ├── diagnostics/             # Monitoring, performance
+│   ├── github/                  # GitHub enrichment tools
+│   ├── imports/                 # Data import scripts
+│   └── maintenance/             # System maintenance
+│
+├── github_automation/            # Modern GitHub enrichment package
+│   ├── enrichment_engine.py     # Core enrichment logic
+│   ├── matcher.py               # Profile matching to people
+│   ├── queue_manager.py         # Priority queue management
+│   └── github_client.py         # Rate-limited API wrapper
+│
+├── enrichment_scripts/           # Data enrichment workflows
+├── migration_scripts/            # Database migrations
+├── tests/                        # Test suite (pytest)
+├── docs/                         # Documentation
+└── archived_implementations/     # Legacy code (DO NOT USE)
+```
+
+### Key Files
+- `config.py` - Central configuration (DB connection, paths, settings)
+- `run_api.py` - Start FastAPI server
+- `requirements-dev.txt` - Python dependencies
+
+## Database Schema (PostgreSQL 'talent')
+
+### Core Tables
+**person** - Individual profiles (155K records)
+- Primary key: person_id (UUID)
+- Key fields: full_name, headline, location, linkedin_url
+- Foreign keys: github_profile_id (optional)
+- Indexes: on name, location, company (via employment)
+
+**github_profile** - GitHub user profiles (100K records)
+- Primary key: github_profile_id (UUID)
+- Links to: person via person.github_profile_id
+- Key fields: username, bio, followers, public_repos
+- Enrichment fields: last_enriched, contributions_last_year
+
+**github_contribution** - Repository contributions (238K records)
+- Links: github_profile_id → repository_id
+- Fields: contributions_count, first_contribution, last_contribution
+
+**github_pull_request** - Merged PRs (24K records)
+- Links: github_profile_id → repository_id
+- Fields: pr_number, merged_at, additions, deletions, title
+
+**employment** - Job history (239K records)
+- Links: person_id → company_id
+- Fields: job_title, start_date, end_date, is_current
+
+**person_email** - Contact emails (60K records)
+- Links: person_id
+- Fields: email, is_primary, verified
+
+**company** - Companies (96K records)
+- Primary key: company_id (UUID)
+- Fields: company_name, domain, linkedin_url
+
+### Connection Info
+- Access via: `from config import get_db_connection, Config`
+- Use connection pooling: `Config.get_pooled_connection()`
+- Always return connections: `Config.return_connection(conn)`
+- Or use context manager: `with get_db_context() as conn:`
+
+## Code Patterns & Conventions
+
+### Python Code Style
+- **Type hints required** for all function signatures
+- **Async/await** for I/O operations (DB, external APIs)
+- **Pydantic models** for request/response validation
+- **PEP 8** formatting
+- **Docstrings** explaining WHAT and WHY (not just HOW)
+
+### Database Operations
+```python
+# Good: Use connection pool
+from config import get_db_context
+
+with get_db_context() as conn:
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM person WHERE person_id = %s", (person_id,))
+    # Connection automatically returned to pool
+
+# Bad: String interpolation (SQL injection risk)
+cursor.execute(f"SELECT * FROM person WHERE person_id = '{person_id}'")
+```
+
+### API Patterns
+- **RESTful conventions**: GET (list/read), POST (create), PUT (update), DELETE (delete)
+- **Proper HTTP status codes**: 200 (OK), 201 (Created), 400 (Bad Request), 404 (Not Found), 500 (Server Error)
+- **Pagination**: offset/limit pattern, return total count
+- **Error handling**: Descriptive messages, proper exception catching
+
+### GitHub Enrichment
+**Current system (USE THIS):**
+- Main CLI: `scripts/github/enrich_github_continuous.py`
+- Package: `github_automation/` (enrichment_engine, matcher, queue_manager)
+- Pattern: Fetch → Enrich → Match → Store
+
+**Legacy system (DO NOT USE):**
+- `archived_implementations/legacy_github/` - old scripts, superseded
+
+### AI Service Patterns
+```python
+# AI services expect rich context
+from api.services.ai_service import AIService
+
+ai = AIService()
+result = ai.analyze_profile(
+    person_id="...",
+    job_context="Looking for senior blockchain engineer"
+)
+# Returns structured JSON with summary, strengths, recommendations
+```
+
+## Common Tasks & Where to Find Code
+
+### "I want to add a new API endpoint"
+1. Create route in `api/routers/<resource>.py`
+2. Add CRUD logic in `api/crud/<resource>.py`
+3. Define models in `api/models/<resource>.py`
+4. Write tests in `tests/test_<feature>.py`
+
+### "I want to enrich more GitHub data"
+1. Check `github_automation/enrichment_engine.py`
+2. Add fields to enrichment logic
+3. Update database schema if needed (migration_scripts/)
+4. Test with `scripts/github/enrich_github_continuous.py --limit 10`
+
+### "I want to add AI analysis feature"
+1. Add method to `api/services/ai_service.py`
+2. Create endpoint in `api/routers/ai.py`
+3. Build frontend component in `frontend/src/components/ai/`
+
+### "I want to import new data source"
+1. Create script in `scripts/imports/<source>.py`
+2. Follow pattern from existing importers
+3. Use `employment_utils.py` for common operations
+4. Document in `docs/IMPORT_STRATEGY.md`
+
+### "I want to run diagnostics"
+- Database health: `python scripts/diagnostics/diagnostic_check.py`
+- Performance: `python scripts/diagnostics/verify_performance.py`
+- Quality metrics: `python scripts/database/check_data_quality.py`
+
+## What NOT To Do (Critical)
+
+### Don't Use Archived Code
+- ❌ `archived_implementations/` - Legacy code, superseded
+- ❌ `archived_databases/` - Old SQLite/PostgreSQL dumps
+- ❌ `talent_intelligence.db` - Archived SQLite file
+- ✅ Use PostgreSQL 'talent' database only
+
+### Don't Bypass Safety Mechanisms
+- ❌ Skip connection pooling (causes connection exhaustion)
+- ❌ Use string interpolation in SQL (SQL injection)
+- ❌ Commit directly to main without testing
+- ❌ Delete/drop production tables without backup
+
+### Don't Create Duplicates
+- ❌ New enrichment scripts in root (use `scripts/github/`)
+- ❌ Duplicate matching logic (extend `github_automation/matcher.py`)
+- ❌ Ad-hoc import scripts (organize in `scripts/imports/`)
+
+## Testing
+
+### Running Tests
+```bash
+# All tests
+pytest
+
+# Specific file
+pytest tests/test_api.py -v
+
+# With coverage
+pytest --cov=api --cov=github_automation
+
+# Mark-specific
+pytest -m api  # Run only API tests
+```
+
+### Test Patterns
+- Use fixtures in `tests/conftest.py`
+- Mock external APIs (GitHub, OpenAI) in tests
+- Test database operations use transaction rollback
+- Integration tests marked with `@pytest.mark.integration`
+
+## Performance Considerations
+
+### Caching (Redis)
+- Cache expensive queries (17x speedup measured)
+- Cache keys: `person:{id}`, `search:{hash}`, `github:{username}`
+- TTL: 1 hour for search results, 24 hours for profiles
+
+### Database Optimization
+- 40+ indexes covering common queries
+- Connection pooling (5-50 connections)
+- Query timeout: 60 seconds
+- Use `EXPLAIN ANALYZE` for slow queries
+
+### Rate Limiting
+- GitHub API: 5000 requests/hour (with token)
+- Respect 0.72s delay between requests
+- Use `github_automation/github_client.py` (has rate limiting built-in)
+
+## Environment Variables
+
+Required:
+- `PGDATABASE=talent` (PostgreSQL database name)
+- `PGHOST=localhost` (default)
+- `PGUSER=<your-username>` (default)
+
+Optional but recommended:
+- `OPENAI_API_KEY` - For AI features
+- `ANTHROPIC_API_KEY` - Alternative AI provider
+- `GITHUB_TOKEN` - For enrichment (5000 req/hr vs 60 without)
+- `REDIS_URL` - For caching (default: localhost:6379)
+
+## Common Patterns for AI Agents
+
+### When adding features:
+1. **Check existing patterns first** - We have examples for most things
+2. **Follow the architecture** - Routers → CRUD → Services separation
+3. **Write tests** - At least one test per new endpoint/function
+4. **Update docs** - If you change structure, update this file
+
+### When debugging:
+1. **Check logs** - `logs/` directory has detailed logs
+2. **Run diagnostics** - `scripts/diagnostics/` has health checks
+3. **Verify database** - PostgreSQL connection, query performance
+4. **Test endpoint directly** - `curl` or FastAPI docs at `/docs`
+
+### When refactoring:
+1. **Don't delete working code** - Archive to `archived_implementations/`
+2. **Document why** - Add comment explaining the change
+3. **Update imports** - Ensure nothing breaks
+4. **Run full test suite** - `pytest` before committing
+
+## Git Workflow
+
+### Commit Messages
+Use conventional commits:
+- `feat: Add GitHub PR enrichment`
+- `fix: Resolve connection pool exhaustion`
+- `docs: Update API documentation`
+- `refactor: Consolidate enrichment scripts`
+
+### Before Committing
+1. Run tests: `pytest`
+2. Check for obvious errors
+3. Update relevant docs
+4. Verify API still starts: `python run_api.py`
+
+## Quick Reference
+
+**Start API:** `python run_api.py`
+**Start Frontend:** `cd frontend && npm run dev`
+**Run Tests:** `pytest`
+**Database Status:** `python config.py`
+**GitHub Enrichment:** `python scripts/github/enrich_github_continuous.py --status-only`
+
+## Questions or Confusion?
+
+1. Check `docs/` directory for detailed guides
+2. Look at existing code for patterns (especially in api/routers/)
+3. Check `PROJECT_STATUS.md` for current state
+4. Review `CHANGELOG.md` for recent changes
+
+## Project Goals
+
+**Primary Goal:** Build the best candidate discovery engine and recruiting data platform on the market.
+
+**Differentiators:**
+- 62% GitHub linkage (unique data)
+- 24K+ confirmed merged PRs (no competitor has this)
+- AI-powered insights in recruiter-friendly language
+- Network visualization (who knows who)
+- Sub-second query performance
+
+**Philosophy:**
+- AI-first: Optimize for AI agent development and usage
+- Data quality over quantity
+- Recruiter-friendly: Technical depth explained simply
+- Performance matters: Fast queries, good UX
+- Keep it simple: Don't over-engineer
+
+---
+
+**Last Updated:** October 25, 2025
+**Status:** Production MVP, actively developing
+**Primary Developer:** Charlie (with AI assistance)
+

@@ -1,276 +1,440 @@
-# Talent Intelligence Platform - Frontend
+# Frontend - React + TypeScript Application
 
-Modern React + TypeScript frontend for the Talent Intelligence MVP.
-
-## 🎯 Current Status
-
-**Phase 1 Foundation: COMPLETE** ✅
-
-### What's Built
-
-- ✅ React 18 + TypeScript + Vite setup
-- ✅ Tailwind CSS for styling
-- ✅ React Router for navigation
-- ✅ React Query for API state management
-- ✅ Zustand for global state
-- ✅ Full type definitions for all API entities
-- ✅ Complete API service layer with axios
-- ✅ Layout components (Header, Sidebar, Layout)
-- ✅ Search page with filters and pagination
-- ✅ Placeholder pages for Profile, Network, Lists, Analytics
-
-### File Structure
+## Structure
 
 ```
-frontend/
-├── src/
-│   ├── components/
-│   │   └── layout/
-│   │       ├── Header.tsx          ✅ Top navigation bar
-│   │       ├── Sidebar.tsx         ✅ Collapsible sidebar with nav
-│   │       └── Layout.tsx          ✅ Main layout wrapper
-│   ├── pages/
-│   │   ├── SearchPage.tsx          ✅ Candidate search with filters
-│   │   ├── ProfilePage.tsx         🚧 Placeholder
-│   │   ├── NetworkPage.tsx         🚧 Placeholder
-│   │   ├── ListsPage.tsx           🚧 Placeholder
-│   │   └── AnalyticsPage.tsx       🚧 Placeholder
-│   ├── services/
-│   │   └── api.ts                  ✅ Complete API client
-│   ├── store/
-│   │   └── store.ts                ✅ Zustand global state
-│   ├── types/
-│   │   └── index.ts                ✅ All TypeScript types
-│   ├── App.tsx                     ✅ Router setup
-│   ├── main.tsx                    ✅ Entry point
-│   └── index.css                   ✅ Tailwind + custom styles
-├── package.json                    ✅ Dependencies
-├── vite.config.ts                  ✅ Vite configuration
-├── tsconfig.json                   ✅ TypeScript config
-├── tailwind.config.js              ✅ Tailwind config
-└── postcss.config.js               ✅ PostCSS config
+frontend/src/
+├── pages/               # Top-level route components
+│   ├── SearchPage.tsx         # Main search interface
+│   ├── ProfilePage.tsx        # Individual profile view
+│   ├── NetworkPage.tsx        # Network visualization
+│   └── MarketIntelligencePage.tsx  # Analytics dashboard
+│
+├── components/          # Reusable UI components
+│   ├── ai/             # AI-powered features
+│   │   ├── AISummaryCard.tsx       # Profile summaries
+│   │   ├── AskAIChat.tsx           # Interactive Q&A
+│   │   └── FloatingAIAssistant.tsx # Always-available AI helper
+│   │
+│   ├── github/         # GitHub-specific displays
+│   │   ├── GitHubProfileSection.tsx
+│   │   └── GitHubContributions.tsx
+│   │
+│   ├── profile/        # Profile page components
+│   │   ├── ProfileHeader.tsx
+│   │   ├── EmploymentTimeline.tsx
+│   │   └── ContactInfo.tsx
+│   │
+│   ├── search/         # Search interface components
+│   │   ├── SmartFilters.tsx
+│   │   ├── SearchResultCard.tsx
+│   │   └── NaturalLanguageFilter.tsx
+│   │
+│   └── common/         # Shared UI components
+│       ├── Button.tsx
+│       ├── Card.tsx
+│       └── LoadingSpinner.tsx
+│
+├── services/           # API client functions
+│   ├── api.ts         # Main API client
+│   └── notificationService.ts
+│
+├── store/             # Global state management (Zustand)
+│   └── store.ts
+│
+├── types/             # TypeScript type definitions
+│   └── index.ts
+│
+└── utils/             # Helper functions
+    └── matchScoring.ts
 ```
 
-## 🚀 Getting Started
+## Tech Stack
 
-### Prerequisites
+- **React 18** - UI framework
+- **TypeScript** - Type safety (strict mode enabled)
+- **Vite** - Build tool & dev server
+- **Tailwind CSS** - Styling (with custom design tokens)
+- **React Query** - Server state management & caching
+- **Zustand** - Client state management
+- **Recharts** - Data visualization
+- **vis-network** - Network graph visualization
 
-- Node.js 18+
-- Backend API running on `http://localhost:8000`
+## Adding a New Feature
 
-### Installation
+### 1. Adding a New Page
 
+**Create the page component** (`src/pages/NewPage.tsx`):
+```tsx
+import { useState, useEffect } from 'react';
+import { Layout } from '../components/layout/Layout';
+
+export default function NewPage() {
+  return (
+    <Layout>
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold mb-6">New Feature</h1>
+        {/* Your content */}
+      </div>
+    </Layout>
+  );
+}
+```
+
+**Add route** in `src/App.tsx`:
+```tsx
+import NewPage from './pages/NewPage';
+
+// In the router:
+<Route path="/new-feature" element={<NewPage />} />
+```
+
+### 2. Adding an API Integration
+
+**Add to API service** (`src/services/api.ts`):
+```tsx
+export const api = {
+  // ... existing methods
+  
+  async getNewData(params: NewDataParams): Promise<NewDataResponse> {
+    const response = await fetch(`${API_URL}/api/new-endpoint?${new URLSearchParams(params)}`);
+    if (!response.ok) throw new Error('Failed to fetch');
+    return response.json();
+  },
+};
+```
+
+**Use with React Query** in component:
+```tsx
+import { useQuery } from 'react-query';
+import { api } from '../services/api';
+
+function MyComponent() {
+  const { data, isLoading, error } = useQuery(
+    ['newData', params],
+    () => api.getNewData(params)
+  );
+  
+  if (isLoading) return <LoadingSpinner />;
+  if (error) return <div>Error loading data</div>;
+  
+  return <div>{/* Use data */}</div>;
+}
+```
+
+### 3. Adding a Reusable Component
+
+**Create component** (`src/components/common/NewComponent.tsx`):
+```tsx
+import React from 'react';
+
+interface NewComponentProps {
+  title: string;
+  onAction?: () => void;
+}
+
+export const NewComponent: React.FC<NewComponentProps> = ({ title, onAction }) => {
+  return (
+    <div className="bg-white rounded-lg shadow p-4">
+      <h3 className="text-lg font-semibold mb-2">{title}</h3>
+      {onAction && (
+        <button onClick={onAction} className="btn-primary">
+          Action
+        </button>
+      )}
+    </div>
+  );
+};
+```
+
+## Design System
+
+### Colors (Tailwind classes)
+- **Primary**: `bg-blue-600 text-white hover:bg-blue-700`
+- **Secondary**: `bg-gray-100 text-gray-800 hover:bg-gray-200`
+- **Success**: `bg-green-500 text-white`
+- **Warning**: `bg-yellow-500 text-white`
+- **Error**: `bg-red-500 text-white`
+
+### Common Patterns
+
+**Button:**
+```tsx
+<button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+  Click Me
+</button>
+```
+
+**Card:**
+```tsx
+<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+  {/* Content */}
+</div>
+```
+
+**Loading State:**
+```tsx
+import { LoadingSpinner } from '../components/common/LoadingSpinner';
+
+{isLoading && <LoadingSpinner />}
+```
+
+**Empty State:**
+```tsx
+import { EmptyState } from '../components/common/EmptyState';
+
+{data.length === 0 && (
+  <EmptyState
+    title="No results found"
+    description="Try adjusting your filters"
+    action={{ label: "Clear filters", onClick: handleClear }}
+  />
+)}
+```
+
+## State Management
+
+### Global State (Zustand)
+Used for UI state that needs to persist across pages:
+
+```tsx
+// In store.ts
+export const useStore = create<Store>((set) => ({
+  user: null,
+  setUser: (user) => set({ user }),
+}));
+
+// In component
+import { useStore } from '../store/store';
+
+function MyComponent() {
+  const user = useStore((state) => state.user);
+  const setUser = useStore((state) => state.setUser);
+  
+  // Use user...
+}
+```
+
+### Server State (React Query)
+Used for data from the API:
+
+```tsx
+import { useQuery, useMutation, useQueryClient } from 'react-query';
+
+function MyComponent() {
+  const queryClient = useQueryClient();
+  
+  // Fetch data
+  const { data } = useQuery('people', api.getPeople);
+  
+  // Mutate data
+  const mutation = useMutation(api.updatePerson, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('people');
+    },
+  });
+  
+  return <div>{/* Use data and mutation */}</div>;
+}
+```
+
+## Common Tasks
+
+### Fetch and Display Data
+```tsx
+import { useQuery } from 'react-query';
+import { api } from '../services/api';
+
+function PeopleList() {
+  const { data, isLoading } = useQuery('people', () => api.getPeople({ limit: 20 }));
+  
+  if (isLoading) return <LoadingSpinner />;
+  
+  return (
+    <div className="space-y-4">
+      {data?.data.map(person => (
+        <div key={person.person_id} className="bg-white p-4 rounded-lg shadow">
+          <h3>{person.full_name}</h3>
+          <p>{person.headline}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### Handle Form Submission
+```tsx
+import { useState } from 'react';
+import { useMutation } from 'react-query';
+
+function CreatePersonForm() {
+  const [formData, setFormData] = useState({ name: '', email: '' });
+  
+  const mutation = useMutation(api.createPerson, {
+    onSuccess: () => {
+      alert('Person created!');
+      setFormData({ name: '', email: '' });
+    },
+  });
+  
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    mutation.mutate(formData);
+  };
+  
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        value={formData.name}
+        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+        placeholder="Name"
+      />
+      <button type="submit" disabled={mutation.isLoading}>
+        {mutation.isLoading ? 'Creating...' : 'Create'}
+      </button>
+    </form>
+  );
+}
+```
+
+### Navigate Between Pages
+```tsx
+import { useNavigate } from 'react-router-dom';
+
+function MyComponent() {
+  const navigate = useNavigate();
+  
+  return (
+    <button onClick={() => navigate('/profile/123')}>
+      View Profile
+    </button>
+  );
+}
+```
+
+## Development
+
+### Running the Dev Server
 ```bash
 cd frontend
-npm install
+npm install    # First time only
+npm run dev    # Start dev server (port 3000)
 ```
 
-### Development
-
+### Building for Production
 ```bash
-npm run dev
+npm run build   # Creates dist/ folder
+npm run preview # Preview production build
 ```
 
-Frontend will run on `http://localhost:3000` with API proxy to port 8000.
-
-### Build
-
+### Type Checking
 ```bash
-npm run build
+npm run type-check  # Run TypeScript compiler
 ```
 
-Production build output in `dist/` directory.
+## API Integration
 
-## 📦 Features
+The frontend talks to the FastAPI backend at `http://localhost:8000`.
 
-### Current (Phase 1)
-
-**Search & Discovery:**
-- Full-text search across people
-- Filter by company, location, headline
-- Filter by has_email, has_github
-- Pagination (50 results per page)
-- Responsive design
-
-**Navigation:**
-- Collapsible sidebar
-- Clean routing between pages
-- Breadcrumb-style navigation
-
-**State Management:**
-- API response caching with React Query
-- Global UI state with Zustand
-- Optimistic updates ready
-
-### Coming Next (Phase 2)
-
-**Profile Page:**
-- LinkedIn + GitHub unified view
-- Full employment timeline
-- Contact information display
-- GitHub activity and contributions
-- "How to Reach" intro pathfinding
-- Match scoring display
-- Quick actions (add to list, add note, add tag)
-
-**Network Page:**
-- Interactive force-directed graph (vis.js)
-- 1st/2nd/3rd degree connection visualization
-- Company and repo filtering
-- Click nodes to navigate
-- Path highlighting
-
-**Lists Management:**
-- Create/edit/delete lists
-- Add/remove candidates
-- Bulk operations
-- Notes per candidate
-- Drag and drop
-- Export to CSV
-
-**Analytics Dashboard:**
-- Hiring patterns charts
-- Talent flow Sankey diagrams
-- Technology distribution
-- Market intelligence metrics
-
-## 🎨 Design System
-
-### Colors
-
-**Primary (Blue):**
-- Used for main actions, links, active states
-- `primary-50` to `primary-900`
-
-**Secondary (Purple):**
-- Used for secondary actions, badges
-- `secondary-50` to `secondary-900`
-
-### Typography
-
-- **Font:** Inter (sans-serif)
-- **Sizes:** Tailwind default scale
-- **Weights:** 300 (light), 400 (regular), 500 (medium), 600 (semibold), 700 (bold)
-
-### Components
-
-- Cards: White background, shadow, rounded corners
-- Buttons: Primary (blue), Secondary (gray outline)
-- Inputs: Border on focus, ring effect
-- Loading: Spinner animation
-- Skeleton: Shimmer effect for loading states
-
-## 🔌 API Integration
-
-All API calls go through `src/services/api.ts`:
-
+**API base URL:** Set in `src/services/api.ts`:
 ```typescript
-import api from './services/api';
-
-// Search people
-const results = await api.searchPeople(filters, offset, limit);
-
-// Get full profile
-const profile = await api.getPersonProfile(personId);
-
-// Network operations
-const path = await api.findPath(sourceId, targetId);
-const connections = await api.getConnections(personId);
-
-// Lists
-const lists = await api.getLists();
-await api.addToList(listId, personId, notes);
-
-// Notes & Tags
-await api.createNote(personId, noteText);
-await api.addTag(personId, tag);
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 ```
 
-## 📊 State Management
-
-### React Query (API State)
-
-Used for all API calls with automatic:
-- Caching (5 minute stale time)
-- Background refetching
-- Error handling
-- Loading states
-
-### Zustand (Global UI State)
-
+**Making requests:**
 ```typescript
-import { useAppStore } from './store/store';
+// GET request
+const response = await fetch(`${API_URL}/api/people`);
+const data = await response.json();
 
-const { lists, selectedListId, sidebarCollapsed } = useAppStore();
-const { setLists, toggleSidebar } = useAppStore();
+// POST request
+const response = await fetch(`${API_URL}/api/people`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ full_name: 'John Doe' }),
+});
 ```
 
-Manages:
-- Lists cache
-- Saved searches
-- UI preferences (sidebar collapsed)
-- Current user
+## TypeScript Types
 
-## 🧪 Testing (TODO)
+### Defining Types
+```typescript
+// In src/types/index.ts
+export interface Person {
+  person_id: string;
+  full_name: string;
+  headline?: string;
+  location?: string;
+  github_username?: string;
+}
+
+export interface SearchFilters {
+  company?: string;
+  location?: string;
+  has_github?: boolean;
+}
+```
+
+### Using Types
+```typescript
+import { Person, SearchFilters } from '../types';
+
+function MyComponent() {
+  const [filters, setFilters] = useState<SearchFilters>({});
+  const [people, setPeople] = useState<Person[]>([]);
+  
+  // ...
+}
+```
+
+## Styling Best Practices
+
+### Use Tailwind Utilities
+```tsx
+// Good
+<div className="flex items-center gap-4 p-4 bg-white rounded-lg shadow">
+
+// Avoid custom CSS when Tailwind has it
+<div style={{ display: 'flex', padding: '16px' }}> // ❌
+```
+
+### Responsive Design
+```tsx
+// Mobile-first approach
+<div className="w-full md:w-1/2 lg:w-1/3">
+  {/* Full width on mobile, half on tablet, third on desktop */}
+</div>
+```
+
+### Hover & Focus States
+```tsx
+<button className="bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500">
+  Button
+</button>
+```
+
+## Testing
 
 ```bash
-# Unit tests
-npm run test
-
-# E2E tests
-npm run test:e2e
+npm test              # Run tests
+npm test -- --watch   # Watch mode
 ```
 
-## 📝 Code Style
+Example test:
+```typescript
+import { render, screen } from '@testing-library/react';
+import { ProfileHeader } from './ProfileHeader';
 
-- TypeScript strict mode
-- ESLint + Prettier (configured)
-- Functional components with hooks
-- No prop drilling (use React Query + Zustand)
-- Consistent file naming (PascalCase for components)
+test('renders person name', () => {
+  render(<ProfileHeader person={{ full_name: 'John Doe' }} />);
+  expect(screen.getByText('John Doe')).toBeInTheDocument();
+});
+```
 
-## 🔜 Next Steps
+## Questions?
 
-**Immediate (This Week):**
-1. Complete ProfilePage with all sections
-2. Implement network graph visualization
-3. Build lists management UI
-4. Add match scoring display
-
-**Phase 2 (Weeks 2-3):**
-5. Analytics dashboard with charts
-6. AI match scoring integration
-7. Market intelligence visualizations
-8. Advanced search filters
-
-**Phase 3 (Week 4):**
-9. Polish animations and transitions
-10. Mobile responsiveness improvements
-11. Keyboard shortcuts
-12. Accessibility audit
-
-## 🐛 Known Issues
-
-- None yet (fresh build!)
-
-## 📚 Resources
-
-- [React Query Docs](https://tanstack.com/query/latest)
-- [Zustand Docs](https://docs.pmnd.rs/zustand/getting-started/introduction)
-- [Tailwind CSS Docs](https://tailwindcss.com/docs)
-- [Vite Docs](https://vitejs.dev/)
-- [vis-network Docs](https://visjs.github.io/vis-network/docs/network/)
-
-## 🤝 Contributing
-
-1. Create feature branch
-2. Build component with TypeScript
-3. Add to appropriate page
-4. Test with API running
-5. Commit with clear message
-
----
-
-**Last Updated:** October 22, 2025  
-**Status:** Phase 1 Complete, Phase 2 Ready to Start
-
+- Check existing components for patterns
+- Look at `src/services/api.ts` for API methods
+- Review `src/types/index.ts` for data structures
+- See `.cursorrules` in project root for overall architecture
