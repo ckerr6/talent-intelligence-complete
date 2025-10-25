@@ -14,6 +14,7 @@ import time
 from typing import Dict, Set
 import json
 from scripts.crypto_intelligence.detailed_logger import DetailedLogger
+from scripts.crypto_intelligence.bot_detection import is_bot, filter_bots, get_bot_stats
 
 # Initialize detailed logger
 logger = DetailedLogger('ethereum_discovery')

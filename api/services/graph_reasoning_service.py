@@ -54,6 +54,9 @@ class GraphReasoningService:
         self.graph: Optional[nx.Graph] = None
         self.node_embeddings: Dict[str, np.ndarray] = {}
         self.communities: Optional[List[Set[str]]] = None
+        self._cached_stats: Optional[Dict] = None
+        self._cached_betweenness: Optional[Dict] = None
+        self._stats_cache_time: Optional[datetime] = None
         
     def build_graph_from_database(self, limit: Optional[int] = None) -> nx.Graph:
         """
@@ -561,9 +564,13 @@ class GraphReasoningService:
         
         return paths
     
-    def compute_graph_statistics(self) -> Dict:
+    def compute_graph_statistics(self, use_cache: bool = True, compute_betweenness: bool = False) -> Dict:
         """
         Compute comprehensive graph statistics.
+        
+        Args:
+            use_cache: Use cached statistics if available (< 1 hour old)
+            compute_betweenness: Compute expensive betweenness centrality (slow for large graphs)
         
         Returns:
             Dictionary with graph metrics
@@ -571,6 +578,16 @@ class GraphReasoningService:
         if not self.graph:
             raise ValueError("Graph not built")
         
+        # Check cache
+        if use_cache and self._cached_stats and self._stats_cache_time:
+            cache_age = (datetime.now() - self._stats_cache_time).total_seconds()
+            if cache_age < 3600:  # 1 hour cache
+                logger.info(f"Using cached stats (age: {cache_age:.0f}s)")
+                return self._cached_stats
+        
+        logger.info("Computing fresh graph statistics...")
+        
+        # Fast statistics (always compute)
         stats = {
             'num_nodes': self.graph.number_of_nodes(),
             'num_edges': self.graph.number_of_edges(),
@@ -580,29 +597,49 @@ class GraphReasoningService:
             'num_components': nx.number_connected_components(self.graph)
         }
         
-        # Degree distribution
+        # Degree distribution (fast)
         degrees = [d for n, d in self.graph.degree()]
-        stats['avg_degree'] = float(np.mean(degrees))
-        stats['max_degree'] = int(np.max(degrees))
-        stats['min_degree'] = int(np.min(degrees))
+        if degrees:
+            stats['avg_degree'] = float(np.mean(degrees))
+            stats['max_degree'] = int(np.max(degrees))
+            stats['min_degree'] = int(np.min(degrees))
+        else:
+            stats['avg_degree'] = 0.0
+            stats['max_degree'] = 0
+            stats['min_degree'] = 0
         
-        # Centrality measures (sample for large graphs)
-        sample_size = min(100, self.graph.number_of_nodes())
-        sample_nodes = list(self.graph.nodes())[:sample_size]
+        # Betweenness centrality (SLOW - only if requested)
+        if compute_betweenness:
+            logger.info("Computing betweenness centrality (this may take a while)...")
+            
+            # Use cached betweenness if available
+            if self._cached_betweenness:
+                betweenness = self._cached_betweenness
+            else:
+                # Sample for large graphs
+                sample_size = min(200, self.graph.number_of_nodes())
+                betweenness = nx.betweenness_centrality(self.graph, k=sample_size)
+                self._cached_betweenness = betweenness
+            
+            stats['avg_betweenness'] = float(np.mean(list(betweenness.values())))
+            
+            # Most central nodes
+            top_central = sorted(betweenness.items(), key=lambda x: x[1], reverse=True)[:10]
+            stats['top_central_nodes'] = [
+                {
+                    'person_id': node_id,
+                    'full_name': self.graph.nodes[node_id].get('full_name', 'Unknown'),
+                    'betweenness': float(score)
+                }
+                for node_id, score in top_central
+            ]
+        else:
+            stats['betweenness_computed'] = False
+            stats['note'] = 'Use compute_betweenness=true for centrality metrics (slow)'
         
-        betweenness = nx.betweenness_centrality(self.graph, k=sample_size)
-        stats['avg_betweenness'] = float(np.mean(list(betweenness.values())))
-        
-        # Most central nodes
-        top_central = sorted(betweenness.items(), key=lambda x: x[1], reverse=True)[:10]
-        stats['top_central_nodes'] = [
-            {
-                'person_id': node_id,
-                'full_name': self.graph.nodes[node_id].get('full_name', 'Unknown'),
-                'betweenness': float(score)
-            }
-            for node_id, score in top_central
-        ]
+        # Cache results
+        self._cached_stats = stats
+        self._stats_cache_time = datetime.now()
         
         return stats
     
@@ -689,6 +726,112 @@ class GraphReasoningService:
             json.dump(graph_data, f, indent=2)
         
         logger.info(f"Graph exported to {output_path}")
+    
+    def add_person_node(self, person_data: Dict) -> bool:
+        """
+        Add a new person node to the graph.
+        
+        Args:
+            person_data: Dictionary with person_id, full_name, headline, location, etc.
+            
+        Returns:
+            True if added, False if already exists
+        """
+        if not self.graph:
+            raise ValueError("Graph not built. Call build_graph_from_database() first")
+        
+        person_id = str(person_data['person_id'])
+        
+        if self.graph.has_node(person_id):
+            logger.warning(f"Person {person_id} already in graph")
+            return False
+        
+        self.graph.add_node(
+            person_id,
+            full_name=person_data.get('full_name', 'Unknown'),
+            headline=person_data.get('headline'),
+            location=person_data.get('location'),
+            github_username=person_data.get('github_username'),
+            github_followers=person_data.get('github_followers', 0),
+            github_repos=person_data.get('github_repos', 0)
+        )
+        
+        # Invalidate caches
+        self._invalidate_caches()
+        
+        logger.info(f"Added person {person_id} to graph")
+        return True
+    
+    def add_collaboration_edge(self, src_person_id: str, dst_person_id: str, 
+                              edge_type: str, **attributes) -> bool:
+        """
+        Add a collaboration edge between two people.
+        
+        Args:
+            src_person_id: Source person UUID
+            dst_person_id: Destination person UUID
+            edge_type: 'github_collaboration' or 'coemployment'
+            **attributes: Additional edge attributes (strength, shared_repos, etc.)
+            
+        Returns:
+            True if added, False if already exists
+        """
+        if not self.graph:
+            raise ValueError("Graph not built")
+        
+        src_id = str(src_person_id)
+        dst_id = str(dst_person_id)
+        
+        if not self.graph.has_node(src_id) or not self.graph.has_node(dst_id):
+            logger.warning(f"One or both nodes not in graph: {src_id}, {dst_id}")
+            return False
+        
+        if self.graph.has_edge(src_id, dst_id):
+            logger.warning(f"Edge already exists: {src_id} -> {dst_id}")
+            return False
+        
+        self.graph.add_edge(src_id, dst_id, edge_type=edge_type, **attributes)
+        
+        # Invalidate caches
+        self._invalidate_caches()
+        
+        logger.info(f"Added {edge_type} edge: {src_id} -> {dst_id}")
+        return True
+    
+    def _invalidate_caches(self):
+        """Invalidate all caches after graph changes"""
+        self._cached_stats = None
+        self._cached_betweenness = None
+        self._stats_cache_time = None
+        self.node_embeddings = {}
+        self.communities = None
+        logger.debug("Caches invalidated")
+    
+    def get_graph_info(self) -> Dict:
+        """
+        Get quick graph info without expensive computations.
+        
+        Returns:
+            Dictionary with basic graph information
+        """
+        if not self.graph:
+            return {'status': 'not_built', 'num_nodes': 0, 'num_edges': 0}
+        
+        return {
+            'status': 'built',
+            'num_nodes': self.graph.number_of_nodes(),
+            'num_edges': self.graph.number_of_edges(),
+            'has_embeddings': len(self.node_embeddings) > 0,
+            'has_communities': self.communities is not None,
+            'cache_status': {
+                'stats_cached': self._cached_stats is not None,
+                'betweenness_cached': self._cached_betweenness is not None,
+                'stats_age_seconds': (
+                    (datetime.now() - self._stats_cache_time).total_seconds()
+                    if self._stats_cache_time else None
+                )
+            }
+        }
 
 
 def get_graph_reasoning_service(db_connection) -> GraphReasoningService:

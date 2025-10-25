@@ -51,19 +51,32 @@ class CommunityRequest(BaseModel):
 
 
 @router.get("/stats")
-async def get_graph_statistics():
+async def get_graph_statistics(
+    compute_betweenness: bool = Query(False, description="Compute expensive betweenness centrality"),
+    use_cache: bool = Query(True, description="Use cached results if available")
+):
     """
     Get comprehensive graph statistics.
     
-    Returns:
+    Fast stats (always computed):
     - Node and edge counts
     - Density and clustering metrics
+    - Degree distribution
+    
+    Slow stats (only if compute_betweenness=true):
+    - Betweenness centrality
     - Top central nodes
+    
+    Note: Betweenness computation can be slow for graphs >1000 nodes.
+    Results are cached for 1 hour.
     """
     service = get_graph_service()
     
     try:
-        stats = service.compute_graph_statistics()
+        stats = service.compute_graph_statistics(
+            use_cache=use_cache,
+            compute_betweenness=compute_betweenness
+        )
         return {
             "status": "success",
             "statistics": stats
@@ -274,6 +287,7 @@ async def rebuild_graph(limit: Optional[int] = Query(None, le=50000)):
     Rebuild the graph from database.
     
     Use this after significant data changes.
+    Note: Betweenness centrality is NOT computed during rebuild for performance.
     """
     global _graph_service
     
@@ -283,7 +297,8 @@ async def rebuild_graph(limit: Optional[int] = Query(None, le=50000)):
             _graph_service.build_graph_from_database(limit=limit)
             _graph_service.compute_node_embeddings()
         
-        stats = _graph_service.compute_graph_statistics()
+        # Get fast stats (without betweenness)
+        stats = _graph_service.compute_graph_statistics(compute_betweenness=False)
         
         return {
             "status": "success",
@@ -338,4 +353,84 @@ async def export_to_json(output_filename: str = "talent_graph.json"):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error exporting graph: {str(e)}")
+
+
+@router.get("/info")
+async def get_graph_info():
+    """
+    Get quick graph info without expensive computations.
+    
+    Returns basic info about graph state and cache status.
+    """
+    service = get_graph_service()
+    
+    try:
+        info = service.get_graph_info()
+        return {
+            "status": "success",
+            "graph_info": info
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error getting graph info: {str(e)}")
+
+
+@router.post("/add-person")
+async def add_person(person_data: Dict[str, Any]):
+    """
+    Add a new person node to the graph.
+    
+    Body should contain:
+    - person_id (required)
+    - full_name
+    - headline
+    - location
+    - github_username
+    - github_followers
+    - github_repos
+    """
+    service = get_graph_service()
+    
+    try:
+        added = service.add_person_node(person_data)
+        return {
+            "status": "success" if added else "already_exists",
+            "person_id": person_data.get('person_id'),
+            "added": added
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error adding person: {str(e)}")
+
+
+@router.post("/add-edge")
+async def add_edge(
+    src_person_id: str,
+    dst_person_id: str,
+    edge_type: str,
+    attributes: Optional[Dict[str, Any]] = None
+):
+    """
+    Add a collaboration edge between two people.
+    
+    Args:
+    - src_person_id: Source person UUID
+    - dst_person_id: Destination person UUID
+    - edge_type: 'github_collaboration' or 'coemployment'
+    - attributes: Optional edge attributes (strength, shared_repos, etc.)
+    """
+    service = get_graph_service()
+    
+    try:
+        added = service.add_collaboration_edge(
+            src_person_id=src_person_id,
+            dst_person_id=dst_person_id,
+            edge_type=edge_type,
+            **(attributes or {})
+        )
+        return {
+            "status": "success" if added else "already_exists",
+            "edge": f"{src_person_id} -> {dst_person_id}",
+            "added": added
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error adding edge: {str(e)}")
 
