@@ -11,7 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from api.config import settings
-from api.routers import people, companies, stats, graph, query, analytics, network, recruiter_workflow, ai, market_intelligence, cache, advanced_search, github_ingestion, network_enhanced, market_intelligence_enhanced, profile_enrichment, github, discovery, market_analytics_deep, notifications
+from api.routers import people, companies, stats, graph, query, analytics, network, recruiter_workflow, ai, market_intelligence, cache, advanced_search, github_ingestion, network_enhanced, market_intelligence_enhanced, profile_enrichment, github, discovery, market_analytics_deep, notifications, github_intelligence
 from api.models.common import HealthResponse
 from config import Config
 from api.services.background_scheduler import start_scheduler, stop_scheduler
@@ -60,6 +60,7 @@ app.include_router(market_intelligence_enhanced.router)  # Interactive market in
 app.include_router(profile_enrichment.router)  # On-demand GitHub stats enrichment
 app.include_router(market_analytics_deep.router, prefix="/api")  # Deep market analytics and company insights
 app.include_router(notifications.router, prefix="/api")  # AI-powered notifications and monitoring
+app.include_router(github_intelligence.router)  # GitHub-native intelligence endpoints
 
 
 @app.on_event("startup")
