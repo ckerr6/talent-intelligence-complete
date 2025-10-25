@@ -180,11 +180,15 @@ class DetailedLogger:
         
         if skills.get('frameworks'):
             frameworks = skills['frameworks'][:5]
-            self.logger.info(f"      Frameworks: {', '.join(frameworks)}")
+            # Handle both list of strings and list of dicts
+            framework_names = [f if isinstance(f, str) else f.get('name', str(f)) for f in frameworks]
+            self.logger.info(f"      Frameworks: {', '.join(framework_names)}")
         
         if skills.get('domains'):
             domains = skills['domains'][:3]
-            self.logger.info(f"      Domains: {', '.join(domains)}")
+            # Handle both list of strings and list of dicts
+            domain_names = [d if isinstance(d, str) else d.get('name', str(d)) for d in domains]
+            self.logger.info(f"      Domains: {', '.join(domain_names)}")
         
         self._write_json_log({
             'event': 'skills_extracted',
