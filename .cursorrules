@@ -360,3 +360,39 @@ Use conventional commits:
 **Status:** Production MVP, actively developing
 **Primary Developer:** Charlie (with AI assistance)
 
+---
+
+# BRANCH-SPECIFIC CONTEXT
+
+## Current Branch: github-native-intelligence
+
+This branch is building a **GitHub-only** version of the platform.
+
+**Key Constraint:** ONLY use GitHub's public API as data source.
+
+**Do NOT suggest:**
+- LinkedIn scraping
+- Apollo.io or other enrichment services
+- Clay workflows
+- Any non-GitHub data sources
+
+**Instead:**
+- Extract maximum intelligence from GitHub API
+- Mine emails from commit metadata
+- Infer company/employment from GitHub org membership
+- Build deep technical profiles from code alone
+
+**Reuse from Main:**
+- Database schema (person, github_profile tables already exist)
+- API infrastructure (FastAPI, routers, services)
+- Frontend framework (React + TypeScript)
+- GitHub enrichment code (scripts/github/, github_automation/)
+
+**New for This Branch:**
+- Deep GitHub intelligence extraction (20+ data points per developer)
+- Network/collaboration analysis
+- Market intelligence from GitHub activity
+- Bloomberg Terminal-style dashboards
+
+See `.cursor/GITHUB_NATIVE_PROJECT.md` for full context.
+
